@@ -1,0 +1,17 @@
+# raw data
+raw/
+
+# intermediate data
+output/data/
+
+# literature pdfs
+Lit/
+
+# system
+.DS_Store
+Thumbs.db
+
+# temp
+*.log
+*.tmp
+*.bak

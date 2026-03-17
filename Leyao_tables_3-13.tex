@@ -1,0 +1,170 @@
+% FULL REWRITE 2026-03-13 22:11 ET
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\graphicspath{{output/graphs/}}
+\setstretch{1.5}
+
+\hypersetup{
+  pdftitle = {Unemployment and AI Exposure},
+  pdfauthor = {Leyao},
+  colorlinks = true,
+  linkcolor = blue,
+  urlcolor = blue
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \thispagestyle{empty}
+    \begin{center}
+        \vspace*{0.75in}
+        {\LARGE\bfseries Unemployment and AI Exposure\par}
+        \vspace{0.9in}
+        {\Large Leyao\par}
+        \vspace{0.35in}
+        {\large Advisor: [Advisor Name]\par}
+        \vspace{0.9in}
+        {\large
+            Submitted to the \\
+            Distinguished Majors Program \\
+            Department of Economics \\
+            University of Virginia
+        \par}
+        \vspace{1in}
+        {\large \today\par}
+    \end{center}
+\end{titlepage}
+
+\newpage
+\thispagestyle{empty}
+\begin{center}
+    {\Large\bfseries Unemployment and AI Exposure\par}
+    \vspace{1.5em}
+    {\large Leyao\par}
+    \vspace{0.5em}
+    {\normalsize \today\par}
+\end{center}
+
+\vspace{2em}
+\noindent \textbf{Abstract.} This file is a working thesis scaffold for the unemployment analysis. It uses a simple thesis-style layout, includes every unemployment plot currently in the project, and separates the main table from the appendix table so the structure is ready for a longer write-up.
+
+\par\vspace{2em}\noindent
+\textbf{Keywords:} unemployment, AI exposure, labor markets
+\par\noindent
+\textbf{JEL Classification:} J21, J23, O33
+
+\newpage
+
+\section{Introduction}
+
+This section should introduce the main question, explain why unemployment responses to AI exposure matter, and preview the contribution of the thesis. A final draft can open with the broad labor-market motivation and then narrow to the unemployment margin studied in the figures and tables below.
+
+\section{Background}
+
+This section can summarize the relevant background on technological change, labor-market adjustment, and the role of AI exposure in shaping worker outcomes. It is also a natural place to review related literature and describe the economic intuition behind the analysis.
+
+\section{Data}
+
+This section should describe the sample, the unemployment outcome, the AI exposure measure, the time period, and any controls or fixed effects used in the regressions. It can also document how the analytical sample differs across figures and tables if that matters for interpretation.
+
+\section{Empirical Strategy}
+
+The core unemployment specification can be summarized with a regression of the form
+\begin{equation}
+Unemployment_{it} = \alpha + \beta_{2024}(AIExposure_i \times 1[t=2024]) + \beta_{2025}(AIExposure_i \times 1[t=2025]) + X_{it}'\Gamma + \varepsilon_{it}.
+\end{equation}
+
+This section should explain the identifying variation, the role of controls and fixed effects, and how the appendix specification extends the main result shown in the body of the thesis.
+
+\section{Results}
+
+This section contains every unemployment-related plot currently available in the project and the main unemployment regression table.
+
+\subsection{Unemployment Plots}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{unemployment_naive_plot.pdf}
+    \caption{Unemployment plot, baseline specification.}
+    \label{fig:unemployment_naive_plot}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{unemployment_sexFE_plot.pdf}
+    \caption{Unemployment plot with sex fixed effects.}
+    \label{fig:unemployment_sexfe_plot}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{unemployment_sexeducFE_plot.pdf}
+    \caption{Unemployment plot with sex and education fixed effects.}
+    \label{fig:unemployment_sexeducfe_plot}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{unemployment_ai_educ_naive.pdf}
+    \caption{Unemployment and AI exposure by education, baseline specification.}
+    \label{fig:unemployment_ai_educ_naive}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{unemployment_ai_educ_sexFE.pdf}
+    \caption{Unemployment and AI exposure by education with sex fixed effects.}
+    \label{fig:unemployment_ai_educ_sexfe}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{delta_unemp_2023-2025.pdf}
+    \caption{Change in unemployment from 2023 to 2025.}
+    \label{fig:delta_unemployment_2023_2025}
+\end{figure}
+
+\subsection{Main Table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Main unemployment regression results}
+    \label{tab:unemployment_main}
+    \resizebox{0.9\textwidth}{!}{\input{output/tables/unemployment_tableA.tex}}
+\end{table}
+
+\clearpage
+\section{Interpretation}
+
+This section can discuss the economic magnitude of the unemployment effects, compare the visual evidence in the plots to the regression evidence in the table, and explain whether the results are robust across specifications with richer controls.
+
+\section{Conclusion}
+
+This section can summarize the main takeaway, explain how the unemployment analysis fits into the broader thesis argument, and note the most important limitations or next steps.
+
+\clearpage
+\appendix
+\section{Appendix}
+
+This section is reserved for supplementary material and keeps the appendix unemployment table separate from the main table in the results section.
+
+\subsection{Appendix Table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Appendix unemployment regression results}
+    \label{tab:unemployment_appendix}
+    \resizebox{0.9\textwidth}{!}{\input{output/tables/unemployment_tableB.tex}}
+\end{table}
+
+\end{document}
