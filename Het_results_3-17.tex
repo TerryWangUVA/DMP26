@@ -1,0 +1,400 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{amsmath}
+
+\graphicspath{{output/graphs/}}
+
+\title{Heterogeneous Results: College vs.\ Non-college\\
+       \large Split-sample DiD --- March 17, 2026}
+\author{Leyao Wang}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\noindent\textit{College} = BA or above (educ $>$ 110). \textit{Non-college} = high school or some college (educ $\leq$ 110). All regressions estimated on the CPS-ASEC 2018--2025 sample of labor-force participants aged 22--65 with at least a high school diploma. AI exposure is the Eloundou et al.\ (2024) GPT-4 beta score. Year 2022 is the omitted baseline throughout.
+
+\bigskip
+
+%==================================================
+\section*{Contents}
+%==================================================
+
+\subsection*{Combined plots (college vs.\ non-college on one axis)}
+\begin{enumerate}
+  \item \hyperref[fig:unemp_naive_colComb]{Unemployment: Naive --- college vs.\ non-college}
+  \item \hyperref[fig:unemp_sexFE_colComb]{Unemployment: Sex FE --- college vs.\ non-college}
+  \item \hyperref[fig:unemp_sexeducFE_colComb]{Unemployment: Sex + Education FE --- college vs.\ non-college}
+  \item \hyperref[fig:lw_naive_colComb]{Log Wage: Naive --- college vs.\ non-college}
+  \item \hyperref[fig:lw_sexFE_colComb]{Log Wage: Sex FE --- college vs.\ non-college}
+  \item \hyperref[fig:lw_sexeducFE_colComb]{Log Wage: Sex + Education FE --- college vs.\ non-college}
+\end{enumerate}
+
+\subsection*{Unemployment regression tables}
+\begin{enumerate}\setcounter{enumi}{6}
+  \item \hyperref[tab:unemp_A_col]{Unemployment Table A (double interaction) --- college}
+  \item \hyperref[tab:unemp_A_noncol]{Unemployment Table A (double interaction) --- non-college}
+  \item \hyperref[tab:unemp_B_col]{Unemployment Table B (experience triple interaction) --- college}
+  \item \hyperref[tab:unemp_B_noncol]{Unemployment Table B (experience triple interaction) --- non-college}
+\end{enumerate}
+
+\subsection*{Log wage regression tables}
+\begin{enumerate}\setcounter{enumi}{10}
+  \item \hyperref[tab:lw_A_col]{Log Wage Table A (double interaction) --- college}
+  \item \hyperref[tab:lw_A_noncol]{Log Wage Table A (double interaction) --- non-college}
+  \item \hyperref[tab:lw_B_col]{Log Wage Table B (experience triple interaction) --- college}
+  \item \hyperref[tab:lw_B_noncol]{Log Wage Table B (experience triple interaction) --- non-college}
+\end{enumerate}
+
+\subsection*{Unemployment coefficient plots --- separate subsamples}
+\begin{enumerate}\setcounter{enumi}{14}
+  \item \hyperref[fig:unemp_naive_col]{Unemployment: Naive --- college}
+  \item \hyperref[fig:unemp_naive_noncol]{Unemployment: Naive --- non-college}
+  \item \hyperref[fig:unemp_sexFE_col]{Unemployment: Sex FE --- college}
+  \item \hyperref[fig:unemp_sexFE_noncol]{Unemployment: Sex FE --- non-college}
+  \item \hyperref[fig:unemp_sexeducFE_col]{Unemployment: Sex + Education FE --- college}
+  \item \hyperref[fig:unemp_sexeducFE_noncol]{Unemployment: Sex + Education FE --- non-college}
+\end{enumerate}
+
+\subsection*{Log wage coefficient plots --- separate subsamples}
+\begin{enumerate}\setcounter{enumi}{20}
+  \item \hyperref[fig:lw_naive_col]{Log Wage: Naive --- college}
+  \item \hyperref[fig:lw_naive_noncol]{Log Wage: Naive --- non-college}
+  \item \hyperref[fig:lw_sexFE_col]{Log Wage: Sex FE --- college}
+  \item \hyperref[fig:lw_sexFE_noncol]{Log Wage: Sex FE --- non-college}
+  \item \hyperref[fig:lw_sexeducFE_col]{Log Wage: Sex + Education FE --- college}
+  \item \hyperref[fig:lw_sexeducFE_noncol]{Log Wage: Sex + Education FE --- non-college}
+\end{enumerate}
+
+\subsection*{Change in unemployment, 2023--2025}
+\begin{enumerate}\setcounter{enumi}{26}
+  \item \hyperref[fig:delta_col]{$\Delta$ Unemployment 2023--2025 vs.\ AI exposure --- college}
+  \item \hyperref[fig:delta_noncol]{$\Delta$ Unemployment 2023--2025 vs.\ AI exposure --- non-college}
+\end{enumerate}
+
+\clearpage
+\doublespacing
+
+%==================================================
+\section{Combined Coefficient Plots: College vs.\ Non-college}
+%==================================================
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemp_naive_plot_colComb.pdf}
+\caption{Unemployment: DiD coefficients (year $\times$ AI exposure), naive specification. College-educated workers (BA or above) in navy circles; non-college workers (high school or some college) in maroon diamonds. Year 2022 is the baseline ($\hat\beta_{2022}\equiv 0$).}
+\label{fig:unemp_naive_colComb}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Coefficients from separate-sample OLS regressions of a binary unemployment indicator on (year $\times$ AI exposure), with year 2022 omitted. No additional controls. Error bars are 95\% confidence intervals; standard errors clustered at the occupation level. Horizontal jitter of $\pm0.1$ years applied for readability.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemp_sexFE_plot_colComb.pdf}
+\caption{Unemployment: DiD coefficients (year $\times$ AI exposure), sex fixed effects. College (navy circles) vs.\ non-college (maroon diamonds). Year 2022 is the baseline.}
+\label{fig:unemp_sexFE_colComb}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Same as Figure~\ref{fig:unemp_naive_colComb} with sex fixed effects absorbed. Standard errors clustered at the occupation level.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemp_sexeducFE_plot_colComb.pdf}
+\caption{Unemployment: DiD coefficients (year $\times$ AI exposure), sex and education fixed effects. College (navy circles) vs.\ non-college (maroon diamonds). Year 2022 is the baseline.}
+\label{fig:unemp_sexeducFE_colComb}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Same as Figure~\ref{fig:unemp_naive_colComb} with sex and education fixed effects absorbed. Standard errors clustered at the occupation level.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{lw_naive_plot_colComb.pdf}
+\caption{Log Wage: DiD coefficients (year $\times$ AI exposure), naive specification. College (navy circles) vs.\ non-college (maroon diamonds). Year 2022 is the baseline ($\hat\beta_{2022}\equiv 0$).}
+\label{fig:lw_naive_colComb}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Coefficients from separate-sample OLS regressions of log annual real wages on (year $\times$ AI exposure), with year 2022 omitted. No additional controls. Observations with zero or missing wage income excluded. Error bars are 95\% confidence intervals; standard errors clustered at the occupation level.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{lw_sexFE_plot_colComb.pdf}
+\caption{Log Wage: DiD coefficients (year $\times$ AI exposure), sex fixed effects. College (navy circles) vs.\ non-college (maroon diamonds). Year 2022 is the baseline.}
+\label{fig:lw_sexFE_colComb}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Same as Figure~\ref{fig:lw_naive_colComb} with sex fixed effects absorbed. Standard errors clustered at the occupation level.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{lw_sexeducFE_plot_colComb.pdf}
+\caption{Log Wage: DiD coefficients (year $\times$ AI exposure), sex and education fixed effects. College (navy circles) vs.\ non-college (maroon diamonds). Year 2022 is the baseline.}
+\label{fig:lw_sexeducFE_colComb}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Same as Figure~\ref{fig:lw_naive_colComb} with sex and education fixed effects absorbed. Standard errors clustered at the occupation level.
+\end{figure}
+
+\clearpage
+
+%==================================================
+\section{Unemployment Regression Tables}
+%==================================================
+
+\begin{table}[H]
+\begin{center}
+\caption{Unemployment Table A --- college subsample. Dependent variable: binary unemployment indicator. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:unemp_A_col}
+\resizebox{0.9\textwidth}{!}{\input{output/tables/unemp_tableA_col.tex}}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Sample restricted to college-educated workers (BA or above, educ $>$ 110) aged 22--65 in the labor force. Reported coefficients are on the interaction of year dummies with the Eloundou et al.\ (2024) GPT-4 beta exposure score (\texttt{dv\_rating\_beta}).
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Unemployment Table A --- non-college subsample. Dependent variable: binary unemployment indicator. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:unemp_A_noncol}
+\resizebox{0.9\textwidth}{!}{\input{output/tables/unemp_tableA_noncol.tex}}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Sample restricted to non-college workers (high school or some college, educ $\leq$ 110) aged 22--65 in the labor force. Reported coefficients are on the interaction of year dummies with the Eloundou et al.\ (2024) GPT-4 beta exposure score.
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Unemployment Table B --- college subsample. Dependent variable: binary unemployment indicator. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. $F$-test $p$-value tests joint significance of the 2024 and 2025 triple-interaction terms. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:unemp_B_col}
+\resizebox{0.9\textwidth}{!}{\input{output/tables/unemp_tableB_col.tex}}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} College subsample (educ $>$ 110). Potential experience imputed as $\max(\text{age} - \text{years of schooling} - 6,\, 0)$. A positive (negative) coefficient indicates that higher-experience workers within the college group are more (less) affected by AI exposure relative to lower-experience workers.
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Unemployment Table B --- non-college subsample. Dependent variable: binary unemployment indicator. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:unemp_B_noncol}
+\resizebox{0.9\textwidth}{!}{\input{output/tables/unemp_tableB_noncol.tex}}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Non-college subsample (educ $\leq$ 110). Potential experience imputed as $\max(\text{age} - \text{years of schooling} - 6,\, 0)$. Note that years-of-schooling imputation is missing for some college codes, so experience is missing for a portion of the non-college sample and those observations are dropped from the triple-interaction regressions.
+\end{table}
+
+\clearpage
+
+%==================================================
+\section{Log Wage Regression Tables}
+%==================================================
+
+\begin{table}[H]
+\begin{center}
+\caption{Log Wage Table A --- college subsample. Dependent variable: log annual real wages (1982 dollars). Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:lw_A_col}
+\resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableA_col.tex}}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} College subsample (educ $>$ 110). Observations with zero or missing \texttt{incwage} excluded. Real wages deflated using annual CPI-U from FRED. Reported coefficients are on the interaction of year dummies with the Eloundou et al.\ (2024) GPT-4 beta exposure score.
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Log Wage Table A --- non-college subsample. Dependent variable: log annual real wages (1982 dollars). Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:lw_A_noncol}
+\resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableA_noncol.tex}}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Non-college subsample (educ $\leq$ 110). Observations with zero or missing \texttt{incwage} excluded. Real wages deflated using annual CPI-U from FRED. Reported coefficients are on the interaction of year dummies with the Eloundou et al.\ (2024) GPT-4 beta exposure score.
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Log Wage Table B --- college subsample. Dependent variable: log annual real wages. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:lw_B_col}
+\resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableB_col.tex}}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} College subsample (educ $>$ 110). Potential experience imputed as $\max(\text{age} - \text{years of schooling} - 6,\, 0)$. A negative post-2022 coefficient would indicate that more-experienced college workers see larger wage compression in AI-exposed occupations.
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Log Wage Table B --- non-college subsample. Dependent variable: log annual real wages. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:lw_B_noncol}
+\resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableB_noncol.tex}}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Non-college subsample (educ $\leq$ 110). Potential experience imputed as $\max(\text{age} - \text{years of schooling} - 6,\, 0)$.
+\end{table}
+
+\clearpage
+
+%==================================================
+\section{Unemployment Coefficient Plots --- Separate Subsamples}
+%==================================================
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemp_naive_plot_col.pdf}
+\caption{Unemployment: DiD coefficients (year $\times$ AI exposure), naive specification --- college subsample. Year 2022 is the baseline ($\hat\beta_{2022}\equiv 0$). Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:unemp_naive_col}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} College subsample (BA or above). No additional controls.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemp_naive_plot_noncol.pdf}
+\caption{Unemployment: DiD coefficients (year $\times$ AI exposure), naive specification --- non-college subsample. Year 2022 is the baseline. Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:unemp_naive_noncol}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Non-college subsample (high school or some college). No additional controls.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemp_sexFE_plot_col.pdf}
+\caption{Unemployment: DiD coefficients (year $\times$ AI exposure), sex fixed effects --- college subsample. Year 2022 is the baseline. Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:unemp_sexFE_col}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} College subsample. Sex fixed effects absorbed via \texttt{reghdfe}.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemp_sexFE_plot_noncol.pdf}
+\caption{Unemployment: DiD coefficients (year $\times$ AI exposure), sex fixed effects --- non-college subsample. Year 2022 is the baseline. Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:unemp_sexFE_noncol}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Non-college subsample. Sex fixed effects absorbed via \texttt{reghdfe}.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemp_sexeducFE_plot_col.pdf}
+\caption{Unemployment: DiD coefficients (year $\times$ AI exposure), sex and education fixed effects --- college subsample. Year 2022 is the baseline. Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:unemp_sexeducFE_col}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} College subsample. Sex and education fixed effects absorbed. Within the college subsample, education FE absorbs differences across BA, MA, Professional, and PhD.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemp_sexeducFE_plot_noncol.pdf}
+\caption{Unemployment: DiD coefficients (year $\times$ AI exposure), sex and education fixed effects --- non-college subsample. Year 2022 is the baseline. Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:unemp_sexeducFE_noncol}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Non-college subsample. Sex and education fixed effects absorbed. Within the non-college subsample, education FE absorbs differences across high school and some-college categories.
+\end{figure}
+
+\clearpage
+
+%==================================================
+\section{Log Wage Coefficient Plots --- Separate Subsamples}
+%==================================================
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{lw_naive_plot_col.pdf}
+\caption{Log Wage: DiD coefficients (year $\times$ AI exposure), naive specification --- college subsample. Year 2022 is the baseline ($\hat\beta_{2022}\equiv 0$). Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:lw_naive_col}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} College subsample (BA or above). No additional controls. Observations with zero or missing wage income excluded.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{lw_naive_plot_noncol.pdf}
+\caption{Log Wage: DiD coefficients (year $\times$ AI exposure), naive specification --- non-college subsample. Year 2022 is the baseline. Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:lw_naive_noncol}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Non-college subsample. No additional controls. Observations with zero or missing wage income excluded.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{lw_sexFE_plot_col.pdf}
+\caption{Log Wage: DiD coefficients (year $\times$ AI exposure), sex fixed effects --- college subsample. Year 2022 is the baseline. Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:lw_sexFE_col}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} College subsample. Sex fixed effects absorbed via \texttt{reghdfe}.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{lw_sexFE_plot_noncol.pdf}
+\caption{Log Wage: DiD coefficients (year $\times$ AI exposure), sex fixed effects --- non-college subsample. Year 2022 is the baseline. Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:lw_sexFE_noncol}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Non-college subsample. Sex fixed effects absorbed via \texttt{reghdfe}.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{lw_sexeducFE_plot_col.pdf}
+\caption{Log Wage: DiD coefficients (year $\times$ AI exposure), sex and education fixed effects --- college subsample. Year 2022 is the baseline. Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:lw_sexeducFE_col}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} College subsample. Sex and education fixed effects absorbed.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{lw_sexeducFE_plot_noncol.pdf}
+\caption{Log Wage: DiD coefficients (year $\times$ AI exposure), sex and education fixed effects --- non-college subsample. Year 2022 is the baseline. Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:lw_sexeducFE_noncol}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Non-college subsample. Sex and education fixed effects absorbed.
+\end{figure}
+
+\clearpage
+
+%==================================================
+\section{Change in Unemployment, 2023--2025}
+%==================================================
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{delta_unemp_2023-2025_col.pdf}
+\caption{Change in unemployment rate (2025 minus 2023) vs.\ AI exposure score, by major occupation group --- college subsample. Each point is one of the 22 BLS major occupation groups; the line is an OLS fit.}
+\label{fig:delta_col}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} College subsample (educ $>$ 110). Occupation-group unemployment rates computed as simple means within the subsample. AI exposure is the group-mean Eloundou et al.\ (2024) GPT-4 beta score.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{delta_unemp_2023-2025_noncol.pdf}
+\caption{Change in unemployment rate (2025 minus 2023) vs.\ AI exposure score, by major occupation group --- non-college subsample. Each point is one of the 22 BLS major occupation groups; the line is an OLS fit.}
+\label{fig:delta_noncol}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Non-college subsample (educ $\leq$ 110). Occupation-group unemployment rates computed as simple means within the subsample. AI exposure is the group-mean Eloundou et al.\ (2024) GPT-4 beta score.
+\end{figure}
+
+\end{document}

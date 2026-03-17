@@ -1,0 +1,29 @@
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\toprule
+Dependent Variable: & \multicolumn{3}{c}{Unemployment} \\
+\cmidrule(lr){2-4}
+ & (1) & (2) & (3) \\
+\midrule
+2018 $\times$ Experience $\times$ AI exposure&    0.000345   &    0.000343   &    0.000359   \\
+            &  (0.000493)   &  (0.000494)   &  (0.000496)   \\
+2019 $\times$ Experience $\times$ AI exposure&    0.000579   &    0.000577   &    0.000592   \\
+            &  (0.000440)   &  (0.000440)   &  (0.000445)   \\
+2020 $\times$ Experience $\times$ AI exposure&    0.000616   &    0.000616   &    0.000664*  \\
+            &  (0.000383)   &  (0.000383)   &  (0.000385)   \\
+2021 $\times$ Experience $\times$ AI exposure&    0.000800*  &    0.000800*  &    0.000802*  \\
+            &  (0.000461)   &  (0.000461)   &  (0.000464)   \\
+2023 $\times$ Experience $\times$ AI exposure&    0.000232   &    0.000233   &    0.000210   \\
+            &  (0.000442)   &  (0.000442)   &  (0.000442)   \\
+2024 $\times$ Experience $\times$ AI exposure&   -0.000155   &   -0.000155   &   -0.000171   \\
+            &  (0.000519)   &  (0.000519)   &  (0.000521)   \\
+2025 $\times$ Experience $\times$ AI exposure&    0.000238   &    0.000240   &    0.000218   \\
+            &  (0.000497)   &  (0.000498)   &  (0.000502)   \\
+\midrule
+Mean of dependent variable&       0.043   &       0.043   &       0.043   \\
+Sex FE      &          No   &         Yes   &         Yes   \\
+Education FE&          No   &          No   &         Yes   \\
+SE clustered at&  Occupation   &  Occupation   &  Occupation   \\
+Observations&     279,126   &     279,126   &     279,126   \\
+\bottomrule
+\end{tabular}
