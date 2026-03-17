@@ -1,0 +1,261 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epigraph}
+\usepackage[style=apa,backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+\graphicspath{{output/graphs/}}
+
+\setlength{\epigraphwidth}{0.82\textwidth}
+\setlength{\epigraphrule}{0pt}
+
+\title{Unemployment, Wages, and AI Exposure:\\
+       Evidence from the CPS-ASEC}
+\author{Leyao Wang\\
+        \small University of Virginia}
+\date{\today}
+
+\begin{document}
+\maketitle
+\doublespacing
+
+\begin{center}
+\begin{minipage}{0.75\textwidth}
+\itshape
+An empiricist economist, a long-termist economist, and a philosopher walk into a bar
+and start discussing AI.
+
+\medskip
+
+The empiricist economist says: ``Data suggests it is a skill-biased technological change.''
+
+The long-termist economist says: ``In the long run, productivity will rise and everyone will be better off.''
+
+The philosopher asks: ``What should people do in the meantime?''
+
+\medskip
+
+Two weeks later they return to the same bar. \textbf{All three have lost their jobs.}
+
+\medskip
+
+The empiricist economist sighs and says: ``Well\ldots the data was right.''
+
+The long-termist economist sighs and says: ``I suppose I still believe the long run will be better.''
+
+The philosopher looks around and says quietly:
+
+\medskip
+
+``Good. Now we can begin to make sense of the meantime.''
+\end{minipage}
+\end{center}
+
+%==================================================
+\begin{abstract}
+\noindent
+
+\end{abstract}
+
+%==================================================
+\section{Introduction}
+
+%==================================================
+\section{Background}
+\label{sec:background}
+
+\subsection{Technology, Tasks, and Labor Markets}
+
+\subsection{Measuring Exposure to Generative AI}
+
+\subsection{What the Evidence Shows So Far}
+
+%==================================================
+\section{Data}
+\label{sec:data}
+
+\subsection{CPS-ASEC}
+
+The primary data source is the Annual Social and Economic Supplement to the Current Population Survey (CPS-ASEC), accessed through IPUMS. The CPS-ASEC is a nationally representative annual survey that captures labor-force status, occupation, wage income, and detailed demographic characteristics for approximately 100,000 households. I use eight survey waves covering income reference years 2018--2025, spanning both the pre- and post-ChatGPT periods.
+
+I restrict the sample to respondents aged 22--65 who are active in the labor force---either employed or actively seeking work. Workers with less than a high school diploma are excluded. This restriction focuses the analysis on the population most relevant to the LLM exposure measures, which are derived from O*NET task descriptions most applicable to formal employment in knowledge-intensive settings. After merging with the AI exposure variable and dropping observations with missing values, the main estimation sample contains 500,669 person-year observations.
+
+\paragraph{Unemployment.} The unemployment indicator equals one if a respondent is classified as unemployed by the CPS---not working but actively searching for work (CPS \texttt{empstat} codes 21 and 22)---and zero otherwise. The sample mean is 3.4\%, consistent with official U.S. unemployment statistics over this period.
+
+\paragraph{Wages.} For the wage analysis, I use annual real wage and salary income (\texttt{incwage}), deflated to 1982 dollars using the annual average CPI-U from FRED. The outcome variable is the natural log of real wages. Observations with zero or missing wage income are excluded from the wage sample (workers who are unemployed or out of the labor force for wage purposes), yielding 464,300 observations.
+
+\subsection{AI Exposure}
+
+The AI exposure variable is the GPT-4 annotator beta rating (\texttt{dv\_rating\_beta}) from \textcite{eloundou2024gpts}. It reflects the share of tasks within an occupation that GPT-4 annotators judged susceptible to LLM substitution or augmentation. The variable runs from approximately 0 (low exposure, e.g., Construction and Extraction Occupations) to approximately 0.78 (high exposure, e.g., Computer and Mathematical, Legal, Business and Financial Operations Occupations). It is time-invariant and assigned at the occupational level.
+
+Because the CPS-ASEC codes occupations using a Census-based scheme distinct from the SOC codes used by \textcite{eloundou2024gpts}, I construct a hierarchical crosswalk: from Census 2010 occupation codes to 6-digit 2010 SOC codes, then from 2010 SOC to 2018 SOC using the BLS official crosswalk. Where exact 6-digit matches are unavailable, exposure scores are aggregated at the 5-digit and 4-digit SOC levels, taking group means. This procedure retains nearly all observations in the sample.
+
+\paragraph{Potential experience.} For the experience heterogeneity specification, I impute potential labor-market experience as $\max(\text{age} - \text{years of schooling} - 6,\, 0)$, with years of schooling assigned from the CPS education recode.
+
+%==================================================
+\section{Empirical Strategy}
+\label{sec:strategy}
+
+\subsection{Main Specification}
+
+The core empirical question is whether outcomes for workers in high-exposure occupations moved differently from outcomes in low-exposure occupations after ChatGPT's release, relative to how they moved before. The estimating equation is:
+\begin{equation}
+\label{eq:main}
+Y_{it} = \alpha
+  + \sum_{t \neq 2022} \beta_t \left( \mathbf{1}[t] \times \text{AIExposure}_i \right)
+  + X_{it}'\Gamma + \varepsilon_{it},
+\end{equation}
+where $Y_{it}$ is either the unemployment indicator or log wages for worker $i$ in year $t$; $\text{AIExposure}_i$ is the time-invariant exposure score; and year 2022 is the omitted category. The $\beta_t$ coefficients trace, year by year, whether high-exposure workers diverge from low-exposure workers relative to the 2022 baseline. If AI caused labor-market disruption after its diffusion, we expect the post-2022 $\beta_t$ to be positive (for unemployment) or negative (for wages), while the pre-2022 $\beta_t$ should hover near zero.
+
+Three progressively richer specifications are estimated: (1) no additional controls, (2) sex fixed effects, and (3) sex and education fixed effects. Standard errors are clustered at the occupation level throughout.
+
+\subsection{Experience and Education Heterogeneity}
+
+To examine whether the unemployment effect varies by seniority, I augment the main specification with a triple interaction:
+\begin{equation}
+\label{eq:triple}
+\text{Unemployed}_{it} = \alpha
+  + \sum_{t \neq 2022} \delta_t \left( \mathbf{1}[t] \times \text{Experience}_i \times \text{AIExposure}_i \right)
+  + \text{lower-order terms} + X_{it}'\Gamma + \varepsilon_{it}.
+\end{equation}
+A negative post-2022 $\delta_t$ would indicate that more-experienced workers are relatively shielded; a positive value would indicate they are disproportionately affected.
+
+For the education dimension, I classify workers into four groups---High school (reference), Some college, Bachelor's degree, and Master's and above---and estimate:
+\begin{equation}
+\label{eq:educ}
+\text{Unemployed}_{it} = \alpha
+  + \sum_{e \neq \text{HS}} \sum_{t} \gamma_{et} \left( \mathbf{1}[\text{Educ}=e] \times \mathbf{1}[t] \times \text{AIExposure}_i \right)
+  + \text{lower-order terms} + \varepsilon_{it},
+\end{equation}
+where the composite coefficients trace each education group's AI-exposure path relative to high-school workers in 2022.
+
+%==================================================
+\section{Results}
+\label{sec:results}
+
+\subsection{Unemployment}
+
+Table~\ref{tab:unemployment_main} and Figures~\ref{fig:unemployment_naive_plot}--\ref{fig:unemployment_sexeducfe_plot} present the unemployment results. The pattern is clear and remarkably stable across all three specifications.
+
+In the pre-ChatGPT period, coefficients for 2018 and 2019 are statistically indistinguishable from zero---the unemployment paths of high- and low-exposure workers were parallel before AI diffusion, satisfying the key identifying assumption. The pandemic years (2020--2021) present a striking negative: AI-exposed occupations experienced \emph{lower} unemployment during COVID-19, with coefficients of $-0.0213^{***}$ in 2020 and $-0.0335^{***}$ in 2021. This reflects the simple fact that high-exposure occupations---legal, financial, managerial, computational---were largely remote-compatible and thus spared the layoffs concentrated in in-person services.
+
+The post-2022 reversal is the central finding. The 2023 coefficient is small and insignificant ($+0.002$), consistent with a natural lag between model release and meaningful workforce adjustment. By 2024, the coefficient rises to $+0.0206^{***}$ and remains at $+0.0194^{***}$ in 2025. Moving from the lowest- to the highest-exposure occupation (a span of roughly 0.73 units on the exposure scale) is associated with a predicted difference of about 1.5 percentage points in unemployment probability---equivalent to a 44\% increase relative to the 3.4\% baseline. This effect is entirely robust to controlling for sex or education composition across occupations.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemployment_naive_plot.pdf}
+\caption{Unemployment: DiD coefficients (year $\times$ AI exposure), naive specification. The dashed vertical line marks late 2022. Year 2022 is the baseline ($\hat\beta_{2022} \equiv 0$). Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:unemployment_naive_plot}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemployment_sexFE_plot.pdf}
+\caption{Unemployment: DiD coefficients with sex fixed effects. Results are nearly identical to the naive specification.}
+\label{fig:unemployment_sexfe_plot}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemployment_sexeducFE_plot.pdf}
+\caption{Unemployment: DiD coefficients with sex and education fixed effects.}
+\label{fig:unemployment_sexeducfe_plot}
+\end{center}
+\end{figure}
+
+\begin{table}[H]
+\begin{center}
+\caption{Unemployment regression results. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:unemployment_main}
+\resizebox{0.9\textwidth}{!}{\input{output/tables/unemployment_tableA.tex}}
+\end{center}
+\end{table}
+
+Figure~\ref{fig:delta_unemployment_2023_2025} provides a complementary cross-sectional view: the change in average unemployment from 2023 to 2025 is plotted against AI exposure for each of the 22 major BLS occupation groups. The positive slope confirms the regression evidence, though the scatter is wide, reflecting genuine heterogeneity in how different occupational communities have navigated the transition.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{delta_unemp_2023-2025.pdf}
+\caption{Change in unemployment (2025 minus 2023) versus AI exposure score, by major occupation group. Each point is one of 22 BLS major groups; the line is an OLS fit.}
+\label{fig:delta_unemployment_2023_2025}
+\end{center}
+\end{figure}
+
+\subsection{Who Bears the Burden: Education Heterogeneity}
+
+Figures~\ref{fig:unemployment_ai_educ_naive} and \ref{fig:unemployment_ai_educ_sexfe} display the education-stratified results. The finding is perhaps the most thought-provoking in the paper. Rather than the usual story in which automation hardest hits the least educated, the data reveal a nearly monotone gradient running in the opposite direction: within AI-exposed occupations, it is the most educated workers---those with graduate degrees---who have faced the largest unemployment increases since 2022.
+
+The Master's-and-above group's coefficient relative to the high-school baseline jumps to approximately $+0.09$ in 2023 and remains around $+0.07$--$+0.08$ through 2024--2025. The Bachelor's group shows a smaller but consistent increase to $+0.04$--$+0.07$. Some college workers show a modest rise. High-school workers in AI-exposed occupations are essentially unaffected, with coefficients near zero throughout. The pattern is robust to adding sex fixed effects (Figure~\ref{fig:unemployment_ai_educ_sexfe}).
+
+This education gradient is, on reflection, not so surprising given \emph{which} tasks large language models are good at. The \textcite{eloundou2024gpts} exposure scores are highest for occupations requiring formal analytical and language skills---precisely the capabilities that graduate education certifies. Within those occupations, it is the graduate-credentialed workers, concentrated in the most LLM-substitutable roles (research synthesis, drafting, structured analysis, coding review), who are most directly in the AI's line of fire. The high-school worker in the same occupation is, by contrast, more likely to be doing the coordination, physical, or client-facing components that are harder for LLMs to replace.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemployment_ai_educ_naive.pdf}
+\caption{Unemployment: AI exposure coefficients by education group, naive specification. Coefficients are linear combinations expressed relative to the high-school group in 2022. Error bars are 95\% confidence intervals.}
+\label{fig:unemployment_ai_educ_naive}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemployment_ai_educ_sexFE.pdf}
+\caption{Unemployment: AI exposure coefficients by education group, with sex fixed effects. The gradient is robust.}
+\label{fig:unemployment_ai_educ_sexfe}
+\end{center}
+\end{figure}
+
+\subsection{Wages}
+
+Table~\ref{tab:logwage_main} presents the log-wage regression results. In contrast to the unemployment findings, the wage picture is largely quiet. Most year-by-year coefficients on (year $\times$ AI exposure) are small and statistically insignificant across all three specifications. The one exception is the 2025 coefficient in the most demanding specification (sex and education FE), which is $-0.059^{**}$---a modest but statistically meaningful wage compression in the most recent year. The pre-2022 wage coefficients are also not statistically significant, and no clear post-ChatGPT trend is discernible in wages the way there is in unemployment.
+
+\begin{table}[H]
+\begin{center}
+\caption{Log wage regression results. Dependent variable: natural log of annual real wages. Year 2022 is the baseline. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:logwage_main}
+\resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableA.tex}}
+\end{center}
+\end{table}
+
+This divergence between large unemployment effects and muted wage effects tells us something about the adjustment mechanism. In a frictionless labor market, a technology that reduces demand for certain tasks would show up as lower wages for affected workers---firms would cut pay before cutting headcount. The data suggest that is not what is happening. Instead, it appears that firms are reducing employment in exposed roles---not hiring, not renewing contracts, letting positions go---without markedly reducing the wages of those who remain. The labor-market adjustment to generative AI, at least so far, is a quantity adjustment rather than a price adjustment.
+
+%==================================================
+\section{Interpretation}
+\label{sec:interpretation}
+
+\subsection{Reading the Pattern}
+
+\subsection{What the Education Gradient Means}
+
+\subsection{The Experience Puzzle}
+
+\subsection{Quantity Adjustment, Not Price Adjustment}
+
+%==================================================
+\section{Limitations}
+
+%==================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+%==================================================
+\printbibliography
+
+%==================================================
+\appendix
+\section{Appendix: Unemployment Experience Interaction}
+
+\section{Appendix: Log Wage Results}
+
+\end{document}
