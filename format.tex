@@ -1,0 +1,389 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epigraph}
+\usepackage[style=apa,backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+\graphicspath{{graphs/3-13 ASEC graph/}}
+
+\setlength{\epigraphwidth}{0.82\textwidth}
+\setlength{\epigraphrule}{0pt}
+
+\title{Unemployment, Wages, and AI Exposure:\\
+       Evidence from the CPS-ASEC}
+\author{Leyao Wang\\
+        \small University of Virginia}
+\date{\today}
+
+\begin{document}
+\maketitle
+\doublespacing
+
+\begin{center}
+\begin{minipage}{0.75\textwidth}
+\itshape
+An empiricist economist, a long-termist economist, and a philosopher walk into a bar
+and start discussing AI.
+
+\medskip
+
+The empiricist economist says: ``Data suggests it is a skill-biased technological change.''
+
+The long-termist economist says: ``In the long run, productivity will rise and everyone will be better off.''
+
+The philosopher asks: ``What should people do in the meantime?''
+
+\medskip
+
+Two weeks later they return to the same bar. \textbf{All three have lost their jobs.}
+
+\medskip
+
+The empiricist economist sighs and says: ``Well\ldots the data was right.''
+
+The long-termist economist sighs and says: ``I suppose I still believe the long run will be better.''
+
+The philosopher looks around and says quietly:
+
+\medskip
+
+``Good. Now we can begin to make sense of the meantime.''
+\end{minipage}
+\end{center}
+
+%==================================================
+\begin{abstract}
+\noindent
+This paper asks what has actually happened to the workers in occupations most exposed to generative AI since ChatGPT's release in late 2022---a question the data can begin, though not fully, to answer. Using a difference-in-differences design applied to Current Population Survey Annual Social and Economic Supplement (CPS-ASEC) microdata covering 2018--2025, I interact year fixed effects with an occupation-level LLM exposure score \parencite{eloundou2024gpts}, using 2022 as the baseline year. The unemployment results are interesting: a one-unit increase in AI exposure is associated with a 2.1 percentage point increase in unemployment probability in 2024 and a 1.9 percentage point increase in 2025, against a sample mean of 3.4\%, with pre-2022 coefficients consistent with parallel trends. The effect is sharpest for workers with graduate degrees, who face the largest unemployment increases in exposed occupations---a reversal of the usual expectation that automation primarily displaces less-educated workers. Wage effects, by contrast, are modest: log-wage regressions yield mostly insignificant results, with only a marginally negative coefficient emerging in 2025 under the most demanding specification. Together, these patterns suggest that the early labor-market adjustment to generative AI has operated primarily through employment rather than compensation---more people losing jobs than people seeing pay cuts---and that the disruption is concentrated at the upper end of the educational distribution.
+\end{abstract}
+
+%==================================================
+\section{Introduction}
+
+When people debate what artificial intelligence will do to work, the conversation tends to collapse into two camps. The optimists point to history: every major technological revolution since the steam engine eventually created more jobs than it destroyed, raised living standards, and freed workers from drudgery. The pessimists point to the pace and breadth of the current wave: unlike previous automation technologies that mainly displaced routine, manual tasks, large language models can write, analyze, synthesize, advise, and code---precisely the activities that a generation of workers trained and credentialed themselves to perform. Both camps share a common habit of arguing mostly about the long run, leaving the present---and the workers navigating it right now---somewhat underexplored.
+
+This paper is an attempt to say something concrete about the present. Since the commercial release of ChatGPT in November 2022, generative AI tools have moved from novelty to infrastructure across a wide range of knowledge-intensive occupations. The question I ask is simple: are workers in occupations more exposed to these technologies experiencing worse labor-market outcomes? And if so, which workers, and through which channels---job loss, or wage compression?
+
+To answer this, I assemble eight years of CPS-ASEC microdata (2018--2025) and merge in occupation-level LLM exposure scores from \textcite{eloundou2024gpts}. The main specification is a difference-in-differences (DiD) regression that interacts year dummies with each worker's occupational AI exposure, using 2022---the year of ChatGPT's launch---as the baseline. This design allows me to trace whether the unemployment and wage trajectories of high-exposure workers diverged from those of low-exposure workers precisely in the post-ChatGPT years, after moving in parallel beforehand.
+
+The results offer a fairly coherent picture. Before 2022, there is no evidence that high-exposure workers had differentially worse labor-market outcomes. During the pandemic years of 2020--2021, high-exposure occupations actually did \emph{better}: they experienced lower unemployment, most likely because these occupations are overwhelmingly remote-work-compatible and were therefore less affected by the layoffs that swept through in-person service industries. The reversal after 2022 is sharp. By 2024, a one-unit increase in AI exposure predicts a 2.1 percentage point increase in unemployment probability---a large effect relative to the 3.4\% sample mean---and the estimate is nearly identical in 2025. Wages, by contrast, tell a quieter story: most year-by-year wage coefficients are not statistically distinguishable from zero, with only a hint of wage compression emerging in 2025.
+
+Perhaps the most unexpected finding concerns education. Among workers in AI-exposed occupations, it is those with graduate degrees who face the sharpest post-2022 unemployment increases---not high-school workers. This runs against the intuitive expectation that automation hits the least educated hardest, and instead points to something distinctive about generative AI: the tasks it can perform most readily are precisely the analytical, language-intensive tasks that advanced degrees have been certified to perform. The data suggest that the first round of disruption has landed on the most credentialed workers in the most exposed occupations.
+
+The remainder of the paper is organized as follows. Section~\ref{sec:background} situates these findings within the broader intellectual conversation about technology and labor markets. Section~\ref{sec:data} describes the data and sample. Section~\ref{sec:strategy} presents the empirical strategy. Section~\ref{sec:results} reports unemployment and wage results. Section~\ref{sec:interpretation} discusses what the findings do and do not tell us. Section~\ref{sec:conclusion} closes with a broader reflection on what this moment calls for.
+
+%==================================================
+\section{Background}
+\label{sec:background}
+
+\subsection{Technology, Tasks, and Labor Markets}
+
+The intellectual history of how economists think about technology and jobs is, in broad strokes, a history of shifting the question. Early debates focused on whether machines would ``destroy'' employment in aggregate---a concern that recurs with each new technological wave but has never materialized at the macroeconomic level over long horizons \parencite{acemoglu2019automation}. The more productive question, which has dominated the field since the 1990s, is not how many jobs technology eliminates in total, but which jobs, which workers, and through which mechanisms.
+
+The framework that emerged from this shift---the task-based model---centers on a simple but powerful idea: what technologies displace is not workers, but \emph{tasks} \parencite{autor2003skill,katz1992changes}. Whether a worker is helped or hurt by a new technology depends on whether the tasks she performs are substitutes for or complements to what the technology does. \textcite{autor2003skill} used this lens to explain the ``polarization'' of the U.S. labor market: technologies that automate routine tasks (both manual and cognitive) hollowed out the middle of the wage distribution while demand for both high-skill non-routine cognitive work and low-skill non-routine manual work continued to grow.
+
+\textcite{acemoglu2019automation} generalized this framework further, emphasizing that technological change both displaces existing tasks---reducing demand for the workers who performed them---and creates new tasks that may reinstate labor elsewhere. The net employment effect is therefore an empirical question, not a theoretical one: it depends on how rapidly new tasks emerge to absorb displaced workers. In the short run, displacement tends to dominate; in the longer run, reinstatement has historically prevailed.
+
+\textcite{acemoglu2024simple} applies this reasoning to the current AI moment, cautioning against both excessive optimism and panic. He argues that the share of tasks where AI is currently cost-competitive with human labor is meaningful but not overwhelming, and that the macroeconomic productivity gains from current-generation AI may be more modest than popular discussion suggests. Still, he acknowledges that effects will be uneven across occupations, and that the distributional consequences---which workers win and which lose---matter enormously for the transition period even if aggregate outcomes are eventually benign.
+
+\subsection{Measuring Exposure to Generative AI}
+
+Translating the task-based framework into empirical work requires a measure of which occupations are most exposed to LLM technologies specifically. Several approaches have been developed. \textcite{felten2021aioe} constructed the AI Occupational Exposure (AIOE) index by linking measured progress in distinct AI subfields to O*NET occupational abilities. \textcite{webb2020impact} used text similarity between patent descriptions of AI technologies and O*NET task descriptions, finding that high-skill cognitive occupations are most exposed to AI---in contrast to robotics, which primarily threatens manual work.
+
+The most directly relevant measure for the post-2022 period is that of \textcite{eloundou2024gpts}, who asked both human annotators and GPT-4 itself to classify each O*NET task by whether LLMs could reduce completion time by at least half. This is the measure used in this paper---specifically the GPT-4 annotator beta rating---because it is designed around the capabilities of the same generation of models that entered broad commercial use beginning in late 2022. A key limitation, which I return to in the discussion, is that this measure captures potential exposure based on task feasibility, not the actual rate of adoption within any given firm or industry.
+
+\subsection{What the Evidence Shows So Far}
+
+The empirical literature on generative AI's labor-market effects is young but growing quickly. Two recent papers are most directly relevant to this study.
+
+\textcite{hosseini2025seniority} use LinkedIn résumé data and nearly 200 million job postings to document that, after ChatGPT's release, junior employment in AI-adopting firms fell by roughly 9--10\%, while senior employment remained stable. They interpret this as LLMs substituting for the entry-level tasks---drafting, research, structured analysis---that have historically been assigned to early-career workers. Their framing is that generative AI constitutes a ``seniority-biased technological change,'' compressing the bottom of the career ladder rather than the top.
+
+\textcite{brynjolfsson2025canaries} use high-frequency ADP payroll data to document that employment among workers aged 22--25 in highly AI-exposed occupations has fallen by approximately 13\% since late 2022. Critically, they find that wage effects are limited, while employment effects are large and concentrated---suggesting that firms are reducing headcount rather than cutting pay. They also find that effects are stronger in occupations where AI automates rather than augments work, using Anthropic's own usage data to classify tasks.
+
+Together, these papers suggest that the early adjustment to generative AI has involved real employment losses concentrated among the more exposed and, somewhat surprisingly, the more junior or educated segments of the workforce. What remains less well-established is whether these patterns hold in the broad household survey data that has long served as the benchmark for U.S. labor-market measurement. This paper fills that gap using the CPS-ASEC.
+
+%==================================================
+\section{Data}
+\label{sec:data}
+
+\subsection{CPS-ASEC}
+
+The primary data source is the Annual Social and Economic Supplement to the Current Population Survey (CPS-ASEC), accessed through IPUMS. The CPS-ASEC is a nationally representative annual survey that captures labor-force status, occupation, wage income, and detailed demographic characteristics for approximately 100,000 households. I use eight survey waves covering income reference years 2018--2025, spanning both the pre- and post-ChatGPT periods.
+
+I restrict the sample to respondents aged 22--65 who are active in the labor force---either employed or actively seeking work. Workers with less than a high school diploma are excluded. This restriction focuses the analysis on the population most relevant to the LLM exposure measures, which are derived from O*NET task descriptions most applicable to formal employment in knowledge-intensive settings. After merging with the AI exposure variable and dropping observations with missing values, the main estimation sample contains 500,669 person-year observations.
+
+\paragraph{Unemployment.} The unemployment indicator equals one if a respondent is classified as unemployed by the CPS---not working but actively searching for work (CPS \texttt{empstat} codes 21 and 22)---and zero otherwise. The sample mean is 3.4\%, consistent with official U.S. unemployment statistics over this period.
+
+\paragraph{Wages.} For the wage analysis, I use annual real wage and salary income (\texttt{incwage}), deflated to 1982 dollars using the annual average CPI-U from FRED. The outcome variable is the natural log of real wages. Observations with zero or missing wage income are excluded from the wage sample (workers who are unemployed or out of the labor force for wage purposes), yielding 464,300 observations.
+
+\subsection{AI Exposure}
+
+The AI exposure variable is the GPT-4 annotator beta rating (\texttt{dv\_rating\_beta}) from \textcite{eloundou2024gpts}. It reflects the share of tasks within an occupation that GPT-4 annotators judged susceptible to LLM substitution or augmentation. The variable runs from approximately 0 (low exposure, e.g., Construction and Extraction Occupations) to approximately 0.78 (high exposure, e.g., Computer and Mathematical, Legal, Business and Financial Operations Occupations). It is time-invariant and assigned at the occupational level.
+
+Because the CPS-ASEC codes occupations using a Census-based scheme distinct from the SOC codes used by \textcite{eloundou2024gpts}, I construct a hierarchical crosswalk: from Census 2010 occupation codes to 6-digit 2010 SOC codes, then from 2010 SOC to 2018 SOC using the BLS official crosswalk. Where exact 6-digit matches are unavailable, exposure scores are aggregated at the 5-digit and 4-digit SOC levels, taking group means. This procedure retains nearly all observations in the sample.
+
+\paragraph{Potential experience.} For the experience heterogeneity specification, I impute potential labor-market experience as $\max(\text{age} - \text{years of schooling} - 6,\, 0)$, with years of schooling assigned from the CPS education recode.
+
+%==================================================
+\section{Empirical Strategy}
+\label{sec:strategy}
+
+\subsection{Main Specification}
+
+The core empirical question is whether outcomes for workers in high-exposure occupations moved differently from outcomes in low-exposure occupations after ChatGPT's release, relative to how they moved before. The estimating equation is:
+\begin{equation}
+\label{eq:main}
+Y_{it} = \alpha
+  + \sum_{t \neq 2022} \beta_t \left( \mathbf{1}[t] \times \text{AIExposure}_i \right)
+  + X_{it}'\Gamma + \varepsilon_{it},
+\end{equation}
+where $Y_{it}$ is either the unemployment indicator or log wages for worker $i$ in year $t$; $\text{AIExposure}_i$ is the time-invariant exposure score; and year 2022 is the omitted category. The $\beta_t$ coefficients trace, year by year, whether high-exposure workers diverge from low-exposure workers relative to the 2022 baseline. If AI caused labor-market disruption after its diffusion, we expect the post-2022 $\beta_t$ to be positive (for unemployment) or negative (for wages), while the pre-2022 $\beta_t$ should hover near zero.
+
+Three progressively richer specifications are estimated: (1) no additional controls, (2) sex fixed effects, and (3) sex and education fixed effects. Standard errors are clustered at the occupation level throughout.
+
+\subsection{Experience and Education Heterogeneity}
+
+To examine whether the unemployment effect varies by seniority, I augment the main specification with a triple interaction:
+\begin{equation}
+\label{eq:triple}
+\text{Unemployed}_{it} = \alpha
+  + \sum_{t \neq 2022} \delta_t \left( \mathbf{1}[t] \times \text{Experience}_i \times \text{AIExposure}_i \right)
+  + \text{lower-order terms} + X_{it}'\Gamma + \varepsilon_{it}.
+\end{equation}
+A negative post-2022 $\delta_t$ would indicate that more-experienced workers are relatively shielded; a positive value would indicate they are disproportionately affected.
+
+For the education dimension, I classify workers into four groups---High school (reference), Some college, Bachelor's degree, and Master's and above---and estimate:
+\begin{equation}
+\label{eq:educ}
+\text{Unemployed}_{it} = \alpha
+  + \sum_{e \neq \text{HS}} \sum_{t} \gamma_{et} \left( \mathbf{1}[\text{Educ}=e] \times \mathbf{1}[t] \times \text{AIExposure}_i \right)
+  + \text{lower-order terms} + \varepsilon_{it},
+\end{equation}
+where the composite coefficients trace each education group's AI-exposure path relative to high-school workers in 2022.
+
+%==================================================
+\section{Results}
+\label{sec:results}
+
+\subsection{Unemployment}
+
+Table~\ref{tab:unemployment_main} and Figures~\ref{fig:unemployment_naive_plot}--\ref{fig:unemployment_sexeducfe_plot} present the unemployment results. The pattern is clear and remarkably stable across all three specifications.
+
+In the pre-ChatGPT period, coefficients for 2018 and 2019 are statistically indistinguishable from zero---the unemployment paths of high- and low-exposure workers were parallel before AI diffusion, satisfying the key identifying assumption. The pandemic years (2020--2021) present a striking negative: AI-exposed occupations experienced \emph{lower} unemployment during COVID-19, with coefficients of $-0.0213^{***}$ in 2020 and $-0.0335^{***}$ in 2021. This reflects the simple fact that high-exposure occupations---legal, financial, managerial, computational---were largely remote-compatible and thus spared the layoffs concentrated in in-person services.
+
+The post-2022 reversal is the central finding. The 2023 coefficient is small and insignificant ($+0.002$), consistent with a natural lag between model release and meaningful workforce adjustment. By 2024, the coefficient rises to $+0.0206^{***}$ and remains at $+0.0194^{***}$ in 2025. Moving from the lowest- to the highest-exposure occupation (a span of roughly 0.73 units on the exposure scale) is associated with a predicted difference of about 1.5 percentage points in unemployment probability---equivalent to a 44\% increase relative to the 3.4\% baseline. This effect is entirely robust to controlling for sex or education composition across occupations.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemployment_naive_plot.pdf}
+\caption{Unemployment: DiD coefficients (year $\times$ AI exposure), naive specification. The dashed vertical line marks late 2022. Year 2022 is the baseline ($\hat\beta_{2022} \equiv 0$). Error bars are 95\% confidence intervals, standard errors clustered at the occupation level.}
+\label{fig:unemployment_naive_plot}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemployment_sexFE_plot.pdf}
+\caption{Unemployment: DiD coefficients with sex fixed effects. Results are nearly identical to the naive specification.}
+\label{fig:unemployment_sexfe_plot}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemployment_sexeducFE_plot.pdf}
+\caption{Unemployment: DiD coefficients with sex and education fixed effects.}
+\label{fig:unemployment_sexeducfe_plot}
+\end{center}
+\end{figure}
+
+\begin{table}[H]
+\begin{center}
+\caption{Unemployment regression results. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:unemployment_main}
+\resizebox{0.9\textwidth}{!}{\input{tables/unemployment_tableA.tex}}
+\end{center}
+\end{table}
+
+Figure~\ref{fig:delta_unemployment_2023_2025} provides a complementary cross-sectional view: the change in average unemployment from 2023 to 2025 is plotted against AI exposure for each of the 22 major BLS occupation groups. The positive slope confirms the regression evidence, though the scatter is wide, reflecting genuine heterogeneity in how different occupational communities have navigated the transition.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{delta_unemp_2023-2025.pdf}
+\caption{Change in unemployment (2025 minus 2023) versus AI exposure score, by major occupation group. Each point is one of 22 BLS major groups; the line is an OLS fit.}
+\label{fig:delta_unemployment_2023_2025}
+\end{center}
+\end{figure}
+
+\subsection{Who Bears the Burden: Education Heterogeneity}
+
+Figures~\ref{fig:unemployment_ai_educ_naive} and \ref{fig:unemployment_ai_educ_sexfe} display the education-stratified results. The finding is perhaps the most thought-provoking in the paper. Rather than the usual story in which automation hardest hits the least educated, the data reveal a nearly monotone gradient running in the opposite direction: within AI-exposed occupations, it is the most educated workers---those with graduate degrees---who have faced the largest unemployment increases since 2022.
+
+The Master's-and-above group's coefficient relative to the high-school baseline jumps to approximately $+0.09$ in 2023 and remains around $+0.07$--$+0.08$ through 2024--2025. The Bachelor's group shows a smaller but consistent increase to $+0.04$--$+0.07$. Some college workers show a modest rise. High-school workers in AI-exposed occupations are essentially unaffected, with coefficients near zero throughout. The pattern is robust to adding sex fixed effects (Figure~\ref{fig:unemployment_ai_educ_sexfe}).
+
+This education gradient is, on reflection, not so surprising given \emph{which} tasks large language models are good at. The \textcite{eloundou2024gpts} exposure scores are highest for occupations requiring formal analytical and language skills---precisely the capabilities that graduate education certifies. Within those occupations, it is the graduate-credentialed workers, concentrated in the most LLM-substitutable roles (research synthesis, drafting, structured analysis, coding review), who are most directly in the AI's line of fire. The high-school worker in the same occupation is, by contrast, more likely to be doing the coordination, physical, or client-facing components that are harder for LLMs to replace.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemployment_ai_educ_naive.pdf}
+\caption{Unemployment: AI exposure coefficients by education group, naive specification. Coefficients are linear combinations expressed relative to the high-school group in 2022. Error bars are 95\% confidence intervals.}
+\label{fig:unemployment_ai_educ_naive}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemployment_ai_educ_sexFE.pdf}
+\caption{Unemployment: AI exposure coefficients by education group, with sex fixed effects. The gradient is robust.}
+\label{fig:unemployment_ai_educ_sexfe}
+\end{center}
+\end{figure}
+
+\subsection{Wages}
+
+Table~\ref{tab:logwage_main} presents the log-wage regression results. In contrast to the unemployment findings, the wage picture is largely quiet. Most year-by-year coefficients on (year $\times$ AI exposure) are small and statistically insignificant across all three specifications. The one exception is the 2025 coefficient in the most demanding specification (sex and education FE), which is $-0.059^{**}$---a modest but statistically meaningful wage compression in the most recent year. The pre-2022 wage coefficients are also not statistically significant, and no clear post-ChatGPT trend is discernible in wages the way there is in unemployment.
+
+\begin{table}[H]
+\begin{center}
+\caption{Log wage regression results. Dependent variable: natural log of annual real wages. Year 2022 is the baseline. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:logwage_main}
+\resizebox{0.9\textwidth}{!}{\input{tables/logwage_tableA.tex}}
+\end{center}
+\end{table}
+
+This divergence between large unemployment effects and muted wage effects tells us something about the adjustment mechanism. In a frictionless labor market, a technology that reduces demand for certain tasks would show up as lower wages for affected workers---firms would cut pay before cutting headcount. The data suggest that is not what is happening. Instead, it appears that firms are reducing employment in exposed roles---not hiring, not renewing contracts, letting positions go---without markedly reducing the wages of those who remain. The labor-market adjustment to generative AI, at least so far, is a quantity adjustment rather than a price adjustment.
+
+%==================================================
+\section{Interpretation}
+\label{sec:interpretation}
+
+\subsection{Reading the Pattern}
+
+The coefficient plots tell a story with a recognizable shape. Before ChatGPT, AI-exposed and non-exposed workers moved together. During the pandemic, exposed workers---already working remotely on knowledge tasks---did better than average. After ChatGPT, the advantage reversed into a disadvantage, growing steadily from 2023 into 2024--2025.
+
+The absence of a 2023 unemployment effect is worth noting. The labor market does not respond instantly to a new technology: it takes time for firms to integrate tools, reassign tasks, and make the organizational decisions that translate into changed headcounts. The lag from ChatGPT's release (late 2022) to measurable unemployment effects (2024) is roughly consistent with a one-to-two year diffusion and implementation period. The persistence of the effect in 2025 suggests this is not a brief disruption but a more durable shift in demand.
+
+\subsection{What the Education Gradient Means}
+
+The finding that graduate workers bear the largest unemployment burden in AI-exposed occupations inverts a long-standing pattern in the automation literature. The conventional story---going back to \textcite{autor2003skill}---is that automation substitutes for routine, middle-skill tasks and complements the non-routine, high-skill work that advanced degrees enable. Generative AI breaks this pattern, at least for the current generation of tools, because it specifically targets the language-intensive, analytical tasks that \emph{are} the core of many graduate-level professional roles.
+
+This does not mean that higher education is no longer valuable, or that the long-run consequences for graduate workers will necessarily be severe. But it does mean that the first round of adjustment has landed disproportionately on the most credentialed workers in the most exposed fields---the lawyers who draft briefs, the analysts who synthesize research, the programmers who write boilerplate code. The physical and interpersonal dimensions of work---which low-credential workers in the same occupation tend to disproportionately perform---remain harder for LLMs to replicate.
+
+\subsection{The Experience Puzzle}
+
+The triple-interaction results (Appendix Table~\ref{tab:unemployment_appendix}) show that the unemployment effect does not vary significantly with potential labor-market experience, at least not in this dataset. This is in tension with the firm-level evidence of \textcite{hosseini2025seniority} and \textcite{brynjolfsson2025canaries}, who find effects concentrated among junior workers. Several factors may account for the gap. Potential experience---imputed from age and education---is a noisier measure than actual firm tenure or role seniority. More importantly, within the broad CPS-ASEC sample covering all occupations, within-occupation experience gradients may be diluted relative to what is visible in firm-level or platform-level data focused on professional services. The education gradient in this paper may also be capturing part of the same phenomenon as the seniority gradient in prior work: graduate workers and junior workers are not the same group, but they overlap in the roles that are on the AI automation frontier.
+
+\subsection{Quantity Adjustment, Not Price Adjustment}
+
+The contrast between the unemployment and wage results has implications beyond the technical. When a technology reduces the demand for certain tasks, economic theory predicts that affected workers should experience either lower wages (if the labor market is flexible and adjustment happens at the margin of existing employment relationships) or higher unemployment (if wages are rigid downward and adjustment happens at the hiring and separation margin). The data strongly favor the second story. Wages in AI-exposed occupations have not noticeably fallen; it is the employment rate that has declined.
+
+This is consistent with what \textcite{brynjolfsson2025canaries} find in the ADP payroll data and with a broader pattern in modern labor markets: nominal wage rigidity means that demand shocks manifest in reduced hiring and increased separations before they manifest in wage cuts. The practical implication is that the workers most affected by AI displacement are not those who received a pay cut and stayed, but those who lost their positions and had to search for new ones---a more disruptive experience that is less visible in wage statistics alone.
+
+%==================================================
+\section{Limitations}
+
+Any honest reading of these results should come with a clear account of what they cannot establish.
+
+The most important limitation is the short post-treatment window. Three years is not long enough to distinguish a durable structural shift from a transitional disruption that will attenuate as workers and firms adapt. Prior technological revolutions eventually created new tasks and new employment; there is no reason to assume the current one is fundamentally different in the long run. Whether the negative unemployment effects documented here will persist, intensify, or fade as workers retrain, as new AI-complementary roles emerge, and as wages in exposed occupations adjust---this paper cannot say.
+
+The exposure measure itself is a second caveat. The \textcite{eloundou2024gpts} scores measure what LLMs \emph{could} do to tasks, not what firms have \emph{actually done} with them. Realized AI adoption varies enormously across industries, firms, and roles within a single occupation. This means the estimates are best understood as intent-to-treat effects---what happens to workers who are \emph{positioned} in highly exposed occupations, regardless of whether their specific employer has adopted AI tools aggressively. Estimates of the realized adoption effect would likely be larger.
+
+Causal identification is a third concern. The parallel pre-trends are reassuring, but the design cannot rule out all confounders. In particular, the positive 2024--2025 coefficients could partly reflect other economic forces---shifts in hiring patterns, industry-level demand changes, or sectoral business cycles---that happen to be correlated with AI exposure for reasons unrelated to AI adoption. The pattern's tight timing and robustness to controls are suggestive but not conclusive.
+
+Finally, the CPS-ASEC captures a snapshot of annual labor-force status and does not measure transitions in detail. Workers who lose jobs and stop searching---discouraged workers who exit the labor force entirely---will not show up as unemployed in this data. This means the estimates presented here are likely a lower bound on the full displacement effect.
+
+%==================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+The philosopher's question in the joke at the top of this paper---what should people do in the meantime?---is not one that data alone can answer. But data can at least tell us what is happening in the meantime, and that is what this paper has tried to do.
+
+What is happening, at least through 2025, is this: workers in occupations most exposed to large language models are losing jobs at a meaningfully higher rate than workers in occupations where AI poses less of a competitive threat. The unemployment increase is concentrated in the post-ChatGPT years, is robust to controlling for demographic composition, and is largest for the most educated workers---the graduate-degree holders in legal, financial, managerial, and analytical roles who are, in a very direct sense, doing the same class of tasks that GPT-4 was evaluated on when the exposure scores were constructed. Wages, meanwhile, have barely moved in exposed occupations, suggesting that the adjustment channel is employment rather than compensation: it is the exit from a job, not a pay cut within one, that is characterizing the early experience of AI-displaced workers.
+
+These findings add to a growing body of evidence \parencite{hosseini2025seniority,brynjolfsson2025canaries} that the initial distributional consequences of generative AI are not running in the direction that the traditional automation literature would predict. The conventional story of technology displacing the less educated while complementing the highly skilled---a story that shaped a generation of policy thinking---does not fit the current moment. For this generation of AI tools, the most directly affected appear to be those who invested most heavily in the cognitive, language-intensive training that professional and graduate education provides.
+
+None of this forecloses a more optimistic long-run. If AI raises productivity, it could eventually raise wages broadly and create new categories of work that we cannot yet fully anticipate. The historical record of technological transitions, imperfect as it is as a guide to the present, offers some basis for that hope. But productivity gains and new job creation take time to materialize, and they are not guaranteed to accrue to the same workers who bear the transition costs. The workers caught in the gap between an old equilibrium and a new one---the lawyers who lost their research assistant roles, the analysts whose synthesis work was automated, the programmers whose boilerplate code is now generated in seconds---are navigating a meantime that deserves more attention than it typically receives in debates about AI's long-run promise.
+
+What would a more honest policy response to this meantime look like? At minimum, it would take seriously that the disruption is real and already underway, that it is not uniformly distributed (and not distributed in the ways we expected), and that the workers most affected have not necessarily failed to invest in the right skills---they invested heavily, in precisely the skills that happened to be most susceptible to the current wave of automation. Supporting retraining, broadening social insurance to cover displaced knowledge workers more effectively, and investing in research on where new AI-complementary roles are actually emerging would all be reasonable starting points.
+
+The empiricist economist in the joke was right that the data were right. The long-termist's faith in eventual prosperity may also prove to be right. The philosopher's task---making sense of the meantime---turns out to be the hardest and the most urgent.
+
+%==================================================
+\printbibliography
+
+%==================================================
+\appendix
+\section{Appendix: Unemployment Experience Interaction}
+
+Table~\ref{tab:unemployment_appendix} presents the triple-interaction specification from Equation~\eqref{eq:triple}. Post-2022 coefficients on (year $\times$ Experience $\times$ AI exposure) are small and statistically insignificant, indicating that the aggregate unemployment effect documented in the main results does not differ significantly by potential labor-market experience.
+
+\begin{table}[H]
+\begin{center}
+\caption{Unemployment: experience interaction. Dependent variable: binary unemployment indicator. Reported coefficients are on (year $\times$ Experience $\times$ AI exposure). Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:unemployment_appendix}
+\resizebox{0.9\textwidth}{!}{\input{tables/unemployment_tableB.tex}}
+\end{center}
+\end{table}
+
+\section{Appendix: Log Wage Results}
+
+Tables~\ref{tab:logwage_appendix_b} and Figures~\ref{fig:logwage_naive_plot}--\ref{fig:logwage_ai_educ_sexfe} present additional log-wage results.
+
+\begin{table}[H]
+\begin{center}
+\caption{Log wage: experience interaction. Reported coefficients are on (year $\times$ Experience $\times$ AI exposure). Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:logwage_appendix_b}
+\resizebox{0.9\textwidth}{!}{\input{tables/logwage_tableB.tex}}
+\end{center}
+\end{table}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{logwage_naive_plot.pdf}
+\caption{Log wage: DiD coefficients (year $\times$ AI exposure), naive specification.}
+\label{fig:logwage_naive_plot}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{logwage_sexFE_plot.pdf}
+\caption{Log wage: DiD coefficients with sex fixed effects.}
+\label{fig:logwage_sexfe_plot}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{logwage_sexeducFE_plot.pdf}
+\caption{Log wage: DiD coefficients with sex and education fixed effects. The 2025 coefficient is $-0.059^{**}$.}
+\label{fig:logwage_sexeducfe_plot}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{logwage_ai_educ_naive.pdf}
+\caption{Log wage: AI exposure coefficients by education group, naive specification.}
+\label{fig:logwage_ai_educ_naive}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{logwage_ai_educ_sexFE.pdf}
+\caption{Log wage: AI exposure coefficients by education group, with sex fixed effects.}
+\label{fig:logwage_ai_educ_sexfe}
+\end{center}
+\end{figure}
+
+\end{document}
