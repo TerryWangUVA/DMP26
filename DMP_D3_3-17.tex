@@ -18,8 +18,7 @@
 \setlength{\epigraphwidth}{0.82\textwidth}
 \setlength{\epigraphrule}{0pt}
 
-\title{Unemployment, Wages, and AI Exposure:\\
-       Evidence from the CPS-ASEC}
+\title{Present Day, Present Time: AI Exposure and Labor Market Risk---Evidence from CPS-ASEC}
 \author{Leyao Wang\\
         \small University of Virginia}
 \date{\today}
@@ -87,9 +86,9 @@ The philosopher looks around and says quietly:
 
 The primary data source is the Annual Social and Economic Supplement to the Current Population Survey (CPS-ASEC), accessed through IPUMS. The CPS-ASEC is a nationally representative annual survey that captures labor-force status, occupation, wage income, and detailed demographic characteristics for approximately 100,000 households. I use eight survey waves covering income reference years 2018--2025, spanning both the pre- and post-ChatGPT periods.
 
-I restrict the sample to respondents aged 22--65 who are active in the labor force---either employed or actively seeking work. Workers with less than a high school diploma are excluded. After merging with the AI exposure variable and dropping observations with missing values, the main estimation sample contains 500,669 person-year observations.
+I restrict the sample to respondents aged 22--65 who are active in the labor force - either employed or actively seeking work. Workers with less than a high school diploma are excluded. After merging with the AI exposure variable and dropping observations with missing values, the main estimation sample contains 500,669 person-year observations.
 
-\paragraph{Unemployment.} The unemployment indicator equals one if a respondent is classified as unemployed by the CPS---not working but actively searching for work (CPS \texttt{empstat} codes 21 and 22)---and zero otherwise. The sample mean is 3.4\%, roughly consistent with official U.S. unemployment statistics over this period.
+\paragraph{Unemployment.} The unemployment indicator equals one if a respondent is classified as unemployed by the CPS - not working but actively searching for work (CPS \texttt{empstat} codes 21 and 22) - and zero otherwise. The sample mean is 3.4\%, roughly consistent with official U.S. unemployment statistics over this period.
 
 \paragraph{Wages.} For the wage analysis, I use annual real wage and salary income (\texttt{incwage}), deflated to 1982 dollars using the annual average CPI-U from FRED. The outcome variable is the natural log of real wages. Observations with zero or missing wage income are excluded from the wage sample (workers who are unemployed or out of the labor force for wage purposes), yielding 464,300 observations.
 
@@ -97,7 +96,7 @@ I restrict the sample to respondents aged 22--65 who are active in the labor for
 
 The AI exposure variable is the GPT-4 annotator beta score (\texttt{dv\_rating\_beta}) from \textcite{eloundou2024gpts}. \textcite{eloundou2024gpts} measure occupation-level exposure to large language models using a task-based annotation methodology. Drawing on the O*NET task inventory, trained human annotators and GPT-4 itself independently assessed each task in each occupation according to whether access to a GPT-4-type system could reduce the time required to complete that task by at least 50\%. Scores are then aggregated to the occupational level as the share of tasks judged highly susceptible to LLM substitution or augmentation.
 
-The study produces three variants of the score corresponding to three assumptions about the technological capability frontier. The \emph{alpha} score (most conservative) assumes access to the bare GPT-4 API only, with no additional software tools. The \emph{gamma} score (most expansive) imagines hypothetical future software that leverages GPT-4 to its full potential. The \emph{beta} score occupies the middle ground: it assumes access to GPT-4 together with plausible near-term software complements---such as code interpreters and retrieval-augmented search---that were realistic at the time of writing. I use beta as the main exposure measure. It strikes a balance between the overly conservative alpha (which ignores the ecosystem of applications already built around LLMs) and the speculative gamma (which conflates current AI with a hypothetical superintelligence). Beta is therefore the most economically interpretable measure for studying the labor-market impact of generative AI as it has actually been deployed.
+The study produces three variants of the score corresponding to three assumptions about the technological capability frontier. The \emph{alpha} score (most conservative) assumes access to the bare GPT-4 API only, with no additional software tools. The \emph{gamma} score (most expansive) imagines hypothetical future software that leverages GPT-4 to its full potential. The \emph{beta} score occupies the middle ground: it assumes access to GPT-4 together with plausible near-term software complements - such as code interpreters and retrieval-augmented search - that were realistic at the time of writing. I use beta as the main exposure measure. It strikes a balance between the overly conservative alpha (which ignores the ecosystem of applications already built around LLMs) and the speculative gamma (which conflates current AI with a hypothetical superintelligence). Beta is therefore the most economically interpretable measure for studying the labor-market impact of generative AI as it has actually been deployed.
 
 The variable runs from approximately 0 (low exposure, e.g., Construction and Extraction Occupations) to approximately 0.78 (high exposure, e.g., Computer and Mathematical, Legal, Business and Financial Operations Occupations), with a sample standard deviation of roughly 0.17. Because the scale is bounded within $[0,1]$, regression coefficients are best interpreted per 0.1-unit increase in the beta score rather than per unit. All coefficient interpretations in this paper use 0.1-unit increments unless otherwise stated. The variable is time-invariant and assigned at the occupational level.
 
@@ -140,7 +139,7 @@ Y_{it}^{\,g} = \alpha^g
   + \sum_{t \neq 2022} \beta_t^g \left( \mathbf{1}[t] \times \text{AIExposure}_i \right)
   + X_{it}'\Gamma^g + \varepsilon_{it}^g, \quad g \in \{\text{college},\;\text{non-college}\}.
 \end{equation}
-This approach is more transparent than a pooled regression with triple interactions: each subsample has its own baseline, trend, and exposure gradient, and the two coefficient paths $\{\hat\beta_t^{\text{col}}\}$ and $\{\hat\beta_t^{\text{noncol}}\}$ can be compared directly on a combined coefficient plot. The identifying variation within each subsample is unchanged---occupation-level AI exposure interacted with year dummies---so the parallel-trends assumption is assessed separately for each group.
+This approach is more transparent than a pooled regression with triple interactions: each subsample has its own baseline, trend, and exposure gradient, and the two coefficient paths $\{\hat\beta_t^{\text{col}}\}$ and $\{\hat\beta_t^{\text{noncol}}\}$ can be compared directly on a combined coefficient plot. The identifying variation within each subsample is unchanged - occupation-level AI exposure interacted with year dummies - so the parallel-trends assumption is assessed separately for each group.
 
 %==================================================
 \section{Results}
@@ -150,9 +149,9 @@ This approach is more transparent than a pooled regression with triple interacti
 
 Table~\ref{tab:unemployment_main} and Figure~\ref{fig:unemployment_sexeducfe_plot} present the unemployment results. The pattern is clear and remarkably stable across all three specifications (see Figures~\ref{fig:unemployment_naive_plot} and \ref{fig:unemployment_sexfe_plot} for the naive and sex-FE specifications).
 
-In the pre-ChatGPT period, coefficients for 2018 and 2019 are statistically indistinguishable from zero---the unemployment paths of high- and low-exposure workers were parallel before AI diffusion, satisfying the key identifying assumption. The pandemic years (2020--2021) present a noticable negative: AI-exposed occupations experienced \emph{lower} unemployment during COVID-19, with coefficients of $-0.0213^{***}$ in 2020 and $-0.0335^{***}$ in 2021. This reflects the simple fact that high-exposure occupations---legal, financial, managerial, computational---were largely remote-compatible and thus spared the layoffs concentrated in in-person services.
+In the pre-ChatGPT period, coefficients for 2018 and 2019 are statistically indistinguishable from zero - the unemployment paths of high- and low-exposure workers were parallel before AI diffusion, satisfying the key identifying assumption. The pandemic years (2020--2021) present a noticable negative: AI-exposed occupations experienced \emph{lower} unemployment during COVID-19, with coefficients of $-0.0213^{***}$ in 2020 and $-0.0335^{***}$ in 2021. This reflects the simple fact that high-exposure occupations - legal, financial, managerial, computational - were largely remote-compatible and thus spared the layoffs concentrated in in-person services.
 
-The post-2022 reversal is the central finding. The 2023 coefficient is small and insignificant ($+0.002$), consistent with a natural lag between model release and meaningful workforce adjustment. By 2024, the coefficient rises to $+0.0206^{***}$ and remains at $+0.0194^{***}$ in 2025. Moving from the lowest- to the highest-exposure occupation (a span of roughly 0.73 units on the exposure scale) is associated with a predicted difference of about 1.5 percentage points in unemployment probability---equivalent to a 44\% increase relative to the 3.4\% baseline. This effect is entirely robust to controlling for sex or education composition across occupations.
+The post-2022 reversal is the central finding. The 2023 coefficient is small and insignificant ($+0.002$), consistent with a natural lag between GPT model release and meaningful workforce adjustment. By 2024, the coefficient rises to $+0.0206^{***}$ and remains at $+0.0194^{***}$ in 2025. A 0.1 increase in exposure is associated with a 0.2 percentage point increase in unemployment probability, corresponding to roughly a 6\% increase relative to the 3.4\% baseline. This effect remains robust to controlling for sex and education composition across occupations.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -167,7 +166,7 @@ The post-2022 reversal is the central finding. The 2023 coefficient is small and
 \subsection{Wages}
 %==================================================
 
-Table~\ref{tab:logwage_main} presents the log-wage results. Pre-ChatGPT coefficients are uniformly small and statistically insignificant across all three specifications, confirming parallel wage trends. In the post-2022 period, the naive and sex-FE specifications yield 2025 coefficients of $-0.036$ and $-0.046$, neither significant at conventional levels. Only the most demanding specification---absorbing both sex and education fixed effects---produces a statistically significant 2025 compression of $-0.059^{**}$. No significant effect appears in 2023 or 2024 under any specification. This weak and late-emerging signal suggests that wage adjustment, if any, lags behind the employment adjustment above and is sensitive to the control set.
+Table~\ref{tab:logwage_main} presents the log-wage results. Pre-ChatGPT coefficients are uniformly small and statistically insignificant across all three specifications, confirming parallel wage trends. In the post-2022 period, the naive and sex-FE specifications yield 2025 coefficients of $-0.036$ and $-0.046$, neither significant at conventional levels. Only the most demanding specification - absorbing both sex and education fixed effects - produces a statistically significant 2025 compression of $-0.059^{**}$. No significant effect appears in 2023 or 2024 under any specification. This weak and late-emerging signal suggests that wage adjustment, if any, lags behind the employment adjustment above and is sensitive to the control set.
 
 
 
@@ -178,7 +177,7 @@ Table~\ref{tab:logwage_main} presents the log-wage results. Pre-ChatGPT coeffici
 
 \paragraph{Unemployment.}
 
-Splitting the sample by education reveals a symmetric picture for unemployment. Both college-educated workers (BA or above; baseline unemployment rate 2.2\%) and non-college workers (high school or some college; baseline 4.3\%) in AI-exposed occupations experienced comparable increases in unemployment risk after 2022. For college workers, the post-2022 coefficients are $+0.019^{**}$ in 2024 and $+0.021^{**}$ in 2025, stable across all three specifications. For non-college workers, the corresponding estimates are $+0.021^{***}$ in 2024 and $+0.014^{*}$ in 2025. The point estimates are similar in magnitude and the confidence intervals overlap substantially. Hence there is no statistically significant difference in the unemployment response across education groups. Regarding pre-2022 trends: the 2018 and 2019 coefficients are near zero and insignificant for both groups, satisfying the parallel pre-AI-trends assumption within each subsample. The 2020--2021 coefficients are significantly negative in both subsamples---mirroring the main-sample finding that high-exposure occupations shed less unemployment during COVID-19---and should be read as a replication of that pattern within each education group rather than as evidence against identification. Naive and sex-FE specifications yield nearly identical results (Figures~\ref{fig:unemp_colComb_naive} and \ref{fig:unemp_colComb_sexFE}).
+Splitting the sample by education reveals a symmetric picture for unemployment. Both college-educated workers (BA or above; baseline unemployment rate 2.2\%) and non-college workers (high school or some college; baseline 4.3\%) in AI-exposed occupations experienced comparable increases in unemployment risk after 2022. For college workers, the post-2022 coefficients are $+0.019^{**}$ in 2024 and $+0.021^{**}$ in 2025, stable across all three specifications. For non-college workers, the corresponding estimates are $+0.021^{***}$ in 2024 and $+0.014^{*}$ in 2025. The point estimates are similar in magnitude and the confidence intervals overlap. Hence there is no statistically significant difference in the unemployment response across education groups. Regarding pre-2022 trends: the 2018 and 2019 coefficients are near zero and insignificant for both groups. The 2020--2021 coefficients are significantly negative in both subsamples - mirroring the main-specs finding that high-exposure occupations shed less unemployment during COVID-19 - and should be read as a replication of that pattern within each education group rather than as evidence against identification. Naive and sex-FE specifications yield nearly identical results (Figures~\ref{fig:unemp_colComb_naive} and \ref{fig:unemp_colComb_sexFE}).
 
 \begin{figure}[htbp]
 \begin{center}
@@ -190,7 +189,7 @@ Splitting the sample by education reveals a symmetric picture for unemployment. 
 
 \paragraph{Log Wages.}
 
-The wage results reveal a sharp divergence across education groups. For college-educated workers, all post-2022 wage coefficients are positive and statistically insignificant: 2023 ($+0.085$), 2024 ($+0.069$), 2025 ($+0.000$). There is no evidence of wage compression among college workers in AI-exposed occupations. For non-college workers, a significant divergence emerges in 2025: the coefficient is $-0.072^{*}$ in the naive specification, rising in magnitude and significance to $-0.089^{**}$ and $-0.090^{**}$ once sex and education fixed effects are added. Pre-2022 coefficients are uniformly insignificant for both groups. The education split thus reveals an important asymmetry: the unemployment burden of AI exposure is broadly shared, but the wage compression materializing in 2025 is concentrated entirely among non-college workers. Naive and sex-FE specifications: Figures~\ref{fig:lw_colComb_naive} and \ref{fig:lw_colComb_sexFE}.
+The wage results reveal a divergence across education groups. For college-educated workers, all post-2022 wage coefficients are positive and statistically insignificant: 2023 ($+0.085$), 2024 ($+0.069$), 2025 ($+0.000$). There is no evidence of wage compression among college workers in AI-exposed occupations. For non-college workers, a significant divergence emerges in 2025: the coefficient is $-0.072^{*}$ in the naive specification, rising in magnitude and significance to $-0.089^{**}$ and $-0.090^{**}$ once sex and education fixed effects are added. Pre-2022 coefficients are uniformly insignificant for both groups. The education split thus reveals a potential asymmetry: the unemployment burden of AI exposure is broadly shared, but the wage compression materializing in 2025 is concentrated among non-college workers. Naive and sex-FE specifications: Figures~\ref{fig:lw_colComb_naive} and \ref{fig:lw_colComb_sexFE}.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -211,14 +210,14 @@ Tables~\ref{tab:unemp_exphet_col} and \ref{tab:unemp_exphet_noncol} report the u
 
 \paragraph{Log Wages.}
 
-The log-wage experience results are largely null for college workers: post-2022 triple-interaction coefficients are uniformly small, with only the 2025 column-(3) estimate reaching borderline significance ($-0.0076^{*}$). For non-college workers, the 2023 coefficient of $-0.0039^{**}$ suggests that more-experienced non-college workers in AI-exposed occupations faced greater wage compression immediately after ChatGPT's release, but the effect does not persist into 2024 or 2025. Interpretation is complicated by significant pre-period coefficients in 2019 ($-0.0040^{**}$) and 2021 ($-0.0060^{***}$) for the non-college subsample, indicating that the experience--AI-wage relationship was not flat before 2022 and the 2023 signal cannot be attributed cleanly to the post-ChatGPT treatment.
+The log-wage experience results are largely null: post-2022 triple-interaction coefficients are uniformly small, with only the 2025 column-(3) estimate reaching borderline significance ($-0.0076^{*}$). For non-college workers, the 2023 coefficient of $-0.0039^{**}$ suggests that more-experienced non-college workers in AI-exposed occupations faced greater wage compression immediately after ChatGPT's release, but the effect does not persist into 2024 or 2025. Interpretation is complicated by significant pre-period coefficients in 2019 ($-0.0040^{**}$) and 2021 ($-0.0060^{***}$) for the non-college subsample, indicating that the experience--AI-wage relationship was not flat before 2022 and the 2023 signal cannot be attributed cleanly to the post-ChatGPT treatment.
 
 
 %==================================================
 \section{Interpretation}
 \label{sec:interpretation}
 
-\subsection{Reading the Pattern}
+\subsection{The General Pattern}
 
 \subsection{Heterogeneity in Education}
 
@@ -243,7 +242,7 @@ The log-wage experience results are largely null for college workers: post-2022 
 \setcounter{table}{0}
 \renewcommand{\thetable}{A\arabic{table}}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \begin{center}
 \caption{Unemployment regression results. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemployment_main}
@@ -251,7 +250,7 @@ The log-wage experience results are largely null for college workers: post-2022 
 \end{center}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \begin{center}
 \caption{Log wage regression results. Dependent variable: natural log of annual real wages (1982 dollars). Year 2022 is the omitted baseline. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:logwage_main}
@@ -259,60 +258,60 @@ The log-wage experience results are largely null for college workers: post-2022 
 \end{center}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \begin{center}
-\caption{Unemployment experience heterogeneity --- college subsample. Dependent variable: binary unemployment indicator. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Unemployment experience heterogeneity  -  college subsample. Dependent variable: binary unemployment indicator. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_exphet_col}
 \resizebox{0.9\textwidth}{!}{\input{output/tables/unemp_tableB_col.tex}}
 \end{center}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \begin{center}
-\caption{Unemployment experience heterogeneity --- non-college subsample. Dependent variable: binary unemployment indicator. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Unemployment experience heterogeneity  -  non-college subsample. Dependent variable: binary unemployment indicator. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_exphet_noncol}
 \resizebox{0.9\textwidth}{!}{\input{output/tables/unemp_tableB_noncol.tex}}
 \end{center}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \begin{center}
-\caption{Log wage experience heterogeneity --- college subsample. Dependent variable: log annual real wages. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Log wage experience heterogeneity  -  college subsample. Dependent variable: log annual real wages. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_exphet_col}
 \resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableB_col.tex}}
 \end{center}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \begin{center}
-\caption{Log wage experience heterogeneity --- non-college subsample. Dependent variable: log annual real wages. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Log wage experience heterogeneity  -  non-college subsample. Dependent variable: log annual real wages. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Columns (1)--(3): no fixed effects, sex FE, sex + education FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_exphet_noncol}
 \resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableB_noncol.tex}}
 \end{center}
 \end{table}
 
-\section{Additional Coefficient Plots}
+\section{Additional Figures}
 \label{app:figures}
 \setcounter{figure}{0}
 \renewcommand{\thefigure}{B\arabic{figure}}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{unemployment_naive_plot.pdf}
+\includegraphics[width=0.75\textwidth]{unemployment_naive_plot.pdf}
 \caption{Unemployment: DiD coefficients (year $\times$ AI exposure), naive specification (no controls). Year 2022 is the baseline ($\hat\beta_{2022}\equiv 0$). Error bars are 95\% CI, clustered at the occupation level.}
 \label{fig:unemployment_naive_plot}
 \end{center}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{unemployment_sexFE_plot.pdf}
+\includegraphics[width=0.75\textwidth]{unemployment_sexFE_plot.pdf}
 \caption{Unemployment: DiD coefficients, sex fixed effects specification. Results are nearly identical to the naive specification. Year 2022 is the baseline. Error bars are 95\% CI, clustered at the occupation level.}
 \label{fig:unemployment_sexfe_plot}
 \end{center}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{unemp_naive_plot_colComb.pdf}
 \caption{Unemployment: DiD coefficients, college (navy circles) vs.\ non-college (maroon diamonds), naive specification. Year 2022 is the baseline. Error bars are 95\% CI, clustered at the occupation level. Horizontal jitter $\pm 0.1$ years for readability.}
@@ -320,7 +319,7 @@ The log-wage experience results are largely null for college workers: post-2022 
 \end{center}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{unemp_sexFE_plot_colComb.pdf}
 \caption{Unemployment: DiD coefficients, college (navy) vs.\ non-college (maroon), sex fixed effects. Results are nearly identical to the naive specification for both groups.}
@@ -328,7 +327,7 @@ The log-wage experience results are largely null for college workers: post-2022 
 \end{center}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{lw_naive_plot_colComb.pdf}
 \caption{Log wage: DiD coefficients, college (navy circles) vs.\ non-college (maroon diamonds), naive specification. Year 2022 is the baseline. Error bars are 95\% CI, clustered at the occupation level.}
@@ -336,7 +335,7 @@ The log-wage experience results are largely null for college workers: post-2022 
 \end{center}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{lw_sexFE_plot_colComb.pdf}
 \caption{Log wage: DiD coefficients, college (navy) vs.\ non-college (maroon), sex fixed effects. The 2025 non-college divergence is already visible under this specification.}
