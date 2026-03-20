@@ -14,3 +14,17 @@ so it shud be (2024-2023) - (2023 - 2022) - update caption of the table accordin
 5. Go Check for Eloundou's paper in Lit (gptsaregpts) --> maybe you need to update Data section as well 
     - i.e. maybe you need to explain how Eloundou constructed the scores 
     - come up with a reason why we chose beta to be used in our main specs --> a "mild" measure, between the most conservative (alpha) and most radical (gamma) predictions
+
+
+ 
+5.5: Remove the DiD plots & any corresponding texts in DMP_D3_3-17.tex 
+6. rearrange the Result section in DMP_D3_3-17.tex in the following way:
+    ** relavent dofiles: IPMUS_CPS-ASEC_Analysis_2-19.do & ASEC_Analysis_3-17(Het).do 
+    ** you may need to inspect the contents of the output graphs (pdf) and tables (tex) as well before putting them in
+     - Unemployment subsection is already very good - don't touch it
+     - Add a Wage subsection after Unemployment section to describe the null results in wage --> attach the corresponding table, no need for coefplots
+     - Revamp the Educ het subsection in the following way:
+        - First describe the unemployment --> no significant difference, use the three coefplots (comb ver), no need to attach tables
+        - Then describe the differences in logwage --> similarly, use the three coefplots (comb ver), no need to attach tables
+    - Add a Experience het subsection. 
+*** Do read the table and graph contents and try to interpret them (statistically, no need for further interpretation of mechanism) a bit in Result section. 
