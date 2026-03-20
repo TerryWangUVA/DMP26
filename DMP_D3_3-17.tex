@@ -10,6 +10,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{epigraph}
+\usepackage{enumitem}
 \usepackage[style=apa,backend=biber]{biblatex}
 \addbibresource{references.bib}
 
@@ -74,9 +75,48 @@ The philosopher looks around and says quietly:
 
 \subsection{Technology, Tasks, and Labor Markets}
 
+\begin{itemize}[leftmargin=*]
+    \item \textbf{(\cite{acemoglu2019automation})}
+    Develops a theoretical model explaining how automation both displaces existing tasks and creates new ones.
+    Highlights the ambiguous effects of technology on labor demand depending on whether new tasks are complements or substitutes for human labor.
+\end{itemize}
+
 \subsection{Measuring Exposure to Generative AI}
 
+\begin{itemize}[leftmargin=*]
+    \item \textbf{(\cite{felten2018method})}
+    Introduces a quantitative approach linking progress in distinct AI subfields (from the EFF AI Progress metrics) to human abilities defined in O*NET.
+    Maps AI capabilities $\rightarrow$ O*NET abilities $\rightarrow$ occupations.
+
+    \item \textbf{(\cite{felten2021aioe})}
+    Extends the 2018 framework to a forward-looking exposure index using Mechanical Turk surveys to map ten AI applications to 52 O*NET abilities.
+    Aggregates ability-level exposure (weighted by importance and prevalence) to occupation, industry, and geographic levels.
+    Produces standardized exposure scores such as \textit{AI Occupational Exposure (AIOE)}, \textit{AI Industry Exposure (AIIE)}, and \textit{AI Geography Exposure (AIGE)}, measuring potential technical exposure rather than realized adoption.
+
+    \item \textbf{(\cite{webb2020impact})}
+    Constructs a task-technology overlap model matching verbs and nouns from patent text to O*NET task descriptions.
+    Identifies high-skill cognitive tasks (judgment, analysis) as most AI-exposed, contrasting with robotics' focus on routine manual work.
+    Provides a scalable, data-driven mapping of AI technologies to tasks using textual similarity.
+
+    \item \textbf{(\cite{eloundou2024gpts})}
+    Uses GPT-4 and human annotators to classify O*NET tasks into categories based on whether LLMs could reduce task completion time by at least 50\%. Aggregates task labels to occupation-level exposure scores and produces composite indices.
+    Provides a large-scale, LLM-specific exposure dataset reflecting technical feasibility rather than observed adoption.
+\end{itemize}
+
 \subsection{What the Evidence Shows So Far}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{(\cite{hosseini2025seniority})}
+Examines whether generative AI constitutes a seniority-biased technological change, disproportionately affecting junior relative to senior workers.
+Combines LinkedIn résumé data (Revelio Labs) with nearly 200 million job postings. Measures firm-level AI adoption by identifying postings for ``GenAI integrator'' roles responsible for implementing or integrating AI tools. Employs a difference-in-differences framework comparing junior versus senior employment in adopting versus non-adopting firms before and after 2023.
+Finds that after ChatGPT's release, junior employment in adopting firms declined by roughly 9--10\%, while senior employment remained stable, with effects concentrated in high-exposure occupations.  Provides early empirical evidence that generative AI adoption shifts firm workforce composition toward senior labor.
+    \item \textbf{(\cite{brynjolfsson2025canaries})}
+Uses high-frequency administrative payroll data from ADP, covering millions of U.S. workers, to document six stylized facts about the early labor market effects of generative AI.
+Identifies that employment among early-career workers (ages 22--25) in highly AI-exposed occupations has declined by roughly 13\% since late 2022, even after controlling for firm-level shocks.
+Employment for older or less AI-exposed workers remained stable or continued to grow.
+Shows that employment declines are concentrated in occupations where AI automates rather than augments work, based on task-level measures from the Anthropic Economic Index and GPT-4 exposure (Eloundou et al., 2024).
+Finds limited wage effects, suggesting adjustments occurred primarily through employment rather than compensation.
+\end{itemize}
 
 %==================================================
 \section{Data}
