@@ -99,7 +99,7 @@ The AI exposure variable is the GPT-4 annotator beta score (\texttt{dv\_rating\_
 
 The study produces three variants of the score corresponding to three assumptions about the technological capability frontier. The \emph{alpha} score (most conservative) assumes access to the bare GPT-4 API only, with no additional software tools. The \emph{gamma} score (most expansive) imagines hypothetical future software that leverages GPT-4 to its full potential. The \emph{beta} score occupies the middle ground: it assumes access to GPT-4 together with plausible near-term software complements---such as code interpreters and retrieval-augmented search---that were realistic at the time of writing. I use beta as the main exposure measure. It strikes a balance between the overly conservative alpha (which ignores the ecosystem of applications already built around LLMs) and the speculative gamma (which conflates current AI with a hypothetical superintelligence). Beta is therefore the most economically interpretable measure for studying the labor-market impact of generative AI as it has actually been deployed.
 
-The variable runs from approximately 0 (low exposure, e.g., Construction and Extraction Occupations) to approximately 0.78 (high exposure, e.g., Computer and Mathematical, Legal, Business and Financial Operations Occupations), with a sample standard deviation of roughly 0.17. Because the scale is bounded within $[0,1]$, regression coefficients are best interpreted per 0.1-unit increase in the beta score rather than per unit---a 1-unit shift would correspond to an implausibly large move from zero to full exposure. All coefficient interpretations in this paper use 0.1-unit increments unless otherwise stated. The variable is time-invariant and assigned at the occupational level.
+The variable runs from approximately 0 (low exposure, e.g., Construction and Extraction Occupations) to approximately 0.78 (high exposure, e.g., Computer and Mathematical, Legal, Business and Financial Operations Occupations), with a sample standard deviation of roughly 0.17. Because the scale is bounded within $[0,1]$, regression coefficients are best interpreted per 0.1-unit increase in the beta score rather than per unit. All coefficient interpretations in this paper use 0.1-unit increments unless otherwise stated. The variable is time-invariant and assigned at the occupational level.
 
 Because the CPS-ASEC codes occupations using a Census-based scheme distinct from the SOC codes used by \textcite{eloundou2024gpts}, I construct a hierarchical crosswalk: from Census 2010 occupation codes to 6-digit 2010 SOC codes, then from 2010 SOC to 2018 SOC using the BLS official crosswalk. Where exact 6-digit matches are unavailable, exposure scores are aggregated at the 5-digit and 4-digit SOC levels, taking group means. This procedure retains nearly all observations in the sample.
 
@@ -131,7 +131,7 @@ Y_{it} = \alpha
   + \sum_{t \neq 2022} \delta_t \left( \mathbf{1}[t] \times \text{Experience}_i \times \text{AIExposure}_i \right)
   + \text{lower-order terms} + X_{it}'\Gamma + \varepsilon_{it}.
 \end{equation}
-A negative post-2022 $\delta_t$ would indicate that more-experienced workers are relatively shielded; a positive value would indicate they are disproportionately affected. This specification is estimated separately for the college and non-college subsamples, allowing the experience gradient to differ across education groups.
+A negative post-2022 $\delta_t$ would indicate that more-experienced workers are relatively shielded; a positive value would indicate they are disproportionately affected. 
 
 \paragraph{Education: split-sample approach.} For the education dimension I divide the sample into \emph{college-educated} workers (BA or above, educ $>$ 110) and \emph{non-college} workers (high school or some college, educ $\leq$ 110) and estimate the main specification \eqref{eq:main} separately within each group:
 \begin{equation}
@@ -150,7 +150,7 @@ This approach is more transparent than a pooled regression with triple interacti
 
 Table~\ref{tab:unemployment_main} and Figures~\ref{fig:unemployment_naive_plot}--\ref{fig:unemployment_sexeducfe_plot} present the unemployment results. The pattern is clear and remarkably stable across all three specifications.
 
-In the pre-ChatGPT period, coefficients for 2018 and 2019 are statistically indistinguishable from zero---the unemployment paths of high- and low-exposure workers were parallel before AI diffusion, satisfying the key identifying assumption. The pandemic years (2020--2021) present a striking negative: AI-exposed occupations experienced \emph{lower} unemployment during COVID-19, with coefficients of $-0.0213^{***}$ in 2020 and $-0.0335^{***}$ in 2021. This reflects the simple fact that high-exposure occupations---legal, financial, managerial, computational---were largely remote-compatible and thus spared the layoffs concentrated in in-person services.
+In the pre-ChatGPT period, coefficients for 2018 and 2019 are statistically indistinguishable from zero---the unemployment paths of high- and low-exposure workers were parallel before AI diffusion, satisfying the key identifying assumption. The pandemic years (2020--2021) present a noticable negative: AI-exposed occupations experienced \emph{lower} unemployment during COVID-19, with coefficients of $-0.0213^{***}$ in 2020 and $-0.0335^{***}$ in 2021. This reflects the simple fact that high-exposure occupations---legal, financial, managerial, computational---were largely remote-compatible and thus spared the layoffs concentrated in in-person services.
 
 The post-2022 reversal is the central finding. The 2023 coefficient is small and insignificant ($+0.002$), consistent with a natural lag between model release and meaningful workforce adjustment. By 2024, the coefficient rises to $+0.0206^{***}$ and remains at $+0.0194^{***}$ in 2025. Moving from the lowest- to the highest-exposure occupation (a span of roughly 0.73 units on the exposure scale) is associated with a predicted difference of about 1.5 percentage points in unemployment probability---equivalent to a 44\% increase relative to the 3.4\% baseline. This effect is entirely robust to controlling for sex or education composition across occupations.
 
@@ -198,7 +198,7 @@ Figure~\ref{fig:delta_unemployment_did} provides a complementary cross-sectional
 
 \subsection{Who Bears the Burden: Education Heterogeneity}
 
-Figures~\ref{fig:unemp_colComb_naive} and \ref{fig:lw_colComb_naive} display the split-sample results for unemployment and log wages, overlaying the college (navy circles) and non-college (maroon diamonds) coefficient paths on the same axes. Both groups satisfy parallel pre-trends prior to 2022.
+Figures~\ref{fig:unemp_colComb_naive} and \ref{fig:lw_colComb_naive} display the split-sample results for unemployment and log wages, overlaying the college (navy circles) and non-college (maroon diamonds) coefficient paths on the same axes.
 
 \begin{figure}[H]
 \begin{center}
@@ -236,7 +236,7 @@ This divergence between large unemployment effects and muted wage effects tells 
 
 \subsection{Reading the Pattern}
 
-\subsection{What the Education Gradient Means}
+\subsection{Heterogeneity in Education}
 
 \subsection{The Experience Puzzle}
 
