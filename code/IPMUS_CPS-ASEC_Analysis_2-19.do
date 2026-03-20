@@ -772,7 +772,8 @@ graph export "$graphs/unemployment_sexeducFE_plot.pdf", replace
 
 
 *************************************
-**# delta %unemployment, 2023-2025
+**# DiD unemployment scatter
+**  (u2024-u2023) - (u2023-u2022)
 *************************************
 
 use `analysis', clear
@@ -780,11 +781,11 @@ eststo clear
 
 collapse (mean) u_rate = unemployed, by(soc_gr year)
 
-keep if inlist(year, 2023, 2025) 
+keep if inlist(year, 2022, 2023, 2024)
 
 reshape wide u_rate, i(soc_gr) j(year)
 
-gen delta_unemp = u_rate2025 - u_rate2023
+gen delta_unemp = (u_rate2024 - u_rate2023) - (u_rate2023 - u_rate2022)
 
 merge m:1 soc_gr using `crosswalk'
 keep if _merge == 3
@@ -800,13 +801,13 @@ twoway ///
     yline(0) ///
     xscale(range(0 0.8)) ///
     xlabel(0(.2)0.8) ///
-    title("Change in Unemployment vs AI Exposure") ///
-    ytitle("Δ Unemployment (2025−2023)") ///
+    title("DiD Unemployment vs AI Exposure") ///
+    ytitle("(u2024−u2023)−(u2023−u2022)") ///
     xtitle("AI Exposure (Eloundou Beta)") ///
     legend(order(1 "Occupation" 2 "Linear fit") ///
            position(6) rows(1) region(lstyle(none)))
 
-graph export "$graphs/delta_unemp_2023-2025.pdf", replace
+graph export "$graphs/delta_unemp_did.pdf", replace
 
 
 use `analysis', clear

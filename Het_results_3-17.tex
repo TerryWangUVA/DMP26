@@ -74,10 +74,10 @@
   \item \hyperref[fig:lw_sexeducFE_noncol]{Log Wage: Sex + Education FE --- non-college}
 \end{enumerate}
 
-\subsection*{Change in unemployment, 2023--2025}
+\subsection*{DiD unemployment scatter}
 \begin{enumerate}\setcounter{enumi}{26}
-  \item \hyperref[fig:delta_col]{$\Delta$ Unemployment 2023--2025 vs.\ AI exposure --- college}
-  \item \hyperref[fig:delta_noncol]{$\Delta$ Unemployment 2023--2025 vs.\ AI exposure --- non-college}
+  \item \hyperref[fig:delta_col]{DiD unemployment $(u_{2024}-u_{2023})-(u_{2023}-u_{2022})$ vs.\ AI exposure --- college}
+  \item \hyperref[fig:delta_noncol]{DiD unemployment $(u_{2024}-u_{2023})-(u_{2023}-u_{2022})$ vs.\ AI exposure --- non-college}
 \end{enumerate}
 
 \clearpage
@@ -379,22 +379,22 @@
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.88\textwidth]{delta_unemp_2023-2025_col.pdf}
-\caption{Change in unemployment rate (2025 minus 2023) vs.\ AI exposure score, by major occupation group --- college subsample. Each point is one of the 22 BLS major occupation groups; the line is an OLS fit.}
+\includegraphics[width=0.88\textwidth]{delta_unemp_did_col.pdf}
+\caption{DiD unemployment vs.\ AI exposure, college subsample. Vertical axis: $(u_{2024}-u_{2023})-(u_{2023}-u_{2022})$ by major occupation group. Each point is one occupation group; line is an OLS fit.}
 \label{fig:delta_col}
 \end{center}
 \smallskip
-\noindent\footnotesize\textit{Notes:} College subsample (educ $>$ 110). Occupation-group unemployment rates computed as simple means within the subsample. AI exposure is the group-mean Eloundou et al.\ (2024) GPT-4 beta score.
+\noindent\footnotesize\textit{Notes:} College subsample (educ $>$ 110). Occupation-group unemployment rates are simple means within the subsample. The DiD measure nets out the pre-period trend $(u_{2023}-u_{2022})$ from the post-period change $(u_{2024}-u_{2023})$, isolating the acceleration in unemployment relative to the pre-AI baseline. AI exposure is the group-mean Eloundou et al.\ (2024) GPT-4 beta score.
 \end{figure}
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.88\textwidth]{delta_unemp_2023-2025_noncol.pdf}
-\caption{Change in unemployment rate (2025 minus 2023) vs.\ AI exposure score, by major occupation group --- non-college subsample. Each point is one of the 22 BLS major occupation groups; the line is an OLS fit.}
+\includegraphics[width=0.88\textwidth]{delta_unemp_did_noncol.pdf}
+\caption{DiD unemployment vs.\ AI exposure, non-college subsample. Vertical axis: $(u_{2024}-u_{2023})-(u_{2023}-u_{2022})$ by major occupation group. Each point is one occupation group; line is an OLS fit.}
 \label{fig:delta_noncol}
 \end{center}
 \smallskip
-\noindent\footnotesize\textit{Notes:} Non-college subsample (educ $\leq$ 110). Occupation-group unemployment rates computed as simple means within the subsample. AI exposure is the group-mean Eloundou et al.\ (2024) GPT-4 beta score.
+\noindent\footnotesize\textit{Notes:} Non-college subsample (educ $\leq$ 110). Occupation-group unemployment rates are simple means within the subsample. The DiD measure nets out the pre-period trend from the post-period change. AI exposure is the group-mean Eloundou et al.\ (2024) GPT-4 beta score.
 \end{figure}
 
 \end{document}

@@ -1,0 +1,16 @@
+TODO 3-20:
+
+1. Update delta_unemp_2023-2025.pdf graph to a did measure
+so it shud be (2024-2023) - (2023 - 2022) - update caption of the table accordingly  --> the code is in IPMUS_CPS-ASEC_Analysis_2-19.do
+
+2. Do (1) but for the het versions as well: code in ASEC_Analysis_3-17(Het).do 
+
+3. Rearrange Empirical Strategy and Results sections in DMP_D3_3-17.tex in the following ways:
+    - get rid of the current heterogeneous emp strat section (which used outdated specs from  IPMUS_CPS-ASEC_Analysis_2-19.do). Update it with the approach used in ASEC_Analysis_3-17(Het).do 
+    - update the het (educ) Result section as well, with results from   ASEC_Analysis_3-17(Het).do  -> put the comb coef plots for unemployment and log wage on and interpret them
+
+4. Change wording: the Eloundou exposure score is from (0 - 1) --> so perhaps "for every 1 point increase in..." should be changed to "for every 0.1 increase in"
+ 
+5. Go Check for Eloundou's paper in Lit (gptsaregpts) --> maybe you need to update Data section as well 
+    - i.e. maybe you need to explain how Eloundou constructed the scores 
+    - come up with a reason why we chose beta to be used in our main specs --> a "mild" measure, between the most conservative (alpha) and most radical (gamma) predictions
