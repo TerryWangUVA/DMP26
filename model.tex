@@ -216,20 +216,64 @@ distribution; college workers' tasks are unaffected.
 \section{Derivation of the Pre-AI Task Price}
 \label{app:foc}
 
-Competitive firms minimize $\int_0^1 p(i)\,y(i)\,di$ subject to
-\eqref{eq:ces}.  The first-order condition for task $i$ is:
+\noindent\textbf{Step 1: Cost minimization problem.}
+Before AI, competitive firms choose task quantities $\{y(i)\}_{i\in[0,1]}$ to
+minimize total input cost subject to delivering output $\bar Y$:
 \[
-  p(i) = \mu \cdot \frac{\partial Y}{\partial y(i)}
-        = \mu \cdot Y^{1/\sigma} \cdot y(i)^{-1/\sigma},
+  \min_{\{y(i)\}} \int_0^1 p(i)\,y(i)\,di
+  \quad\text{subject to}\quad
+  \left[\int_0^1 y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}}
+  \geq \bar Y.
 \]
-where $\mu$ is the Lagrange multiplier on the output constraint.  In
-competitive equilibrium, $\mu = P_Y$ (the market value of one unit of output),
-giving:
+
+\medskip\noindent\textbf{Step 2: Lagrangian and first-order condition.}
+Let $\mu \geq 0$ be the multiplier on the output constraint.  The Lagrangian is
 \[
-  p_0(i) = P_Y \cdot \left(\frac{Y}{y_0(i)}\right)^{\!1/\sigma}.
+  \mathcal{L} = \int_0^1 p(i)\,y(i)\,di
+    - \mu\!\left(\left[\int_0^1
+      y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}}
+      - \bar Y\right).
 \]
-The standard CES demand function follows by inverting:
-$y_0(i) = Y\cdot(P_Y / p_0(i))^\sigma$. $\blacksquare$
+Differentiating with respect to $y(i)$ and setting equal to zero:
+\begin{equation}
+  p(i) = \mu\cdot\frac{\partial Y}{\partial y(i)}.
+  \label{eq:foc_general}
+\end{equation}
+
+\medskip\noindent\textbf{Step 3: Compute $\partial Y/\partial y(i)$.}
+Write $Y = Z^{\sigma/(\sigma-1)}$ where $Z \equiv \int_0^1
+y(j)^{(\sigma-1)/\sigma}\,dj$.  By the chain rule:
+\[
+  \frac{\partial Y}{\partial y(i)}
+  = \frac{\sigma}{\sigma-1}\,Z^{\frac{\sigma}{\sigma-1}-1}
+    \cdot \frac{\sigma-1}{\sigma}\,y(i)^{\frac{\sigma-1}{\sigma}-1}
+  = Z^{\frac{1}{\sigma-1}}\cdot y(i)^{-\frac{1}{\sigma}}.
+\]
+Since $Y = Z^{\sigma/(\sigma-1)}$, we have $Z = Y^{(\sigma-1)/\sigma}$, so
+$Z^{1/(\sigma-1)} = Y^{1/\sigma}$.  Substituting:
+\[
+  \frac{\partial Y}{\partial y(i)}
+  = Y^{1/\sigma}\cdot y(i)^{-1/\sigma}
+  = \left(\frac{Y}{y(i)}\right)^{\!1/\sigma}.
+\]
+
+\medskip\noindent\textbf{Step 4: Competitive equilibrium and the task price.}
+In a competitive output market, the value of one additional unit of output
+equals the output price $P_Y$, so the multiplier satisfies $\mu = P_Y$.
+Substituting into \eqref{eq:foc_general}:
+\begin{equation*}
+  p_0(i) = P_Y\cdot\left(\frac{Y}{y_0(i)}\right)^{\!1/\sigma}.
+\end{equation*}
+
+\medskip\noindent\textbf{Step 5: Task demand function.}
+Rearranging the task price expression:
+\[
+  \left(\frac{p_0(i)}{P_Y}\right)^{\!\sigma} = \frac{Y}{y_0(i)}
+  \implies
+  y_0(i) = Y\cdot\left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma}.
+\]
+Demand for task $i$ is decreasing in its own price and increasing in
+aggregate output $Y$ --- the standard CES demand system. $\blacksquare$
 
 \section{Existence and Comparative Static of the Cutoff}
 \label{app:cutoff}
