@@ -8,53 +8,49 @@ Constraint: Undergrad honors thesis — no GE solution. Use PE framework, be tra
 
 ---
 
-## New Direction: Worker-as-Bundle Framework (Sketch)
+## Current Framework: Worker-as-Bundle with Exogenous Output Price
 
-These are working thoughts, not yet formalized.
+### Core Structure
 
-### Core Departures from GRH
+1. **Output price $P_Y$ exogenous** — small open economy, price-taker in world market. No goods market clearing needed.
 
-1. **Output price exogenous** — small open economy assumption, keep from GRH. No goods market clearing needed.
+2. **Pre-AI task prices = $P_Y$** — by CES symmetry and competitive task markets, the zero-profit condition gives $p_0(i) = P_Y$ for all $i$ before AI arrives. The output price is both the composite good price and the uniform pre-AI task price. No separate human wage $w$ — workers are bundles, not homogeneous labor, so a single $w$ makes no sense.
 
-2. **Worker = bundle of tasks** — rather than atomistic task assignment (workers freely specialize), each worker $j$ carries a fixed bundle $\mathcal{B}_j \subset [0,1]$. This is the Autor-Thompson (2025) insight folded directly into the model structure.
+3. **Post-AI task prices** — AI introduces competition at cost $\tau e^{\alpha i}$. Competitive markets drive:
+   $$p(i) = \min(P_Y,\; \tau e^{\alpha i})$$
+   Cutoff: $\tau e^{\alpha I^*} = P_Y \implies I^* = \frac{1}{\alpha}\ln(P_Y/\tau)$. Fully determined by exogenous parameters — no endogenous wage to solve for.
 
-3. **Wage = value of bundle** — in equilibrium, worker $j$'s wage is the sum of the market prices of all tasks in their bundle:
-
+4. **Worker = bundle of tasks** — each worker $j$ has fixed bundle $\mathcal{B}_j \subseteq [0,1]$ (indivisible). Wage is the sum of task prices:
    $$w_j = \int_{\mathcal{B}_j} p(i)\, di$$
 
-   where $p(i)$ is the competitive market price of task $i$. If AI can perform task $i$ at cost $\tau t(i) < p(i)$, competition drives $p(i)$ down to $\tau t(i)$. So partial automation of the bundle directly compresses $w_j$.
+5. **Wage compression — unambiguous sign** — after AI shock ($\tau$ falls, $I^*$ rises):
+   $$\Delta w_j = \int_{\mathcal{B}_j \cap [0, I^*)} (\tau e^{\alpha i} - P_Y)\, di \leq 0$$
+   Every repriced task contributes a strictly negative term. No ambiguity, no productivity-vs-displacement trade-off for wages.
 
-4. **Partial replacement → wage compression** — if some tasks in $\mathcal{B}_j$ become AI-cheaper, their prices fall, and $w_j$ falls. The worker stays employed but at a lower wage. This is the core result the model formally derives.
+6. **Unemployment — not formally modeled** — extensive-margin consequence of wage compression. Any threshold mechanism is structurally identical ("wage below $\bar{w}$ → exit"). Empirics carry the unemployment result.
 
-5. **Unemployment — not formally modeled** — any threshold mechanism (reservation wage, employer break-even, institutional wage floor) is structurally identical: "wage falls below $\bar{w}$ → unemployment." Committing to one is an arbitrary labeling choice, not a substantive distinction. Instead, treat unemployment as the extensive-margin consequence of severe wage compression — workers facing sufficiently large $\Delta w_j$ exit employment. The specific threshold is left implicit; the empirical DiD evidence carries the unemployment result directly.
+### Why Dropping the Separate Human Wage Is Necessary
+
+In the GRH setup, "human performs task $i$ at unit cost $w$" makes sense because workers are atomistic and interchangeable across tasks. Once workers are bundles, there is no single $w$ — each worker's income depends on their specific bundle composition. The pre-AI task price $P_Y$ (derived from zero-profit + CES symmetry) replaces $w$ as the relevant benchmark. AI undercuts $P_Y$, not some separate human wage.
 
 ### Division of Labor: Theory vs. Empirics
 
-- **Theory does:** derive wage compression from AI repricing tasks in the bundle; show non-college workers face larger compression due to bundle composition
-- **Empirics do:** test both wage and unemployment outcomes via DiD; unemployment is a companion finding, not a theoretical prediction requiring formal derivation
-- **Bridge sentence in paper:** "Workers facing sufficiently severe wage compression may exit employment entirely; we treat the threshold as an empirical question and test the unemployment effect directly in Section~X."
-
-### Why This Is Cleaner
-
-- No fixed $w$ problem: wages are endogenous through task prices
-- No arbitrary threshold assumption for unemployment
-- Model stays focused on what it does well (wage channel); empirics carry the rest
-- No GE required: exogenous output price pins down the demand side; wage is just the integral of task prices
+- **Theory:** derives wage compression from AI repricing bundle tasks; shows non-college workers face larger compression (Proposition 1)
+- **Empirics:** tests both wages and unemployment via DiD; unemployment is a companion finding
+- **Bridge sentence:** "Workers facing sufficiently severe wage compression may exit employment; we treat this threshold as an empirical question and test the unemployment effect directly in Section~X."
 
 ### Education Heterogeneity
 
-Let $\mathcal{B}_{NC} = [0, \bar\imath]$ (non-college bundle) and $\mathcal{B}_C = [\bar\imath, 1]$ (college bundle).
+Assumption: $\mathcal{B}_{NC} \subseteq [0, \bar\imath]$, $\mathcal{B}_C \subseteq [\bar\imath, 1]$, with $\bar\imath > I^*$.
 
-- As $\tau$ falls, tasks with $\tau t(i) < p_0(i)$ get repriced — concentrated in $[0, \bar\imath]$
-- Non-college wage compression: $\Delta w_{NC} = \int_{\{i \in \mathcal{B}_{NC}:\, \tau t(i) < p_0(i)\}} [p_0(i) - \tau t(i)]\, di$
-- College bundle tasks are mostly above the AI repricing threshold → $\Delta w_C$ smaller
-- Same mechanism naturally predicts larger unemployment among non-college workers (without needing to specify the threshold)
+- Non-college: $\Delta w_{NC} = \int_{\mathcal{B}_{NC} \cap [0,I^*)} (\tau e^{\alpha i} - P_Y) di < 0$
+- College: $\Delta w_C = 0$ (bundle entirely above $I^*$)
+- $|\Delta w_{NC}| > |\Delta w_C|$ — proven formally in model.tex Appendix C
 
-### Open Questions for Formalization
+### Open Questions
 
-- How to define $p_0(i)$ (pre-AI task prices)? Probably normalize from CES zero-profit conditions.
-- What determines bundle composition? Taken as exogenous — empirical beta scores proxy it.
-- How to parameterize $t(i)$ for light calibration?
+- Bundle composition taken as exogenous — beta scores proxy it empirically. Is this defensible? Yes: occupation structure is slow-moving and determined by technology/organization, not worker choice.
+- Light calibration: parameterize $\alpha$ from the beta score distribution, shock $\tau$ to match timing of 2023 effects.
 
 ---
 
