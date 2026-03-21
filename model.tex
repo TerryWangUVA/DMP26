@@ -36,11 +36,9 @@
 
 Consider an economy in which production requires a continuum of tasks indexed
 $i \in [0,1]$, ordered by their susceptibility to AI automation: tasks at the
-low end are more easily performed by AI, while tasks at the high end require
-judgment, communication, and contextual reasoning that AI currently struggles
-to replicate.  This ordering maps naturally to the \citet{eloundou2024gpts}
-beta scores: a high beta score indicates that a large share of an occupation's
-tasks are susceptible to large language models, placing that occupation near
+low end are more easily performed by AI, while tasks at the high end require human efforts that AI currently struggles
+to replicate.  This ordering maps naturally to the \citet{eloundou2024gpts} exposure scores: a high exposure score indicates that a large share of an occupation's
+tasks could be susceptible to large language models, placing that occupation's task bundle near
 the low end of the $i$ spectrum.
 
 Final output $Y$ aggregates tasks via a constant elasticity of substitution
@@ -60,7 +58,7 @@ costs
   c^{\mathrm{AI}}(i) = \tau\cdot t(i),
   \label{eq:ai_cost}
 \end{equation}
-where $\tau > 0$ is the aggregate AI capability parameter---a lower $\tau$
+where $\tau > 0$ is the ``AI capability'' parameter: a lower $\tau$
 reflects a more capable and cost-efficient AI system---and $t(i)$ is the
 task-specific cost of automation, with $t'(i)>0$: harder tasks are more
 expensive to automate.  We parameterize
@@ -70,11 +68,9 @@ expensive to automate.  We parameterize
 \end{equation}
 so that automation costs rise smoothly and exponentially with task complexity.
 
-\begin{assumption}[Partial Equilibrium]
+\begin{assumption}[Exogenous Wage]
   The wage $w$ is determined outside the model.  The economy is small and
-  faces an infinitely elastic labor supply at wage $w$, following
-  \citet{grossman2008trading}.  We abstract from general equilibrium wage
-  determination.
+  faces an infinitely elastic labor supply at wage $w$
 \end{assumption}
 
 % -----------------------------------------------------------------------------
