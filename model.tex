@@ -34,250 +34,283 @@
 
 \subsection{Setup}
 
-Consider an economy in which production requires a continuum of tasks indexed
-$i \in [0,1]$, ordered by their susceptibility to AI automation: tasks at the
-low end are more easily performed by AI, while tasks at the high end require human efforts that AI currently struggles
-to replicate.  This ordering maps naturally to the \citet{eloundou2024gpts} exposure scores: a high exposure score indicates that a large share of an occupation's
-tasks could be susceptible to large language models, placing that occupation's task bundle near
-the low end of the $i$ spectrum.
+Consider a small open economy in which production requires a continuum of
+tasks indexed $i \in [0,1]$, ordered by their susceptibility to AI
+automation.  Tasks at the low end are easily performed by AI; tasks at the
+high end require human judgment, communication, and contextual reasoning that
+AI currently struggles to replicate.  This ordering maps directly to the
+\citet{eloundou2024gpts} exposure scores: a high exposure score indicates that
+a large fraction of an occupation's task bundle is susceptible to large
+language models, placing that bundle near the low end of the $i$ spectrum.
 
-Final output $Y$ aggregates tasks via a constant elasticity of substitution
-(CES) technology:
+Final output $Y$ is produced by assembling tasks via a CES technology:
 \begin{equation}
   Y = \left[\int_0^1 y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}},
   \qquad \sigma > 0,
   \label{eq:ces}
 \end{equation}
-where $y(i)$ is the quantity of task $i$ used in production and $\sigma$ is
-the elasticity of substitution across tasks.
+where $y(i)$ denotes the quantity of task $i$ and $\sigma$ is the elasticity
+of substitution across tasks.
 
-Each task can be performed either by a human worker or by AI.  Human labor
-performs any task at unit cost $w$ (the wage).  Performing task $i$ via AI
-costs
+Each task can be performed either by a human worker or by AI.  The AI cost of
+performing task $i$ is
 \begin{equation}
   c^{\mathrm{AI}}(i) = \tau\cdot t(i),
   \label{eq:ai_cost}
 \end{equation}
-where $\tau > 0$ is the ``AI capability'' parameter: a lower $\tau$
-reflects a more capable and cost-efficient AI system---and $t(i)$ is the
-task-specific cost of automation, with $t'(i)>0$: harder tasks are more
-expensive to automate.  We parameterize
+where $\tau > 0$ is an aggregate AI capability parameter---lower $\tau$
+reflects a more capable and cost-efficient system---and $t(i)$ captures
+task-specific automation difficulty, with $t'(i)>0$.  We parameterize
 \begin{equation}
   t(i) = e^{\alpha i}, \qquad \alpha > 0,
   \label{eq:cost_fn}
 \end{equation}
-so that automation costs rise smoothly and exponentially with task complexity.
+so that automation costs rise exponentially with task complexity.
 
-\begin{assumption}[Exogenous Wage]
-  The wage $w$ is determined outside the model.  The economy is small and
-  faces an infinitely elastic labor supply at wage $w$
+\begin{assumption}[Small Open Economy]
+  The economy is a price-taker in the world market for output $Y$.  The output
+  price $P_Y$ is exogenous.
 \end{assumption}
 
 % -----------------------------------------------------------------------------
-\subsection{Task Assignment and the Automation Cutoff}
+\subsection{From Exogenous Output Price to Equilibrium Task Prices}
+\label{sec:taskprices}
 % -----------------------------------------------------------------------------
 
-Since human labor and AI are perfect substitutes in the production of any
-given task, in equilibrium each task is performed by whichever technology is
-cheaper.  This yields a unique cutoff task $I^*$, defined by the indifference
-condition:
+With an exogenous output price $P_Y$, competitive firms take $P_Y$ as given
+and minimize the cost of assembling tasks.  Free entry drives profits to zero,
+linking $P_Y$ to the cost of producing $Y$:
 \begin{equation}
-  \tau\cdot t(I^*) = w.
-  \label{eq:indiff}
+  P_Y = \left[\int_0^1 p(i)^{1-\sigma}\,di\right]^{\!\frac{1}{1-\sigma}},
+  \label{eq:zeroprofit}
 \end{equation}
-Tasks $i \in [0,I^*)$ satisfy $\tau t(i) < w$ and are performed by AI; tasks
-$i \in [I^*,1]$ satisfy $\tau t(i) \geq w$ and are performed by human
-workers.  Using \eqref{eq:cost_fn}, the cutoff is given in closed form by
+where $p(i)$ is the competitive market price of task $i$.
+
+In a competitive task market, each task is supplied by the least-cost
+technology.  Let $w$ denote the unit cost of human labor (common across
+tasks).  The market price of task $i$ is therefore
 \begin{equation}
+  p(i) = \min\!\bigl(w,\;\tau t(i)\bigr).
+  \label{eq:taskprice}
+\end{equation}
+This yields a unique cutoff $I^*$ at which human labor and AI are equally
+costly:
+\begin{equation}
+  \tau\, e^{\alpha I^*} = w
+  \implies
   I^* = \frac{1}{\alpha}\ln\!\left(\frac{w}{\tau}\right).
   \label{eq:cutoff}
 \end{equation}
-The derivation is provided in Appendix~\ref{app:cutoff}.
+For $i < I^*$, AI is the cheaper technology and $p(i) = \tau e^{\alpha i}$;
+for $i \geq I^*$, human labor is cheaper and $p(i) = w$.
 
-A direct comparative static shows that AI improvement expands the set of
-automated tasks:
+Substituting \eqref{eq:taskprice} into the zero-profit condition
+\eqref{eq:zeroprofit} yields one equation in one unknown, $w$, given the
+exogenous parameters $(P_Y, \tau, \alpha, \sigma)$:
 \begin{equation}
-  \frac{\partial I^*}{\partial\tau} = -\frac{1}{\alpha\tau} < 0.
-  \label{eq:cs_tau}
+  P_Y = \left[
+    \int_0^{I^*(w)} \!\bigl(\tau e^{\alpha i}\bigr)^{1-\sigma}di
+    \;+\;
+    \bigl(1 - I^*(w)\bigr)\, w^{1-\sigma}
+  \right]^{\!\frac{1}{1-\sigma}}.
+  \label{eq:wagedet}
 \end{equation}
-A fall in $\tau$---such as the deployment of GPT-4-class systems in
-2023---raises $I^*$, pushing the automation frontier toward more complex
-tasks.
+This implicitly determines $w = w(P_Y,\tau)$: the human wage is
+\emph{endogenous}, pinned by the requirement that competitive firms break even
+at the world output price.  The key channel: $P_Y$ is held fixed by world
+markets, competitive task pricing drives $p(i)$ to its minimum, and $w$
+adjusts so that the CES price index equals $P_Y$.  A derivation and the
+comparative static $\partial w/\partial\tau$ are provided in
+Appendix~\ref{app:wage}.
 
 % -----------------------------------------------------------------------------
-\subsection{Displacement and Productivity Effects}
+\subsection{Workers as Task Bundles}
+\label{sec:bundles}
 % -----------------------------------------------------------------------------
 
-A rise in $I^*$ from $I^*_0$ to $I^*_1$ sets two opposing forces in motion,
-as identified by \citet{grossman2008trading}.
+Rather than assuming workers can freely specialize in any individual task, we
+follow the task-bundling insight of \citet{autor2025expertise}: each worker
+$j$ is endowed with a fixed bundle $\mathcal{B}_j \subseteq [0,1]$ of tasks
+that they perform as an indivisible unit.  Workers cannot selectively drop
+AI-exposed tasks from their bundle while retaining the rest.
+
+A worker's labor income equals the sum of competitive market prices of all
+tasks in their bundle:
+\begin{equation}
+  w_j = \int_{\mathcal{B}_j} p(i)\,di
+      = \int_{\mathcal{B}_j \cap [0,I^*)} \tau e^{\alpha i}\,di
+      \;+\;
+        \int_{\mathcal{B}_j \cap [I^*,1]} w\,di.
+  \label{eq:bundlewage}
+\end{equation}
+The economic interpretation is straightforward: because AI can perform tasks
+$i < I^*$ at cost $\tau t(i)$, competition caps the market price of those
+tasks at $\tau t(i)$, regardless of whether a human performs them.  Workers
+whose bundles overlap substantially with $[0,I^*)$ are therefore paid less
+for those tasks, compressing their total income.
+
+% -----------------------------------------------------------------------------
+\subsection{The AI Shock and Wage Compression}
+\label{sec:shock}
+% -----------------------------------------------------------------------------
+
+Consider a discrete fall in $\tau$ from $\tau_0$ to $\tau_1 < \tau_0$,
+representing the deployment of a significantly more capable AI system (e.g.\
+GPT-4-class models in 2023).  This shock affects worker income through two
+channels.
 
 \medskip
-\noindent\textbf{Displacement effect.}  Workers performing tasks in the range
-$[I^*_0, I^*_1]$ are directly displaced: their tasks are now cheaper to
-automate.  The employment share of human labor falls by $\Delta I^* = I^*_1 -
-I^*_0 > 0$.
+\noindent\textbf{Task repricing.}  The cutoff rises from
+$I^*_0 = \frac{1}{\alpha}\ln(w_0/\tau_0)$ to $I^*_1 > I^*_0$.  Tasks in
+$[I^*_0, I^*_1]$ transition from human-priced ($p = w_0$) to AI-priced
+($p = \tau_1 e^{\alpha i} < w_0$).  For any worker $j$ with
+$\mathcal{B}_j \cap [I^*_0, I^*_1] \neq \emptyset$, this directly reduces
+$w_j$.
 
 \medskip
-\noindent\textbf{Productivity effect.}  Automating low-$i$ tasks reduces the
-cost of producing composite output $Y$, lowering its price index $P_Y$.  If
-output demand is sufficiently elastic, lower $P_Y$ raises total demand for $Y$
-and shifts out labor demand for the remaining human tasks $[I^*,1]$, partially
-offsetting the displacement effect.
+\noindent\textbf{Human wage adjustment.}  The fall in $\tau$ also shifts the
+zero-profit locus \eqref{eq:wagedet}, changing the equilibrium $w$.  Whether
+$w$ rises or falls depends on the relative strength of the displacement effect
+(AI absorbs tasks, reducing demand for human labor) and the productivity
+effect (cheaper AI lowers $P_Y$'s cost basis, raising demand).  We treat the
+net direction as an empirical question; the evidence in
+Section~\ref{sec:results} indicates the displacement effect dominates,
+consistent with falling wages for high-exposure workers.
 
 \medskip
-The net effect on employment \emph{levels} is ambiguous in general and
-constitutes an empirical question.  Section~\ref{sec:results} provides
-evidence that the displacement effect dominates: higher AI exposure is
-associated with elevated unemployment and lower wages, particularly following
-the GPT-4 deployment shock of 2023.
+The total change in worker $j$'s income following the shock is:
+\begin{equation}
+  \Delta w_j
+  = \int_{\mathcal{B}_j \cap [I^*_0, I^*_1]}
+      \!\bigl(\tau_1 e^{\alpha i} - w_0\bigr)\,di
+  \;+\; \Delta w \cdot \bigl|\mathcal{B}_j \cap [I^*_1, 1]\bigr|,
+  \label{eq:deltaw}
+\end{equation}
+where $\Delta w = w_1 - w_0$.  The first term (task repricing) is
+unambiguously negative; the second term (human wage adjustment) has ambiguous
+sign.
 
 % -----------------------------------------------------------------------------
 \subsection{Education Heterogeneity}
 \label{sec:model_het}
 % -----------------------------------------------------------------------------
 
-To generate testable predictions about differential impacts across education
-groups, we introduce worker heterogeneity.  Consistent with the descriptive
-evidence in \citet{eloundou2024gpts} and \citet{webb2020impact}, non-college
-workers are disproportionately concentrated in tasks with high AI
-substitutability (low $i$), while college-educated workers perform tasks
-higher in the complexity spectrum.
+To generate testable predictions across education groups, we sort workers by
+their bundle composition.  Consistent with the descriptive evidence in
+\citet{eloundou2024gpts} and \citet{webb2020impact}, non-college workers hold
+bundles concentrated at the low end of the task spectrum---precisely the range
+most susceptible to AI repricing.
 
 \begin{assumption}[Education Sorting]
-  Non-college workers supply tasks $i \in [0,\bar\imath]$ and college workers
-  supply tasks $i \in [\bar\imath, 1]$, where $\bar\imath \in (I^*_0, 1)$ and
-  $I^*_0$ is the pre-shock cutoff.
+  Non-college workers hold bundles $\mathcal{B}_{NC} \subseteq [0,\bar\imath]$
+  and college workers hold bundles $\mathcal{B}_{C} \subseteq [\bar\imath, 1]$,
+  where $\bar\imath \in (I^*_0, 1)$.
 \end{assumption}
 
-This two-type structure, while stylized, captures the core empirical
-regularity.  It yields the following propositions, with proofs in
-Appendix~\ref{app:proofs}.
-
-\begin{proposition}[Differential Unemployment Effect]
-  \label{prop:unemp}
-  A fall in $\tau$ that raises $I^*$ into the interval $(I^*_0,\bar\imath)$
-  displaces non-college workers while leaving college workers unaffected.  For
-  any $\Delta\tau < 0$ such that $I^* < \bar\imath$, the displacement rate
-  among non-college workers strictly exceeds that of college workers.
-\end{proposition}
-
-\begin{proposition}[Differential Wage Effect]
+\begin{proposition}[Differential Wage Compression]
   \label{prop:wages}
-  Workers performing tasks in the neighborhood of $I^*$ face the strongest
-  downward wage pressure, as AI provides a close substitute at the task
-  margin.  Since non-college workers are concentrated near $I^*$ while college
-  workers are concentrated far from $I^*$, non-college wages experience larger
-  compression following a fall in $\tau$.
+  Under Assumption~2, following a fall in $\tau$ that raises $I^*$ into
+  $(I^*_0, \bar\imath)$, non-college workers experience strictly larger wage
+  compression than college workers:
+  \[
+    |\Delta w_{NC}| > |\Delta w_C|.
+  \]
 \end{proposition}
+
+\noindent The proof is in Appendix~\ref{app:proof_wage}.  The intuition is
+immediate from \eqref{eq:deltaw}: non-college bundles overlap substantially
+with $[I^*_0, I^*_1]$ (the repriced range), while college bundles in
+$[\bar\imath, 1]$ lie above this range and are unaffected by task repricing.
+College workers are only exposed through the aggregate wage adjustment
+$\Delta w$, which is a common term across all workers.
+
+\medskip
+\noindent\textbf{Unemployment.}  The model delivers a clean prediction about
+wage compression.  Unemployment is a natural extensive-margin consequence: a
+worker facing a sufficiently large $\Delta w_j$ may exit employment rather
+than supply labor at the compressed wage.  We do not specify the threshold
+mechanism---any such mechanism (wage floor, outside option, fixed cost of
+employment) yields the same qualitative prediction---and instead treat
+unemployment as an empirical question tested directly in
+Section~\ref{sec:results}.  Proposition~\ref{prop:wages} implies that, under
+any such mechanism, non-college workers are disproportionately likely to exit.
 
 \begin{remark}
-  Propositions~\ref{prop:unemp} and~\ref{prop:wages} are consistent with AI
-  capability in 2023--2025 being sufficient to automate many routine and
-  semi-routine tasks (displacing non-college workers), but not yet the most
-  complex professional tasks performed by college-educated workers.  The
-  empirical results in Section~\ref{sec:results} support this timing: the
-  interaction effects are statistically significant from 2023 onward and near
-  zero in earlier years.
+  The model's prediction that the AI shock's labor market effects are
+  concentrated post-2023 follows from the discrete nature of the $\tau$ shock.
+  The pre-trends (near-zero interaction effects in 2018--2022) are consistent
+  with no meaningful change in $\tau$ during that period, while the sharp rise
+  in effects from 2023 onward aligns with the deployment of GPT-4-class
+  systems.
 \end{remark}
-
-% -----------------------------------------------------------------------------
-\subsection{Task Bundling and Model Limitations}
-\label{sec:bundling}
-% -----------------------------------------------------------------------------
-
-The framework above assumes \emph{atomistic} task assignment: workers freely
-specialize in any subset of tasks from $[I^*,1]$ without constraint.  In
-practice, occupations bundle tasks together, and workers must perform the
-entire bundle rather than selecting individual tasks.  \citet{autor2025expertise}
-show that this matters for the direction of wage effects: automation of
-\emph{inexpert} tasks within a bundle raises the occupation's expertise
-requirement and increases wages, while automation of \emph{expert} tasks
-lowers the requirement and compresses wages.  Our model abstracts from this
-dimension---the beta-score exposure measure captures the \emph{share} of tasks
-exposed but not whether those tasks are the expert or inexpert ones within each
-occupation's bundle.  We acknowledge this as a limitation, and regard the
-expertise framework of \citeauthor{autor2025expertise} as a natural direction
-for further work.
 
 % =============================================================================
 %  APPENDIX
 % =============================================================================
 \appendix
 
-\section{Derivation of the Equilibrium Cutoff}
-\label{app:cutoff}
+\section{Wage Determination: Derivation and Comparative Static}
+\label{app:wage}
 
-Each task $i$ is performed by the lower-cost technology.  Human labor costs
-$w$ per unit of any task.  AI performs task $i$ at cost $c^{\mathrm{AI}}(i) =
-\tau e^{\alpha i}$.
+\noindent\textbf{Derivation.}  Substituting $p(i) = \min(w, \tau e^{\alpha i})$
+and $I^* = \frac{1}{\alpha}\ln(w/\tau)$ into the zero-profit condition
+\eqref{eq:zeroprofit}:
+\begin{align*}
+  P_Y^{1-\sigma}
+  &= \int_0^{I^*} \!\tau^{1-\sigma} e^{\alpha(1-\sigma)i}\,di
+   + \int_{I^*}^{1} w^{1-\sigma}\,di \\
+  &= \frac{\tau^{1-\sigma}}{\alpha(1-\sigma)}
+     \Bigl[e^{\alpha(1-\sigma)I^*} - 1\Bigr]
+   + (1-I^*)\,w^{1-\sigma}.
+\end{align*}
+Since $I^* = \frac{1}{\alpha}\ln(w/\tau)$, we have $e^{\alpha I^*} = w/\tau$,
+so $e^{\alpha(1-\sigma)I^*} = (w/\tau)^{1-\sigma}$.  Substituting:
+\[
+  P_Y^{1-\sigma}
+  = \frac{w^{1-\sigma} - \tau^{1-\sigma}}{\alpha(1-\sigma)}
+  + \left(1 - \frac{1}{\alpha}\ln\frac{w}{\tau}\right)w^{1-\sigma}.
+\]
+This is one equation in $w$ given $(P_Y, \tau, \alpha, \sigma)$, which
+implicitly defines $w = w(P_Y, \tau)$.
 
 \medskip
-AI is cheaper whenever $\tau e^{\alpha i} < w$, i.e.,
-\[
-  e^{\alpha i} < \frac{w}{\tau}
-  \implies
-  i < \frac{1}{\alpha}\ln\!\left(\frac{w}{\tau}\right).
-\]
-Human labor is cheaper for $i > \frac{1}{\alpha}\ln(w/\tau)$.  The cutoff
-task satisfies both conditions with equality:
-\[
-  I^* = \frac{1}{\alpha}\ln\!\left(\frac{w}{\tau}\right).
-\]
-For $I^* \in (0,1)$ we require $w/e^{\alpha} < \tau < w$, which we assume
-holds at the pre-shock parameter values.
+\noindent\textbf{Comparative static.}  Totally differentiating
+\eqref{eq:wagedet} with respect to $\tau$ (holding $P_Y$ fixed) yields
+$\partial w/\partial\tau$, whose sign depends on $\sigma$.  For $\sigma > 1$
+(tasks are substitutes), a fall in $\tau$ raises demand for human tasks and
+$\partial w/\partial\tau < 0$ (wages rise with AI improvement).  For
+$\sigma < 1$ (tasks are complements), $\partial w/\partial\tau > 0$ (wages
+fall).  The empirical evidence in Section~\ref{sec:results} is consistent with
+the $\sigma < 1$ case, or with the displacement effect dominating at the
+margins studied.
 
-\medskip\noindent\textbf{Comparative static.}  Differentiating with respect to
-$\tau$:
+\section{Proof of Proposition~\ref{prop:wages}}
+\label{app:proof_wage}
+
+Under Assumption~2, $\mathcal{B}_{NC} \subseteq [0,\bar\imath]$ and
+$\mathcal{B}_{C} \subseteq [\bar\imath,1]$.  Since $I^*_1 < \bar\imath$
+(the shock is moderate), the repriced range $[I^*_0, I^*_1]$ lies entirely
+within the non-college task range.
+
+From \eqref{eq:deltaw}, the task-repricing component of $\Delta w_j$ is:
 \[
-  \frac{\partial I^*}{\partial\tau}
-  = \frac{1}{\alpha}\cdot\frac{\partial}{\partial\tau}\bigl[\ln w - \ln\tau\bigr]
-  = -\frac{1}{\alpha\tau} < 0.
+  \Delta w_j^{\mathrm{reprice}}
+  = \int_{\mathcal{B}_j \cap [I^*_0,\,I^*_1]}
+    \bigl(\tau_1 e^{\alpha i} - w_0\bigr)\,di.
 \]
-A fall in $\tau$ raises $I^*$: more tasks are automated as AI improves.
+Since $\tau_1 e^{\alpha i} < w_0$ for all $i \in [I^*_0, I^*_1]$, each
+integrand is strictly negative.
+
+For non-college workers: $\mathcal{B}_{NC} \cap [I^*_0, I^*_1] \neq
+\emptyset$, so $\Delta w_{NC}^{\mathrm{reprice}} < 0$.
+
+For college workers: $\mathcal{B}_C \subseteq [\bar\imath, 1]$ and
+$I^*_1 < \bar\imath$, so $\mathcal{B}_C \cap [I^*_0, I^*_1] = \emptyset$
+and $\Delta w_C^{\mathrm{reprice}} = 0$.
+
+Both groups share the same aggregate wage adjustment $\Delta w$ (second term
+in \eqref{eq:deltaw}).  Therefore $|\Delta w_{NC}| > |\Delta w_C|$.
 $\blacksquare$
-
-\section{Proofs of Propositions}
-\label{app:proofs}
-
-\subsection*{Proof of Proposition~\ref{prop:unemp}}
-
-Under Assumption 2, non-college workers perform tasks in $[I^*_0,\bar\imath]$
-(tasks $[0,I^*_0]$ are already automated pre-shock).  After a fall in $\tau$,
-the cutoff rises to $I^*_1 > I^*_0$.
-
-Workers performing tasks in $[I^*_0, I^*_1]$ are displaced.  Provided
-$I^*_1 \leq \bar\imath$ (the shock is moderate and does not reach the college
-task range), all displaced workers are non-college.  The non-college
-displacement rate is
-\[
-  d_{\mathrm{NC}} = \frac{I^*_1 - I^*_0}{\bar\imath - I^*_0} > 0,
-\]
-while the college displacement rate is $d_C = 0$.  Hence
-$d_{\mathrm{NC}} > d_C$ for any $\Delta\tau < 0$.  $\blacksquare$
-
-\subsection*{Proof of Proposition~\ref{prop:wages}}
-
-In the neighborhood of $I^*$, AI provides a close substitute for human labor.
-Competitive pressure from AI acts as an implicit price ceiling on the wages of
-tasks near $I^*$: employers can replace workers in those tasks at cost
-$\tau t(i) \approx w$ for $i$ just above $I^*$.  As $I^*$ rises, tasks
-previously interior to the human task range now face direct AI competition,
-compressing wages for workers in those tasks.
-
-Under Assumption 2, non-college workers are concentrated in $[I^*_0,
-\bar\imath]$---the lower end of the human task spectrum, immediately above
-$I^*$.  College workers in $[\bar\imath, 1]$ are further from $I^*$ and
-therefore face weaker competitive pressure.  It follows that non-college
-workers experience (weakly) greater wage compression following a fall in
-$\tau$.
-
-\medskip
-\noindent\textit{Note.}  Because wages are exogenous in the partial
-equilibrium framework (Assumption 1), this proposition is best understood as a
-directional prediction: given any positive relationship between AI competition
-at the task margin and downward wage pressure, non-college workers bear a
-disproportionate share.  The empirical specification in
-Section~\ref{sec:empirical} tests this prediction directly.  $\blacksquare$
 
 % =============================================================================
 \bibliographystyle{plainnat}
