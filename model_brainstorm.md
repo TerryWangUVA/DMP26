@@ -14,18 +14,22 @@ Constraint: Undergrad honors thesis — no GE solution. Use PE framework, be tra
 
 1. **Output price $P_Y$ exogenous** — small open economy, price-taker in world market. No goods market clearing needed.
 
-2. **Pre-AI task prices = $P_Y$** — a units normalization, not a derived result. We define one unit of task $i$ as the quantity that costs $P_Y$ in the pre-AI world, so $p_0(i) = P_Y$ for all $i$. This cannot be derived from CES symmetry alone: with heterogeneous bundles (non-college supplying $[0,\bar\imath]$, college supplying $[\bar\imath,1]$), tasks in different ranges are supplied by different groups and could be differently scarce pre-AI. The normalization gives a clean benchmark to measure the AI shock against. No separate human wage $w$ — workers are bundles, not homogeneous labor, so a single $w$ makes no sense.
+2. **Pre-AI task prices from CES FOC** — from competitive cost minimization against the CES constraint, the pre-AI price of task $i$ is:
+   $$p_0(i) = P_Y \cdot \left(\frac{Y}{y_0(i)}\right)^{1/\sigma}$$
+   Tasks used in smaller quantities (scarcer) command higher prices. With heterogeneous bundles (non-college supplying $[0,\bar\imath]$, college supplying $[\bar\imath,1]$), complex tasks are scarcer → $p_0(i)$ increasing in $i$ → consistent with the college wage premium. **No separate human wage $w$** — workers are bundles, not homogeneous labor, so a single $w$ makes no sense.
+
+   ~~Old mistake~~: previously claimed $p_0(i) = P_Y$ follows from CES symmetry + zero-profit. This was wrong: it requires additionally $y_0(i) = Y$ for all $i$ (equal task demand), which fails with heterogeneous bundles. The correct statement is $p_0(i) = P_Y \cdot (Y/y_0(i))^{1/\sigma}$.
 
 3. **Post-AI task prices** — AI introduces competition at cost $\tau e^{\alpha i}$. Competitive markets drive:
-   $$p(i) = \min(P_Y,\; \tau e^{\alpha i})$$
-   Cutoff: $\tau e^{\alpha I^*} = P_Y \implies I^* = \frac{1}{\alpha}\ln(P_Y/\tau)$. Fully determined by exogenous parameters — no endogenous wage to solve for.
+   $$p(i) = \min(p_0(i),\; \tau e^{\alpha i})$$
+   Cutoff $I^*$ defined by $\tau e^{\alpha I^*} = p_0(I^*)$ — exists and is unique under mild conditions (boundary values + $\phi'(I^*) > 0$). Comparative static: $\partial I^*/\partial\tau < 0$ iff $p_0'(I^*) < \alpha \cdot p_0(I^*)$ (AI costs rise faster than task prices at the cutoff).
 
 4. **Worker = bundle of tasks** — each worker $j$ has fixed bundle $\mathcal{B}_j \subseteq [0,1]$ (indivisible). Wage is the sum of task prices:
    $$w_j = \int_{\mathcal{B}_j} p(i)\, di$$
 
 5. **Wage compression — unambiguous sign** — after AI shock ($\tau$ falls, $I^*$ rises):
-   $$\Delta w_j = \int_{\mathcal{B}_j \cap [0, I^*)} (\tau e^{\alpha i} - P_Y)\, di \leq 0$$
-   Every repriced task contributes a strictly negative term. No ambiguity, no productivity-vs-displacement trade-off for wages.
+   $$\Delta w_j = \int_{\mathcal{B}_j \cap [0, I^*)} (\tau e^{\alpha i} - p_0(i))\, di \leq 0$$
+   Every repriced task contributes a strictly negative term — by definition of $I^*$, $\tau e^{\alpha i} < p_0(i)$ for all $i < I^*$. No ambiguity, no productivity-vs-displacement trade-off for wages.
 
 6. **Unemployment — not formally modeled** — extensive-margin consequence of wage compression. Any threshold mechanism is structurally identical ("wage below $\bar{w}$ → exit"). Empirics carry the unemployment result.
 
@@ -43,7 +47,7 @@ In the GRH setup, "human performs task $i$ at unit cost $w$" makes sense because
 
 Assumption: $\mathcal{B}_{NC} \subseteq [0, \bar\imath]$, $\mathcal{B}_C \subseteq [\bar\imath, 1]$, with $\bar\imath > I^*$.
 
-- Non-college: $\Delta w_{NC} = \int_{\mathcal{B}_{NC} \cap [0,I^*)} (\tau e^{\alpha i} - P_Y) di < 0$
+- Non-college: $\Delta w_{NC} = \int_{\mathcal{B}_{NC} \cap [0,I^*)} (\tau e^{\alpha i} - p_0(i)) di < 0$
 - College: $\Delta w_C = 0$ (bundle entirely above $I^*$)
 - $|\Delta w_{NC}| > |\Delta w_C|$ — proven formally in model.tex Appendix C
 
