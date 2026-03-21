@@ -8,158 +8,126 @@ Constraint: Undergrad honors thesis — no GE solution. Use PE framework, be tra
 
 ---
 
-## Current Framework: Worker-as-Bundle with Exogenous Output Price
+## Abandoned Direction 1: Worker-as-Bundle with Individual Task CES ❌
 
-### Core Structure
+**Why abandoned:** Fundamental internal inconsistency.
 
-1. **Output price $P_Y$ exogenous** — small open economy, price-taker in world market. No goods market clearing needed.
+- CES over individual tasks $i$ assumes firms can freely substitute between $y(i)$ and $y(j)$ — tasks are separable in production
+- Bundle assumption says tasks within a worker's bundle are indivisible complements — you hire the whole bundle or nothing
 
-2. **Pre-AI task prices from CES FOC** — from competitive cost minimization against the CES constraint, the pre-AI price of task $i$ is:
-   $$p_0(i) = P_Y \cdot \left(\frac{Y}{y_0(i)}\right)^{1/\sigma}$$
-   Tasks used in smaller quantities (scarcer) command higher prices. With heterogeneous bundles (non-college supplying $[0,\bar\imath]$, college supplying $[\bar\imath,1]$), complex tasks are scarcer → $p_0(i)$ increasing in $i$ → consistent with the college wage premium. **No separate human wage $w$** — workers are bundles, not homogeneous labor, so a single $w$ makes no sense.
-
-   ~~Old mistake~~: previously claimed $p_0(i) = P_Y$ follows from CES symmetry + zero-profit. This was wrong: it requires additionally $y_0(i) = Y$ for all $i$ (equal task demand), which fails with heterogeneous bundles. The correct statement is $p_0(i) = P_Y \cdot (Y/y_0(i))^{1/\sigma}$.
-
-3. **Post-AI task prices** — AI introduces competition at cost $\tau e^{\alpha i}$. Competitive markets drive:
-   $$p(i) = \min(p_0(i),\; \tau e^{\alpha i})$$
-   Cutoff $I^*$ defined by $\tau e^{\alpha I^*} = p_0(I^*)$ — exists and is unique under mild conditions (boundary values + $\phi'(I^*) > 0$). Comparative static: $\partial I^*/\partial\tau < 0$ iff $p_0'(I^*) < \alpha \cdot p_0(I^*)$ (AI costs rise faster than task prices at the cutoff).
-
-4. **Worker = bundle of tasks** — each worker $j$ has fixed bundle $\mathcal{B}_j \subseteq [0,1]$ (indivisible). Wage is the sum of task prices:
-   $$w_j = \int_{\mathcal{B}_j} p(i)\, di$$
-
-5. **Wage compression — unambiguous sign** — after AI shock ($\tau$ falls, $I^*$ rises):
-   $$\Delta w_j = \int_{\mathcal{B}_j \cap [0, I^*)} (\tau e^{\alpha i} - p_0(i))\, di \leq 0$$
-   Every repriced task contributes a strictly negative term — by definition of $I^*$, $\tau e^{\alpha i} < p_0(i)$ for all $i < I^*$. No ambiguity, no productivity-vs-displacement trade-off for wages.
-
-6. **Unemployment — not formally modeled** — extensive-margin consequence of wage compression. Any threshold mechanism is structurally identical ("wage below $\bar{w}$ → exit"). Empirics carry the unemployment result.
-
-### Why Dropping the Separate Human Wage Is Necessary
-
-In the GRH setup, "human performs task $i$ at unit cost $w$" makes sense because workers are atomistic and interchangeable across tasks. Once workers are bundles, there is no single $w$ — each worker's income depends on their specific bundle composition. The pre-AI task price $P_Y$ (derived from zero-profit + CES symmetry) replaces $w$ as the relevant benchmark. AI undercuts $P_Y$, not some separate human wage.
-
-### Division of Labor: Theory vs. Empirics
-
-- **Theory:** derives wage compression from AI repricing bundle tasks; shows non-college workers face larger compression (Proposition 1)
-- **Empirics:** tests both wages and unemployment via DiD; unemployment is a companion finding
-- **Bridge sentence:** "Workers facing sufficiently severe wage compression may exit employment; we treat this threshold as an empirical question and test the unemployment effect directly in Section~X."
-
-### Education Heterogeneity
-
-Assumption: $\mathcal{B}_{NC} \subseteq [0, \bar\imath]$, $\mathcal{B}_C \subseteq [\bar\imath, 1]$, with $\bar\imath > I^*$.
-
-- Non-college: $\Delta w_{NC} = \int_{\mathcal{B}_{NC} \cap [0,I^*)} (\tau e^{\alpha i} - p_0(i)) di < 0$
-- College: $\Delta w_C = 0$ (bundle entirely above $I^*$)
-- $|\Delta w_{NC}| > |\Delta w_C|$ — proven formally in model.tex Appendix C
-
-### Open Questions
-
-- Bundle composition taken as exogenous — beta scores proxy it empirically. Is this defensible? Yes: occupation structure is slow-moving and determined by technology/organization, not worker choice.
-- Light calibration: parameterize $\alpha$ from the beta score distribution, shock $\tau$ to match timing of 2023 effects.
+These cannot both hold. The CES FOC gives $p_0(i) = P_Y \cdot (Y/y_0(i))^{1/\sigma}$ — but this is a demand-side condition that assumes firms vary $y(i)$ independently. With bundling, $y(i)$ for different $i$ move together (tied to worker hiring decisions), so the FOC doesn't apply to individual tasks.
 
 ---
 
-## Chosen Strategy (GRH-Based, Current model.tex)
+## Abandoned Direction 2: Two-Level Nested CES ❌
 
-**Base model:** Grossman & Rossi-Hansberg (2008), adapted from offshoring to AI.
-**Calibrate lightly** — parameterize task cost function, show cutoff shift numerically if helpful.
-**Explicit PE assumption** — take wages as exogenous, solve only for task cutoffs and employment shares.
-**Reality check** — one paragraph noting that in reality jobs are bundles of tasks, so Autor & Thompson (2025) likely captures real-world dynamics better; acknowledge as limitation/extension.
+**Why abandoned:** Dropped tasks from the production function entirely, losing the direct link between beta scores and model mechanics. Overly complex for an undergrad thesis without adding clarity.
+
+Production was: outer CES over $Q_{NC}$, $Q_C$; inner CES substituting $L_{NC}$ (or $L_C$) with AI services $M$; $\theta_{NC} > \theta_C$ calibrated from mean beta scores. Internally consistent but tasks disappear from the formal model.
 
 ---
 
-## GRH (2008) Setup, Adapted to AI
+## Final Direction: GRH + Full Specialization ✓
 
-### Tasks and Production
+Keeps the continuum of tasks and the GRH cutoff mechanism. Resolves the bundling inconsistency by assumption: workers do not hold bundles — each worker fully specializes in exactly one task.
 
-Tasks indexed $i \in [0,1]$, ordered by **AI substitutability** — low $i$ means easier for AI to perform.
-The empirical beta score is the natural counterpart: high-beta occupations are concentrated at low $i$.
+### Worker Types
 
-Final output aggregates tasks via CES:
+Workers are indexed by ability type $i^* \in [0,1]$. A worker of type $i^*$:
+- Is capable of performing any task $i \leq i^*$
+- Under competitive assignment, **fully specializes** in task $i^*$ — the hardest task they can perform, where they have comparative advantage
 
-$$Y = \left[\int_0^1 y(i)^{\frac{\sigma-1}{\sigma}} di\right]^{\frac{\sigma}{\sigma-1}}$$
+This is a Roy-model / Ricardian comparative advantage assignment. No bundles, no indivisibility problem. The CES operates over tasks, each supplied by a single worker type — internally consistent.
 
-Each task requires one unit of labor input, unless automated by AI.
+### Production
+
+Tasks indexed $i \in [0,1]$, ordered by AI substitutability — low $i$ is easier for AI.
+
+$$Y = \left[\int_0^1 y(i)^{\frac{\sigma-1}{\sigma}} di\right]^{\frac{\sigma}{\sigma-1}}, \qquad \sigma > 0$$
+
+Full specialization means the supply of task $i$ equals the mass of workers of type $i$: $y_0(i) = f(i)$ where $f$ is the density of worker types. Scarcer complex tasks (low $f(i)$ at high $i$) command higher prices — consistent with the college wage premium.
 
 ### AI Cost Function
 
-Performing task $i$ via AI costs $\tau \cdot t(i)$ per unit, where:
-- $\tau > 0$ is the aggregate AI capability parameter — falls as AI improves (GPT-4 shock = $\tau$ drops)
-- $t(i)$ is task-specific cost: $t'(i) > 0$ — higher-indexed tasks are harder to automate
+$$c^{AI}(i) = \tau \cdot t(i), \qquad t(i) = e^{\alpha i}, \quad \alpha > 0$$
 
-Simple parametric choice for calibration: $t(i) = e^{\alpha i}$, $\alpha > 0$.
+$\tau > 0$ falls as AI improves. GPT-4 deployment ≈ discrete fall in $\tau$.
 
-Human labor cost of task $i$: $w$ (wage, taken as exogenous in PE).
+### Pre-AI Task Prices
 
-### Equilibrium Cutoff (PE)
+CES FOC (with output price $P_Y$ exogenous — small open economy):
 
-Task $i$ is automated iff AI is cheaper than human labor:
+$$p_0(i) = P_Y \cdot \left(\frac{Y}{y_0(i)}\right)^{1/\sigma}$$
 
-$$\tau \cdot t(I^*) = w \implies I^* = \frac{1}{\alpha}\ln\left(\frac{w}{\tau}\right)$$
+Assumption: $p_0(i)$ is strictly increasing in $i$ (complex tasks are scarcer, command higher prices). Consistent with college wage premium.
 
-- Tasks $i \in [0, I^*]$: done by AI
-- Tasks $i \in [I^*, 1]$: done by human workers
+### Automation Cutoff
 
-As AI improves ($\tau \downarrow$), $I^*$ rises — more tasks get automated.
+Post-AI, competitive task price:
+
+$$p(i) = \min\!\left(p_0(i),\; \tau e^{\alpha i}\right)$$
+
+Unique cutoff $I^*$ where $\tau e^{\alpha I^*} = p_0(I^*)$. Tasks $i < I^*$ automated; tasks $i \geq I^*$ done by humans. As $\tau \downarrow$, $I^*$ rises.
+
+### Wages
+
+Worker of type $i^*$ earns the competitive price of their task:
+
+$$w(i^*) = p(i^*)$$
+
+Wage change following AI shock:
+
+$$\Delta w(i^*) = \begin{cases} \tau e^{\alpha i^*} - p_0(i^*) < 0 & \text{if } i^* < I^* \\ 0 & \text{if } i^* \geq I^* \end{cases}$$
+
+For $i^* < I^*$: wage is compressed to the AI's cost. If compressed wage falls below reservation wage, worker exits employment.
+
+For $i^* \geq I^*$: wage unchanged in PE (task price unaffected). The productivity effect — AI cheapening output raises $Y$, potentially shifting up wages for retained workers — is a GE channel we abstract from.
 
 ### Two Effects (following GRH)
 
-**Displacement effect:** The rise in $I^*$ directly reduces human labor demand — workers who were doing tasks $[0, I^*]$ are displaced.
+**Displacement effect:** $I^*$ rises → workers in $[0, I^*]$ face wage compression; some exit.
 
-**Productivity effect:** Automating low-$i$ tasks lowers the cost of composite output $Y$, raising real demand and shifting out labor demand for remaining tasks $[I^*, 1]$.
+**Productivity effect:** Automating low-$i$ tasks cheapens $Y$, raising real demand for remaining tasks. Wages for $i \geq I^*$ may rise. This is the GE channel — not modeled, acknowledged as a caveat.
 
-Net employment effect is ambiguous in PE — an empirical question. Your DiD results suggest displacement dominates for unemployment. Productivity effects may partially offset wage compression.
+Net employment effect is ambiguous. DiD results suggest displacement dominates.
 
----
+### Education Heterogeneity
 
-## Education Heterogeneity
+**Assumption (Education Sorting):** Non-college workers have types $i^* \in [0, \bar\imath]$ and college workers have types $i^* \in [\bar\imath, 1]$, with $\bar\imath > I^*$.
 
-Non-college workers are disproportionately concentrated in low-$i$ tasks. Tractable approximation:
+**Proposition 1 (Differential Wage Compression):** Under education sorting, workers experiencing wage compression ($i^* < I^*$) are exclusively non-college workers. College workers ($i^* \geq \bar\imath > I^*$) face no wage compression.
 
-- Non-college workers supply tasks $i \in [0, \bar{i}_{NC}]$
-- College workers supply tasks $i \in [\bar{i}_{NC}, 1]$
+**Proposition 2 (Differential Unemployment):** Workers exiting employment (compressed wage below reservation wage) are exclusively non-college workers.
 
-(In reality a continuous distribution — but the two-type cutoff gives clean propositions.)
-
-**Proposition 1 (Unemployment):** A fall in $\tau$ raises $I^*$. Non-college workers face larger displacement when $I^*$ rises into $[0, \bar{i}_{NC}]$, while college workers are initially shielded.
-
-**Proposition 2 (Wages):** Workers in tasks adjacent to $I^*$ face the strongest downward wage pressure at the margin. Non-college workers are closer to $I^*$ → larger wage compression.
-
-Both propositions match your empirical findings: non-college unemployment and wage effects are larger and more significant than college effects.
+Both propositions match empirical findings: non-college unemployment and wage effects are larger and more significant than college effects.
 
 ---
 
-## Task Bundling Caveat (Autor & Thompson 2025)
+## Comparison to GRH (2008)
 
-The GRH framework assumes **atomistic task assignment** — workers can specialize in any subset of tasks. In reality, occupations bundle tasks together; workers either perform the whole bundle or none of it.
+GRH had an exogenous uniform wage $w$ for all tasks — workers were fungible across tasks. The full-specialization extension gives each task its own wage $w(i^*) = p(i^*)$ pinned by the CES FOC. This is more realistic and directly connects to the college wage premium.
 
-Autor & Thompson (2025, NBER w33941) show this matters: whether AI automates the *expert* or *inexpert* tasks within a bundle determines the direction of the wage effect — the opposite of what a simple cutoff model predicts in some cases.
-
-**Suggested language for the thesis:**
-> "We follow Grossman and Rossi-Hansberg (2008) in assuming atomistic task assignment, which keeps the model tractable. In practice, jobs are bundles of tasks (Autor and Thompson 2025), and the wage effects of automation depend on whether AI displaces the expert or inexpert tasks within each bundle. We abstract from this dimension and treat the net effect as an empirical question."
+The cutoff mechanism and comparative statics are identical to GRH.
 
 ---
 
 ## Light Calibration
 
-For an undergrad thesis, calibration can be a numerical illustration:
-
 1. Set $\sigma = 1.5$ (consistent with task-model literature)
-2. Set $\alpha$ to match beta score distribution — e.g., fit $t(i) = e^{\alpha i}$ so the median task has $I^* \approx 0.5$ pre-2023
-3. Shock: $\tau$ drops by some percentage in 2023 to represent GPT-4 deployment
-4. Compute implied $\Delta I^*$ and change in human labor's employment share
-5. Compare to your regression coefficients as a plausibility check
-
-No structural estimation needed — just "the model implies a cutoff shift of X, which is consistent with our DiD estimates of Y."
+2. Set $\alpha$ to match beta score distribution — fit $t(i) = e^{\alpha i}$ so median task has $I^* \approx 0.5$ pre-2023
+3. Shock: $\tau$ drops by some % in 2023 to represent GPT-4 deployment
+4. Compute implied $\Delta I^*$ and change in employment share of non-college workers
+5. Compare to DiD regression coefficients as a plausibility check
 
 ---
 
 ## Theory Section Outline (~2 pages)
 
-1. **Setup** — tasks, CES aggregation, AI cost function (0.5p)
-2. **Equilibrium cutoff** — derive $I^*$, comparative static in $\tau$ (0.5p)
-3. **Two effects** — displacement vs. productivity, sign ambiguity (0.25p)
-4. **Education heterogeneity** — Propositions 1 and 2 (0.5p)
-5. **Task bundling caveat** — one paragraph, cite Autor-Thompson (0.25p)
+1. **Setup** — tasks, worker types, full specialization, CES aggregation, AI cost function (0.5p)
+2. **Pre-AI equilibrium** — task prices from FOC, wages = task prices, college premium (0.25p)
+3. **AI shock and cutoff** — derive $I^*$, comparative static in $\tau$ (0.5p)
+4. **Wage compression** — $\Delta w(i^*)$ formula, displacement vs. productivity effects (0.25p)
+5. **Education heterogeneity** — Propositions 1 and 2 (0.5p)
 
 ---
 
@@ -167,7 +135,7 @@ No structural estimation needed — just "the model implies a cutoff shift of X,
 
 - **Grossman & Rossi-Hansberg (2008, AER)** — base PE model; offshoring as task trade
 - **Ottaviano, Peri & Wright (2013, AER)** — PE extension with multiple worker types and cutoffs
-- **Autor & Thompson (2025, NBER w33941)** — task bundling and expertise; the PE caveat
+- **Autor & Thompson (2025, NBER w33941)** — task bundling and expertise; motivation for why full specialization is an abstraction
 - **Acemoglu & Restrepo (2018, 2019)** — task model with displacement/reinstatement; requires GE (cited for context, not used formally)
 - **Eloundou et al. (2024)** — beta scores as empirical counterpart of $t(i)^{-1}$
 
@@ -178,3 +146,4 @@ No structural estimation needed — just "the model implies a cutoff shift of X,
 - [ ] Two-type education cutoff or continuous skill distribution?
 - [ ] Calibrate $\alpha$ and $\tau$-shock numerically or just qualitative propositions?
 - [ ] Place theory section before empirics (recommended) or in discussion?
+- [ ] Note full specialization as simplification vs. bundle reality (one paragraph, cite Autor-Thompson)?

@@ -64,8 +64,22 @@ to automate.
   $P_Y$ is exogenous and fixed.
 \end{assumption}
 
+\begin{assumption}[Full Specialization]
+  Workers are indexed by ability type $i^* \in [0,1]$.  A worker of type
+  $i^*$ is capable of performing any task $i \leq i^*$ but fully specializes
+  in task $i^*$ --- the hardest task they can perform, at which they hold
+  comparative advantage.  Each task $i$ is therefore supplied exclusively by
+  workers of type $i^*=i$.
+\end{assumption}
+
+\noindent Full specialization is the natural competitive assignment: workers
+sort to the task at which their relative productivity is highest, analogous
+to comparative advantage in trade models.  It eliminates the need to treat
+workers as indivisible bundles of tasks while preserving the key
+heterogeneity --- workers differ in their susceptibility to AI automation.
+
 % -----------------------------------------------------------------------------
-\subsection{Pre-AI Task Prices}
+\subsection{Pre-AI Task Prices and Wages}
 \label{sec:taskprices}
 % -----------------------------------------------------------------------------
 
@@ -77,21 +91,26 @@ first-order condition for task $i$ yields the equilibrium task price
   p_0(i) = P_Y \cdot \left(\frac{Y}{y_0(i)}\right)^{\!1/\sigma},
   \label{eq:taskprice_preai}
 \end{equation}
-where $y_0(i)$ is the pre-AI equilibrium quantity of task $i$.  In
-equilibrium, $y_0(i)$ equals the supply of task $i$, which is determined by
-the measure of workers whose bundles contain $i$.  Substituting market
-clearing into \eqref{eq:taskprice_preai}: tasks supplied by fewer workers
-have lower $y_0(i)$, and therefore command higher prices.
+where $y_0(i)$ is the pre-AI equilibrium quantity of task $i$.  Under full
+specialization, $y_0(i) = f(i)$, where $f$ is the density of worker types:
+task supply equals the mass of workers specializing in $i$.
 
 \begin{assumption}[Increasing Pre-AI Task Prices]
-  The pre-AI task price $p_0(i)$ is strictly increasing in $i$: more complex
-  tasks are scarcer (fewer workers supply them) and are priced higher.
+  The pre-AI task price $p_0(i)$ is strictly increasing in $i$: complex tasks
+  are supplied by fewer workers and command higher prices.
 \end{assumption}
 
 \noindent This assumption is consistent with the empirical college wage
 premium: tasks in the upper range of $i$ --- disproportionately supplied by
 college workers --- carry higher prices than routine tasks supplied by
 non-college workers.
+
+Under full specialization, a worker of type $i^*$ earns the competitive
+price of their task:
+\begin{equation}
+  w_0(i^*) = p_0(i^*).
+  \label{eq:wage_preai}
+\end{equation}
 
 % -----------------------------------------------------------------------------
 \subsection{AI Shock and the Automation Cutoff}
@@ -118,34 +137,40 @@ AI improves ($\tau$ falls), the cutoff $I^*$ rises --- the automation frontier
 expands toward more complex tasks (see Appendix~\ref{app:cutoff}).
 
 % -----------------------------------------------------------------------------
-\subsection{Workers as Task Bundles and Wage Determination}
-\label{sec:bundles}
+\subsection{Wages Post-AI}
+\label{sec:wages}
 % -----------------------------------------------------------------------------
 
-Following \citet{autor2025expertise}, each worker $j$ carries a fixed bundle
-$\mathcal{B}_j \subseteq [0,1]$ of tasks that must be performed as an
-indivisible unit.  Workers cannot selectively drop AI-exposed tasks while
-retaining the rest.
-
-A worker's labor income equals the sum of competitive task prices across their
-bundle:
+A worker of type $i^*$ earns the post-AI competitive price of their task:
+$w(i^*) = p(i^*)$.  The change in wages following the AI shock is:
 \begin{equation}
-  w_j = \int_{\mathcal{B}_j} p(i)\,di.
-  \label{eq:bundlewage}
-\end{equation}
-Pre-AI: $w_j^0 = \int_{\mathcal{B}_j} p_0(i)\,di$.  Post-AI, tasks
-$i \in \mathcal{B}_j \cap [0,I^*)$ are repriced below their pre-AI levels, so
-the change in income is:
-\begin{equation}
-  \Delta w_j = \int_{\mathcal{B}_j\cap[0,I^*)}
-      \underbrace{\bigl(\tau e^{\alpha i} - p_0(i)\bigr)}_{ <\;0 }\,di
-  \;\leq\; 0.
+  \Delta w(i^*) \;=\; p(i^*) - p_0(i^*) \;=\;
+  \begin{cases}
+    \tau e^{\alpha i^*} - p_0(i^*) < 0 & \text{if } i^* < I^*, \\[4pt]
+    0 & \text{if } i^* \geq I^*.
+  \end{cases}
   \label{eq:deltaw}
 \end{equation}
-The sign is unambiguous: by definition of the cutoff, $\tau e^{\alpha i} <
-p_0(i)$ for all $i < I^*$, so every repriced task contributes a strictly
-negative term.  Wage compression is larger for workers whose bundles overlap
-more with the repriced range $[0, I^*)$.
+For workers below the cutoff, the task price is driven down to the AI cost.
+By definition of $I^*$, $\tau e^{\alpha i} < p_0(i)$ for all $i < I^*$, so
+$\Delta w(i^*) < 0$ is unambiguous.  Workers above the cutoff are unaffected
+in partial equilibrium.
+
+\medskip
+\noindent\textbf{Displacement.}  If a worker's compressed wage
+$\tau e^{\alpha i^*}$ falls below a reservation wage $\underline{w}$ --- any
+threshold reflecting outside options, search frictions, or a wage floor ---
+the worker exits employment.  The sign is the same under any such
+specification; we do not model the threshold explicitly and instead treat
+unemployment as an empirical question tested in Section~\ref{sec:results}.
+
+\medskip
+\noindent\textbf{Productivity effect.}  Automating low-$i$ tasks lowers the
+cost of producing $Y$, which in a general equilibrium setting would raise
+output and potentially increase wages for workers at $i^* \geq I^*$.  We
+abstract from this channel --- consistent with the PE, small open economy
+framework --- and note it as a caveat: our model provides a lower bound on
+wages for retained workers.
 
 % -----------------------------------------------------------------------------
 \subsection{Education Heterogeneity}
@@ -153,32 +178,28 @@ more with the repriced range $[0, I^*)$.
 % -----------------------------------------------------------------------------
 
 \begin{assumption}[Education Sorting]
- WLOG, Non-college workers hold bundles $\mathcal{B}_{NC}\subseteq[0,\bar\imath]$
-  and college workers hold bundles $\mathcal{B}_{C}\subseteq[\bar\imath,1]$,
-  with $\bar\imath > I^*$.
+  Non-college workers have types $i^* \in [0,\bar\imath]$ and college workers
+  have types $i^* \in [\bar\imath,1]$, with $\bar\imath > I^*$.
 \end{assumption}
+
+\noindent The sorting assumption is consistent with the empirical college wage
+premium and with the \citet{eloundou2024gpts} finding that high-exposure
+occupations are disproportionately held by non-college workers.
 
 \begin{proposition}[Differential Wage Compression]
   \label{prop:wages}
-  Following a fall in $\tau$ that raises $I^*$ into $(0,\bar\imath)$,
-  non-college workers experience strictly larger wage compression than college
-  workers: $|\Delta w_{NC}| > |\Delta w_C| = 0$.
+  Following a fall in $\tau$ that raises $I^*$ into $(0,\bar\imath)$:
+  \begin{enumerate}
+    \item[(i)]  All workers experiencing wage compression ($\Delta w(i^*) < 0$)
+                are non-college workers.
+    \item[(ii)] College workers experience no wage compression: $\Delta w(i^*) = 0$
+                for all $i^* \in [\bar\imath,1]$.
+  \end{enumerate}
 \end{proposition}
 
-\noindent The proof is in Appendix~\ref{app:proof}.  Since $I^* <
-\bar\imath$, the repriced range $[0,I^*)$ lies entirely within the non-college
-task domain.  College bundles in $[\bar\imath,1]$ are unaffected by task
-repricing and $\Delta w_C = 0$.
-
-\medskip
-\noindent\textbf{Unemployment.}  Wage compression is the model's primary
-prediction.  Unemployment emerges as its extensive-margin consequence: workers
-facing a sufficiently large fall in $w_j$ may exit employment.  We do not
-specify the threshold mechanism --- any such specification yields the same
-qualitative prediction --- and instead treat unemployment as an empirical
-question tested in Section~\ref{sec:results}.
-Proposition~\ref{prop:wages} implies that non-college workers are
-disproportionately likely to exit.
+\noindent The proof is in Appendix~\ref{app:proof}.  Since $I^* < \bar\imath$,
+the repriced range $[0,I^*)$ lies entirely within the non-college type
+distribution; college workers' tasks are unaffected.
 
 \begin{remark}
   The near-zero pre-2023 coefficients in the empirical results are consistent
@@ -244,22 +265,22 @@ raises $I^*$. $\blacksquare$
 \section{Proof of Proposition~\ref{prop:wages}}
 \label{app:proof}
 
-Under Assumption~3, $\mathcal{B}_{NC}\subseteq[0,\bar\imath]$ and
-$\mathcal{B}_C\subseteq[\bar\imath,1]$.  Since $I^*<\bar\imath$, the repriced
-range $[0,I^*)$ lies entirely within the non-college task domain.
+Under Assumption~3, non-college workers have $i^* \in [0,\bar\imath]$ and
+college workers have $i^* \in [\bar\imath,1]$.  Since $I^* < \bar\imath$, the
+repriced range $[0,I^*)$ lies entirely within the non-college type
+distribution.
 
-From \eqref{eq:deltaw}:
+From \eqref{eq:deltaw}, for any non-college worker with $i^* < I^*$:
 \[
-  \Delta w_{NC}
-  = \int_{\mathcal{B}_{NC}\cap[0,I^*)}
-      \bigl(\tau e^{\alpha i} - p_0(i)\bigr)\,di < 0,
+  \Delta w(i^*) = \tau e^{\alpha i^*} - p_0(i^*) < 0,
 \]
-since $\tau e^{\alpha i} < p_0(i)$ for all $i < I^*$ by definition of the
-cutoff \eqref{eq:cutoff}.
+since $\tau e^{\alpha i^*} < p_0(i^*)$ for all $i^* < I^*$ by definition of
+the cutoff \eqref{eq:cutoff}.
 
-For college workers, $\mathcal{B}_C\cap[0,I^*)=\emptyset$, so $\Delta w_C=0$.
+For any college worker, $i^* \geq \bar\imath > I^*$, so $\Delta w(i^*) = 0$.
 
-Therefore $|\Delta w_{NC}| > |\Delta w_C| = 0$. $\blacksquare$
+Parts (i) and (ii) of Proposition~\ref{prop:wages} follow directly.
+$\blacksquare$
 
 % =============================================================================
 \bibliographystyle{plainnat}
