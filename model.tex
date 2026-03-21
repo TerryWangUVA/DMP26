@@ -273,7 +273,23 @@ Rearranging the task price expression:
   y_0(i) = Y\cdot\left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma}.
 \]
 Demand for task $i$ is decreasing in its own price and increasing in
-aggregate output $Y$ --- the standard CES demand system. $\blacksquare$
+aggregate output $Y$ --- the standard CES demand system.
+
+\medskip\noindent\textbf{Step 6: Equilibrium task prices via market clearing.}
+Individual firms take task prices as given when optimizing (competitive
+price-taking), but prices are endogenous in equilibrium.  Under full
+specialization (Assumption~2), the supply of task $i$ is $f(i)$ --- the
+density of workers of type $i^*=i$.  Setting demand equal to supply,
+$y_0(i) = f(i)$, and substituting into the demand function:
+\[
+  f(i) = Y\cdot\left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma}
+  \implies
+  p_0(i) = P_Y\cdot\left(\frac{Y}{f(i)}\right)^{\!1/\sigma}.
+\]
+Task prices are therefore pinned down by the scarcity of workers at each
+ability level.  If $f(i)$ is decreasing in $i$ --- complex tasks are supplied
+by fewer workers --- then $p_0(i)$ is strictly increasing in $i$, which is
+exactly Assumption~3. $\blacksquare$
 
 \section{Existence and Comparative Static of the Cutoff}
 \label{app:cutoff}

@@ -2,7 +2,8 @@
 - what are high-ai exposed jobs 
 - their baseline unemployment rates / wage level
 
-- descriptive for mean AI exposure in College vs non-college degree 
+- descriptive for mean AI exposure in College vs 
+non-college degree 
 
 - abstract main question
 - strategy 
@@ -11,4 +12,20 @@
 - why interested 
 - etc. 
 
-- put task-based structure into introduction. --> this is the basis of my paper --> as a justification of using this approach. 
+- put task-based structure into introduction. 
+--> this is the basis of my paper --> as a justification of 
+using this approach.
+
+=============================================
+
+
+Model special notes 3/21:
+
+- Only focus on cognitive task listing: 
+    because manual tasks are shielded from AI impact
+    However, do note the spillover effect 
+        Opt 1: expand model to a two-sector PE model
+        Opt 2: this is intuitive, no need to expand the model
+        Opt 3: "Prank model" --> add a section of "McDonald Waiter"
+
+- New todo: python simulation of the model 
