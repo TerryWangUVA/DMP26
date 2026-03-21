@@ -71,16 +71,18 @@ to automate.
 % -----------------------------------------------------------------------------
 
 \noindent\textbf{Pre-AI equilibrium.}
-Before AI, all tasks are performed by human workers.  By symmetry of the CES
-production function and competitive task markets, task prices are equalized
-across $i$.  The zero-profit condition for competitive firms,
+Before AI, all tasks are performed by human workers.  We normalize the unit
+of measurement for each task $i$ so that one unit of task $i$ costs $P_Y$ in
+the pre-AI world:
 \begin{equation}
-  P_Y = \left[\int_0^1 p(i)^{1-\sigma}\,di\right]^{\!\frac{1}{1-\sigma}},
-  \label{eq:zeroprofit}
+  p_0(i) = P_Y \quad \text{for all } i \in [0,1].
+  \label{eq:norm}
 \end{equation}
-then yields $p_0(i) = P_Y$ for all $i$ (see Appendix~\ref{app:preai}).  The
-output price is both the price of the composite good \emph{and} the
-competitive price of every individual task before AI enters.
+This is a units convention, not a derived result: with heterogeneous worker
+bundles, tasks in different ranges of $i$ are supplied by different groups
+(non-college vs.\ college) and need not be equally scarce.  The normalization
+provides a clean benchmark against which the AI shock's effect on task prices
+can be measured.
 
 \medskip
 \noindent\textbf{AI shock.}
@@ -199,23 +201,6 @@ non-college workers are disproportionately likely to exit.
 %  APPENDIX
 % =============================================================================
 \appendix
-
-\section{Pre-AI Task Prices}
-\label{app:preai}
-
-In the pre-AI equilibrium all tasks are performed by human workers.  By
-symmetry of the CES production function \eqref{eq:ces}, competitive task
-markets equalize prices: $p_0(i) = c$ for all $i \in [0,1]$.  Substituting
-into the zero-profit condition \eqref{eq:zeroprofit}:
-\[
-  P_Y
-  = \left[\int_0^1 c^{1-\sigma}\,di\right]^{\!\frac{1}{1-\sigma}}
-  = \left[c^{1-\sigma}\right]^{\!\frac{1}{1-\sigma}}
-  = c.
-\]
-Hence $p_0(i) = P_Y$ for all $i$.  The output price serves as both the price
-of the composite good and the competitive price of every task before AI
-enters. $\blacksquare$
 
 \section{Derivation of the Cutoff and Comparative Static}
 \label{app:cutoff}
