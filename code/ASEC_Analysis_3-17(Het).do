@@ -148,10 +148,10 @@ tempfile analysis
 save `analysis', replace
 
 // outer tempfiles to hold coef data across loop iterations (for combined plots)
-tempfile lw_naive_col    lw_sex_col    lw_sexeduc_col
-tempfile un_naive_col    un_sex_col    un_sexeduc_col
-tempfile lw_naive_noncol lw_sex_noncol lw_sexeduc_noncol
-tempfile un_naive_noncol un_sex_noncol un_sexeduc_noncol
+tempfile lw_naive_col    lw_sex_col    lw_sexeduc_col    lw_stateYFE_col
+tempfile un_naive_col    un_sex_col    un_sexeduc_col    un_stateYFE_col
+tempfile lw_naive_noncol lw_sex_noncol lw_sexeduc_noncol lw_stateYFE_noncol
+tempfile un_naive_noncol un_sex_noncol un_sexeduc_noncol un_stateYFE_noncol
 
 
 **************************************************
@@ -227,6 +227,7 @@ foreach grp in col noncol {
 	estadd scalar obs = e(N)
 	estadd local sex_FE "No"
 	estadd local educ_FE "No"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum lnwage if e(sample)
 	estadd scalar depvar_mean = r(mean)
@@ -237,6 +238,7 @@ foreach grp in col noncol {
 	estadd scalar obs = e(N)
 	estadd local sex_FE "Yes"
 	estadd local educ_FE "No"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum lnwage if e(sample)
 	estadd scalar depvar_mean = r(mean)
@@ -247,10 +249,22 @@ foreach grp in col noncol {
 	estadd scalar obs = e(N)
 	estadd local sex_FE "Yes"
 	estadd local educ_FE "Yes"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum lnwage if e(sample)
 	estadd scalar depvar_mean = r(mean)
 	eststo lw_A3
+
+	reghdfe lnwage i.year##c.dv_rating_beta, ///
+		absorb(sex educ year#statefip) cluster(occsoc)
+	estadd scalar obs = e(N)
+	estadd local sex_FE "Yes"
+	estadd local educ_FE "Yes"
+	estadd local state_yFE "Yes"
+	estadd local se_cluster "Occupation"
+	sum lnwage if e(sample)
+	estadd scalar depvar_mean = r(mean)
+	eststo lw_A4
 
 
 	*------------------*
@@ -265,6 +279,7 @@ foreach grp in col noncol {
 	estadd scalar Ftest_p = r(p)
 	estadd local sex_FE "No"
 	estadd local educ_FE "No"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum lnwage if e(sample)
 	estadd scalar depvar_mean = r(mean)
@@ -278,6 +293,7 @@ foreach grp in col noncol {
 	estadd scalar Ftest_p = r(p)
 	estadd local sex_FE "Yes"
 	estadd local educ_FE "No"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum lnwage if e(sample)
 	estadd scalar depvar_mean = r(mean)
@@ -291,10 +307,25 @@ foreach grp in col noncol {
 	estadd scalar Ftest_p = r(p)
 	estadd local sex_FE "Yes"
 	estadd local educ_FE "Yes"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum lnwage if e(sample)
 	estadd scalar depvar_mean = r(mean)
 	eststo lw_B3
+
+	reghdfe lnwage c.exp##i.year##c.dv_rating_beta, ///
+		absorb(sex educ year#statefip) cluster(occsoc)
+	estadd scalar obs = e(N)
+	testparm 2024.year#c.exp#c.dv_rating_beta ///
+	         2025.year#c.exp#c.dv_rating_beta
+	estadd scalar Ftest_p = r(p)
+	estadd local sex_FE "Yes"
+	estadd local educ_FE "Yes"
+	estadd local state_yFE "Yes"
+	estadd local se_cluster "Occupation"
+	sum lnwage if e(sample)
+	estadd scalar depvar_mean = r(mean)
+	eststo lw_B4
 
 
 	**************************************************
@@ -310,6 +341,7 @@ foreach grp in col noncol {
 	estadd scalar obs = e(N)
 	estadd local sex_FE "No"
 	estadd local educ_FE "No"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum unemployed if e(sample)
 	estadd scalar depvar_mean = r(mean)
@@ -320,6 +352,7 @@ foreach grp in col noncol {
 	estadd scalar obs = e(N)
 	estadd local sex_FE "Yes"
 	estadd local educ_FE "No"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum unemployed if e(sample)
 	estadd scalar depvar_mean = r(mean)
@@ -330,10 +363,22 @@ foreach grp in col noncol {
 	estadd scalar obs = e(N)
 	estadd local sex_FE "Yes"
 	estadd local educ_FE "Yes"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum unemployed if e(sample)
 	estadd scalar depvar_mean = r(mean)
 	eststo un_A3
+
+	reghdfe unemployed i.year##c.dv_rating_beta, ///
+		absorb(sex educ year#statefip) cluster(occsoc)
+	estadd scalar obs = e(N)
+	estadd local sex_FE "Yes"
+	estadd local educ_FE "Yes"
+	estadd local state_yFE "Yes"
+	estadd local se_cluster "Occupation"
+	sum unemployed if e(sample)
+	estadd scalar depvar_mean = r(mean)
+	eststo un_A4
 
 
 	*------------------*
@@ -348,6 +393,7 @@ foreach grp in col noncol {
 	estadd scalar Ftest_p = r(p)
 	estadd local sex_FE "No"
 	estadd local educ_FE "No"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum unemployed if e(sample)
 	estadd scalar depvar_mean = r(mean)
@@ -361,6 +407,7 @@ foreach grp in col noncol {
 	estadd scalar Ftest_p = r(p)
 	estadd local sex_FE "Yes"
 	estadd local educ_FE "No"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum unemployed if e(sample)
 	estadd scalar depvar_mean = r(mean)
@@ -374,10 +421,25 @@ foreach grp in col noncol {
 	estadd scalar Ftest_p = r(p)
 	estadd local sex_FE "Yes"
 	estadd local educ_FE "Yes"
+	estadd local state_yFE "No"
 	estadd local se_cluster "Occupation"
 	sum unemployed if e(sample)
 	estadd scalar depvar_mean = r(mean)
 	eststo un_B3
+
+	reghdfe unemployed c.exp##i.year##c.dv_rating_beta, ///
+		absorb(sex educ year#statefip) cluster(occsoc)
+	estadd scalar obs = e(N)
+	testparm 2024.year#c.exp#c.dv_rating_beta ///
+	         2025.year#c.exp#c.dv_rating_beta
+	estadd scalar Ftest_p = r(p)
+	estadd local sex_FE "Yes"
+	estadd local educ_FE "Yes"
+	estadd local state_yFE "Yes"
+	estadd local se_cluster "Occupation"
+	sum unemployed if e(sample)
+	estadd scalar depvar_mean = r(mean)
+	eststo un_B4
 
 
 	////////////////////////////////////////////////////////////////////////////////
@@ -404,7 +466,7 @@ foreach grp in col noncol {
 	** Table: logwage A
 	**************************************************
 
-	esttab lw_A1 lw_A2 lw_A3 ///
+	esttab lw_A1 lw_A2 lw_A3 lw_A4 ///
 		using "$tables/logwage_tableA_`grp'.tex", replace ///
 		cells(b(star fmt(a3)) se(fmt(a3) par)) ///
 		style(tex) se starlevels(* 0.10 ** 0.05 *** 0.01) ///
@@ -418,21 +480,22 @@ foreach grp in col noncol {
 			2024.year#c.dv_rating_beta "2024 $\times$ AI exposure" ///
 			2025.year#c.dv_rating_beta "2025 $\times$ AI exposure" ///
 		) ///
-		stats(depvar_mean sex_FE educ_FE se_cluster obs, ///
-		      fmt(3 0 0 0 %12.0gc) ///
+		stats(depvar_mean sex_FE educ_FE state_yFE se_cluster obs, ///
+		      fmt(3 0 0 0 0 %12.0gc) ///
 		      labels("Mean of dependent variable" ///
 		             "Sex FE" ///
 		             "Education FE" ///
+		             "State $\times$ Year FE" ///
 		             "SE clustered at" ///
 		             "Observations")) ///
 		booktabs collabels(none) mlabels(none) nonumbers nomtitles gaps nonotes ///
 		prehead( ///
 			"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}" ///
-			"\begin{tabular}{l*{3}{c}}" ///
+			"\begin{tabular}{l*{4}{c}}" ///
 			"\toprule" ///
-			"Dependent Variable: & \multicolumn{3}{c}{Log Wage} \\" ///
-			"\cmidrule(lr){2-4}" ///
-			" & (1) & (2) & (3) \\" ///
+			"Dependent Variable: & \multicolumn{4}{c}{Log Wage} \\" ///
+			"\cmidrule(lr){2-5}" ///
+			" & (1) & (2) & (3) & (4) \\" ///
 		) ///
 		postfoot( ///
 			"\bottomrule" ///
@@ -443,7 +506,7 @@ foreach grp in col noncol {
 	** Table: logwage B
 	**************************************************
 
-	esttab lw_B1 lw_B2 lw_B3 ///
+	esttab lw_B1 lw_B2 lw_B3 lw_B4 ///
 		using "$tables/logwage_tableB_`grp'.tex", replace ///
 		cells(b(star fmt(a3)) se(fmt(a3) par)) ///
 		style(tex) se starlevels(* 0.10 ** 0.05 *** 0.01) ///
@@ -457,21 +520,22 @@ foreach grp in col noncol {
 			2024.year#c.exp#c.dv_rating_beta "2024 $\times$ Experience $\times$ AI exposure" ///
 			2025.year#c.exp#c.dv_rating_beta "2025 $\times$ Experience $\times$ AI exposure" ///
 		) ///
-		stats(depvar_mean sex_FE educ_FE se_cluster obs, ///
-		      fmt(3 0 0 0 %12.0gc) ///
+		stats(depvar_mean sex_FE educ_FE state_yFE se_cluster obs, ///
+		      fmt(3 0 0 0 0 %12.0gc) ///
 		      labels("Mean of dependent variable" ///
 		             "Sex FE" ///
 		             "Education FE" ///
+		             "State $\times$ Year FE" ///
 		             "SE clustered at" ///
 		             "Observations")) ///
 		booktabs collabels(none) mlabels(none) nonumbers nomtitles gaps nonotes ///
 		prehead( ///
 			"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}" ///
-			"\begin{tabular}{l*{3}{c}}" ///
+			"\begin{tabular}{l*{4}{c}}" ///
 			"\toprule" ///
-			"Dependent Variable: & \multicolumn{3}{c}{Log Wage} \\" ///
-			"\cmidrule(lr){2-4}" ///
-			" & (1) & (2) & (3) \\" ///
+			"Dependent Variable: & \multicolumn{4}{c}{Log Wage} \\" ///
+			"\cmidrule(lr){2-5}" ///
+			" & (1) & (2) & (3) & (4) \\" ///
 		) ///
 		postfoot( ///
 			"\bottomrule" ///
@@ -482,7 +546,7 @@ foreach grp in col noncol {
 	** Table: unemployment A
 	**************************************************
 
-	esttab un_A1 un_A2 un_A3 ///
+	esttab un_A1 un_A2 un_A3 un_A4 ///
 		using "$tables/unemp_tableA_`grp'.tex", replace ///
 		cells(b(star fmt(a3)) se(fmt(a3) par)) ///
 		style(tex) se starlevels(* 0.10 ** 0.05 *** 0.01) ///
@@ -496,21 +560,22 @@ foreach grp in col noncol {
 			2024.year#c.dv_rating_beta "2024 $\times$ AI exposure" ///
 			2025.year#c.dv_rating_beta "2025 $\times$ AI exposure" ///
 		) ///
-		stats(depvar_mean sex_FE educ_FE se_cluster obs, ///
-		      fmt(3 0 0 0 %12.0gc) ///
+		stats(depvar_mean sex_FE educ_FE state_yFE se_cluster obs, ///
+		      fmt(3 0 0 0 0 %12.0gc) ///
 		      labels("Mean of dependent variable" ///
 		             "Sex FE" ///
 		             "Education FE" ///
+		             "State $\times$ Year FE" ///
 		             "SE clustered at" ///
 		             "Observations")) ///
 		booktabs collabels(none) mlabels(none) nonumbers nomtitles gaps nonotes ///
 		prehead( ///
 			"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}" ///
-			"\begin{tabular}{l*{3}{c}}" ///
+			"\begin{tabular}{l*{4}{c}}" ///
 			"\toprule" ///
-			"Dependent Variable: & \multicolumn{3}{c}{Unemployment} \\" ///
-			"\cmidrule(lr){2-4}" ///
-			" & (1) & (2) & (3) \\" ///
+			"Dependent Variable: & \multicolumn{4}{c}{Unemployment} \\" ///
+			"\cmidrule(lr){2-5}" ///
+			" & (1) & (2) & (3) & (4) \\" ///
 		) ///
 		postfoot( ///
 			"\bottomrule" ///
@@ -521,7 +586,7 @@ foreach grp in col noncol {
 	** Table: unemployment B
 	**************************************************
 
-	esttab un_B1 un_B2 un_B3 ///
+	esttab un_B1 un_B2 un_B3 un_B4 ///
 		using "$tables/unemp_tableB_`grp'.tex", replace ///
 		cells(b(star fmt(a3)) se(fmt(a3) par)) ///
 		style(tex) se starlevels(* 0.10 ** 0.05 *** 0.01) ///
@@ -535,21 +600,22 @@ foreach grp in col noncol {
 			2024.year#c.exp#c.dv_rating_beta "2024 $\times$ Experience $\times$ AI exposure" ///
 			2025.year#c.exp#c.dv_rating_beta "2025 $\times$ Experience $\times$ AI exposure" ///
 		) ///
-		stats(depvar_mean sex_FE educ_FE se_cluster obs, ///
-		      fmt(3 0 0 0 %12.0gc) ///
+		stats(depvar_mean sex_FE educ_FE state_yFE se_cluster obs, ///
+		      fmt(3 0 0 0 0 %12.0gc) ///
 		      labels("Mean of dependent variable" ///
 		             "Sex FE" ///
 		             "Education FE" ///
+		             "State $\times$ Year FE" ///
 		             "SE clustered at" ///
 		             "Observations")) ///
 		booktabs collabels(none) mlabels(none) nonumbers nomtitles gaps nonotes ///
 		prehead( ///
 			"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}" ///
-			"\begin{tabular}{l*{3}{c}}" ///
+			"\begin{tabular}{l*{4}{c}}" ///
 			"\toprule" ///
-			"Dependent Variable: & \multicolumn{3}{c}{Unemployment} \\" ///
-			"\cmidrule(lr){2-4}" ///
-			" & (1) & (2) & (3) \\" ///
+			"Dependent Variable: & \multicolumn{4}{c}{Unemployment} \\" ///
+			"\cmidrule(lr){2-5}" ///
+			" & (1) & (2) & (3) & (4) \\" ///
 		) ///
 		postfoot( ///
 			"\bottomrule" ///
@@ -561,29 +627,35 @@ foreach grp in col noncol {
 	**    (double-interaction, Table A specs only)
 	**************************************************
 
-	tempfile lw_naive lw_sex lw_sexeduc un_naive un_sex un_sexeduc
+	tempfile lw_naive lw_sex lw_sexeduc lw_stateYFE un_naive un_sex un_sexeduc un_stateYFE
 
-	make_coef_file, estname(lw_A1) specname("Naive")         outcome("Log wage")     outfile(`lw_naive')
-	make_coef_file, estname(lw_A2) specname("Sex FE")        outcome("Log wage")     outfile(`lw_sex')
-	make_coef_file, estname(lw_A3) specname("Sex + educ FE") outcome("Log wage")     outfile(`lw_sexeduc')
+	make_coef_file, estname(lw_A1) specname("Naive")                    outcome("Log wage")     outfile(`lw_naive')
+	make_coef_file, estname(lw_A2) specname("Sex FE")                   outcome("Log wage")     outfile(`lw_sex')
+	make_coef_file, estname(lw_A3) specname("Sex + educ FE")            outcome("Log wage")     outfile(`lw_sexeduc')
+	make_coef_file, estname(lw_A4) specname("Sex + educ + state×yr FE") outcome("Log wage")     outfile(`lw_stateYFE')
 
-	make_coef_file, estname(un_A1) specname("Naive")         outcome("Unemployment") outfile(`un_naive')
-	make_coef_file, estname(un_A2) specname("Sex FE")        outcome("Unemployment") outfile(`un_sex')
-	make_coef_file, estname(un_A3) specname("Sex + educ FE") outcome("Unemployment") outfile(`un_sexeduc')
+	make_coef_file, estname(un_A1) specname("Naive")                    outcome("Unemployment") outfile(`un_naive')
+	make_coef_file, estname(un_A2) specname("Sex FE")                   outcome("Unemployment") outfile(`un_sex')
+	make_coef_file, estname(un_A3) specname("Sex + educ FE")            outcome("Unemployment") outfile(`un_sexeduc')
+	make_coef_file, estname(un_A4) specname("Sex + educ + state×yr FE") outcome("Unemployment") outfile(`un_stateYFE')
 
 	// copy to outer tempfiles for combined plots after the loop
-	use `lw_naive',   clear  
-	save `lw_naive_`grp'',   replace
-	use `lw_sex',     clear  
-	save `lw_sex_`grp'',     replace
-	use `lw_sexeduc', clear  
+	use `lw_naive', clear
+	save `lw_naive_`grp'', replace
+	use `lw_sex', clear
+	save `lw_sex_`grp'', replace
+	use `lw_sexeduc', clear
 	save `lw_sexeduc_`grp'', replace
-	use `un_naive',   clear  
-	save `un_naive_`grp'',   replace
-	use `un_sex',     clear  
-	save `un_sex_`grp'',     replace
-	use `un_sexeduc', clear  
+	use `lw_stateYFE', clear
+	save `lw_stateYFE_`grp'', replace
+	use `un_naive', clear
+	save `un_naive_`grp'', replace
+	use `un_sex', clear
+	save `un_sex_`grp'', replace
+	use `un_sexeduc', clear
 	save `un_sexeduc_`grp'', replace
+	use `un_stateYFE', clear
+	save `un_stateYFE_`grp'', replace
 
 
 	*------------------*
@@ -770,6 +842,68 @@ foreach grp in col noncol {
 		plotregion(color(white)) ///
 		name(unemp_sexeducFE_`grp', replace)
 	graph export "$graphs/unemp_sexeducFE_plot_`grp'.pdf", replace
+
+
+	*------------------*
+	* Log wage: state x year FE
+	*------------------*
+	use `lw_stateYFE', clear
+	insobs 1
+	replace year = 2022 in L
+	replace estimate = 0 in L
+	replace min95 = . in L
+	replace max95 = . in L
+	sort year
+
+	twoway ///
+		(rcap min95 max95 year if inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
+			lcolor(navy) lpattern(solid) lwidth(medthin)) ///
+		(line estimate year, ///
+			lcolor(maroon) lpattern(solid) lwidth(medium)) ///
+		(scatter estimate year, ///
+			mcolor(maroon) msymbol(O) msize(medlarge)), ///
+		xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+		yline(0, lcolor(gs8) lpattern(solid)) ///
+		xlabel(2018(1)2025) ///
+		xtitle("Year") ///
+		ytitle("Coefficient on year × AI exposure") ///
+		title("Log Wage: Sex, Education, and State×Year FE (`grp')") ///
+		legend(order(3 "Coefficient" 1 "95% CI") rows(1) position(6) region(lstyle(none))) ///
+		graphregion(color(white)) ///
+		plotregion(color(white)) ///
+		name(lw_stateYFE_`grp', replace)
+	graph export "$graphs/lw_stateYFE_plot_`grp'.pdf", replace
+
+
+	*------------------*
+	* Unemployment: state x year FE
+	*------------------*
+	use `un_stateYFE', clear
+	insobs 1
+	replace year = 2022 in L
+	replace estimate = 0 in L
+	replace min95 = . in L
+	replace max95 = . in L
+	sort year
+
+	twoway ///
+		(rcap min95 max95 year if inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
+			lcolor(navy) lpattern(solid) lwidth(medthin)) ///
+		(line estimate year, ///
+			lcolor(maroon) lpattern(solid) lwidth(medium)) ///
+		(scatter estimate year, ///
+			mcolor(maroon) msymbol(O) msize(medlarge)), ///
+		xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+		yline(0, lcolor(gs8) lpattern(solid)) ///
+		xlabel(2018(1)2025) ///
+		xtitle("Year") ///
+		ytitle("Coefficient on year × AI exposure") ///
+		title("Unemployment: Sex, Education, and State×Year FE (`grp')") ///
+		legend(order(3 "Coefficient" 1 "95% CI") rows(1) position(6) region(lstyle(none))) ///
+		graphregion(color(white)) ///
+		plotregion(color(white)) ///
+		name(unemp_stateYFE_`grp', replace)
+	graph export "$graphs/unemp_stateYFE_plot_`grp'.pdf", replace
 
 
 	*************************************
@@ -1134,3 +1268,107 @@ twoway ///
 	plotregion(color(white)) ///
 	name(unemp_sexeducFE_colComb, replace)
 graph export "$graphs/unemp_sexeducFE_plot_colComb.pdf", replace
+
+
+*------------------*
+* Log wage: state x year FE colComb
+*------------------*
+use `lw_stateYFE_col', clear
+insobs 1
+replace year     = 2022 in L
+replace estimate = 0    in L
+replace min95    = .    in L
+replace max95    = .    in L
+gen grp = "College"
+tempfile tmp_c
+save `tmp_c', replace
+
+use `lw_stateYFE_noncol', clear
+insobs 1
+replace year     = 2022 in L
+replace estimate = 0    in L
+replace min95    = .    in L
+replace max95    = .    in L
+gen grp = "Non-college"
+append using `tmp_c'
+
+gen x = year - 0.1 if grp == "College"
+replace x = year + 0.1 if grp == "Non-college"
+sort grp year
+
+twoway ///
+	(rcap min95 max95 x if grp=="College" & inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
+		lcolor(navy) lpattern(solid) lwidth(medthin)) ///
+	(line estimate x if grp=="College", ///
+		lcolor(navy) lpattern(solid) lwidth(medium) sort) ///
+	(scatter estimate x if grp=="College", ///
+		mcolor(navy) msymbol(O) msize(medlarge)) ///
+	(rcap min95 max95 x if grp=="Non-college" & inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
+		lcolor(maroon) lpattern(solid) lwidth(medthin)) ///
+	(line estimate x if grp=="Non-college", ///
+		lcolor(maroon) lpattern(solid) lwidth(medium) sort) ///
+	(scatter estimate x if grp=="Non-college", ///
+		mcolor(maroon) msymbol(D) msize(medlarge)), ///
+	xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+	yline(0, lcolor(gs8) lpattern(solid)) ///
+	xlabel(2018(1)2025) ///
+	xtitle("Year") ///
+	ytitle("Coefficient on year × AI exposure") ///
+	title("Log Wage: Sex, Education, and State×Year FE") ///
+	legend(order(3 "College" 6 "Non-college") rows(1) position(6) region(lstyle(none))) ///
+	graphregion(color(white)) ///
+	plotregion(color(white)) ///
+	name(lw_stateYFE_colComb, replace)
+graph export "$graphs/lw_stateYFE_plot_colComb.pdf", replace
+
+
+*------------------*
+* Unemployment: state x year FE colComb
+*------------------*
+use `un_stateYFE_col', clear
+insobs 1
+replace year     = 2022 in L
+replace estimate = 0    in L
+replace min95    = .    in L
+replace max95    = .    in L
+gen grp = "College"
+tempfile tmp_c
+save `tmp_c', replace
+
+use `un_stateYFE_noncol', clear
+insobs 1
+replace year     = 2022 in L
+replace estimate = 0    in L
+replace min95    = .    in L
+replace max95    = .    in L
+gen grp = "Non-college"
+append using `tmp_c'
+
+gen x = year - 0.1 if grp == "College"
+replace x = year + 0.1 if grp == "Non-college"
+sort grp year
+
+twoway ///
+	(rcap min95 max95 x if grp=="College" & inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
+		lcolor(navy) lpattern(solid) lwidth(medthin)) ///
+	(line estimate x if grp=="College", ///
+		lcolor(navy) lpattern(solid) lwidth(medium) sort) ///
+	(scatter estimate x if grp=="College", ///
+		mcolor(navy) msymbol(O) msize(medlarge)) ///
+	(rcap min95 max95 x if grp=="Non-college" & inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
+		lcolor(maroon) lpattern(solid) lwidth(medthin)) ///
+	(line estimate x if grp=="Non-college", ///
+		lcolor(maroon) lpattern(solid) lwidth(medium) sort) ///
+	(scatter estimate x if grp=="Non-college", ///
+		mcolor(maroon) msymbol(D) msize(medlarge)), ///
+	xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+	yline(0, lcolor(gs8) lpattern(solid)) ///
+	xlabel(2018(1)2025) ///
+	xtitle("Year") ///
+	ytitle("Coefficient on year × AI exposure") ///
+	title("Unemployment: Sex, Education, and State×Year FE") ///
+	legend(order(3 "College" 6 "Non-college") rows(1) position(6) region(lstyle(none))) ///
+	graphregion(color(white)) ///
+	plotregion(color(white)) ///
+	name(unemp_stateYFE_colComb, replace)
+graph export "$graphs/unemp_stateYFE_plot_colComb.pdf", replace

@@ -1,29 +1,30 @@
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{l*{3}{c}}
+\begin{tabular}{l*{4}{c}}
 \toprule
-Dependent Variable: & \multicolumn{3}{c}{Unemployment} \\
-\cmidrule(lr){2-4}
- & (1) & (2) & (3) \\
+Dependent Variable: & \multicolumn{4}{c}{Unemployment} \\
+\cmidrule(lr){2-5}
+ & (1) & (2) & (3) & (4) \\
 \midrule
-2018 $\times$ AI exposure&   -0.000205   &   -0.000192   &   -0.000555   \\
-            &   (0.00597)   &   (0.00598)   &   (0.00596)   \\
-2019 $\times$ AI exposure&     0.00391   &     0.00390   &     0.00351   \\
-            &   (0.00474)   &   (0.00473)   &   (0.00469)   \\
-2020 $\times$ AI exposure&     -0.0213***&     -0.0213***&     -0.0218***\\
-            &   (0.00723)   &   (0.00723)   &   (0.00722)   \\
-2021 $\times$ AI exposure&     -0.0335***&     -0.0335***&     -0.0340***\\
-            &   (0.00793)   &   (0.00793)   &   (0.00792)   \\
-2023 $\times$ AI exposure&     0.00202   &     0.00199   &     0.00193   \\
-            &   (0.00559)   &   (0.00557)   &   (0.00556)   \\
-2024 $\times$ AI exposure&      0.0206***&      0.0205***&      0.0206***\\
-            &   (0.00552)   &   (0.00551)   &   (0.00551)   \\
-2025 $\times$ AI exposure&      0.0194***&      0.0194***&      0.0196***\\
-            &   (0.00639)   &   (0.00639)   &   (0.00635)   \\
+2018 $\times$ AI exposure&   -0.000205   &   -0.000192   &   -0.000555   &  -0.0000526   \\
+            &   (0.00597)   &   (0.00598)   &   (0.00596)   &   (0.00601)   \\
+2019 $\times$ AI exposure&     0.00391   &     0.00390   &     0.00351   &     0.00353   \\
+            &   (0.00474)   &   (0.00473)   &   (0.00469)   &   (0.00467)   \\
+2020 $\times$ AI exposure&     -0.0213***&     -0.0213***&     -0.0218***&     -0.0213***\\
+            &   (0.00723)   &   (0.00723)   &   (0.00722)   &   (0.00714)   \\
+2021 $\times$ AI exposure&     -0.0335***&     -0.0335***&     -0.0340***&     -0.0353***\\
+            &   (0.00793)   &   (0.00793)   &   (0.00792)   &   (0.00792)   \\
+2023 $\times$ AI exposure&     0.00202   &     0.00199   &     0.00193   &     0.00170   \\
+            &   (0.00559)   &   (0.00557)   &   (0.00556)   &   (0.00548)   \\
+2024 $\times$ AI exposure&      0.0206***&      0.0205***&      0.0206***&      0.0205***\\
+            &   (0.00552)   &   (0.00551)   &   (0.00551)   &   (0.00552)   \\
+2025 $\times$ AI exposure&      0.0194***&      0.0194***&      0.0196***&      0.0180***\\
+            &   (0.00639)   &   (0.00639)   &   (0.00635)   &   (0.00625)   \\
 \midrule
-Mean of dependent variable&       0.034   &       0.034   &       0.034   \\
-Sex FE      &          No   &         Yes   &         Yes   \\
-Education FE&          No   &          No   &         Yes   \\
-SE clustered at&  Occupation   &  Occupation   &  Occupation   \\
-Observations&     500,669   &     500,669   &     500,669   \\
+Mean of dependent variable&       0.034   &       0.034   &       0.034   &       0.034   \\
+Sex FE      &          No   &         Yes   &         Yes   &         Yes   \\
+Education FE&          No   &          No   &         Yes   &         Yes   \\
+State $\times$ Year FE&          No   &          No   &          No   &         Yes   \\
+SE clustered at&  Occupation   &  Occupation   &  Occupation   &  Occupation   \\
+Observations&     500,669   &     500,669   &     500,669   &     500,669   \\
 \bottomrule
 \end{tabular}

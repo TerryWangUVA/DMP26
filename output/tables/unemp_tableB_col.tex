@@ -1,29 +1,30 @@
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{l*{3}{c}}
+\begin{tabular}{l*{4}{c}}
 \toprule
-Dependent Variable: & \multicolumn{3}{c}{Unemployment} \\
-\cmidrule(lr){2-4}
- & (1) & (2) & (3) \\
+Dependent Variable: & \multicolumn{4}{c}{Unemployment} \\
+\cmidrule(lr){2-5}
+ & (1) & (2) & (3) & (4) \\
 \midrule
-2018 $\times$ Experience $\times$ AI exposure&    0.000680   &    0.000678   &    0.000654   \\
-            &  (0.000718)   &  (0.000718)   &  (0.000719)   \\
-2019 $\times$ Experience $\times$ AI exposure&    0.000977   &    0.000974   &    0.000980   \\
-            &  (0.000748)   &  (0.000748)   &  (0.000749)   \\
-2020 $\times$ Experience $\times$ AI exposure&    0.000366   &    0.000364   &    0.000363   \\
-            &  (0.000875)   &  (0.000875)   &  (0.000874)   \\
-2021 $\times$ Experience $\times$ AI exposure&     0.00128   &     0.00128   &     0.00128   \\
-            &  (0.000967)   &  (0.000968)   &  (0.000968)   \\
-2023 $\times$ Experience $\times$ AI exposure&    0.000801   &    0.000796   &    0.000805   \\
-            &  (0.000810)   &  (0.000810)   &  (0.000810)   \\
-2024 $\times$ Experience $\times$ AI exposure&    0.000666   &    0.000662   &    0.000658   \\
-            &  (0.000938)   &  (0.000939)   &  (0.000936)   \\
-2025 $\times$ Experience $\times$ AI exposure&    0.000568   &    0.000565   &    0.000572   \\
-            &  (0.000816)   &  (0.000816)   &  (0.000814)   \\
+2018 $\times$ Experience $\times$ AI exposure&    0.000680   &    0.000678   &    0.000654   &    0.000652   \\
+            &  (0.000718)   &  (0.000718)   &  (0.000719)   &  (0.000717)   \\
+2019 $\times$ Experience $\times$ AI exposure&    0.000977   &    0.000974   &    0.000980   &     0.00103   \\
+            &  (0.000748)   &  (0.000748)   &  (0.000749)   &  (0.000747)   \\
+2020 $\times$ Experience $\times$ AI exposure&    0.000366   &    0.000364   &    0.000363   &    0.000400   \\
+            &  (0.000875)   &  (0.000875)   &  (0.000874)   &  (0.000880)   \\
+2021 $\times$ Experience $\times$ AI exposure&     0.00128   &     0.00128   &     0.00128   &     0.00141   \\
+            &  (0.000967)   &  (0.000968)   &  (0.000968)   &  (0.000963)   \\
+2023 $\times$ Experience $\times$ AI exposure&    0.000801   &    0.000796   &    0.000805   &    0.000855   \\
+            &  (0.000810)   &  (0.000810)   &  (0.000810)   &  (0.000805)   \\
+2024 $\times$ Experience $\times$ AI exposure&    0.000666   &    0.000662   &    0.000658   &    0.000745   \\
+            &  (0.000938)   &  (0.000939)   &  (0.000936)   &  (0.000933)   \\
+2025 $\times$ Experience $\times$ AI exposure&    0.000568   &    0.000565   &    0.000572   &    0.000621   \\
+            &  (0.000816)   &  (0.000816)   &  (0.000814)   &  (0.000822)   \\
 \midrule
-Mean of dependent variable&       0.022   &       0.022   &       0.022   \\
-Sex FE      &          No   &         Yes   &         Yes   \\
-Education FE&          No   &          No   &         Yes   \\
-SE clustered at&  Occupation   &  Occupation   &  Occupation   \\
-Observations&     221,543   &     221,543   &     221,543   \\
+Mean of dependent variable&       0.022   &       0.022   &       0.022   &       0.022   \\
+Sex FE      &          No   &         Yes   &         Yes   &         Yes   \\
+Education FE&          No   &          No   &         Yes   &         Yes   \\
+State $\times$ Year FE&          No   &          No   &          No   &         Yes   \\
+SE clustered at&  Occupation   &  Occupation   &  Occupation   &  Occupation   \\
+Observations&     221,543   &     221,543   &     221,543   &     221,543   \\
 \bottomrule
 \end{tabular}
