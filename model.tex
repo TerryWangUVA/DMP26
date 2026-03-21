@@ -1,0 +1,290 @@
+\documentclass[12pt]{article}
+
+%--- Packages ------------------------------------------------------------------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage[round,sort]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\onehalfspacing
+
+%--- Theorem environments ------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+%--- Title ---------------------------------------------------------------------
+\title{Theoretical Framework\\
+  \large Present Day, Present Time: AI Exposure and Labor Market Risk}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+% =============================================================================
+\section{Theoretical Framework}
+\label{sec:model}
+% =============================================================================
+
+\subsection{Setup}
+
+Consider an economy in which production requires a continuum of tasks indexed
+$i \in [0,1]$, ordered by their susceptibility to AI automation: tasks at the
+low end are more easily performed by AI, while tasks at the high end require
+judgment, communication, and contextual reasoning that AI currently struggles
+to replicate.  This ordering maps naturally to the \citet{eloundou2024gpts}
+beta scores: a high beta score indicates that a large share of an occupation's
+tasks are susceptible to large language models, placing that occupation near
+the low end of the $i$ spectrum.
+
+Final output $Y$ aggregates tasks via a constant elasticity of substitution
+(CES) technology:
+\begin{equation}
+  Y = \left[\int_0^1 y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}},
+  \qquad \sigma > 0,
+  \label{eq:ces}
+\end{equation}
+where $y(i)$ is the quantity of task $i$ used in production and $\sigma$ is
+the elasticity of substitution across tasks.
+
+Each task can be performed either by a human worker or by AI.  Human labor
+performs any task at unit cost $w$ (the wage).  Performing task $i$ via AI
+costs
+\begin{equation}
+  c^{\mathrm{AI}}(i) = \tau\cdot t(i),
+  \label{eq:ai_cost}
+\end{equation}
+where $\tau > 0$ is the aggregate AI capability parameter---a lower $\tau$
+reflects a more capable and cost-efficient AI system---and $t(i)$ is the
+task-specific cost of automation, with $t'(i)>0$: harder tasks are more
+expensive to automate.  We parameterize
+\begin{equation}
+  t(i) = e^{\alpha i}, \qquad \alpha > 0,
+  \label{eq:cost_fn}
+\end{equation}
+so that automation costs rise smoothly and exponentially with task complexity.
+
+\begin{assumption}[Partial Equilibrium]
+  The wage $w$ is determined outside the model.  The economy is small and
+  faces an infinitely elastic labor supply at wage $w$, following
+  \citet{grossman2008trading}.  We abstract from general equilibrium wage
+  determination.
+\end{assumption}
+
+% -----------------------------------------------------------------------------
+\subsection{Task Assignment and the Automation Cutoff}
+% -----------------------------------------------------------------------------
+
+Since human labor and AI are perfect substitutes in the production of any
+given task, in equilibrium each task is performed by whichever technology is
+cheaper.  This yields a unique cutoff task $I^*$, defined by the indifference
+condition:
+\begin{equation}
+  \tau\cdot t(I^*) = w.
+  \label{eq:indiff}
+\end{equation}
+Tasks $i \in [0,I^*)$ satisfy $\tau t(i) < w$ and are performed by AI; tasks
+$i \in [I^*,1]$ satisfy $\tau t(i) \geq w$ and are performed by human
+workers.  Using \eqref{eq:cost_fn}, the cutoff is given in closed form by
+\begin{equation}
+  I^* = \frac{1}{\alpha}\ln\!\left(\frac{w}{\tau}\right).
+  \label{eq:cutoff}
+\end{equation}
+The derivation is provided in Appendix~\ref{app:cutoff}.
+
+A direct comparative static shows that AI improvement expands the set of
+automated tasks:
+\begin{equation}
+  \frac{\partial I^*}{\partial\tau} = -\frac{1}{\alpha\tau} < 0.
+  \label{eq:cs_tau}
+\end{equation}
+A fall in $\tau$---such as the deployment of GPT-4-class systems in
+2023---raises $I^*$, pushing the automation frontier toward more complex
+tasks.
+
+% -----------------------------------------------------------------------------
+\subsection{Displacement and Productivity Effects}
+% -----------------------------------------------------------------------------
+
+A rise in $I^*$ from $I^*_0$ to $I^*_1$ sets two opposing forces in motion,
+as identified by \citet{grossman2008trading}.
+
+\medskip
+\noindent\textbf{Displacement effect.}  Workers performing tasks in the range
+$[I^*_0, I^*_1]$ are directly displaced: their tasks are now cheaper to
+automate.  The employment share of human labor falls by $\Delta I^* = I^*_1 -
+I^*_0 > 0$.
+
+\medskip
+\noindent\textbf{Productivity effect.}  Automating low-$i$ tasks reduces the
+cost of producing composite output $Y$, lowering its price index $P_Y$.  If
+output demand is sufficiently elastic, lower $P_Y$ raises total demand for $Y$
+and shifts out labor demand for the remaining human tasks $[I^*,1]$, partially
+offsetting the displacement effect.
+
+\medskip
+The net effect on employment \emph{levels} is ambiguous in general and
+constitutes an empirical question.  Section~\ref{sec:results} provides
+evidence that the displacement effect dominates: higher AI exposure is
+associated with elevated unemployment and lower wages, particularly following
+the GPT-4 deployment shock of 2023.
+
+% -----------------------------------------------------------------------------
+\subsection{Education Heterogeneity}
+\label{sec:model_het}
+% -----------------------------------------------------------------------------
+
+To generate testable predictions about differential impacts across education
+groups, we introduce worker heterogeneity.  Consistent with the descriptive
+evidence in \citet{eloundou2024gpts} and \citet{webb2020impact}, non-college
+workers are disproportionately concentrated in tasks with high AI
+substitutability (low $i$), while college-educated workers perform tasks
+higher in the complexity spectrum.
+
+\begin{assumption}[Education Sorting]
+  Non-college workers supply tasks $i \in [0,\bar\imath]$ and college workers
+  supply tasks $i \in [\bar\imath, 1]$, where $\bar\imath \in (I^*_0, 1)$ and
+  $I^*_0$ is the pre-shock cutoff.
+\end{assumption}
+
+This two-type structure, while stylized, captures the core empirical
+regularity.  It yields the following propositions, with proofs in
+Appendix~\ref{app:proofs}.
+
+\begin{proposition}[Differential Unemployment Effect]
+  \label{prop:unemp}
+  A fall in $\tau$ that raises $I^*$ into the interval $(I^*_0,\bar\imath)$
+  displaces non-college workers while leaving college workers unaffected.  For
+  any $\Delta\tau < 0$ such that $I^* < \bar\imath$, the displacement rate
+  among non-college workers strictly exceeds that of college workers.
+\end{proposition}
+
+\begin{proposition}[Differential Wage Effect]
+  \label{prop:wages}
+  Workers performing tasks in the neighborhood of $I^*$ face the strongest
+  downward wage pressure, as AI provides a close substitute at the task
+  margin.  Since non-college workers are concentrated near $I^*$ while college
+  workers are concentrated far from $I^*$, non-college wages experience larger
+  compression following a fall in $\tau$.
+\end{proposition}
+
+\begin{remark}
+  Propositions~\ref{prop:unemp} and~\ref{prop:wages} are consistent with AI
+  capability in 2023--2025 being sufficient to automate many routine and
+  semi-routine tasks (displacing non-college workers), but not yet the most
+  complex professional tasks performed by college-educated workers.  The
+  empirical results in Section~\ref{sec:results} support this timing: the
+  interaction effects are statistically significant from 2023 onward and near
+  zero in earlier years.
+\end{remark}
+
+% -----------------------------------------------------------------------------
+\subsection{Task Bundling and Model Limitations}
+\label{sec:bundling}
+% -----------------------------------------------------------------------------
+
+The framework above assumes \emph{atomistic} task assignment: workers freely
+specialize in any subset of tasks from $[I^*,1]$ without constraint.  In
+practice, occupations bundle tasks together, and workers must perform the
+entire bundle rather than selecting individual tasks.  \citet{autor2025expertise}
+show that this matters for the direction of wage effects: automation of
+\emph{inexpert} tasks within a bundle raises the occupation's expertise
+requirement and increases wages, while automation of \emph{expert} tasks
+lowers the requirement and compresses wages.  Our model abstracts from this
+dimension---the beta-score exposure measure captures the \emph{share} of tasks
+exposed but not whether those tasks are the expert or inexpert ones within each
+occupation's bundle.  We acknowledge this as a limitation, and regard the
+expertise framework of \citeauthor{autor2025expertise} as a natural direction
+for further work.
+
+% =============================================================================
+%  APPENDIX
+% =============================================================================
+\appendix
+
+\section{Derivation of the Equilibrium Cutoff}
+\label{app:cutoff}
+
+Each task $i$ is performed by the lower-cost technology.  Human labor costs
+$w$ per unit of any task.  AI performs task $i$ at cost $c^{\mathrm{AI}}(i) =
+\tau e^{\alpha i}$.
+
+\medskip
+AI is cheaper whenever $\tau e^{\alpha i} < w$, i.e.,
+\[
+  e^{\alpha i} < \frac{w}{\tau}
+  \implies
+  i < \frac{1}{\alpha}\ln\!\left(\frac{w}{\tau}\right).
+\]
+Human labor is cheaper for $i > \frac{1}{\alpha}\ln(w/\tau)$.  The cutoff
+task satisfies both conditions with equality:
+\[
+  I^* = \frac{1}{\alpha}\ln\!\left(\frac{w}{\tau}\right).
+\]
+For $I^* \in (0,1)$ we require $w/e^{\alpha} < \tau < w$, which we assume
+holds at the pre-shock parameter values.
+
+\medskip\noindent\textbf{Comparative static.}  Differentiating with respect to
+$\tau$:
+\[
+  \frac{\partial I^*}{\partial\tau}
+  = \frac{1}{\alpha}\cdot\frac{\partial}{\partial\tau}\bigl[\ln w - \ln\tau\bigr]
+  = -\frac{1}{\alpha\tau} < 0.
+\]
+A fall in $\tau$ raises $I^*$: more tasks are automated as AI improves.
+$\blacksquare$
+
+\section{Proofs of Propositions}
+\label{app:proofs}
+
+\subsection*{Proof of Proposition~\ref{prop:unemp}}
+
+Under Assumption 2, non-college workers perform tasks in $[I^*_0,\bar\imath]$
+(tasks $[0,I^*_0]$ are already automated pre-shock).  After a fall in $\tau$,
+the cutoff rises to $I^*_1 > I^*_0$.
+
+Workers performing tasks in $[I^*_0, I^*_1]$ are displaced.  Provided
+$I^*_1 \leq \bar\imath$ (the shock is moderate and does not reach the college
+task range), all displaced workers are non-college.  The non-college
+displacement rate is
+\[
+  d_{\mathrm{NC}} = \frac{I^*_1 - I^*_0}{\bar\imath - I^*_0} > 0,
+\]
+while the college displacement rate is $d_C = 0$.  Hence
+$d_{\mathrm{NC}} > d_C$ for any $\Delta\tau < 0$.  $\blacksquare$
+
+\subsection*{Proof of Proposition~\ref{prop:wages}}
+
+In the neighborhood of $I^*$, AI provides a close substitute for human labor.
+Competitive pressure from AI acts as an implicit price ceiling on the wages of
+tasks near $I^*$: employers can replace workers in those tasks at cost
+$\tau t(i) \approx w$ for $i$ just above $I^*$.  As $I^*$ rises, tasks
+previously interior to the human task range now face direct AI competition,
+compressing wages for workers in those tasks.
+
+Under Assumption 2, non-college workers are concentrated in $[I^*_0,
+\bar\imath]$---the lower end of the human task spectrum, immediately above
+$I^*$.  College workers in $[\bar\imath, 1]$ are further from $I^*$ and
+therefore face weaker competitive pressure.  It follows that non-college
+workers experience (weakly) greater wage compression following a fall in
+$\tau$.
+
+\medskip
+\noindent\textit{Note.}  Because wages are exogenous in the partial
+equilibrium framework (Assumption 1), this proposition is best understood as a
+directional prediction: given any positive relationship between AI competition
+at the task margin and downward wage pressure, non-college workers bear a
+disproportionate share.  The empirical specification in
+Section~\ref{sec:empirical} tests this prediction directly.  $\blacksquare$
+
+% =============================================================================
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
