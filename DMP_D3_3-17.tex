@@ -163,7 +163,7 @@ Four progressively richer specifications are estimated: (1) no additional contro
 
 \subsection{Heterogeneity: Experience and Education}
 
-\paragraph{Experience.} To examine whether the effect varies by seniority, I augment the main specification with a triple interaction:
+\paragraph{Experience.} To examine whether the effect varies by seniority, I supplement the main specification with a triple interaction:
 \begin{equation}
 \label{eq:triple}
 Y_{it} = \alpha
@@ -172,14 +172,14 @@ Y_{it} = \alpha
 \end{equation}
 A negative post-2022 $\delta_t$ would indicate that more-experienced workers are relatively shielded from the influence of AI; a positive value would indicate they are disproportionately affected. 
 
-\paragraph{Education: split-sample approach.} For the education dimension I divide the sample into \emph{college-educated} workers (BA or above, educ $>$ 110) and \emph{non-college} workers (high school or some college, educ $\leq$ 110) and estimate the main specification \eqref{eq:main} separately within each group:
+\paragraph{Education.} For the education dimension I divide the sample into \emph{college-educated} workers (BA or above, educ $>$ 110) and \emph{non-college} workers (high school or some college, educ $\leq$ 110) and estimate the main specification \eqref{eq:main} separately within each group:
 \begin{equation}
 \label{eq:split}
 Y_{it}^{\,g} = \alpha^g
   + \sum_{t \neq 2022} \beta_t^g \left( \mathbf{1}[t] \times \text{AIExposure}_i \right)
   + X_{it}'\Gamma^g + \varepsilon_{it}^g, \quad g \in \{\text{college},\;\text{non-college}\}.
 \end{equation}
-This approach is more transparent than a pooled regression with triple interactions: each subsample has its own baseline, trend, and exposure gradient, and the two coefficient paths $\{\hat\beta_t^{\text{col}}\}$ and $\{\hat\beta_t^{\text{noncol}}\}$ can be compared directly on a combined coefficient plot. The identifying variation within each subsample is unchanged - occupation-level AI exposure interacted with year dummies - so the pre-trends are assessed separately for each group.
+This approach is more transparent than a pooled regression with triple interactions. Each subsample has its own baseline, trend, and exposure gradient, and the two coefficient paths $\{\hat\beta_t^{\text{col}}\}$ and $\{\hat\beta_t^{\text{noncol}}\}$ can be compared directly on a combined coefficient plot.
 
 %==================================================
 \section{Results}
