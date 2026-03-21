@@ -4,6 +4,9 @@ raw/
 # intermediate data
 output/data/
 
+# local pdf build
+build/
+
 # literature pdfs
 Lit/
 
@@ -15,3 +18,4 @@ Thumbs.db
 *.log
 *.tmp
 *.bak
+
