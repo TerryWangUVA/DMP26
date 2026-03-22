@@ -35,13 +35,14 @@
 \subsection{Setup}
 
 Consider a small open economy in which production requires a continuum of
-tasks indexed $i \in [0,1]$, ordered by their susceptibility to AI
-automation.  Tasks at the low end are easily performed by AI; tasks at the
-high end require human judgment and contextual reasoning that AI currently
-struggles to replicate.  This ordering maps directly to the
-\citet{eloundou2024gpts} exposure scores: a high exposure score indicates that
-a large fraction of an occupation's task bundle is susceptible to large
-language models, placing that bundle near the low end of the $i$ spectrum.
+\emph{cognitive tasks} indexed $i \in [0,1]$, ordered by their susceptibility
+to AI automation.  We restrict attention to cognitive tasks because large
+language models operate primarily through language and reasoning --- the
+domain in which \citet{eloundou2024gpts} measure exposure.  Tasks at the low
+end of $i$ are routine cognitive tasks easily replicated by AI; tasks at the
+high end require judgment, contextual reasoning, and expertise that AI
+currently struggles to replicate.  A high \citet{eloundou2024gpts} exposure
+score places an occupation's tasks near the low end of the $i$ spectrum.
 
 Final output $Y$ aggregates tasks via a CES technology:
 \begin{equation}
@@ -93,17 +94,11 @@ first-order condition for task $i$ yields the equilibrium task price
 \end{equation}
 where $y_0(i)$ is the pre-AI equilibrium quantity of task $i$.  Under full
 specialization, $y_0(i) = f(i)$, where $f$ is the density of worker types:
-task supply equals the mass of workers specializing in $i$.
-
-\begin{assumption}[Increasing Pre-AI Task Prices]
-  The pre-AI task price $p_0(i)$ is strictly increasing in $i$: complex tasks
-  are supplied by fewer workers and command higher prices.
-\end{assumption}
-
-\noindent This assumption is consistent with the empirical college wage
-premium: tasks in the upper range of $i$ --- disproportionately supplied by
-college workers --- carry higher prices than routine tasks supplied by
-non-college workers.
+task supply equals the mass of workers specializing in $i$.  Since complex
+cognitive tasks ($i$ near 1) require rare expertise, $f(i)$ is decreasing in
+$i$, and therefore $p_0(i)$ is strictly increasing in $i$ --- complex tasks
+command higher prices.  This is the theoretical counterpart of the empirical
+skill wage premium.
 
 Under full specialization, a worker of type $i^*$ earns the competitive
 price of their task:
@@ -173,39 +168,41 @@ framework --- and note it as a caveat: our model provides a lower bound on
 wages for retained workers.
 
 % -----------------------------------------------------------------------------
-\subsection{Education Heterogeneity}
+\subsection{Skill Heterogeneity}
 \label{sec:het}
 % -----------------------------------------------------------------------------
 
-\begin{assumption}[Education Sorting]
-  Non-college workers have types $i^* \in [0,\bar\imath]$ and college workers
+\begin{assumption}[Skill Sorting]
+  Low-skill workers have types $i^* \in [0,\bar\imath]$ and high-skill workers
   have types $i^* \in [\bar\imath,1]$, with $\bar\imath > I^*$.
 \end{assumption}
 
-\noindent The sorting assumption is consistent with the empirical college wage
-premium and with the \citet{eloundou2024gpts} finding that high-exposure
-occupations are disproportionately held by non-college workers.
+\noindent Skill sorting reflects the empirical regularity that high-exposure
+occupations --- those concentrated at the low end of $i$ --- are
+disproportionately held by workers without a college degree
+\citep{eloundou2024gpts}.  We use low-skill and high-skill as shorthand for
+this pattern; the empirical analogue is the college/non-college distinction.
 
 \begin{proposition}[Differential Wage Compression]
   \label{prop:wages}
   Following a fall in $\tau$ that raises $I^*$ into $(0,\bar\imath)$:
   \begin{enumerate}
     \item[(i)]  All workers experiencing wage compression ($\Delta w(i^*) < 0$)
-                are non-college workers.
-    \item[(ii)] College workers experience no wage compression: $\Delta w(i^*) = 0$
-                for all $i^* \in [\bar\imath,1]$.
+                are low-skill workers.
+    \item[(ii)] High-skill workers experience no wage compression:
+                $\Delta w(i^*) = 0$ for all $i^* \in [\bar\imath,1]$.
   \end{enumerate}
 \end{proposition}
 
 \noindent The proof is in Appendix~\ref{app:proof}.  Since $I^* < \bar\imath$,
-the repriced range $[0,I^*)$ lies entirely within the non-college type
-distribution; college workers' tasks are unaffected.
+the repriced range $[0,I^*)$ lies entirely within the low-skill type
+distribution; high-skill workers' tasks are unaffected.
 
 \begin{remark}
   The near-zero pre-2023 coefficients in the empirical results are consistent
   with $\tau$ remaining stable before the GPT-4 deployment.  The sharp rise in
   effects from 2023 onward corresponds to a discrete fall in $\tau$ that
-  pushes $I^*$ into the non-college task range.
+  pushes $I^*$ into the low-skill task range.
 \end{remark}
 
 % =============================================================================
@@ -325,22 +322,20 @@ raises $I^*$. $\blacksquare$
 \section{Proof of Proposition~\ref{prop:wages}}
 \label{app:proof}
 
-Under Assumption~3, non-college workers have $i^* \in [0,\bar\imath]$ and
-college workers have $i^* \in [\bar\imath,1]$.  Since $I^* < \bar\imath$, the
-repriced range $[0,I^*)$ lies entirely within the non-college type
-distribution.
+Under Assumption~3 (Skill Sorting), low-skill workers have $i^* \in
+[0,\bar\imath]$ and high-skill workers have $i^* \in [\bar\imath,1]$.  Since
+$I^* < \bar\imath$, the repriced range $[0,I^*)$ lies entirely within the
+low-skill type distribution.
 
-From \eqref{eq:deltaw}, for any non-college worker with $i^* < I^*$:
+From \eqref{eq:deltaw}, for any low-skill worker with $i^* < I^*$:
 \[
   \Delta w(i^*) = \tau e^{\alpha i^*} - p_0(i^*) < 0,
 \]
 since $\tau e^{\alpha i^*} < p_0(i^*)$ for all $i^* < I^*$ by definition of
-the cutoff \eqref{eq:cutoff}.
+the cutoff \eqref{eq:cutoff}.  This establishes part~(i).
 
-For any college worker, $i^* \geq \bar\imath > I^*$, so $\Delta w(i^*) = 0$.
-
-Parts (i) and (ii) of Proposition~\ref{prop:wages} follow directly.
-$\blacksquare$
+For any high-skill worker, $i^* \geq \bar\imath > I^*$, so $\Delta w(i^*) = 0$
+by \eqref{eq:deltaw}.  This establishes part~(ii). $\blacksquare$
 
 % =============================================================================
 \bibliographystyle{plainnat}

@@ -24,8 +24,11 @@ Model special notes 3/21:
 - Only focus on cognitive task listing: 
     because manual tasks are shielded from AI impact
     However, do note the spillover effect 
-        Opt 1: expand model to a two-sector PE model
-        Opt 2: this is intuitive, no need to expand the model
-        Opt 3: "Prank model" --> add a section of "McDonald Waiter"
+        Resolution: no need to expand the model anymore
+        Can have anecdotal & intuition helping 
+
+- model observation:
+    no need to assume y(i) decreasing in i 
+    the ranking is just the 
 
 - New todo: python simulation of the model 
