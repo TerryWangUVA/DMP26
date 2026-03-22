@@ -256,14 +256,6 @@ I use \texttt{dv\_rating\_beta}: the \emph{GPT-4-annotated} $\beta$ score. Apply
 
 The variable ranges from approximately 0 (low exposure, e.g., Construction and Extraction) to 0.78 (high exposure, e.g., Computer and Mathematical, Legal, Business and Financial Operations), with a sample standard deviation of roughly 0.17. Because $\beta_o \in [0,1]$, all regression coefficients are interpreted per 0.1-unit increase throughout. The variable is time-invariant and assigned at the occupational level.
 
-\begin{figure}[htbp]
-  \centering
-  % NOTE: convert Eloundou_Process.svg to PDF or PNG if pdflatex does not support SVG natively
-  \includesvg[width=\textwidth]{output/model/Eloundou_Process.svg}
-  \caption{Construction of the \textcite{eloundou2024gpts} occupation-level LLM exposure score $\beta_o$. Human annotators (primary benchmark) label DWAs; GPT-4 labels task/occupation pairs directly. Both converge on the E0/E1/E2 rubric. Tasks are weighted by O*NET core/supplemental status and aggregated to produce $\alpha$, $\beta$, and $\zeta$ at the occupation level.}
-  \label{fig:eloundou_process}
-\end{figure}
-
 To isolate the effect of LLM exposure from broader human capital requirements and barriers to entry, I also incorporate the O*NET Specific Vocational Preparation (SVP) index. \textcite{eloundou2024gpts} demonstrate that LLM exposure is positively correlated with the preparation time, education, and on-the-job training required for an occupation. Therefore, controlling for SVP ensures that $\beta_o$ captures the specific technological shock of generative AI rather than a general skill premium.
 
 Because the CPS-ASEC codes occupations using a Census-based scheme distinct from the SOC codes used by \textcite{eloundou2024gpts}, I construct a hierarchical crosswalk: from Census 2010 occupation codes to 6-digit 2010 SOC codes, then from 2010 SOC to 2018 SOC using the BLS official crosswalk \parencite{bls_soc_crosswalk_2018}. Where exact 6-digit matches are unavailable, exposure scores are aggregated at the 5-digit and 4-digit SOC levels, taking group means. This procedure retains nearly all observations in the sample.
