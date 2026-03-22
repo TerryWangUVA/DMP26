@@ -231,7 +231,7 @@ I restrict the sample to respondents aged 22--65 who are active in the labor for
 
 \subsection{AI Exposure}
 
-The AI exposure variable is drawn from \textcite{eloundou2024gpts}, who construct occupation-level LLM exposure scores using the O*NET task inventory. For each task $t$ in occupation $o$, an annotator assesses whether access to a GPT-4-type system could reduce the time required to complete that task by at least 50\%, yielding a binary task-level label $e_t \in \{0,1\}$. The occupation-level score is then the importance-weighted share of exposed tasks:
+The AI exposure variable is drawn from \textcite{eloundou2024gpts}, who construct occupation-level LLM exposure scores using the O*NET task inventory. For each task $t$ in occupation $o$, a group of annotators assess whether access to a GPT-4-type system could reduce the time required to complete that task by at least 50\%, yielding a binary task-level label $e_t \in \{0,1\}$. The occupation-level score is then the importance-weighted share of exposed tasks:
 \begin{equation}
   \beta_o = \frac{\displaystyle\sum_{t \in T_o} w_t \cdot e_t}{\displaystyle\sum_{t \in T_o} w_t},
   \label{eq:beta}
