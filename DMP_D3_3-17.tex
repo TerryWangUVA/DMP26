@@ -61,6 +61,16 @@
     \item \textbf{(\cite{acemoglu2019automation})}
     Develops a theoretical model explaining how automation both displaces existing tasks and creates new ones.
     Highlights the ambiguous effects of technology on labor demand depending on whether new tasks are complements or substitutes for human labor.
+
+    \item \textbf{(\cite{ottaviano2013immigration})}
+    Extends the \textcite{grossman2008trading} task-trade framework to allow heterogeneous worker types and multiple cutoffs, where different skill groups face different automation (offshoring) thresholds.
+    Originally developed to study offshoring and immigration — not AI — but the formal structure maps directly onto AI-shock analysis: the cutoff mechanism and comparative statics this paper uses are drawn from this framework.
+    Illustrates how a model built in 2013 for a different labor-market shock generalizes to the generative AI context with minimal modification.
+
+    \item \textbf{(\cite{autor2025expertise})}
+    Argues that real-world workers are not single-task specialists but hold \emph{bundles} of complementary tasks whose value derives from expertise accumulated over time.
+    Formal model shows that task automation within a bundle can both displace and restructure work depending on whether the automated task is central to the bundle's value.
+    Provides a more nuanced treatment of worker-task assignment than the full-specialization benchmark used in this paper; to the extent workers hold expertise bundles, the wage compression result here is a lower bound and displacement estimates may understate adjustment costs.
 \end{itemize}
 
 \subsection{Measuring Exposure to Generative AI}
@@ -83,6 +93,11 @@
     \item \textbf{(\cite{eloundou2024gpts})}
     Uses GPT-4 and human annotators to classify O*NET tasks into categories based on whether LLMs could reduce task completion time by at least 50\%. Aggregates task labels to occupation-level exposure scores and produces composite indices.
     Provides a large-scale, LLM-specific exposure dataset reflecting technical feasibility rather than observed adoption.
+
+    \item \textbf{(\cite{handa2025economic})}
+    Analyzes over four million anonymized Claude.ai conversations, mapping them to O*NET tasks and occupations to produce the first large-scale empirical portrait of how AI is \emph{actually used} across the economy --- approximating real-world adoption rather than technical feasibility.
+    Finds that AI use is concentrated in software development and writing; roughly 36\% of occupations use AI for at least a quarter of their tasks; 57\% of interactions suggest augmentation while 43\% suggest automation.
+    Represents arguably the most current measure of AI exposure, incorporating observed behavior rather than expert or model annotation. This paper's analysis predates its release and relies on \textcite{eloundou2024gpts}; incorporating usage-based measures is a natural direction for future work.
 \end{itemize}
 
 \subsection{What the Evidence Shows So Far}
@@ -96,7 +111,7 @@ Finds that after ChatGPT's release, junior employment in adopting firms declined
 Uses high-frequency administrative payroll data from ADP, covering millions of U.S. workers, to document six stylized facts about the early labor market effects of generative AI.
 Identifies that employment among early-career workers (ages 22--25) in highly AI-exposed occupations has declined by roughly 13\% since late 2022, even after controlling for firm-level shocks.
 Employment for older or less AI-exposed workers remained stable or continued to grow.
-Shows that employment declines are concentrated in occupations where AI automates rather than augments work, based on task-level measures from the Anthropic Economic Index and GPT-4 exposure (Eloundou et al., 2024).
+Shows that employment declines are concentrated in occupations where AI automates rather than augments work, based on task-level measures from the Anthropic Economic Index \parencite{handa2025economic} and GPT-4 exposure \parencite{eloundou2024gpts}.
 Finds limited wage effects, suggesting adjustments occurred primarily through employment rather than compensation.
 \end{itemize}
 
