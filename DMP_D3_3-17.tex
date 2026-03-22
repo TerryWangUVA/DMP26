@@ -137,11 +137,8 @@ Finds limited wage effects, suggesting adjustments occurred primarily through em
 \subsection{Setup}
 
 Production requires a continuum of cognitive tasks indexed $i \in [0,1]$,
-ordered by susceptibility to AI automation.  Tasks at the low end are routine
-cognitive tasks easily replicated by large language models; tasks at the high
-end require judgment and expertise that AI currently struggles to replicate.
-The beta score of \textcite{eloundou2024gpts} maps directly onto this ordering:
-a higher score places an occupation's tasks toward the low end of $i$.
+ordered by susceptibility to AI automation. Tasks at the low end are routine cognitive tasks easily replicated by large language models; tasks at the high end require human expertise that AI currently struggles to replicate.
+
 
 Final output $Y$ aggregates tasks via a CES technology:
 \begin{equation}
@@ -155,10 +152,7 @@ additionally be performed by AI at unit cost
   c^{\mathrm{AI}}(i) = \tau\cdot t(i), \qquad t(i) = e^{\alpha i},\quad \alpha>0,
   \label{eq:ai_cost}
 \end{equation}
-where $\tau>0$ is an aggregate AI capability parameter (lower $\tau$ reflects
-more capable AI) and $t'(i)>0$ ensures that more complex tasks are costlier
-to automate.
-
+where $\tau > 0$ is an aggregate AI capability parameter (lower $\tau$ reflects more capable AI), and $t(i)$ is strictly increasing and exponential in task complexity (i.e., $t'(i) > 0$ and $t''(i) > 0$), ensuring that more complex tasks are increasingly costly to automate.
 \begin{assumption}[Small Open Economy]
   The output price $P_Y$ is exogenous and fixed.
 \end{assumption}
@@ -171,9 +165,7 @@ to automate.
   type $i^*=i$.
 \end{assumption}
 
-\noindent Full specialization rules out the case where workers hold
-indivisible bundles of tasks---a simplification we return to in
-Section~\ref{sec:interpretation}.
+
 
 \subsection{Pre-AI Wages}
 
@@ -408,7 +400,7 @@ $\mathcal{A}\equiv\{i\in[0,1]:\phi(i)<0\}$.
 continuity of $\phi$ guarantees by the intermediate value theorem that at
 least one crossing $I^*\in(0,1)$ with $\phi(I^*)=0$ exists.
 
-\medskip\noindent\textbf{Single-crossing assumption.}  Without restrictions
+\medskip\noindent\textbf{Uniqueness assumption.}  Without restrictions
 on $p_0$, $\phi$ may cross zero multiple times, making $\mathcal{A}$ a union
 of intervals rather than $[0,I^*)$.  We maintain a single-crossing condition
 as a tractable benchmark: $\phi$ crosses zero exactly once, so
