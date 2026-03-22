@@ -183,6 +183,13 @@ worker of type $i^*$ earns:
   \label{eq:wage_preai}
 \end{equation}
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{output/model/fig_preai.png}
+  \caption{Pre-AI equilibrium wage schedule. Each worker of type $i^*$ earns the competitive task price $w_0(i^*) = p_0(i^*)$, which is increasing in task complexity.}
+  \label{fig:preai}
+\end{figure}
+
 \subsection{AI Shock, Cutoff, and Wage Compression}
 
 Post-AI, competition between human and AI providers drives task prices to:
@@ -214,6 +221,13 @@ undershoots their pre-AI task price; workers above it are unaffected in
 partial equilibrium.  Workers whose compressed wage falls below a reservation
 threshold exit employment---displacement is the extensive-margin counterpart
 of wage compression.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{output/model/fig_postai.png}
+  \caption{Post-AI shock: cutoff and wage compression. The AI cost curve $\tau e^{\alpha i}$ (dotted red) undercuts the pre-AI task price $p_0(i)$ (dashed blue) for tasks below the cutoff $I^*$. The solid green line is the effective post-AI price $p(i)=\min(p_0(i),\tau e^{\alpha i})$. Workers below $I^*$ experience wage compression $\Delta w < 0$; workers above are unaffected in partial equilibrium.}
+  \label{fig:postai}
+\end{figure}
 
 %==================================================
 \section{Data}
@@ -421,6 +435,13 @@ with $\phi(0)<0$ and $\phi(1)>0$, the unique crossing must have
 $\phi'(I^*)>0$, so the condition is automatically satisfied.  Hence a fall
 in $\tau$ raises $I^*$. $\blacksquare$
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{output/model/fig_capability.png}
+  \caption{Increasing AI capability: the automation frontier expands. As $\tau$ falls (AI improves), the cutoff $I^*$ shifts rightward, enlarging the automated set $\mathcal{A}=[0,I^*)$.}
+  \label{fig:capability}
+\end{figure}
+
 \medskip\noindent\textbf{Multiple crossings.}  The comparative static
 extends to the multiple-crossing case without modification.  At each zero
 $I_k^*$ of $\phi$, the same formula applies: left boundaries of
@@ -432,7 +453,12 @@ automated set $\mathcal{A}$ expands, so the qualitative result---AI
 improvements expand automation---holds regardless of the number of
 crossings.
 
-
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{output/model/fig_multiple.png}
+  \caption{Multiple crossings: the automated set $\mathcal{A}$ as a union of intervals. When $p_0(i)$ is non-monotone, $\phi(i)=\tau e^{\alpha i}-p_0(i)$ may cross zero more than once, producing $\mathcal{A}=[0,I_1^*]\cup[I_2^*,I_3^*]$. Wage compression applies to all workers in $\mathcal{A}$, not only those at the low end of the task distribution.}
+  \label{fig:multiple}
+\end{figure}
 
 \section{Regression Tables}
 \label{app:tables}
