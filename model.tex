@@ -216,31 +216,32 @@ distribution; college workers' tasks are unaffected.
 \section{Derivation of the Pre-AI Task Price}
 \label{app:foc}
 
-\noindent\textbf{Step 1: Cost minimization problem.}
-Before AI, competitive firms choose task quantities $\{y(i)\}_{i\in[0,1]}$ to
-minimize total input cost subject to delivering output $\bar Y$:
+There are two actors in the task market: firms on the demand side and workers
+on the supply side.  We derive equilibrium task prices in two stages.
+
+\bigskip
+\noindent\textbf{Stage 1: Firm's demand for tasks.}
+
+\medskip\noindent\textbf{Step 1.}
+A competitive firm takes the output price $P_Y$ and all task prices
+$\{p_0(i)\}$ as given.  It chooses task quantities $\{y(i)\}$ to minimize
+cost subject to the CES technology \eqref{eq:ces}:
 \[
-  \min_{\{y(i)\}} \int_0^1 p(i)\,y(i)\,di
+  \min_{\{y(i)\}} \int_0^1 p_0(i)\,y(i)\,di
   \quad\text{subject to}\quad
   \left[\int_0^1 y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}}
   \geq \bar Y.
 \]
 
-\medskip\noindent\textbf{Step 2: Lagrangian and first-order condition.}
-Let $\mu \geq 0$ be the multiplier on the output constraint.  The Lagrangian is
-\[
-  \mathcal{L} = \int_0^1 p(i)\,y(i)\,di
-    - \mu\!\left(\left[\int_0^1
-      y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}}
-      - \bar Y\right).
-\]
-Differentiating with respect to $y(i)$ and setting equal to zero:
+\medskip\noindent\textbf{Step 2.}
+Let $\mu$ be the Lagrange multiplier on the output constraint.  The
+first-order condition for task $i$ is:
 \begin{equation}
-  p(i) = \mu\cdot\frac{\partial Y}{\partial y(i)}.
+  p_0(i) = \mu\cdot\frac{\partial Y}{\partial y(i)}.
   \label{eq:foc_general}
 \end{equation}
 
-\medskip\noindent\textbf{Step 3: Compute $\partial Y/\partial y(i)$.}
+\medskip\noindent\textbf{Step 3.}
 Write $Y = Z^{\sigma/(\sigma-1)}$ where $Z \equiv \int_0^1
 y(j)^{(\sigma-1)/\sigma}\,dj$.  By the chain rule:
 \[
@@ -249,47 +250,46 @@ y(j)^{(\sigma-1)/\sigma}\,dj$.  By the chain rule:
     \cdot \frac{\sigma-1}{\sigma}\,y(i)^{\frac{\sigma-1}{\sigma}-1}
   = Z^{\frac{1}{\sigma-1}}\cdot y(i)^{-\frac{1}{\sigma}}.
 \]
-Since $Y = Z^{\sigma/(\sigma-1)}$, we have $Z = Y^{(\sigma-1)/\sigma}$, so
-$Z^{1/(\sigma-1)} = Y^{1/\sigma}$.  Substituting:
+Since $Z = Y^{(\sigma-1)/\sigma}$, it follows that $Z^{1/(\sigma-1)} =
+Y^{1/\sigma}$.  Substituting:
 \[
   \frac{\partial Y}{\partial y(i)}
-  = Y^{1/\sigma}\cdot y(i)^{-1/\sigma}
   = \left(\frac{Y}{y(i)}\right)^{\!1/\sigma}.
 \]
 
-\medskip\noindent\textbf{Step 4: Competitive equilibrium and the task price.}
-In a competitive output market, the value of one additional unit of output
-equals the output price $P_Y$, so the multiplier satisfies $\mu = P_Y$.
-Substituting into \eqref{eq:foc_general}:
+\medskip\noindent\textbf{Step 4.}
+In competitive equilibrium the multiplier equals the output price, $\mu =
+P_Y$.  Substituting into \eqref{eq:foc_general} and rearranging gives the
+firm's demand for task $i$:
+\begin{equation}
+  y^{d}(i) = Y\cdot\left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma}.
+  \label{eq:task_demand}
+\end{equation}
+Demand is decreasing in the task's own price and increasing in aggregate
+output.
+
+\bigskip
+\noindent\textbf{Stage 2: Market clearing and equilibrium price.}
+
+\medskip\noindent\textbf{Step 5.}
+Let $y_0(i)$ denote the pre-AI supply of task $i$ --- the quantity supplied
+by human workers before the AI shock.  Under full specialization
+(Assumption~2), $y_0(i) = f(i)$, the density of workers of type $i^*=i$.
+Setting demand equal to supply:
+\[
+  y^{d}(i) = y_0(i)
+  \implies
+  Y\cdot\left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma} = y_0(i).
+\]
+Solving for the equilibrium task price:
 \begin{equation*}
   p_0(i) = P_Y\cdot\left(\frac{Y}{y_0(i)}\right)^{\!1/\sigma}.
 \end{equation*}
-
-\medskip\noindent\textbf{Step 5: Task demand function.}
-Rearranging the task price expression:
-\[
-  \left(\frac{p_0(i)}{P_Y}\right)^{\!\sigma} = \frac{Y}{y_0(i)}
-  \implies
-  y_0(i) = Y\cdot\left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma}.
-\]
-Demand for task $i$ is decreasing in its own price and increasing in
-aggregate output $Y$ --- the standard CES demand system.
-
-\medskip\noindent\textbf{Step 6: Equilibrium task prices via market clearing.}
-Individual firms take task prices as given when optimizing (competitive
-price-taking), but prices are endogenous in equilibrium.  Under full
-specialization (Assumption~2), the supply of task $i$ is $f(i)$ --- the
-density of workers of type $i^*=i$.  Setting demand equal to supply,
-$y_0(i) = f(i)$, and substituting into the demand function:
-\[
-  f(i) = Y\cdot\left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma}
-  \implies
-  p_0(i) = P_Y\cdot\left(\frac{Y}{f(i)}\right)^{\!1/\sigma}.
-\]
-Task prices are therefore pinned down by the scarcity of workers at each
-ability level.  If $f(i)$ is decreasing in $i$ --- complex tasks are supplied
-by fewer workers --- then $p_0(i)$ is strictly increasing in $i$, which is
-exactly Assumption~3. $\blacksquare$
+Complex tasks are supplied by fewer workers (low $y_0(i)$) and therefore
+command higher prices.  If $y_0(i)$ is decreasing in $i$, then $p_0(i)$ is
+strictly increasing in $i$ --- delivering Assumption~3 as an implication of
+the supply side rather than an independent maintained assumption.
+$\blacksquare$
 
 \section{Existence and Comparative Static of the Cutoff}
 \label{app:cutoff}
