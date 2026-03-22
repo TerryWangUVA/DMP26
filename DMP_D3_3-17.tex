@@ -229,20 +229,41 @@ I restrict the sample to respondents aged 22--65 who are active in the labor for
 \paragraph{Wages.} For the wage analysis, I use annual real wage and salary income (\texttt{incwage}), deflated to 1982 dollars using the annual average CPI-U from FRED \parencite{fred_cpiaucsl}. The outcome variable is the natural log of real wages. Observations with zero or missing wage income are excluded from the wage sample (workers who are unemployed or out of the labor force for wage purposes), yielding 464,300 observations.
 \subsection{AI Exposure}
 
-The AI exposure variable is drawn from \textcite{eloundou2023gpts}, who construct occupation-level LLM exposure scores using the O*NET task inventory. For each task $t$ in occupation $o$, annotators assess whether access to an LLM could reduce the time required to complete that task by at least 50\% with equivalent quality. Tasks are classified into direct exposure ($E1$) or exposure via LLM-powered software ($E2$). The occupation-level score is then the weighted share of exposed tasks:
+The AI exposure variable is drawn from \textcite{eloundou2024gpts}, who construct occupation-level LLM exposure scores from the O*NET 27.2 database. O*NET provides two complementary task-level resources: 19,265 \emph{occupational tasks} (occupation-specific units of work tied to a particular occupation) and 2,087 \emph{Detailed Work Activities} (DWAs) --- broader action categories that may be associated with one or more tasks across occupations.
+
+\paragraph{Exposure rubric.}
+Annotators assess each task or DWA on a three-category rubric, asking whether access to an LLM could reduce the time required to complete it by at least 50\% at equivalent quality:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{E0} (no exposure): the LLM yields no meaningful time reduction, or degrades output quality.
+  \item \textbf{E1} (direct exposure): a standard LLM interface---ChatGPT or the OpenAI Playground---reduces task time by at least 50\% on its own.
+  \item \textbf{E2} (LLM-augmented exposure): the LLM alone cannot meet the threshold, but software built \emph{on top of} the LLM could do so.
+\end{itemize}
+Where DWA labels are available, they are first aggregated to the task level before proceeding to the occupation level.
+
+\paragraph{Occupation-level aggregation.}
+O*NET designates each task as \emph{core} (weight $w_t = 2$) or \emph{supplemental} (weight $w_t = 1$). Three summary measures vary how E1 and E2 tasks are scored:
 \begin{equation}
-  \beta_o = \frac{\sum_{t \in T_o} w_t \cdot e_t}{\sum_{t \in T_o} w_t}
+  \beta_o = \frac{\displaystyle\sum_{t \in T_o} w_t \cdot s_t}{\displaystyle\sum_{t \in T_o} w_t},
   \label{eq:beta}
 \end{equation}
-where $T_o$ is the set of O*NET tasks associated with occupation $o$. To reflect the investment required for complementary tools, the task-level exposure value $e_t$ is set to $1$ for $E1$ tasks and $0.5$ for $E2$ tasks. The weights $w_t$ assign a value of $2$ to tasks designated by O*NET as "core" and $1$ to those designated as "supplemental".
+where $s_t = 1$ for E1 tasks, $s_t = 0.5$ for E2 tasks, and $s_t = 0$ for E0 tasks. The \emph{alpha} score ($\alpha_o$) sets $s_t = 0$ for all E2 tasks, counting only direct LLM exposure. The \emph{zeta} score ($\zeta_o$) sets $s_t = 1$ for E2 tasks, providing an upper bound. $\beta_o$ is the weighted middle ground: E2 tasks are discounted by half, reflecting the additional investment required to build and deploy LLM-powered software on top of the base model. The full construction pipeline is illustrated in Figure~\ref{fig:eloundou_process}.
 
-\textcite{eloundou2023gpts} produce the annotations under two approaches---trained human annotators and GPT-4 itself---and calculate three measures of exposure. The \emph{alpha} ($\alpha$) score assumes access to the bare LLM interface only. The \emph{zeta} ($\zeta$) score imagines an upper bound of exposure encompassing all complementary LLM-powered software. The \emph{beta} ($\beta$) score occupies the middle ground, representing the LLM together with plausible near-term software complements.
+\paragraph{Annotators.}
+\textcite{eloundou2024gpts} collect two independent sets of annotations. \emph{Human ratings} --- produced by the authors and experienced alignment annotators --- are the primary benchmark; they were applied to DWAs and aggregated to the task level. \emph{GPT-4 ratings} were obtained by prompting an early GPT-4 version directly on all task/occupation pairs, serving as a validation dataset. The two sources are highly correlated at the occupation level (Pearson's $r \approx 0.59$ for $\beta$), though humans on average assign slightly higher exposure near the top of the distribution.
 
-I use the variable \texttt{dv\_rating\_beta}: the \emph{GPT-4-annotated} beta score. Using the model's own annotation rather than human raters improves internal consistency across the large O*NET task inventory and avoids inter-rater noise, at the cost of potential overconfidence in GPT-4's own capabilities---a limitation shared by any self-report measure. Beta is preferred to alpha (which ignores the LLM application ecosystem already built at deployment) and zeta (which conflates current AI with speculative future infrastructure); it is therefore the most economically meaningful measure for studying the post-ChatGPT period.
+I use \texttt{dv\_rating\_beta}: the \emph{GPT-4-annotated} $\beta$ score. Applying a single model uniformly across all task/occupation pairs ensures internal consistency and avoids inter-rater noise from human annotation; the cost is potential overconfidence in GPT-4's assessment of its own capabilities. $\beta$ is preferred to $\alpha$ (which ignores the ecosystem of LLM-powered tools already deployed at the time of study) and $\zeta$ (which gives full credit to tasks requiring substantial new software investment); it is therefore the most economically meaningful measure for the post-ChatGPT period.
 
-The variable runs from approximately 0 (low exposure, e.g., Construction and Extraction) to 0.78 (high exposure, e.g., Computer and Mathematical, Legal, Business and Financial Operations), with a sample standard deviation of roughly 0.17. Because $\beta_o \in [0,1]$, regression coefficients are interpreted per 0.1-unit increase throughout. The variable is time-invariant and assigned at the occupational level.
+The variable ranges from approximately 0 (low exposure, e.g., Construction and Extraction) to 0.78 (high exposure, e.g., Computer and Mathematical, Legal, Business and Financial Operations), with a sample standard deviation of roughly 0.17. Because $\beta_o \in [0,1]$, all regression coefficients are interpreted per 0.1-unit increase throughout. The variable is time-invariant and assigned at the occupational level.
 
-To isolate the effect of LLM exposure from broader human capital requirements and barriers to entry, I also incorporate the O*NET Specific Vocational Preparation (SVP) index. \textcite{eloundou2023gpts} demonstrate that LLM exposure is positively correlated with the preparation time, education, and on-the-job training required for an occupation. Therefore, controlling for SVP ensures that $\beta_o$ captures the specific technological shock of generative AI rather than a general skill premium.
+\begin{figure}[htbp]
+  \centering
+  % NOTE: convert Eloundou_Process.svg to PDF or PNG if pdflatex does not support SVG natively
+  \includegraphics[width=0.68\textwidth]{output/model/Eloundou_Process.svg}
+  \caption{Construction of the \textcite{eloundou2024gpts} occupation-level LLM exposure score $\beta_o$. Human annotators (primary benchmark) label DWAs; GPT-4 labels task/occupation pairs directly. Both converge on the E0/E1/E2 rubric. Tasks are weighted by O*NET core/supplemental status and aggregated to produce $\alpha$, $\beta$, and $\zeta$ at the occupation level.}
+  \label{fig:eloundou_process}
+\end{figure}
+
+To isolate the effect of LLM exposure from broader human capital requirements and barriers to entry, I also incorporate the O*NET Specific Vocational Preparation (SVP) index. \textcite{eloundou2024gpts} demonstrate that LLM exposure is positively correlated with the preparation time, education, and on-the-job training required for an occupation. Therefore, controlling for SVP ensures that $\beta_o$ captures the specific technological shock of generative AI rather than a general skill premium.
 
 Because the CPS-ASEC codes occupations using a Census-based scheme distinct from the SOC codes used by \textcite{eloundou2024gpts}, I construct a hierarchical crosswalk: from Census 2010 occupation codes to 6-digit 2010 SOC codes, then from 2010 SOC to 2018 SOC using the BLS official crosswalk \parencite{bls_soc_crosswalk_2018}. Where exact 6-digit matches are unavailable, exposure scores are aggregated at the 5-digit and 4-digit SOC levels, taking group means. This procedure retains nearly all observations in the sample.
 
