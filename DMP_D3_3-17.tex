@@ -6,6 +6,7 @@
 \usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage{float}
+\usepackage{svg}
 \usepackage{xcolor}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -258,7 +259,7 @@ The variable ranges from approximately 0 (low exposure, e.g., Construction and E
 \begin{figure}[htbp]
   \centering
   % NOTE: convert Eloundou_Process.svg to PDF or PNG if pdflatex does not support SVG natively
-  \includegraphics[width=0.68\textwidth]{output/model/Eloundou_Process.svg}
+  \includesvg[width=\textwidth]{output/model/Eloundou_Process.svg}
   \caption{Construction of the \textcite{eloundou2024gpts} occupation-level LLM exposure score $\beta_o$. Human annotators (primary benchmark) label DWAs; GPT-4 labels task/occupation pairs directly. Both converge on the E0/E1/E2 rubric. Tasks are weighted by O*NET core/supplemental status and aggregated to produce $\alpha$, $\beta$, and $\zeta$ at the occupation level.}
   \label{fig:eloundou_process}
 \end{figure}
