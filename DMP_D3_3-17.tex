@@ -400,7 +400,7 @@ $\mathcal{A}\equiv\{i\in[0,1]:\phi(i)<0\}$.
 continuity of $\phi$ guarantees by the intermediate value theorem that at
 least one crossing $I^*\in(0,1)$ with $\phi(I^*)=0$ exists.
 
-\medskip\noindent\textbf{Uniqueness assumption.}  Without restrictions
+\medskip\noindent\textbf{Single-crossing assumption.}  Without restrictions
 on $p_0$, $\phi$ may cross zero multiple times, making $\mathcal{A}$ a union
 of intervals rather than $[0,I^*)$.  We maintain a single-crossing condition
 as a tractable benchmark: $\phi$ crosses zero exactly once, so
@@ -420,6 +420,20 @@ $\phi'(I^*)=\alpha\tau e^{\alpha I^*}-p_0'(I^*)>0$.  Under single-crossing
 with $\phi(0)<0$ and $\phi(1)>0$, the unique crossing must have
 $\phi'(I^*)>0$, so the condition is automatically satisfied.  Hence a fall
 in $\tau$ raises $I^*$. $\blacksquare$
+
+\medskip\noindent\textbf{Multiple crossings.}  The comparative static
+extends to the multiple-crossing case without modification.  At each zero
+$I_k^*$ of $\phi$, the same formula applies: left boundaries of
+$\mathcal{A}$ (upward crossings, $\phi'(I_k^*)>0$) satisfy
+$\partial I_k^*/\partial\tau<0$ and shift rightward as $\tau$ falls, while
+right boundaries (downward crossings, $\phi'(I_k^*)<0$) satisfy
+$\partial I_k^*/\partial\tau>0$ and shift leftward.  In both cases the
+automated set $\mathcal{A}$ expands, so the qualitative result---AI
+improvements expand automation---holds regardless of the number of
+crossings.
+
+
+
 \section{Regression Tables}
 \label{app:tables}
 \setcounter{table}{0}
