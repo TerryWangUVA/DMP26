@@ -9,7 +9,14 @@
 \usepackage{xcolor}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{epigraph}
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
 \usepackage{enumitem}
 \usepackage[style=apa,backend=biber]{biblatex}
 \addbibresource{references.bib}
@@ -73,21 +80,6 @@ The philosopher looks around and says quietly:
 
 %==================================================
 
-\section{Model}
-\subsection{Setup}
-\begin{itemize}
-    \item A1: small economy, price of output is exogenously given
-
-    \item A2: listing of task possible (easiest to be replaced -> hardest to be replaced)
-
-    \item A3: Heterogeneous worker \& full specialization. --> market clear so $p_0$ derivable and it correlates with $y_0(i)$ --> the initial ``supply'' of task i. 
-\end{itemize}
-
-
-\subsection{Pre-AI Wage}
-
-\section{Wages post-AI}
-
 
 \section{Background}
 \label{sec:background}
@@ -136,6 +128,100 @@ Employment for older or less AI-exposed workers remained stable or continued to 
 Shows that employment declines are concentrated in occupations where AI automates rather than augments work, based on task-level measures from the Anthropic Economic Index and GPT-4 exposure (Eloundou et al., 2024).
 Finds limited wage effects, suggesting adjustments occurred primarily through employment rather than compensation.
 \end{itemize}
+
+%==================================================
+\section{Theoretical Framework}
+\label{sec:model}
+%==================================================
+
+\subsection{Setup}
+
+Production requires a continuum of cognitive tasks indexed $i \in [0,1]$,
+ordered by susceptibility to AI automation.  Tasks at the low end are routine
+cognitive tasks easily replicated by large language models; tasks at the high
+end require judgment and expertise that AI currently struggles to replicate.
+The beta score of \textcite{eloundou2024gpts} maps directly onto this ordering:
+a higher score places an occupation's tasks toward the low end of $i$.
+
+Final output $Y$ aggregates tasks via a CES technology:
+\begin{equation}
+  Y = \left[\int_0^1 y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}},
+  \qquad \sigma > 0,
+  \label{eq:ces}
+\end{equation}
+where $y(i)$ is the quantity of task $i$ used in production.  Each task can
+additionally be performed by AI at unit cost
+\begin{equation}
+  c^{\mathrm{AI}}(i) = \tau\cdot t(i), \qquad t(i) = e^{\alpha i},\quad \alpha>0,
+  \label{eq:ai_cost}
+\end{equation}
+where $\tau>0$ is an aggregate AI capability parameter (lower $\tau$ reflects
+more capable AI) and $t'(i)>0$ ensures that more complex tasks are costlier
+to automate.
+
+\begin{assumption}[Small Open Economy]
+  The output price $P_Y$ is exogenous and fixed.
+\end{assumption}
+
+\begin{assumption}[Full Specialization]
+  Workers are indexed by ability type $i^*\in[0,1]$.  A worker of type $i^*$
+  is capable of performing any task $i\leq i^*$ but fully specializes in task
+  $i^*$---the hardest task they can perform, at which they hold comparative
+  advantage.  Each task $i$ is therefore supplied exclusively by workers of
+  type $i^*=i$.
+\end{assumption}
+
+\noindent Full specialization rules out the case where workers hold
+indivisible bundles of tasks---a simplification we return to in
+Section~\ref{sec:interpretation}.
+
+\subsection{Pre-AI Wages}
+
+Before AI, cost minimization subject to \eqref{eq:ces} yields equilibrium
+task prices (derived in Appendix~\ref{app:foc}):
+\begin{equation}
+  p_0(i) = P_Y \cdot \left(\frac{Y}{y_0(i)}\right)^{\!1/\sigma},
+  \label{eq:taskprice_preai}
+\end{equation}
+where $y_0(i)=f(i)$ is the pre-AI supply of task $i$, equal to the density
+of worker types under full specialization.  Under competitive markets, a
+worker of type $i^*$ earns:
+\begin{equation}
+  w_0(i^*) = p_0(i^*).
+  \label{eq:wage_preai}
+\end{equation}
+
+\subsection{AI Shock, Cutoff, and Wage Compression}
+
+Post-AI, competition between human and AI providers drives task prices to:
+\begin{equation}
+  p(i) = \min\!\bigl(p_0(i),\;\tau e^{\alpha i}\bigr).
+  \label{eq:taskprice_postai}
+\end{equation}
+Under the single-crossing condition maintained in Appendix~\ref{app:cutoff},
+there exists a unique threshold $I^*$ satisfying:
+\begin{equation}
+  \tau\,e^{\alpha I^*} = p_0(I^*).
+  \label{eq:cutoff}
+\end{equation}
+Tasks $i<I^*$ are automated; tasks $i\geq I^*$ remain performed by humans.
+As AI improves ($\tau\downarrow$), $I^*$ rises.  The wage change for worker
+$i^*$ is:
+\begin{equation}
+  \Delta w(i^*) =
+  \begin{cases}
+    \tau e^{\alpha i^*} - p_0(i^*) < 0 & \text{if }i^* < I^*, \\[4pt]
+    0 & \text{if }i^* \geq I^*.
+  \end{cases}
+  \label{eq:deltaw}
+\end{equation}
+The sign for $i^*<I^*$ is unambiguous: by definition of the cutoff,
+$\tau e^{\alpha i^*}<p_0(i^*)$ throughout the automated range.  Workers
+below the cutoff suffer wage compression proportional to how far AI cost
+undershoots their pre-AI task price; workers above it are unaffected in
+partial equilibrium.  Workers whose compressed wage falls below a reservation
+threshold exit employment---displacement is the extensive-margin counterpart
+of wage compression.
 
 %==================================================
 \section{Data}
@@ -296,6 +382,51 @@ The log-wage experience results are largely null: post-2022 triple-interaction c
 
 %==================================================
 \appendix
+
+\section{Derivation of the Pre-AI Task Price}
+\label{app:foc}
+
+Competitive firms minimize $\int_0^1 p_0(i)\,y(i)\,di$ subject to
+\eqref{eq:ces}, taking $P_Y$ and task prices $\{p_0(i)\}$ as given.  Writing
+$Y=Z^{\sigma/(\sigma-1)}$ with $Z\equiv\int_0^1 y(j)^{(\sigma-1)/\sigma}dj$,
+the first-order condition for task $i$ is $p_0(i)=\mu\cdot(Y/y(i))^{1/\sigma}$,
+where the chain rule gives $\partial Y/\partial y(i)=Z^{1/(\sigma-1)}y(i)^{-1/\sigma}
+=Y^{1/\sigma}y(i)^{-1/\sigma}$ (using $Z=Y^{(\sigma-1)/\sigma}$).
+In competitive equilibrium $\mu=P_Y$, so the task demand function is
+$y_0^d(i)=Y\cdot(P_Y/p_0(i))^\sigma$.
+Under full specialization (Assumption~2), supply of task $i$ is $y_0(i)=f(i)$.
+Market clearing $y_0^d(i)=y_0(i)$ then yields \eqref{eq:taskprice_preai}
+directly. $\blacksquare$
+
+\section{The Automation Cutoff: Existence, Uniqueness, and Comparative Static}
+\label{app:cutoff}
+
+Define $\phi(i)\equiv\tau e^{\alpha i}-p_0(i)$.  The automated set is
+$\mathcal{A}\equiv\{i\in[0,1]:\phi(i)<0\}$.
+
+\medskip\noindent\textbf{Existence.}  Assuming $\phi(0)<0$ and $\phi(1)>0$,
+continuity of $\phi$ guarantees by the intermediate value theorem that at
+least one crossing $I^*\in(0,1)$ with $\phi(I^*)=0$ exists.
+
+\medskip\noindent\textbf{Single-crossing assumption.}  Without restrictions
+on $p_0$, $\phi$ may cross zero multiple times, making $\mathcal{A}$ a union
+of intervals rather than $[0,I^*)$.  We maintain a single-crossing condition
+as a tractable benchmark: $\phi$ crosses zero exactly once, so
+$\mathcal{A}=[0,I^*)$ for a unique $I^*$.  In the general case, the wage
+compression result \eqref{eq:deltaw} continues to hold for any
+$i^*\in\mathcal{A}$, but affected workers need not be concentrated at the
+low end of the task distribution.
+
+\medskip\noindent\textbf{Comparative static.}  Totally differentiating
+$\tau e^{\alpha I^*}=p_0(I^*)$ with respect to $\tau$:
+\[
+  \frac{\partial I^*}{\partial\tau}
+  = \frac{-e^{\alpha I^*}}{p_0'(I^*)-\alpha\,p_0(I^*)}.
+\]
+This is negative whenever $p_0'(I^*)<\alpha\,p_0(I^*)$---AI cost rises
+faster in percentage terms than the pre-AI task price at the cutoff, which
+holds generically under $t(i)=e^{\alpha i}$.  Hence a fall in $\tau$ raises
+$I^*$. $\blacksquare$
 \section{Regression Tables}
 \label{app:tables}
 \setcounter{table}{0}
