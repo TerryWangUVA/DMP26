@@ -163,43 +163,6 @@ abstract from this channel --- consistent with the PE, small open economy
 framework --- and note it as a caveat: our model provides a lower bound on
 wages for retained workers.
 
-% -----------------------------------------------------------------------------
-\subsection{Skill Heterogeneity}
-\label{sec:het}
-% -----------------------------------------------------------------------------
-
-\begin{assumption}[Skill Sorting]
-  Low-skill workers have types $i^* \in [0,\bar\imath]$ and high-skill workers
-  have types $i^* \in [\bar\imath,1]$, with $\bar\imath > I^*$.
-\end{assumption}
-
-\noindent Skill sorting reflects the empirical regularity that high-exposure
-occupations --- those concentrated at the low end of $i$ --- are
-disproportionately held by workers without a college degree
-\citep{eloundou2024gpts}.  We use low-skill and high-skill as shorthand for
-this pattern; the empirical analogue is the college/non-college distinction.
-
-\begin{proposition}[Differential Wage Compression]
-  \label{prop:wages}
-  Following a fall in $\tau$ that raises $I^*$ into $(0,\bar\imath)$:
-  \begin{enumerate}
-    \item[(i)]  All workers experiencing wage compression ($\Delta w(i^*) < 0$)
-                are low-skill workers.
-    \item[(ii)] High-skill workers experience no wage compression:
-                $\Delta w(i^*) = 0$ for all $i^* \in [\bar\imath,1]$.
-  \end{enumerate}
-\end{proposition}
-
-\noindent The proof is in Appendix~\ref{app:proof}.  Since $I^* < \bar\imath$,
-the repriced range $[0,I^*)$ lies entirely within the low-skill type
-distribution; high-skill workers' tasks are unaffected.
-
-\begin{remark}
-  The near-zero pre-2023 coefficients in the empirical results are consistent
-  with $\tau$ remaining stable before the GPT-4 deployment.  The sharp rise in
-  effects from 2023 onward corresponds to a discrete fall in $\tau$ that
-  pushes $I^*$ into the low-skill task range.
-\end{remark}
 
 % =============================================================================
 %  APPENDIX
@@ -315,23 +278,6 @@ the cutoff.  Under the exponential parameterization $t(i)=e^{\alpha i}$ this
 is the same condition that ensures uniqueness above.  Hence a fall in $\tau$
 raises $I^*$. $\blacksquare$
 
-\section{Proof of Proposition~\ref{prop:wages}}
-\label{app:proof}
-
-Under Assumption~3 (Skill Sorting), low-skill workers have $i^* \in
-[0,\bar\imath]$ and high-skill workers have $i^* \in [\bar\imath,1]$.  Since
-$I^* < \bar\imath$, the repriced range $[0,I^*)$ lies entirely within the
-low-skill type distribution.
-
-From \eqref{eq:deltaw}, for any low-skill worker with $i^* < I^*$:
-\[
-  \Delta w(i^*) = \tau e^{\alpha i^*} - p_0(i^*) < 0,
-\]
-since $\tau e^{\alpha i^*} < p_0(i^*)$ for all $i^* < I^*$ by definition of
-the cutoff \eqref{eq:cutoff}.  This establishes part~(i).
-
-For any high-skill worker, $i^* \geq \bar\imath > I^*$, so $\Delta w(i^*) = 0$
-by \eqref{eq:deltaw}.  This establishes part~(ii). $\blacksquare$
 
 % =============================================================================
 \bibliographystyle{plainnat}
