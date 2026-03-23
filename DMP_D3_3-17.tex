@@ -209,7 +209,7 @@ there exists a unique threshold $I^*$ satisfying:
   \label{eq:cutoff}
 \end{equation}
 Tasks $i<I^*$ are automated; tasks $i\geq I^*$ remain performed by humans.
-As AI improves ($\tau\downarrow$), $I^*$ rises.  The wage change for worker
+As AI improves ($\tau\downarrow$), $I^*$ rises (Appendix~\ref{app:cutoff}, B.3).  The wage change for worker
 $i^*$ is:
 \begin{equation}
   \Delta w(i^*) =
@@ -455,60 +455,69 @@ $p_0(i)$ yields \eqref{eq:taskprice_preai} directly:
   p_0(i) = P_Y\cdot\left(\frac{Y}{f(i)}\right)^{\!1/\sigma}. \qquad\blacksquare
 \]
 
-\section{The Automation Cutoff: Existence, Uniqueness, and Comparative Static}
+\section{The Automation Cutoff}
 \label{app:cutoff}
 
 Define $\phi(i)\equiv\tau e^{\alpha i}-p_0(i)$.  The automated set is
 $\mathcal{A}\equiv\{i\in[0,1]:\phi(i)<0\}$.
 
-\medskip\noindent\textbf{Existence.}  Assuming $\phi(0)<0$ and $\phi(1)>0$,
-continuity of $\phi$ guarantees by the intermediate value theorem that at
-least one crossing $I^*\in(0,1)$ with $\phi(I^*)=0$ exists.
+%--- B.1 ---
+\subsection*{B.1\quad Existence}
 
-\medskip\noindent\textbf{Single-crossing assumption.}  Without restrictions
-on $p_0$, $\phi$ may cross zero multiple times, making $\mathcal{A}$ a union
-of intervals rather than $[0,I^*)$.  We maintain a single-crossing condition
-as a benchmark: $\phi$ crosses zero exactly once, so
-$\mathcal{A}=[0,I^*)$ for a unique $I^*$.  In the general case, the wage
-compression result \eqref{eq:deltaw} continues to hold for any
-$i^*\in\mathcal{A}$, but affected workers need not be concentrated at the
-low end of the task distribution.
+Assume $\phi(0)<0$ (AI undercuts the simplest task) and $\phi(1)>0$
+(humans retain advantage at the most complex task).  Continuity of $\phi$
+guarantees by the intermediate value theorem that at least one crossing
+$I^*\in(0,1)$ with $\phi(I^*)=0$ exists.
 
-\medskip\noindent\textbf{Comparative static.}  Totally differentiating
-$\tau e^{\alpha I^*}=p_0(I^*)$ with respect to $\tau$:
-\[
-  \frac{\partial I^*}{\partial\tau}
-  = \frac{e^{\alpha I^*}}{p_0'(I^*)-\alpha\,p_0(I^*)}.
-\]
-This is negative whenever $p_0'(I^*)<\alpha\,p_0(I^*)$, i.e.\
-$\phi'(I^*)=\alpha\tau e^{\alpha I^*}-p_0'(I^*)>0$.  Under single-crossing
-with $\phi(0)<0$ and $\phi(1)>0$, the unique crossing must have
-$\phi'(I^*)>0$, so the condition is automatically satisfied.  Hence a fall
-in $\tau$ raises $I^*$. $\blacksquare$
+%--- B.2 ---
+\subsection*{B.2\quad Single-Crossing Benchmark and the General Case}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.82\textwidth]{output/model/fig_capability.png}
-  \caption{Increasing AI capability: the automation frontier expands. As $\tau$ falls (AI improves), the cutoff $I^*$ shifts rightward, enlarging the automated set $\mathcal{A}=[0,I^*)$.}
-  \label{fig:capability}
-\end{figure}
+Without restrictions on $p_0$, $\phi$ may cross zero multiple times,
+making $\mathcal{A}$ a union of intervals rather than $[0,I^*)$.  The
+main text maintains a \emph{single-crossing} condition as a tractable
+benchmark: $\phi$ crosses zero exactly once, giving a unique $I^*$ and
+$\mathcal{A}=[0,I^*)$.
 
-\medskip\noindent\textbf{Multiple crossings.}  The comparative static
-extends to the multiple-crossing case without modification.  At each zero
-$I_k^*$ of $\phi$, the same formula applies: left boundaries of
-$\mathcal{A}$ (upward crossings, $\phi'(I_k^*)>0$) satisfy
-$\partial I_k^*/\partial\tau<0$ and shift rightward as $\tau$ falls, while
-right boundaries (downward crossings, $\phi'(I_k^*)<0$) satisfy
-$\partial I_k^*/\partial\tau>0$ and shift leftward.  In both cases the
-automated set $\mathcal{A}$ expands, so the qualitative result---AI
-improvements expand automation---holds regardless of the number of
-crossings.
+In the general case the wage compression result \eqref{eq:deltaw} continues
+to hold for every $i^*\in\mathcal{A}$; affected workers need not be
+concentrated at the low end of the task distribution.
+Figure~\ref{fig:multiple} illustrates a representative multiple-crossing
+configuration.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.82\textwidth]{output/model/fig_multiple.png}
   \caption{Multiple crossings: the automated set $\mathcal{A}$ as a union of intervals. When $p_0(i)$ is non-monotone, $\phi(i)=\tau e^{\alpha i}-p_0(i)$ may cross zero more than once, producing $\mathcal{A}=[0,I_1^*]\cup[I_2^*,I_3^*]$. Wage compression applies to all workers in $\mathcal{A}$, not only those at the low end of the task distribution.}
   \label{fig:multiple}
+\end{figure}
+
+%--- B.3 ---
+\subsection*{B.3\quad Comparative Static: $\partial I^*/\partial\tau < 0$}
+
+Totally differentiating $\tau e^{\alpha I^*}=p_0(I^*)$ with respect to
+$\tau$ gives:
+\[
+  \frac{\partial I^*}{\partial\tau}
+  = \frac{e^{\alpha I^*}}{p_0'(I^*)-\alpha\,p_0(I^*)}.
+\]
+This is negative whenever $\phi'(I^*)\equiv\alpha\tau e^{\alpha
+I^*}-p_0'(I^*)>0$.  Under single-crossing with $\phi(0)<0$ and
+$\phi(1)>0$, the unique crossing must satisfy $\phi'(I^*)>0$, so the
+condition holds automatically.  Hence a fall in $\tau$ raises $I^*$:
+AI improvement expands the automation frontier. $\blacksquare$
+
+The result extends to the multiple-crossing case: left boundaries of
+$\mathcal{A}$ (upward crossings, $\phi'>0$) shift rightward as $\tau$
+falls; right boundaries (downward crossings, $\phi'<0$) shift leftward.
+The automated set expands in either case.
+Figure~\ref{fig:capability} illustrates the expanding frontier under
+single-crossing.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{output/model/fig_capability.png}
+  \caption{Increasing AI capability: the automation frontier expands. As $\tau$ falls (AI improves), the cutoff $I^*$ shifts rightward, enlarging the automated set $\mathcal{A}=[0,I^*)$.}
+  \label{fig:capability}
 \end{figure}
 
 \section{Regression Tables}
