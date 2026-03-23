@@ -141,20 +141,21 @@ additionally be performed by AI at unit cost
 \end{equation}
 where $\tau > 0$ is an aggregate AI capability parameter (lower $\tau$ reflects more capable AI), and $t(i)$ is strictly increasing and exponential in task complexity (i.e., $t'(i) > 0$ and $t''(i) > 0$), ensuring that more complex tasks are increasingly costly to automate.
 
-%put after task assumptions
-\textcolor{red}{before AI shock task supply, labor supply... and structure of labor supply (inelastic) --> do we put in setup or have a separate assumption for this }
-
-
 \begin{assumption}[Small Open Economy]
   The output price $P_Y$ is exogenous and fixed.
 \end{assumption}
 
-
-\begin{assumption}[Full Specialization, Automic Workers]
+\begin{assumption}[Full Specialization]
   Workers are indexed by ability type $i^*\in[0,1]$.  A worker of type $i^*$ fully specializes in task
   $i^*$---the task at which they hold comparative
   advantage over other types.  Each task $i$ is therefore supplied exclusively by workers of
   type $i^*=i$.
+\end{assumption}
+
+\begin{assumption}[Inelastic Labor Supply]
+  The distribution of worker types $f(i)$ over $[0,1]$ is fixed and exogenous.  Workers do not
+  adjust their type in response to wages, so the supply of task $i$ is $y_0(i)=f(i)$
+  regardless of the task price.
 \end{assumption}
 
 
