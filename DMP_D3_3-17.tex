@@ -195,9 +195,28 @@ imposes no explicit restriction on the shape of $p_0$.
   \label{fig:preai}
 \end{figure}
 
-\subsection{AI Shock, Cutoff, and Wage Compression}
+\subsection{AI Shock and Wage Compression}
 
-Post-AI, competition between human and AI providers drives task prices to:
+\paragraph{What this analysis does and does not do.}
+Rather than solving a new post-AI equilibrium, we conduct a
+\emph{price comparison} against the pre-AI benchmark, holding aggregate
+output fixed at its pre-AI level $Y_0$.  Taking the pre-AI task prices
+$\{p_0(i)\}$ as given, we ask: which task prices does AI undercut, and by
+how much?  This isolates the \textbf{substitution channel}---the direct
+wage compression arising from AI competing in task markets.  Two other
+channels are deliberately set aside:
+\begin{itemize}
+  \item \textbf{Augmentation}: AI raises the effective productivity of
+    workers it complements rather than replaces.  Modelling this would
+    require $Y$ to adjust endogenously and is left for future work.
+  \item \textbf{Output expansion}: cheaper automated tasks lower the cost
+    of producing $Y$; in general equilibrium $Y$ would rise, benefiting
+    workers in non-automated tasks.  Holding $Y = Y_0$ abstracts from this
+    channel, so the model provides a lower bound on wages for retained workers.
+\end{itemize}
+
+\paragraph{The cutoff.}
+For each task $i$, the effective price under AI competition is:
 \begin{equation}
   p(i) = \min\!\bigl(p_0(i),\;\tau e^{\alpha i}\bigr).
   \label{eq:taskprice_postai}
@@ -209,8 +228,10 @@ there exists a unique threshold $I^*$ satisfying:
   \label{eq:cutoff}
 \end{equation}
 Tasks $i<I^*$ are automated; tasks $i\geq I^*$ remain performed by humans.
-As AI improves ($\tau\downarrow$), $I^*$ rises (Appendix~\ref{app:cutoff}, B.3).  The wage change for worker
-$i^*$ is:
+As AI improves ($\tau\downarrow$), $I^*$ rises (Appendix~\ref{app:cutoff}, B.3).
+
+\paragraph{Wage compression and displacement.}
+The wage change for worker $i^*$, measured against the pre-AI benchmark, is:
 \begin{equation}
   \Delta w(i^*) =
   \begin{cases}
@@ -219,13 +240,15 @@ $i^*$ is:
   \end{cases}
   \label{eq:deltaw}
 \end{equation}
-The sign for $i^*<I^*$ is unambiguous: by definition of the cutoff,
+The sign for $i^*<I^*$ is unambiguous: by definition of $I^*$,
 $\tau e^{\alpha i^*}<p_0(i^*)$ throughout the automated range.  Workers
 below the cutoff suffer wage compression proportional to how far AI cost
-undershoots their pre-AI task price; workers above it are unaffected in
-partial equilibrium.  Workers whose compressed wage falls below a reservation
-threshold exit employment---displacement is the extensive-margin counterpart
-of wage compression.  Figure~\ref{fig:postai} illustrates these mechanics;
+undershoots their pre-AI task price.  The zero for $i^*\geq I^*$ reflects
+the substitution channel alone; the output expansion channel, which would
+push these wages up in general equilibrium, is abstracted from.
+Workers whose compressed wage falls below a reservation threshold exit
+employment---displacement is the extensive-margin counterpart of wage
+compression.  Figure~\ref{fig:postai} illustrates these mechanics;
 as in Figure~\ref{fig:preai}, the increasing $p_0(i)$ is for illustration
 only and is not required by the model.
 
