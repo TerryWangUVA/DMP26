@@ -174,11 +174,12 @@ in Appendix~\ref{app:foc}.
 Before AI, cost minimization subject to \eqref{eq:ces} yields equilibrium
 task prices (derived in Appendix~\ref{app:foc}):
 \begin{equation}
-  p_0(i) = P_Y \cdot \left(\frac{Y}{f(i)}\right)^{\!1/\sigma},
+  p_0(i) = P_Y \cdot \left(\frac{Y_0}{f(i)}\right)^{\!1/\sigma},
   \label{eq:taskprice_preai}
 \end{equation}
-where $f(i)$ is the density of worker types, which equals task supply under
-full specialization and inelastic labor supply. In this equilibrium, a
+where $Y_0\equiv\bigl[\int_0^1 f(i)^{(\sigma-1)/\sigma}di\bigr]^{\sigma/(\sigma-1)}$
+is pre-AI aggregate output, fully determined by the distribution of worker
+types $f$ via the CES aggregator. In this equilibrium, a
 worker of type $i^*$ earns:
 \begin{equation}
   w_0(i^*) = p_0(i^*).
@@ -200,7 +201,7 @@ imposes no explicit restriction on the shape of $p_0$.
 \paragraph{What this analysis does and does not do.}
 Rather than solving a new post-AI equilibrium, we conduct a
 \emph{price comparison} against the pre-AI benchmark, holding aggregate
-output fixed at its pre-AI level $Y_0$.  Taking the pre-AI task prices
+output fixed at $Y_0$ (the pre-AI level derived in Appendix~\ref{app:foc}, Step~4).  Taking the pre-AI task prices
 $\{p_0(i)\}$ as given, we ask: which task prices does AI undercut, and by
 how much?  This isolates the \textbf{substitution channel}---the direct
 wage compression arising from AI competing in task markets.  Two other
@@ -473,10 +474,25 @@ $\mu=P_Y$.  Solving for task demand:
 \medskip\noindent\textbf{Step 3: Market clearing.}
 Under Assumptions~2 (full specialization) and~3 (inelastic labor supply),
 the supply of task $i$ is $f(i)$.  Setting $y^d(i)=f(i)$ and solving for
-$p_0(i)$ yields \eqref{eq:taskprice_preai} directly:
+$p_0(i)$:
 \[
-  p_0(i) = P_Y\cdot\left(\frac{Y}{f(i)}\right)^{\!1/\sigma}. \qquad\blacksquare
+  p_0(i) = P_Y\cdot\left(\frac{Y}{f(i)}\right)^{\!1/\sigma}.
 \]
+
+\medskip\noindent\textbf{Step 4: Solving for $Y_0$.}
+The expression in Step~3 still contains $Y$.  To close the system,
+substitute $y(i)=f(i)$ into the CES aggregator \eqref{eq:ces}:
+\[
+  Y_0 \;\equiv\; \left[\int_0^1 f(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}}.
+\]
+$Y_0$ is fully determined by the distribution of worker types $f$ and does
+not depend on prices.  Substituting back yields the complete pre-AI task
+price as a function of model primitives alone:
+\[
+  p_0(i) = P_Y\cdot\left(\frac{Y_0}{f(i)}\right)^{\!1/\sigma}. \qquad\blacksquare
+\]
+It is this $Y_0$ that the post-AI price comparison in
+Section~\ref{sec:model} holds fixed.
 
 \section{The Automation Cutoff}
 \label{app:cutoff}
