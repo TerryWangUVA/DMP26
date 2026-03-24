@@ -1,0 +1,396 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{Boadilla}
+\usecolortheme{dolphin}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+
+\graphicspath{
+  {../../output/model/}
+  {../../output/graphs/}
+  {output/model/}
+  {output/graphs/}
+}
+
+\title[AI \& Labor Market Risk]{Present Day, Present Time:\\
+  AI Exposure \& Labor Market Risk}
+\author{Leyao Wang}
+\institute{University of Virginia \\ ECON 4210 --- International Trade}
+\date{March 2026}
+
+\definecolor{myred}{RGB}{215,48,39}
+\definecolor{mygreen}{RGB}{26,150,65}
+\definecolor{mygray}{RGB}{120,120,120}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+% =============================================================================
+% SLIDE 2 — Motivation
+% =============================================================================
+\begin{frame}{The Question}
+
+\begin{columns}[c]
+\column{0.55\textwidth}
+
+  \textbf{November 2022: ChatGPT launches.}\\[10pt]
+
+  Within months, millions of people are using AI to:
+  \begin{itemize}
+    \item Draft emails and documents
+    \item Write and debug code
+    \item Summarize and analyze text
+    \item Answer legal and financial questions
+  \end{itemize}
+
+  \bigskip
+  \textbf{These are jobs people get paid to do.}
+
+  \bigskip
+  \large\textbf{Did it cost them?}
+
+\column{0.42\textwidth}
+  \centering
+  \includegraphics[width=0.85\linewidth]{fig_preai.png}\\
+  {\small\color{mygray} Some workers are more exposed than others}
+
+\end{columns}
+
+\end{frame}
+
+% =============================================================================
+% SLIDE 3 — Trade theory intuition
+% =============================================================================
+\begin{frame}{A Lesson from Trade Economics}
+
+\textbf{Offshoring (2000s):} companies moved jobs abroad when foreign labor was cheaper
+
+\bigskip
+\begin{itemize}
+  \item \textbf{Grossman \& Rossi-Hansberg (2008):} not whole jobs --- specific \emph{tasks} get offshored
+  \begin{itemize}
+    \item Data entry → India. Customer calls → Philippines. R\&D → stays home.
+    \item Workers in offshored tasks faced wage cuts or job loss
+  \end{itemize}
+
+  \bigskip
+  \item \textbf{Ottaviano, Peri \& Wright (2013):} different workers face different cutoffs ---
+  not everyone equally at risk
+
+  \bigskip\bigskip
+  \item \textbf{AI is the same story, new technology:}
+  \begin{itemize}
+    \item Instead of cheaper foreign workers --- a cheaper \emph{machine}
+    \item \textbf{``Offshoring'' your tasks to Claudeland, GPTopia, Geminia\ldots}
+    \item Workers whose tasks AI can undercut face the same pressure
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+% =============================================================================
+% SLIDE 4 — The Model (plain English + one diagram)
+% =============================================================================
+\begin{frame}{The Model: Who Gets Hit?}
+
+\textbf{Key idea:} rank every cognitive task by how easy it is for AI to do
+
+\medskip
+\begin{columns}[c]
+\column{0.52\textwidth}
+  \includegraphics[width=\linewidth]{fig_postai.png}
+\column{0.45\textwidth}
+  \small
+  \begin{itemize}
+    \item Tasks on the left: \textbf{routine} --- AI can do them cheaply
+    \begin{itemize}
+      \item drafting, summarizing, basic coding
+    \end{itemize}
+
+    \medskip
+    \item Tasks on the right: \textbf{complex} --- AI still struggles
+    \begin{itemize}
+      \item strategy, judgment, novel problem-solving
+    \end{itemize}
+
+    \medskip
+    \item \textbf{Cutoff $I^*$:} the point where AI cost = human wage
+    \begin{itemize}
+      \item Left of $I^*$: \textcolor{myred}{AI undercuts → wage falls}
+      \item Right of $I^*$: \textcolor{mygreen}{humans retain edge}
+    \end{itemize}
+
+    \medskip
+    \item As AI improves → $I^*$ shifts right\\
+          More tasks get exposed over time
+  \end{itemize}
+\end{columns}
+
+\end{frame}
+
+% =============================================================================
+% SLIDE 5 — Prediction
+% =============================================================================
+\begin{frame}{What the Model Predicts}
+
+\textbf{Workers to the left of $I^*$ face two immediate pressures:}
+
+\bigskip
+\begin{columns}[t]
+\column{0.48\textwidth}
+  \textbf{\textcolor{myred}{Wage compression}}\\[6pt]
+  Firms can switch to AI → workers must accept lower pay to stay employed
+  \[
+    \Delta w < 0 \quad \text{for exposed workers}
+  \]
+  The more exposed your tasks, the steeper the cut
+
+\column{0.48\textwidth}
+  \textbf{\textcolor{myred}{Displacement}}\\[6pt]
+  If the compressed wage drops below what you're willing to accept → you exit
+  \[
+    w_{\text{compressed}} < \underline{w} \;\Rightarrow\; \text{unemployed}
+  \]
+  Displacement is the extreme case of wage compression
+
+\end{columns}
+
+\bigskip\hrule\bigskip
+
+{\small\color{mygray}
+\textit{Note: this captures the \textbf{immediate, substitution effect} only.
+Longer-run channels (AI augmenting workers, creating new tasks, expanding output)
+are real but operate over a longer horizon --- and could go the other way.}}
+
+\end{frame}
+
+% =============================================================================
+% SLIDE 6 — Empirical Evidence
+% =============================================================================
+\begin{frame}{Do We Actually See This?}
+
+\textbf{Data:} CPS survey, 500K+ U.S. workers, 2018--2025\\
+\textbf{AI exposure score:} Eloundou et al.\ (2024) --- occupation-level LLM exposure\\
+\textbf{Strategy:} compare high- vs.\ low-exposure workers before and after ChatGPT (2022)
+
+\begin{columns}[c]
+\column{0.60\textwidth}
+  \includegraphics[width=\linewidth]{unemployment_stateYFE_plot.pdf}
+\column{0.38\textwidth}
+  \small
+  \begin{itemize}
+    \item Flat pre-trends before 2022 --- comparable groups
+    \medskip
+    \item \textbf{Post-2022:} high-exposure workers show a clear, rising unemployment gap
+    \medskip
+    \item Consistent with the model: workers left of $I^*$ are getting displaced
+    \medskip
+    \item Effect is stable across all specifications
+  \end{itemize}
+\end{columns}
+
+\end{frame}
+
+% =============================================================================
+% THANK YOU
+% =============================================================================
+\begin{frame}{}
+\centering
+\vspace{1.5cm}
+{\Large Thank you!}\\[1cm]
+{\normalsize Questions welcome.}\\[1.5cm]
+\begin{columns}[c]
+\column{0.45\textwidth}
+  \centering
+  {\small\color{mygray} \textit{Bottom line:}\\[4pt]}
+  {\normalsize AI is like offshoring ---\\
+  some workers face immediate\\
+  wage and employment risk}
+\column{0.45\textwidth}
+  \centering
+  {\small\color{mygray} \textit{The data says:}\\[4pt]}
+  {\normalsize Yes, high-exposure workers\\
+  are already seeing it\\
+  in unemployment rates}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% BACKUP SLIDES
+% =============================================================================
+\appendix
+
+\begin{frame}{}
+\centering
+\vspace{2cm}
+{\large\color{mygray} \textit{Backup: The Dirty Work}}\\[0.5cm]
+{\small\color{mygray} Formal model, derivations, and further discussion of $I^*$}
+\end{frame}
+
+% --- B1: Model Setup ---
+\begin{frame}{Model Setup (Formal)}
+
+\begin{itemize}
+  \item \textbf{Tasks} indexed $i \in [0,1]$ by AI susceptibility
+  \begin{itemize}
+    \item Low $i$: routine cognitive --- easy for AI \quad|\quad High $i$: complex --- hard for AI \textit{currently}
+  \end{itemize}
+
+  \medskip
+  \item \textbf{CES Production}:
+  \[
+    Y = \left[\int_0^1 y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}}
+  \]
+
+  \medskip
+  \item \textbf{Workers:} type $i^*$ specializes in task $i^*$; supply of task $i$ is $f(i)$ (fixed, inelastic)
+
+  \medskip
+  \item \textbf{AI cost} of task $i$: $\quad c^{\mathrm{AI}}(i) = \tau\cdot e^{\alpha i}$
+  \begin{itemize}
+    \item Lower $\tau$ = more capable AI; $e^{\alpha i}$ ensures complex tasks remain costly for AI
+  \end{itemize}
+
+  \medskip
+  \item Competitive firms; output price $P_Y$ fixed (small open economy)
+\end{itemize}
+
+\end{frame}
+
+% --- B2: Pre-AI Derivation ---
+\begin{frame}{Pre-AI Equilibrium: Derivation}
+
+\textbf{Firm cost minimization gives task demand:}
+\[
+  y^d(i) \;=\; Y \cdot \left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma}
+\]
+
+\textbf{Market clearing} $\bigl(y^d(i) = f(i)\bigr)$ pins down task price:
+\[
+  p_0(i) \;=\; P_Y \cdot \left(\frac{Y}{f(i)}\right)^{\!1/\sigma}
+\]
+
+\textbf{Solve for $Y_0$} --- plug $y(i)=f(i)$ back into the CES aggregator:
+\[
+  \boxed{Y_0 \;=\; \left[\int_0^1 f(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}}}
+\]
+
+\begin{itemize}
+  \item $Y_0$ is fully determined by worker distribution $f$ --- not by prices
+  \item $Y_0$ is the output level held fixed in the short-run AI shock analysis
+\end{itemize}
+
+\end{frame}
+
+% --- B3: Pre-AI Wage Schedule ---
+\begin{frame}{Pre-AI Equilibrium: Wage Schedule}
+
+Under full specialization, each worker earns their task price:
+\[
+  w_0(i^*) \;=\; p_0(i^*) \;=\; P_Y \cdot \left(\frac{Y_0}{f(i^*)}\right)^{\!1/\sigma}
+\]
+
+\begin{columns}[c]
+\column{0.58\textwidth}
+  \includegraphics[width=\linewidth]{fig_preai.png}
+\column{0.38\textwidth}
+  \small
+  \begin{itemize}
+    \item Each worker earns the competitive price of their task
+    \item Scarce types earn more; abundant types earn less
+    \item[\phantom{x}]~
+    \item[] \textit{Upward slope for illustration only --- no shape restriction on $p_0$}
+  \end{itemize}
+\end{columns}
+
+\end{frame}
+
+% --- B4: Immediate Effects Framing ---
+\begin{frame}{Immediate Effects: What We Do and Don't Model}
+
+\textcolor{myred}{\textbf{Hold $Y = Y_0$ fixed --- immediate impact before the economy adjusts}}
+
+\bigskip
+Isolates the \textbf{substitution channel} only. Longer-run channels set aside:
+\begin{itemize}
+  \item \textbf{Augmentation} --- AI complements some workers, raising productivity over time
+  \item \textbf{Output expansion} --- cheaper production eventually raises $Y$ beyond $Y_0$
+  \item \textbf{Task creation} --- AI creates new tasks over time (Acemoglu \& Restrepo 2019)
+\end{itemize}
+
+\bigskip
+Immediate task price once AI enters:
+\[
+  p(i) = \min\!\bigl(p_0(i),\;\tau e^{\alpha i}\bigr)
+  \qquad \Rightarrow \qquad
+  \text{cutoff } I^*:\; \tau e^{\alpha I^*} = p_0(I^*)
+\]
+
+\end{frame}
+
+% --- B5: Cutoff and Wages ---
+\begin{frame}{Immediate Effects: Cutoff and Wages}
+
+\begin{columns}[c]
+\column{0.55\textwidth}
+  \includegraphics[width=\linewidth]{fig_postai.png}
+\column{0.42\textwidth}
+  \small
+  \begin{itemize}
+    \item $i < I^*$: AI immediately undercuts\\
+          $\rightarrow$ \textcolor{myred}{wage compression}
+    \[
+      \Delta w = \tau e^{\alpha i^*} - p_0(i^*) < 0
+    \]
+    \item[\phantom{x}]~
+    \item $i \geq I^*$: no direct price pressure \textcolor{mygreen}{in the short run}
+    \begin{itemize}
+      \item[\scriptsize$\hookrightarrow$] {\small output expansion raises their wages over time}
+    \end{itemize}
+    \item[\phantom{x}]~
+    \item Compressed wage $<$ reservation\\
+          $\rightarrow$ \textbf{exit employment}
+  \end{itemize}
+\end{columns}
+
+\end{frame}
+
+% --- B6: More on I* ---
+\begin{frame}{Further Discussion of $I^*$}
+
+\begin{columns}[t]
+\column{0.50\textwidth}
+
+  \textbf{As AI improves ($\tau \downarrow$), $I^*$ rises}
+  \[
+    \frac{\partial I^*}{\partial \tau} < 0
+  \]
+  The automation frontier expands toward more complex tasks.
+
+  \medskip
+  \includegraphics[width=\linewidth]{fig_capability.png}
+  {\tiny Decreasing $\tau$ shifts the AI cost curve down, pushing $I^*$ rightward.}
+
+\column{0.48\textwidth}
+
+  \textbf{Non-monotone $p_0(i)$: multiple cutoffs}
+  \[
+    \mathcal{A} = [0, I_1^*] \cup [I_2^*, I_3^*] \cup \cdots
+  \]
+  Wage compression applies to all $i^* \in \mathcal{A}$; exposed workers need not be at the low end.
+
+  \medskip
+  \includegraphics[width=\linewidth]{fig_multiple.png}
+  {\tiny Multiple crossings when the pre-AI wage schedule is non-monotone.}
+
+\end{columns}
+
+\end{frame}
+
+\end{document}
