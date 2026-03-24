@@ -142,37 +142,39 @@ Higher task price $\rightarrow$ firm demands less of that task (substitution).
 \end{frame}
 
 % =============================================================================
-% SLIDE 6 — Post-AI Shock
+% SLIDE 6 — Immediate Effects of AI Shock
 % =============================================================================
-\begin{frame}{AI Shock: Substitution Channel}
+\begin{frame}{Immediate Effects of the AI Shock}
 
-\textbf{What we do:} price comparison against the pre-AI benchmark, holding $Y = Y_0$ fixed
+\textbf{Key framing:} we hold $Y = Y_0$ fixed --- analyzing the \emph{immediate} impact before the economy has time to adjust
 
 \smallskip
-{\small $\Rightarrow$ isolates \textbf{substitution} only --- augmentation \& output-expansion channels set aside}
+{\small This isolates the \textbf{substitution channel} only. Longer-run channels set aside:}
+\begin{itemize}\small
+  \item \textbf{Augmentation} --- AI complements some workers, raising productivity over time
+  \item \textbf{Output expansion} --- cheaper production eventually raises $Y$, benefiting non-automated workers
+\end{itemize}
 
-\medskip
-Effective task price under AI competition:
+\smallskip
+Immediate task price once AI enters:
 \[
   p(i) = \min\!\bigl(p_0(i),\;\tau e^{\alpha i}\bigr)
+  \qquad \Rightarrow \qquad
+  \text{cutoff } I^*: \;\tau e^{\alpha I^*} = p_0(I^*)
 \]
-Cutoff $I^*$: where AI cost $=$ pre-AI price $\;\Rightarrow\; \tau e^{\alpha I^*} = p_0(I^*)$
 
 \begin{columns}[c]
-\column{0.55\textwidth}
+\column{0.52\textwidth}
   \includegraphics[width=\linewidth]{fig_postai.png}
-\column{0.42\textwidth}
+\column{0.45\textwidth}
   \small
   \begin{itemize}
-    \item $i < I^*$: AI undercuts $\rightarrow$ \textcolor{myred}{wage compression}
+    \item $i < I^*$: AI immediately undercuts $\rightarrow$ \textcolor{myred}{wage compression}
     \[
       \Delta w = \tau e^{\alpha i^*} - p_0(i^*) < 0
     \]
-    \item $i \geq I^*$: \textcolor{mygreen}{unaffected through this channel}
-    \begin{itemize}
-      \item[\scriptsize$\hookrightarrow$] {\scriptsize GE output expansion would raise their wages --- abstracted from}
-    \end{itemize}
-    \item Compressed wage $<$ reservation $\rightarrow$ \textbf{exit employment}
+    \item $i \geq I^*$: no direct price pressure \textcolor{mygreen}{in the short run}
+    \item Compressed wage $<$ reservation wage $\rightarrow$ \textbf{exit employment}
   \end{itemize}
 \end{columns}
 
