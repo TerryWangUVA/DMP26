@@ -18,9 +18,6 @@
 
 \title[AI \& Labor Market Risk]{Present Day, Present Time:\\
   AI Exposure and Labor Market Risk}
-\author{Leyao Wang}
-\institute{University of Virginia \\ ECON 4210 --- International Trade}
-\date{March 2026}
 
 \definecolor{myred}{RGB}{215,48,39}
 \definecolor{mygreen}{RGB}{26,150,65}
@@ -43,24 +40,18 @@
   \end{itemize}
 
   \bigskip
-  \item \textbf{Grossman \& Rossi-Hansberg (2008) --- ``Trading Tasks''}
-  \begin{itemize}
-    \item Offshoring = delegating tasks to cheaper foreign labor
-    \item A falling offshoring cost $\rightarrow$ more tasks sent abroad $\rightarrow$ wage pressure on affected workers
-  \end{itemize}
-
+  \item \textbf{Grossman \& Rossi-Hansberg (2008) --- ``Offshoring Tasks''}
+  
   \bigskip
-  \item \textbf{Ottaviano, Peri \& Wright (2013)}
-  \begin{itemize}
-    \item Workers differ in type $i^*$; different groups face different offshoring cutoffs
-    \item Heterogeneous exposure: not everyone is equally at risk
-  \end{itemize}
+  \item \textbf{Ottaviano, Peri \& Wright (2013)--- ``Who are affected''}
+
 
   \bigskip
   \item \textbf{Why does this apply to AI?}
   \begin{itemize}
     \item AI = a technology that can perform certain tasks at low cost
-    \item Replace ``offshoring cost'' with ``AI cost'' --- the mechanism is identical
+    \item \textbf{``offshoring'' (outsourcing) tasks
+    to Claudeland, GPTopia, Geminia...}
     \item Workers whose tasks AI can undercut face the same wage pressure as offshored workers
   \end{itemize}
 \end{itemize}
@@ -76,11 +67,11 @@
   \item \textbf{Tasks} indexed $i \in [0,1]$ by AI susceptibility
   \begin{itemize}
     \item Low $i$: routine cognitive (drafting, coding, data entry) --- easy for AI
-    \item High $i$: complex, judgment-intensive --- hard for AI
+    \item High $i$: human expertise --- hard for AI \textit{currently}
   \end{itemize}
 
   \medskip
-  \item \textbf{Production} via CES aggregator:
+  \item \textbf{CES Production}:
   \[
     Y = \left[\int_0^1 y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}}
   \]
@@ -106,14 +97,14 @@
 % =============================================================================
 \begin{frame}{Pre-AI Equilibrium: Derivation}
 
-\textbf{Step 1 --- Firm cost minimization gives task demand:}
+\textbf{Firm cost minimization gives task demand:}
 \[
   y^d(i) \;=\; Y \cdot \left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma}
 \]
-Higher task price $\rightarrow$ firm demands less of that task (standard substitution).
+Higher task price $\rightarrow$ firm demands less of that task (substitution).
 
 \bigskip
-\textbf{Step 2 --- Market clearing} $\bigl(y^d(i) = f(i)\bigr)$ pins down equilibrium task price:
+\textbf{Market clearing} $\bigl(y^d(i) = f(i)\bigr)$ pins down equilibrium task price:
 \[
   \boxed{p_0(i) \;=\; P_Y \cdot \left(\frac{Y}{f(i)}\right)^{\!1/\sigma}}
 \]
