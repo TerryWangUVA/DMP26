@@ -101,17 +101,21 @@
 \[
   y^d(i) \;=\; Y \cdot \left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma}
 \]
-Higher task price $\rightarrow$ firm demands less of that task (substitution).
 
-\bigskip
-\textbf{Market clearing} $\bigl(y^d(i) = f(i)\bigr)$ pins down equilibrium task price:
+\textbf{Market clearing} $\bigl(y^d(i) = f(i)\bigr)$ pins down task price:
 \[
-  \boxed{p_0(i) \;=\; P_Y \cdot \left(\frac{Y}{f(i)}\right)^{\!1/\sigma}}
+  p_0(i) \;=\; P_Y \cdot \left(\frac{Y}{f(i)}\right)^{\!1/\sigma}
+\]
+
+\textbf{Solve for $Y = Y_0$} by plugging $y(i)=f(i)$ back into the CES aggregator:
+\[
+  \boxed{Y_0 \;=\; \left[\int_0^1 f(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}}}
 \]
 
 \begin{itemize}
-  \item Scarce worker types (low $f(i)$) command higher task prices
-  \item Abundant worker types (high $f(i)$) earn less
+  \item $Y_0$ is fully determined by the worker type distribution $f$ --- not by prices
+  \item Scarce worker types (low $f(i)$) command higher task prices; abundant types earn less
+  \item $Y_0$ is the output level we hold fixed in the short-run AI shock analysis
 \end{itemize}
 
 \end{frame}
@@ -142,40 +146,57 @@ Higher task price $\rightarrow$ firm demands less of that task (substitution).
 \end{frame}
 
 % =============================================================================
-% SLIDE 6 — Immediate Effects of AI Shock
+% SLIDE 6a — Immediate Effects: Framing
 % =============================================================================
 \begin{frame}{Immediate Effects of the AI Shock}
 
-\textcolor{myred}{\textbf{I hold $Y = Y_0$ fixed --- analyzing the \emph{immediate} impact before the economy has time to adjust}} 
+\textcolor{myred}{\textbf{Hold $Y = Y_0$ fixed --- immediate impact before the economy adjusts}}
 
-\smallskip
-{\small This isolates the \textbf{substitution channel} only. Longer-run channels set aside:}
-\begin{itemize}\small
-  \item \textbf{Augmentation} --- AI complements some workers, raising productivity over time
-  \item \textbf{Output expansion} --- cheaper production eventually raises $Y$, benefiting non-automated workers
-  \item \textbf{Task creation} --- AI creates new tasks, believe or not. 
+\bigskip
+This isolates the \textbf{substitution channel} only.\\[4pt]
+Longer-run channels deliberately set aside:
+
+\bigskip
+\begin{itemize}
+  \item \textbf{Augmentation} --- AI complements some workers, raising their productivity over time
+  \item \textbf{Output expansion} --- cheaper production eventually raises $Y$ beyond $Y_0$, benefiting non-automated workers
+  \item \textbf{Task creation} --- AI creates new tasks over time (Acemoglu \& Restrepo 2019)
 \end{itemize}
 
-\smallskip
+\bigskip
 Immediate task price once AI enters:
 \[
   p(i) = \min\!\bigl(p_0(i),\;\tau e^{\alpha i}\bigr)
   \qquad \Rightarrow \qquad
-  \text{cutoff } I^*: \;\tau e^{\alpha I^*} = p_0(I^*)
+  \text{cutoff } I^*:\; \tau e^{\alpha I^*} = p_0(I^*)
 \]
 
+\end{frame}
+
+% =============================================================================
+% SLIDE 6b — Immediate Effects: Cutoff and Wages
+% =============================================================================
+\begin{frame}{Immediate Effects: Cutoff and Wages}
+
 \begin{columns}[c]
-\column{0.52\textwidth}
+\column{0.55\textwidth}
   \includegraphics[width=\linewidth]{fig_postai.png}
-\column{0.45\textwidth}
+\column{0.42\textwidth}
   \small
   \begin{itemize}
-    \item $i < I^*$: AI immediately undercuts $\rightarrow$ \textcolor{myred}{wage compression}
+    \item $i < I^*$: AI immediately undercuts\\
+          $\rightarrow$ \textcolor{myred}{wage compression}
     \[
       \Delta w = \tau e^{\alpha i^*} - p_0(i^*) < 0
     \]
+    \item[\phantom{x}]~
     \item $i \geq I^*$: no direct price pressure \textcolor{mygreen}{in the short run}
-    \item Compressed wage $<$ reservation wage $\rightarrow$ \textbf{exit employment}
+    \begin{itemize}
+      \item[\scriptsize$\hookrightarrow$] {\scriptsize output expansion would raise their wages over time}
+    \end{itemize}
+    \item[\phantom{x}]~
+    \item Compressed wage $<$ reservation wage\\
+          $\rightarrow$ \textbf{exit employment}
   \end{itemize}
 \end{columns}
 
