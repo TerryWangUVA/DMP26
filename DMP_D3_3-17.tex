@@ -231,44 +231,30 @@ the effective productivity of workers it complements rather than
 supplements, altering the production technology itself.  This is left
 for future work.
 
-\paragraph{Wage compression and displacement.}
-Dividing by the pre-AI wage~\eqref{eq:taskprice_preai} gives a clean
-decomposition of the post-AI wage change:
+\paragraph{Wage dynamics.}
+Since $w_1(i^*)=p_1(i^*)$, the post-AI wage is read directly from
+\eqref{eq:taskprice_postai}:
 \begin{equation}
-  \frac{w_1(i^*)}{w_0(i^*)}
-  \;=\;
-  \underbrace{\left(\frac{\bar Y}{Y_0}\right)^{\!1/\sigma}}_{>1,\;\text{output expansion}}
-  \;\cdot\;
-  \underbrace{\left(\frac{f(i^*)}{f(i^*)+s(i^*)}\right)^{\!1/\sigma}}_{\leq 1,\;\text{supply dilution}}.
-  \label{eq:wageratio}
+  w_1(i^*) \;=\; P_Y\!\left(\frac{\bar Y}{f(i^*)+s(i^*)}\right)^{\!1/\sigma}.
+  \label{eq:wage_postai}
 \end{equation}
-Two forces compete.  \textbf{Output expansion}: aggregate output
-rises because AI adds productive capacity, raising the marginal value
-of every task.  \textbf{Supply dilution}: tasks supplemented by AI see
-their scarcity reduced, lowering their marginal product.
+Compared with the pre-AI wage
+$w_0(i^*)=P_Y\bigl(Y_0/f(i^*)\bigr)^{1/\sigma}$, the numerator has
+grown ($\bar Y>Y_0$) because AI adds productive capacity.  For
+workers above the frontier ($i^*\geq I^*$), $s=0$ so the denominator
+is unchanged --- these workers unambiguously benefit.
+For workers below the frontier ($i^*<I^*$), the denominator has also
+grown ($f+s>f$); whether $w_1$ exceeds or falls short of $w_0$
+depends on which effect dominates.  Because the output gain $\bar Y/Y_0$
+reflects a CES average over \emph{all} tasks --- including the majority
+where $s=0$ --- while $s(i^*)/f(i^*)$ is concentrated among AI-supplied
+tasks, the denominator outpaces the numerator for sufficiently exposed
+workers, and their wages fall.
 
-For workers above the frontier ($i^*\geq I^*$, $s=0$), only the first
-factor operates: these workers \emph{benefit} from output expansion.
-For workers below the frontier ($i^*< I^*$, $s>0$), supply dilution
-competes with output expansion.  Because $\bar Y/Y_0$ is a CES
-average across \emph{all} tasks --- including those where $s=0$ ---
-while $s(i^*)/f(i^*)$ is concentrated among automated tasks, supply
-dilution dominates for sufficiently exposed workers:
-\begin{equation}
-  \Delta w(i^*) < 0
-  \quad\text{whenever}\quad
-  \frac{s(i^*)}{f(i^*)} > \frac{\bar Y}{Y_0} - 1.
-  \label{eq:deltaw}
-\end{equation}
-The model therefore predicts a \emph{polarised} wage response: workers
-whose tasks AI can supply face wage compression, while workers beyond
-the AI frontier enjoy a modest wage gain from the economy's expanded
-output.  Workers whose compressed wage falls below a reservation
-threshold exit employment; displacement is the extensive-margin
-counterpart of wage compression.
-
-As AI capability improves ($I^*$ rises and $s$ increases), the set
-of exposed workers expands and the supply-dilution effect strengthens
+Workers whose compressed wage drops below a reservation threshold exit
+employment; displacement is the extensive-margin counterpart of wage
+compression.  As AI capability improves ($I^*$ rises and $s$
+increases), the set of exposed workers expands
 (Appendix~\ref{app:cutoff}).
 
 Figure~\ref{fig:postai} illustrates these effects; the increasing
@@ -277,7 +263,7 @@ $p_0(i)$ is for illustration only.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.82\textwidth]{output/model/fig_postai.png}
-  \caption{Post-AI shock: supply dilution and output expansion.  The pre-AI wage $p_0(i)$ (dashed blue) is compared against the post-AI wage $p_1(i)$ (solid green).  Below $I^*$, AI adds supply $s(i)>0$, and the supply-dilution effect dominates output expansion --- wages fall.  Above $I^*$, $s=0$ and workers benefit from the economy's higher output $\bar Y > Y_0$.  The upward slope of $p_0(i)$ is assumed for illustration only.}
+  \caption{Post-AI shock.  The pre-AI wage $p_0(i)$ (dashed blue) is compared against the post-AI wage $p_1(i)$ (solid green).  Below $I^*$, AI adds supply $s(i)>0$; the denominator in~\eqref{eq:wage_postai} grows faster than the numerator, so wages fall.  Above $I^*$, $s=0$ and workers benefit from the economy's higher output $\bar Y > Y_0$.  The upward slope of $p_0(i)$ is assumed for illustration only.}
   \label{fig:postai}
 \end{figure}
 
@@ -526,8 +512,8 @@ the post-AI task price:
   p_1(i) = P_Y\!\left(\frac{\bar Y}{f(i)+s(i)}\right)^{\!1/\sigma}.
   \qquad\blacksquare
 \]
-Dividing by $p_0(i)$ yields the wage-ratio decomposition
-\eqref{eq:wageratio} in Section~\ref{sec:model}.
+Comparing with $p_0(i)=P_Y(Y_0/f(i))^{1/\sigma}$ yields the
+wage dynamics discussed in Section~\ref{sec:model}.
 
 \section{The AI Capability Frontier}
 \label{app:cutoff}
@@ -568,7 +554,8 @@ $s(i)$ could be high for some complex tasks (e.g.\ legal research)
 while low for intermediate ones.  In this case the supply-dilution
 effect is non-monotone and the set of workers experiencing wage
 compression need not be contiguous.  The wage-ratio
-decomposition~\eqref{eq:wageratio} continues to hold for every task;
+wage comparison between~\eqref{eq:taskprice_preai}
+and~\eqref{eq:taskprice_postai} continues to hold for every task;
 only the pattern of $s(i)/f(i)$ across tasks changes.
 Figure~\ref{fig:multiple} illustrates a configuration with
 non-monotone AI supply.
