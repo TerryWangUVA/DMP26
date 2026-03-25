@@ -133,13 +133,19 @@ Final output $Y$ aggregates tasks via a CES technology:
   \qquad \sigma > 0,
   \label{eq:ces}
 \end{equation}
-where $y(i)$ is the quantity of task $i$ used in production.  Each task can
-additionally be performed by AI at unit cost
+where $y(i)$ is the quantity of task $i$ used in production.  AI can
+additionally supply a subset of these tasks.  Write $s(i)\geq 0$ for the
+quantity of task~$i$ that AI contributes, with
 \begin{equation}
-  c^{\mathrm{AI}}(i) = \tau\cdot t(i), \qquad t(i) = e^{\alpha i},\quad \alpha>0,
-  \label{eq:ai_cost}
+  s'(i) < 0 \;\text{ for } i<I^*,
+  \qquad
+  s(i) = 0 \;\text{ for } i \geq I^*,
+  \label{eq:ai_supply}
 \end{equation}
-where $\tau > 0$ is an aggregate AI capability parameter (lower $\tau$ reflects more capable AI), and $t(i)$ is strictly increasing and exponential in task complexity (i.e., $t'(i) > 0$ and $t''(i) > 0$), ensuring that more complex tasks are increasingly costly to automate.
+where $I^*\in(0,1)$ is the \emph{AI capability frontier}.  Tasks below $I^*$
+can be partially supplied by AI, with the contribution strictly decreasing in
+task complexity; tasks at or above $I^*$ remain beyond AI's reach.  As AI
+improves, $I^*$ shifts rightward and $s$ may increase throughout its support.
 
 \begin{assumption}[Small Open Economy]
   The output price $P_Y$ is exogenous and fixed.
@@ -196,120 +202,84 @@ imposes no explicit restriction on the shape of $p_0$.
   \label{fig:preai}
 \end{figure}
 
-\subsection{Immediate Effects of the AI Shock}
+\subsection{Effects of the AI Supply Shock}
 
-When AI enters task markets, competitive pressure arises at once: any
-firm can immediately switch to AI for task $i$ whenever the AI cost
-$\tau e^{\alpha i}$ falls below the prevailing task price $p_0(i)$.
-We analyze this \emph{first-order, immediate} impact, holding aggregate
-output fixed at the pre-AI level $Y_0$ --- before the economy has had
-time to expand production or benefit from general-equilibrium feedback.
-This encompasses two within-period \textbf{substitution channels}.
-The \emph{direct channel}: AI undercuts the task price for $i<I^*$,
-immediately compressing wages there.
-The \emph{indirect channel}: AI's entry lowers the CES unit cost
-$c_1\equiv\bigl[\int_0^1 p_1(i)^{1-\sigma}\,di\bigr]^{1/(1-\sigma)}$
-relative to the pre-AI level $c_0$, which compresses wages above
-$I^*$ through market clearing (Remark~\ref{rem:indirect}).
-Two longer-run channels are set aside:
-\begin{itemize}
-  \item \textbf{Augmentation}: AI may eventually raise the effective
-    productivity of workers it complements rather than replaces,
-    requiring $Y$ to adjust endogenously; this is left for future work.
-  \item \textbf{Output expansion}: lower production costs eventually
-    allow the economy to expand $Y$ beyond $Y_0$, benefiting workers
-    whose tasks AI cannot undercut.  Holding $Y=Y_0$ abstracts from
-    this channel.
-\end{itemize}
-
-\paragraph{The automation cutoff.}
-In competitive task markets, the task price firms face immediately
-after the AI shock is:
+When AI enters the economy, it augments the supply side of each task
+market it can serve.  The effective supply of task~$i$ becomes
 \begin{equation}
-  p(i) = \min\!\bigl(p_0(i),\;\tau e^{\alpha i}\bigr).
+  \bar y(i) \;=\; f(i) + s(i),
+  \label{eq:effective_supply}
+\end{equation}
+where $s(i)>0$ for $i<I^*$ (AI contributes to supply) and $s(i)=0$
+for $i\geq I^*$ (beyond AI's capability).  Because some task supplies
+have risen while others have not, the CES aggregator yields a new
+level of aggregate output
+\begin{equation}
+  \bar Y \;=\; \left[\int_0^1 \bar y(i)^{\frac{\sigma-1}{\sigma}}\,di
+               \right]^{\!\frac{\sigma}{\sigma-1}}
+  \;>\; Y_0,
+  \label{eq:Ybar}
+\end{equation}
+and by the same cost-minimization logic as before
+(Appendix~\ref{app:foc}), the post-AI task price is
+\begin{equation}
+  p_1(i) \;=\; P_Y\!\left(\frac{\bar Y}{\bar y(i)}\right)^{\!1/\sigma}.
   \label{eq:taskprice_postai}
 \end{equation}
-For tasks where $\tau e^{\alpha i}<p_0(i)$, AI immediately undercuts
-the pre-AI task price and workers must match it or exit.  Under the
-single-crossing condition in Appendix~\ref{app:cutoff}, there is a
-unique task index $I^*$ at which the AI cost exactly equals the
-pre-AI task price:
-\begin{equation}
-  \tau\,e^{\alpha I^*} = p_0(I^*).
-  \label{eq:cutoff}
-\end{equation}
-Tasks $i<I^*$ face direct price pressure from AI; tasks $i\geq I^*$
-are not directly undercut but are affected through the indirect
-channel.  As AI capability improves ($\tau\downarrow$), $I^*$ rises
-and the directly exposed range expands (Appendix~\ref{app:cutoff}, B.3).
+One channel is set aside: \emph{augmentation} --- AI may eventually raise
+the effective productivity of workers it complements rather than
+supplements, altering the production technology itself.  This is left
+for future work.
 
 \paragraph{Wage compression and displacement.}
-For a worker of type $i^*$, the immediate wage impact relative to the
-pre-AI benchmark is:
+Dividing by the pre-AI wage~\eqref{eq:taskprice_preai} gives a clean
+decomposition of the post-AI wage change:
 \begin{equation}
-  \Delta w(i^*) =
-  \begin{cases}
-    \tau e^{\alpha i^*} - p_0(i^*) < 0 & \text{if }i^* < I^*, \\[4pt]
-    (\rho - 1)\,p_0(i^*) < 0           & \text{if }i^* \geq I^*,
-  \end{cases}
+  \frac{w_1(i^*)}{w_0(i^*)}
+  \;=\;
+  \underbrace{\left(\frac{\bar Y}{Y_0}\right)^{\!1/\sigma}}_{>1,\;\text{output expansion}}
+  \;\cdot\;
+  \underbrace{\left(\frac{f(i^*)}{f(i^*)+s(i^*)}\right)^{\!1/\sigma}}_{\leq 1,\;\text{supply dilution}}.
+  \label{eq:wageratio}
+\end{equation}
+Two forces compete.  \textbf{Output expansion}: aggregate output
+rises because AI adds productive capacity, raising the marginal value
+of every task.  \textbf{Supply dilution}: tasks supplemented by AI see
+their scarcity reduced, lowering their marginal product.
+
+For workers above the frontier ($i^*\geq I^*$, $s=0$), only the first
+factor operates: these workers \emph{benefit} from output expansion.
+For workers below the frontier ($i^*< I^*$, $s>0$), supply dilution
+competes with output expansion.  Because $\bar Y/Y_0$ is a CES
+average across \emph{all} tasks --- including those where $s=0$ ---
+while $s(i^*)/f(i^*)$ is concentrated among automated tasks, supply
+dilution dominates for sufficiently exposed workers:
+\begin{equation}
+  \Delta w(i^*) < 0
+  \quad\text{whenever}\quad
+  \frac{s(i^*)}{f(i^*)} > \frac{\bar Y}{Y_0} - 1.
   \label{eq:deltaw}
 \end{equation}
-where $\rho \equiv c_1/c_0 \in (0,1)$ is derived in Remark~\ref{rem:indirect}.
-Wages fall \emph{throughout} the task distribution.
-For $i^*<I^*$, the compression is direct and task-specific: AI cost
-$\tau e^{\alpha i^*}$ undercuts the pre-AI wage by exactly
-$p_0(i^*)-\tau e^{\alpha i^*}$, with larger cuts for tasks deeper
-inside the automated region.
-For $i^*\geq I^*$, the compression operates through the indirect
-channel: AI's entry drives the CES unit cost from $c_0$ to
-$c_1<c_0$, and market clearing for non-automated tasks then requires
-each wage to scale down by the same factor $\rho=c_1/c_0<1$ ---
-a uniform proportional compression of the entire pre-AI wage schedule
-above $I^*$.  The indirect compression is diffuse and second-order:
-in absolute value it is bounded by the direct compression at the
-cutoff and depends on the aggregate size of the automated sector
-$[0,I^*)$.
-Workers anywhere in the distribution whose compressed wage falls
-below a reservation threshold exit employment; displacement is the
-extensive-margin counterpart of wage compression.
-Figure~\ref{fig:postai} illustrates both channels; the increasing
+The model therefore predicts a \emph{polarised} wage response: workers
+whose tasks AI can supply face wage compression, while workers beyond
+the AI frontier enjoy a modest wage gain from the economy's expanded
+output.  Workers whose compressed wage falls below a reservation
+threshold exit employment; displacement is the extensive-margin
+counterpart of wage compression.
+
+As AI capability improves ($I^*$ rises and $s$ increases), the set
+of exposed workers expands and the supply-dilution effect strengthens
+(Appendix~\ref{app:cutoff}).
+
+Figure~\ref{fig:postai} illustrates these effects; the increasing
 $p_0(i)$ is for illustration only.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.82\textwidth]{output/model/fig_postai.png}
-  \caption{Post-AI shock: direct and indirect wage compression. The AI cost curve $\tau e^{\alpha i}$ (dotted red) undercuts the pre-AI wage $p_0(i)$ (dashed blue) for tasks below $I^*$; the post-AI wage (solid green) equals the AI cost there. Above $I^*$, AI does not directly undercut but the falling CES unit cost compresses wages to $\rho\,p_0(i)$ (green lies below dashed blue); see Remark~\ref{rem:indirect} for the derivation of $\rho=c_1/c_0\in(0,1)$. The upward slope of $p_0(i)$ is assumed for illustration only.}
+  \caption{Post-AI shock: supply dilution and output expansion.  The pre-AI wage $p_0(i)$ (dashed blue) is compared against the post-AI wage $p_1(i)$ (solid green).  Below $I^*$, AI adds supply $s(i)>0$, and the supply-dilution effect dominates output expansion --- wages fall.  Above $I^*$, $s=0$ and workers benefit from the economy's higher output $\bar Y > Y_0$.  The upward slope of $p_0(i)$ is assumed for illustration only.}
   \label{fig:postai}
 \end{figure}
-
-\begin{remark}[Derivation of $\rho = c_1/c_0$]\label{rem:indirect}
-Denote the pre- and post-AI CES unit costs by
-\[
-  c_k \;\equiv\; \left[\int_0^1 p_k(i)^{1-\sigma}\,di\right]^{\!1/(1-\sigma)}, \quad k\in\{0,1\}.
-\]
-For $i<I^*$, the post-AI task price is $p_1(i)=\tau e^{\alpha i}$ (AI
-sets the competitive price).  For $j\geq I^*$, humans remain the sole
-supplier; market clearing $y^d(j)=f(j)$ with
-$y^d(j)=Y_0(c_1/p_1(j))^{\sigma}$ gives
-$p_1(j)=c_1\cdot(Y_0/f(j))^{1/\sigma}$.  Since the pre-AI price
-satisfies $p_0(j)=c_0\cdot(Y_0/f(j))^{1/\sigma}$, we obtain
-$p_1(j)=(c_1/c_0)\,p_0(j)\equiv\rho\,p_0(j)$.
-
-Substituting into the definition of $c_1$ and using the analogous
-decomposition for $c_0$ yields
-\[
-  \boxed{\rho^{1-\sigma}
-    \;=\;
-    \frac{\displaystyle\int_0^{I^*}(\tau e^{\alpha i})^{1-\sigma}\,di}
-         {\displaystyle\int_0^{I^*} p_0(i)^{1-\sigma}\,di}.}
-\]
-Since $\tau e^{\alpha i}<p_0(i)$ for all $i<I^*$ and $\sigma>1$
-(so $1-\sigma<0$), the numerator exceeds the denominator, giving
-$\rho^{1-\sigma}>1$ and hence $\rho<1$: the unit cost falls.
-The indirect wage compression $(\rho-1)p_0(j)<0$ is proportional to
-the pre-AI wage and uniform across all $j\geq I^*$; its magnitude
-depends on how far the AI cost lies below $p_0$ in the automated sector.
-\end{remark}
 
 %==================================================
 \section{Data}
@@ -542,72 +512,72 @@ price as a function of model primitives alone:
 \[
   p_0(i) = P_Y\cdot\left(\frac{Y_0}{f(i)}\right)^{\!1/\sigma}. \qquad\blacksquare
 \]
-It is this $Y_0$ that the post-AI price comparison in
-Section~\ref{sec:model} holds fixed.
+\medskip\noindent\textbf{Step 5: Post-AI task prices.}
+When AI adds supply $s(i)\geq 0$ to each task, the effective supply
+becomes $\bar y(i)=f(i)+s(i)$.  Substituting into the CES aggregator:
+\[
+  \bar Y \;\equiv\; \left[\int_0^1 \bigl(f(i)+s(i)\bigr)^{\frac{\sigma-1}{\sigma}}\,di
+  \right]^{\!\frac{\sigma}{\sigma-1}}
+  \;>\; Y_0.
+\]
+Repeating the logic of Steps~1--3 with $\bar y$ in place of $f$ gives
+the post-AI task price:
+\[
+  p_1(i) = P_Y\!\left(\frac{\bar Y}{f(i)+s(i)}\right)^{\!1/\sigma}.
+  \qquad\blacksquare
+\]
+Dividing by $p_0(i)$ yields the wage-ratio decomposition
+\eqref{eq:wageratio} in Section~\ref{sec:model}.
 
-\section{The Automation Cutoff}
+\section{The AI Capability Frontier}
 \label{app:cutoff}
 
-Define $\phi(i)\equiv\tau e^{\alpha i}-p_0(i)$.  The automated set is
-$\mathcal{A}\equiv\{i\in[0,1]:\phi(i)<0\}$.
+The AI supply function $s(i)$ is positive on $[0,I^*)$ and zero
+on $[I^*,1]$, with $s'(i)<0$ for $i<I^*$ (see~\eqref{eq:ai_supply}).
+The parameter $I^*$ indexes the frontier of AI capability: higher
+$I^*$ means AI can supply a wider range of tasks.
 
 %--- B.1 ---
-\subsection*{B.1\quad Existence}
+\subsection*{B.1\quad Comparative Static: Wage Compression Strengthens with~$I^*$}
 
-Assume $\phi(0)<0$ (AI undercuts the simplest task) and $\phi(1)>0$
-(humans retain advantage at the most complex task).  Continuity of $\phi$
-guarantees by the intermediate value theorem that at least one crossing
-$I^*\in(0,1)$ with $\phi(I^*)=0$ exists.
+As $I^*$ increases (holding the shape of $s$ fixed), two reinforcing
+effects operate.  First, a wider set $[0,I^*)$ of workers is directly
+exposed to supply dilution.  Second, $\bar Y$ rises further, but
+the additional output gain is spread across all tasks while the
+supply-dilution penalty concentrates on the newly automated range.
+The net effect is that wage compression deepens for workers well
+inside $[0,I^*)$ and extends to tasks that were previously beyond
+AI's reach.  $\blacksquare$
 
-%--- B.2 ---
-\subsection*{B.2\quad Single-Crossing Benchmark and the General Case}
-
-Without restrictions on $p_0$, $\phi$ may cross zero multiple times,
-making $\mathcal{A}$ a union of intervals rather than $[0,I^*)$.  The
-main text maintains a \emph{single-crossing} condition as a tractable
-benchmark: $\phi$ crosses zero exactly once, giving a unique $I^*$ and
-$\mathcal{A}=[0,I^*)$.
-
-In the general case the wage compression result \eqref{eq:deltaw} continues
-to hold for every $i^*\in\mathcal{A}$; affected workers need not be
-concentrated at the low end of the task distribution.
-Figure~\ref{fig:multiple} illustrates a representative multiple-crossing
-configuration.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.82\textwidth]{output/model/fig_multiple.png}
-  \caption{Multiple crossings: the automated set $\mathcal{A}$ as a union of intervals. When $p_0(i)$ is non-monotone, $\phi(i)=\tau e^{\alpha i}-p_0(i)$ may cross zero more than once, producing $\mathcal{A}=[0,I_1^*]\cup[I_2^*,I_3^*]$. Wage compression applies to all workers in $\mathcal{A}$, not only those at the low end of the task distribution.}
-  \label{fig:multiple}
-\end{figure}
-
-%--- B.3 ---
-\subsection*{B.3\quad Comparative Static: $\partial I^*/\partial\tau < 0$}
-
-Totally differentiating $\tau e^{\alpha I^*}=p_0(I^*)$ with respect to
-$\tau$ gives:
-\[
-  \frac{\partial I^*}{\partial\tau}
-  = \frac{e^{\alpha I^*}}{p_0'(I^*)-\alpha\,p_0(I^*)}.
-\]
-This is negative whenever $\phi'(I^*)\equiv\alpha\tau e^{\alpha
-I^*}-p_0'(I^*)>0$.  Under single-crossing with $\phi(0)<0$ and
-$\phi(1)>0$, the unique crossing must satisfy $\phi'(I^*)>0$, so the
-condition holds automatically.  Hence a fall in $\tau$ raises $I^*$:
-AI improvement expands the automation frontier. $\blacksquare$
-
-The result extends to the multiple-crossing case: left boundaries of
-$\mathcal{A}$ (upward crossings, $\phi'>0$) shift rightward as $\tau$
-falls; right boundaries (downward crossings, $\phi'<0$) shift leftward.
-The automated set expands in either case.
-Figure~\ref{fig:capability} illustrates the expanding frontier under
-single-crossing.
+Figure~\ref{fig:capability} illustrates the expanding frontier.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.82\textwidth]{output/model/fig_capability.png}
-  \caption{Increasing AI capability: the automation frontier expands. As $\tau$ falls (AI improves), the cutoff $I^*$ shifts rightward, enlarging the automated set $\mathcal{A}=[0,I^*)$.}
+  \caption{Increasing AI capability: the automation frontier expands. As $I^*$ rises (AI improves), a wider range of tasks receives AI supply, strengthening the supply-dilution channel for exposed workers while raising $\bar Y$ for all.}
   \label{fig:capability}
+\end{figure}
+
+%--- B.2 ---
+\subsection*{B.2\quad Non-Monotone AI Supply (General Case)}
+
+The main text assumes $s'(i)<0$ throughout $[0,I^*)$, so that AI
+supply decreases monotonically with task complexity.  More generally,
+AI may excel at scattered pockets of the task distribution ---
+$s(i)$ could be high for some complex tasks (e.g.\ legal research)
+while low for intermediate ones.  In this case the supply-dilution
+effect is non-monotone and the set of workers experiencing wage
+compression need not be contiguous.  The wage-ratio
+decomposition~\eqref{eq:wageratio} continues to hold for every task;
+only the pattern of $s(i)/f(i)$ across tasks changes.
+Figure~\ref{fig:multiple} illustrates a configuration with
+non-monotone AI supply.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{output/model/fig_multiple.png}
+  \caption{Non-monotone AI supply. When $s(i)$ is not uniformly decreasing, the set of workers experiencing wage compression (where supply dilution dominates output expansion) need not be an interval $[0,I^*)$ but can be a union of segments across the task distribution.}
+  \label{fig:multiple}
 \end{figure}
 
 \section{Regression Tables}
