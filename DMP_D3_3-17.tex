@@ -204,9 +204,14 @@ $\tau e^{\alpha i}$ falls below the prevailing task price $p_0(i)$.
 We analyze this \emph{first-order, immediate} impact, holding aggregate
 output fixed at the pre-AI level $Y_0$ --- before the economy has had
 time to expand production or benefit from general-equilibrium feedback.
-This isolates the \textbf{substitution channel}: AI competing directly
-against workers in task markets, driving down task prices for the tasks
-it can undercut.  Several channels are set aside:
+This encompasses two within-period \textbf{substitution channels}.
+The \emph{direct channel}: AI undercuts the task price for $i<I^*$,
+immediately compressing wages there.
+The \emph{indirect channel}: AI's entry lowers the CES unit cost
+$c_1\equiv\bigl[\int_0^1 p_1(i)^{1-\sigma}\,di\bigr]^{1/(1-\sigma)}$
+relative to the pre-AI level $c_0$, which compresses wages above
+$I^*$ through market clearing (Remark~\ref{rem:indirect}).
+Two longer-run channels are set aside:
 \begin{itemize}
   \item \textbf{Augmentation}: AI may eventually raise the effective
     productivity of workers it complements rather than replaces,
@@ -214,17 +219,7 @@ it can undercut.  Several channels are set aside:
   \item \textbf{Output expansion}: lower production costs eventually
     allow the economy to expand $Y$ beyond $Y_0$, benefiting workers
     whose tasks AI cannot undercut.  Holding $Y=Y_0$ abstracts from
-    this channel; our immediate-impact analysis therefore provides a
-    lower bound on the wages of those workers.
-  \item \textbf{Indirect substitution}: when AI lowers the price of
-    tasks $i<I^*$, the CES unit cost
-    $P\equiv\bigl[\int_0^1 p(i)^{1-\sigma}\,di\bigr]^{1/(1-\sigma)}$
-    falls, reducing conditional demand for \emph{all} tasks --- including
-    those above $I^*$ --- through the standard CES formula
-    $y^d(j)=Y_0(P/p(j))^{\sigma}$.
-    This within-period channel is second-order relative to the direct
-    compression below $I^*$ and is discussed formally in
-    Remark~\ref{rem:indirect}.
+    this channel.
 \end{itemize}
 
 \paragraph{The automation cutoff.}
@@ -243,10 +238,10 @@ pre-AI task price:
   \tau\,e^{\alpha I^*} = p_0(I^*).
   \label{eq:cutoff}
 \end{equation}
-Tasks $i<I^*$ face immediate price pressure from AI; tasks $i\geq I^*$
-do not.  As AI capability improves ($\tau\downarrow$), $I^*$ rises and
-the range of directly affected tasks expands
-(Appendix~\ref{app:cutoff}, B.3).
+Tasks $i<I^*$ face direct price pressure from AI; tasks $i\geq I^*$
+are not directly undercut but are affected through the indirect
+channel.  As AI capability improves ($\tau\downarrow$), $I^*$ rises
+and the directly exposed range expands (Appendix~\ref{app:cutoff}, B.3).
 
 \paragraph{Wage compression and displacement.}
 For a worker of type $i^*$, the immediate wage impact relative to the
@@ -255,55 +250,65 @@ pre-AI benchmark is:
   \Delta w(i^*) =
   \begin{cases}
     \tau e^{\alpha i^*} - p_0(i^*) < 0 & \text{if }i^* < I^*, \\[4pt]
-    0 & \text{if }i^* \geq I^*.
+    (\rho - 1)\,p_0(i^*) < 0           & \text{if }i^* \geq I^*,
   \end{cases}
   \label{eq:deltaw}
 \end{equation}
-The sign is unambiguous for $i^*<I^*$: by definition of $I^*$,
-the AI cost lies strictly below the pre-AI task price throughout the
-affected range, so wage compression is immediate and certain.
-Workers below $I^*$ face a compressed wage proportional to how far
-the AI cost undershoots their pre-AI task price.  The zero for
-$i^*\geq I^*$ reflects the absence of \emph{direct} price pressure
-through the substitution channel; the indirect channel operating
-through the CES unit cost (Remark~\ref{rem:indirect}) and the
-longer-run output-expansion channel are both set aside.  Workers whose immediately compressed wage falls
-below a reservation threshold exit employment --- displacement is
-the extensive-margin counterpart of wage compression and is the
-empirical outcome this paper examines.
-Figure~\ref{fig:postai} illustrates these immediate effects;
-as in Figure~\ref{fig:preai}, the increasing $p_0(i)$ is for
-illustration only and is not required by the model.
+where $\rho \equiv c_1/c_0 \in (0,1)$ is derived in Remark~\ref{rem:indirect}.
+Wages fall \emph{throughout} the task distribution.
+For $i^*<I^*$, the compression is direct and task-specific: AI cost
+$\tau e^{\alpha i^*}$ undercuts the pre-AI wage by exactly
+$p_0(i^*)-\tau e^{\alpha i^*}$, with larger cuts for tasks deeper
+inside the automated region.
+For $i^*\geq I^*$, the compression operates through the indirect
+channel: AI's entry drives the CES unit cost from $c_0$ to
+$c_1<c_0$, and market clearing for non-automated tasks then requires
+each wage to scale down by the same factor $\rho=c_1/c_0<1$ ---
+a uniform proportional compression of the entire pre-AI wage schedule
+above $I^*$.  The indirect compression is diffuse and second-order:
+in absolute value it is bounded by the direct compression at the
+cutoff and depends on the aggregate size of the automated sector
+$[0,I^*)$.
+Workers anywhere in the distribution whose compressed wage falls
+below a reservation threshold exit employment; displacement is the
+extensive-margin counterpart of wage compression.
+Figure~\ref{fig:postai} illustrates both channels; the increasing
+$p_0(i)$ is for illustration only.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.82\textwidth]{output/model/fig_postai.png}
-  \caption{Post-AI shock: $I^*$ and wage compression. The AI cost curve $\tau e^{\alpha i}$ (dotted red) undercuts the pre-AI task price $p_0(i)$ (dashed blue) for tasks below the cutoff $I^*$. The solid green line is the effective post-AI price $p(i)=\min(p_0(i),\tau e^{\alpha i})$. Workers below $I^*$ experience direct wage compression $\Delta w < 0$; workers above face no \emph{direct} price pressure (an indirect channel through the falling CES unit cost also operates; see Remark~\ref{rem:indirect}). The upward slope of $p_0(i)$ is assumed for illustration only.}
+  \caption{Post-AI shock: direct and indirect wage compression. The AI cost curve $\tau e^{\alpha i}$ (dotted red) undercuts the pre-AI wage $p_0(i)$ (dashed blue) for tasks below $I^*$; the post-AI wage (solid green) equals the AI cost there. Above $I^*$, AI does not directly undercut but the falling CES unit cost compresses wages to $\rho\,p_0(i)$ (green lies below dashed blue); see Remark~\ref{rem:indirect} for the derivation of $\rho=c_1/c_0\in(0,1)$. The upward slope of $p_0(i)$ is assumed for illustration only.}
   \label{fig:postai}
 \end{figure}
 
-\begin{remark}[Indirect substitution for $i^* \geq I^*$]\label{rem:indirect}
-Equation~\eqref{eq:deltaw} captures the \emph{direct} substitution
-channel only.  A second, within-period channel arises through the
-CES unit cost.  Conditional task demands satisfy
+\begin{remark}[Derivation of $\rho = c_1/c_0$]\label{rem:indirect}
+Denote the pre- and post-AI CES unit costs by
 \[
-  y^d(j) = Y_0\!\left(\frac{P}{p(j)}\right)^{\!\sigma},
-  \qquad
-  P \;\equiv\; \left[\int_0^1 p(i)^{1-\sigma}\,di\right]^{\!1/(1-\sigma)}.
+  c_k \;\equiv\; \left[\int_0^1 p_k(i)^{1-\sigma}\,di\right]^{\!1/(1-\sigma)}, \quad k\in\{0,1\}.
 \]
-When AI lowers $p(i)$ to $\tau e^{\alpha i}$ for all $i<I^*$, the
-unit cost $P$ falls.  With $p(j)$ unchanged for $j\geq I^*$, the
-ratio $P/p(j)$ declines, so $y^d(j)$ falls --- the implicit demand
-for complex tasks contracts even in the short run, placing downward
-pressure on wages throughout the task distribution.  This indirect
-channel is second-order relative to the direct compression: the bulk
-of the immediate impact concentrates below $I^*$ where the price
-comparison is direct and unambiguous, while the indirect effect is a
-diffuse, aggregate general-equilibrium adjustment that depends on the
-size of the automated share $[0, I^*)$.  Disentangling the two
-channels empirically requires variation in both individual AI
-exposure and aggregate exposure at the industry or regional level,
-which is beyond the scope of this paper.
+For $i<I^*$, the post-AI task price is $p_1(i)=\tau e^{\alpha i}$ (AI
+sets the competitive price).  For $j\geq I^*$, humans remain the sole
+supplier; market clearing $y^d(j)=f(j)$ with
+$y^d(j)=Y_0(c_1/p_1(j))^{\sigma}$ gives
+$p_1(j)=c_1\cdot(Y_0/f(j))^{1/\sigma}$.  Since the pre-AI price
+satisfies $p_0(j)=c_0\cdot(Y_0/f(j))^{1/\sigma}$, we obtain
+$p_1(j)=(c_1/c_0)\,p_0(j)\equiv\rho\,p_0(j)$.
+
+Substituting into the definition of $c_1$ and using the analogous
+decomposition for $c_0$ yields
+\[
+  \boxed{\rho^{1-\sigma}
+    \;=\;
+    \frac{\displaystyle\int_0^{I^*}(\tau e^{\alpha i})^{1-\sigma}\,di}
+         {\displaystyle\int_0^{I^*} p_0(i)^{1-\sigma}\,di}.}
+\]
+Since $\tau e^{\alpha i}<p_0(i)$ for all $i<I^*$ and $\sigma>1$
+(so $1-\sigma<0$), the numerator exceeds the denominator, giving
+$\rho^{1-\sigma}>1$ and hence $\rho<1$: the unit cost falls.
+The indirect wage compression $(\rho-1)p_0(j)<0$ is proportional to
+the pre-AI wage and uniform across all $j\geq I^*$; its magnitude
+depends on how far the AI cost lies below $p_0$ in the automated sector.
 \end{remark}
 
 %==================================================
