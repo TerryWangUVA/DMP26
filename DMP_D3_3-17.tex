@@ -231,39 +231,99 @@ the effective productivity of workers it complements rather than
 supplements, altering the production technology itself.  This is left
 for future work.
 
-\paragraph{Wage dynamics.}
+\paragraph{Post-AI wages.}
 Since $w_1(i^*)=p_1(i^*)$, the post-AI wage is read directly from
 \eqref{eq:taskprice_postai}:
 \begin{equation}
   w_1(i^*) \;=\; P_Y\!\left(\frac{\bar Y}{f(i^*)+s(i^*)}\right)^{\!1/\sigma}.
   \label{eq:wage_postai}
 \end{equation}
-Compared with the pre-AI wage
-$w_0(i^*)=P_Y\bigl(Y_0/f(i^*)\bigr)^{1/\sigma}$, the numerator has
-grown ($\bar Y>Y_0$) because AI adds productive capacity.  For
-workers above the frontier ($i^*\geq I^*$), $s=0$ so the denominator
-is unchanged --- these workers unambiguously benefit.
-For workers below the frontier ($i^*<I^*$), the denominator has also
-grown ($f+s>f$); whether $w_1$ exceeds or falls short of $w_0$
-depends on which effect dominates.  Because the output gain $\bar Y/Y_0$
-reflects a CES average over \emph{all} tasks --- including the majority
-where $s=0$ --- while $s(i^*)/f(i^*)$ is concentrated among AI-supplied
-tasks, the denominator outpaces the numerator for sufficiently exposed
-workers, and their wages fall.
+The wage change relative to the pre-AI benchmark
+$w_0(i^*)=P_Y\bigl(Y_0/f(i^*)\bigr)^{1/\sigma}$ is governed by
+two competing movements: the numerator has grown ($\bar Y>Y_0$)
+because AI adds productive capacity, while the denominator has grown
+($f+s>f$) for tasks AI can supply.  The interaction of these two
+forces partitions workers into three groups, examined in turn below.
 
-Workers whose compressed wage drops below a reservation threshold exit
-employment; displacement is the extensive-margin counterpart of wage
-compression.  As AI capability improves ($I^*$ rises and $s$
-increases), the set of exposed workers expands
+\paragraph{Group 1: Workers above the frontier ($i^*\geq I^*$).}
+For these workers $s(i^*)=0$, so the denominator is unchanged.
+The wage ratio simplifies to
+\begin{equation}
+  \frac{w_1(i^*)}{w_0(i^*)}
+  \;=\;
+  \left(\frac{\bar Y}{Y_0}\right)^{\!1/\sigma}
+  \;>\; 1.
+  \label{eq:above_frontier}
+\end{equation}
+These workers \emph{unambiguously benefit}: the economy's expanded
+output raises the marginal value of every task whose supply has not
+changed.  The gain is uniform across all $i^*\geq I^*$ and
+increasing in the aggregate size of the AI supply shock.
+
+\paragraph{Group 2: Heavily exposed workers ($i^*<I^*$, large $s/f$).}
+For workers deep inside $[0,I^*)$, AI supply $s(i^*)$ is large
+relative to human supply $f(i^*)$.  The wage ratio becomes
+\begin{equation}
+  \frac{w_1(i^*)}{w_0(i^*)}
+  \;=\;
+  \left(\frac{\bar Y}{Y_0}\right)^{\!1/\sigma}
+  \cdot
+  \left(\frac{f(i^*)}{f(i^*)+s(i^*)}\right)^{\!1/\sigma}.
+  \label{eq:heavily_exposed}
+\end{equation}
+The first factor exceeds one (output expansion), but the second
+factor is strictly less than one and shrinks as $s/f$ grows.
+A worker experiences wage \emph{compression} whenever
+\begin{equation}
+  \frac{s(i^*)}{f(i^*)} \;>\; \frac{\bar Y}{Y_0} - 1,
+  \label{eq:compression_threshold}
+\end{equation}
+i.e.\ whenever the proportional supply increase in their task exceeds
+the proportional increase in aggregate output.  Because $\bar Y/Y_0$
+reflects a CES average over \emph{all} tasks --- including the
+majority where $s=0$ --- while $s(i^*)/f(i^*)$ is concentrated among
+AI-supplied tasks, condition~\eqref{eq:compression_threshold} is
+satisfied for workers whose tasks are heavily supplemented by AI.
+These workers face unambiguous wage losses.
+
+\paragraph{Group 3: Mildly exposed workers ($i^*<I^*$, small $s/f$).}
+Near the frontier, $s(i^*)\to 0$ as $i^*\to I^*$ (by
+continuity of $s$).  For these workers the second factor
+in~\eqref{eq:heavily_exposed} is close to one, and the output
+expansion factor dominates:
+\[
+  \frac{w_1(i^*)}{w_0(i^*)}
+  \;\approx\;
+  \left(\frac{\bar Y}{Y_0}\right)^{\!1/\sigma}
+  \;>\; 1
+  \qquad\text{when } s(i^*)/f(i^*) \text{ is small}.
+\]
+These workers \emph{gain} despite being below $I^*$.  There exists a
+threshold task $\hat\imath < I^*$ at which the two effects exactly
+offset:
+\[
+  \frac{s(\hat\imath)}{f(\hat\imath)}
+  \;=\; \frac{\bar Y}{Y_0} - 1.
+\]
+Workers with $i^*>\hat\imath$ (including all of $[I^*,1]$)
+experience wage gains; workers with $i^*<\hat\imath$ experience wage
+compression.  The boundary between winners and losers therefore lies
+\emph{strictly below} $I^*$, not at it.
+
+\paragraph{Displacement.}
+Workers anywhere in the distribution whose post-AI wage falls below a
+reservation threshold exit employment; displacement is the
+extensive-margin counterpart of wage compression.  As AI capability
+improves ($I^*$ rises and $s$ increases), the set of compressed
+workers expands and the threshold $\hat\imath$ shifts rightward
 (Appendix~\ref{app:cutoff}).
 
-Figure~\ref{fig:postai} illustrates these effects; the increasing
-$p_0(i)$ is for illustration only.
+Figure~\ref{fig:postai} illustrates these effects.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.82\textwidth]{output/model/fig_postai.png}
-  \caption{Post-AI shock.  The pre-AI wage $p_0(i)$ (dashed blue) is compared against the post-AI wage $p_1(i)$ (solid green).  Below $I^*$, AI adds supply $s(i)>0$; the denominator in~\eqref{eq:wage_postai} grows faster than the numerator, so wages fall.  Above $I^*$, $s=0$ and workers benefit from the economy's higher output $\bar Y > Y_0$.  The upward slope of $p_0(i)$ is assumed for illustration only.}
+  \caption{Post-AI shock under two AI supply intensities.  Left panel: task supply $f(i)$ (blue) and $f(i)+s(i)$ (dashed).  Right panel: pre-AI wage $w_0$ (dashed blue) vs.\ post-AI wage $w_1$ (solid).  Workers deep inside $[0,I^*)$ with large $s/f$ see wage compression; workers near $I^*$ with small $s/f$ can still gain from output expansion; workers above $I^*$ gain uniformly.}
   \label{fig:postai}
 \end{figure}
 
