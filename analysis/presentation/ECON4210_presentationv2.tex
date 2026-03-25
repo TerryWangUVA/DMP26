@@ -53,7 +53,7 @@
 
 \column{0.42\textwidth}
   \centering
-  \includegraphics[width=0.85\linewidth]{fig_preai.png}\\
+  \includegraphics[width=0.85\linewidth]{toy_model.png}\\
   {\small\color{mygray} Workers differ in how substitutable their tasks are}
 
 \end{columns}
@@ -87,32 +87,33 @@
 % =============================================================================
 % SLIDE 4 — The Model
 % =============================================================================
-\begin{frame}{The Model}
+\begin{frame}{The Model: AI as a Supply Shock}
 
-\textbf{Key idea:} rank every cognitive task by how easily AI can do it
+\textbf{Key idea:} AI doesn't set prices --- it \emph{adds supply} to the tasks it can do
 
 \medskip
 \begin{columns}[c]
-\column{0.55\textwidth}
+\column{0.52\textwidth}
   \includegraphics[width=\linewidth]{fig_postai.png}
-\column{0.42\textwidth}
+\column{0.45\textwidth}
   \small
   \begin{itemize}
-    \item \textbf{Left of $I^*$:} routine tasks --- AI undercuts
+    \item Every task has human supply $f(i)$.
+          AI adds $s(i)$ on top --- but only below $I^*$
+
+    \medskip
+    \item \textbf{Left of $I^*$:} more supply $\rightarrow$ wages fall
     \begin{itemize}
-      \item[\textcolor{myred}{$\rightarrow$}] \textcolor{myred}{immediate wage pressure}
+      \item[\textcolor{myred}{$\rightarrow$}] \textcolor{myred}{wage compression}
     \end{itemize}
 
     \medskip
-    \item \textbf{Right of $I^*$:} complex tasks --- humans keep the edge
+    \item \textbf{Right of $I^*$:} no AI supply, but the
+          economy grew $\rightarrow$ wages rise
 
     \medskip
-    \item As AI improves, $I^*$ shifts right ---
-          more workers get exposed over time
+    \item As AI improves, $I^*$ shifts right
   \end{itemize}
-  \vspace{0.4cm}
-  \centering
-  \includegraphics[width=0.72\linewidth]{toy_model.png}
 \end{columns}
 
 \end{frame}
@@ -122,13 +123,13 @@
 % =============================================================================
 \begin{frame}{What the Model Predicts}
 
-\textbf{Workers to the left of $I^*$ face two immediate pressures:}
+\textbf{Workers to the left of $I^*$ face two pressures:}
 
 \bigskip
 \begin{columns}[t]
 \column{0.48\textwidth}
   \textbf{\textcolor{myred}{Wage compression}}\\[6pt]
-  Firms can switch to AI $\rightarrow$ workers must accept lower pay to stay employed
+  AI floods their task market with supply $\rightarrow$ their scarcity falls $\rightarrow$ lower pay
 
 \column{0.48\textwidth}
   \textbf{\textcolor{myred}{Displacement}}\\[6pt]
@@ -139,8 +140,8 @@
 \bigskip\hrule\bigskip
 
 {\small\color{mygray}
-\textit{This captures the \textbf{immediate substitution effect} only ---
-longer-run channels (augmentation, output expansion, new tasks) could go the other way.}}
+\textit{One channel is set aside: \textbf{augmentation} --- AI may eventually raise productivity
+of workers it complements rather than supplements. Left for future work.}}
 
 \end{frame}
 
@@ -269,9 +270,9 @@ longer-run channels (augmentation, output expansion, new tasks) could go the oth
   \item \textbf{Workers:} type $i^*$ specializes in task $i^*$; supply of task $i$ is $f(i)$ (fixed, inelastic)
 
   \medskip
-  \item \textbf{AI cost} of task $i$: $\quad c^{\mathrm{AI}}(i) = \tau\cdot e^{\alpha i}$
+  \item \textbf{AI supply} of task $i$: $\quad s(i) \geq 0,\;$ $s'(i)<0$ for $i<I^*$, $\;s(i)=0$ for $i\geq I^*$
   \begin{itemize}
-    \item Lower $\tau$ = more capable AI; $e^{\alpha i}$ ensures complex tasks remain costly for AI
+    \item AI adds to supply of routine tasks; $I^*$ is the capability frontier
   \end{itemize}
 
   \medskip
@@ -300,7 +301,6 @@ longer-run channels (augmentation, output expansion, new tasks) could go the oth
 
 \begin{itemize}
   \item $Y_0$ is fully determined by worker distribution $f$ --- not by prices
-  \item $Y_0$ is the output level held fixed in the short-run AI shock analysis
 \end{itemize}
 
 \end{frame}
@@ -313,98 +313,74 @@ Under full specialization, each worker earns their task price:
   w_0(i^*) \;=\; p_0(i^*) \;=\; P_Y \cdot \left(\frac{Y_0}{f(i^*)}\right)^{\!1/\sigma}
 \]
 
-\begin{columns}[c]
-\column{0.58\textwidth}
-  \includegraphics[width=\linewidth]{fig_preai.png}
-\column{0.38\textwidth}
-  \small
-  \begin{itemize}
-    \item Each worker earns the competitive price of their task
-    \item Scarce types earn more; abundant types earn less
-    \item[\phantom{x}]~
-    \item[] \textit{Upward slope for illustration only --- no shape restriction on $p_0$}
-  \end{itemize}
-\end{columns}
+\centering
+\includegraphics[width=0.72\linewidth]{fig_preai.png}
+
+{\small\itshape Supply $f(i)$ is downward-sloping (more workers in routine tasks);
+wage $w_0$ mirrors it upward (scarcer tasks pay more).}
 
 \end{frame}
 
-% --- B4: Immediate Effects Framing ---
-\begin{frame}{Immediate Effects: What We Do and Don't Model}
+% --- B4: Post-AI Supply Shock ---
+\begin{frame}{Post-AI: The Supply Shock}
 
-\textcolor{myred}{\textbf{Hold $Y = Y_0$ fixed --- immediate impact before the economy adjusts}}
+AI adds supply $s(i)$ to tasks below $I^*$. Effective supply becomes $\bar y(i)=f(i)+s(i)$.
 
-\bigskip
-Isolates the \textbf{substitution channel} only. Longer-run channels set aside:
-\begin{itemize}
-  \item \textbf{Augmentation} --- AI complements some workers, raising productivity over time
-  \item \textbf{Output expansion} --- cheaper production eventually raises $Y$ beyond $Y_0$
-  \item \textbf{Task creation} --- AI creates new tasks over time (Acemoglu \& Restrepo 2019)
-\end{itemize}
+\medskip
+New output: $\;\bar Y = \bigl[\int_0^1 \bar y(i)^{(\sigma-1)/\sigma}\,di\bigr]^{\sigma/(\sigma-1)} > Y_0$
 
-\bigskip
-Immediate task price once AI enters:
+\medskip
+Post-AI wage (same CES logic):
 \[
-  p(i) = \min\!\bigl(p_0(i),\;\tau e^{\alpha i}\bigr)
-  \qquad \Rightarrow \qquad
-  \text{cutoff } I^*:\; \tau e^{\alpha I^*} = p_0(I^*)
+  \boxed{w_1(i^*) \;=\; P_Y\!\left(\frac{\bar Y}{f(i^*)+s(i^*)}\right)^{\!1/\sigma}}
 \]
 
-\end{frame}
+\medskip
+\begin{itemize}
+  \item \textbf{Numerator} $\bar Y > Y_0$: economy grew $\rightarrow$ pushes wages \textcolor{mygreen}{up}
+  \item \textbf{Denominator} $f+s > f$ for $i<I^*$: more supply $\rightarrow$ pushes wages \textcolor{myred}{down}
+  \item For $i\geq I^*$: $s=0$, only numerator moved $\rightarrow$ wages \textcolor{mygreen}{rise}
+  \item For $i<I^*$: denominator growth outpaces numerator for heavily exposed workers $\rightarrow$ wages \textcolor{myred}{fall}
+\end{itemize}
 
-% --- B5: Cutoff and Wages ---
-\begin{frame}{Immediate Effects: Cutoff and Wages}
-
-\begin{columns}[c]
-\column{0.55\textwidth}
-  \includegraphics[width=\linewidth]{fig_postai.png}
-\column{0.42\textwidth}
-  \small
-  \begin{itemize}
-    \item $i < I^*$: AI immediately undercuts\\
-          $\rightarrow$ \textcolor{myred}{wage compression}
-    \[
-      \Delta w = \tau e^{\alpha i^*} - p_0(i^*) < 0
-    \]
-    \item[\phantom{x}]~
-    \item $i \geq I^*$: no direct price pressure \textcolor{mygreen}{in the short run}
-    \begin{itemize}
-      \item[\scriptsize$\hookrightarrow$] {\small output expansion raises their wages over time}
-    \end{itemize}
-    \item[\phantom{x}]~
-    \item Compressed wage $<$ reservation\\
-          $\rightarrow$ \textbf{exit employment}
-  \end{itemize}
-\end{columns}
+\smallskip
+{\small\color{mygray} One channel set aside: \emph{augmentation} (AI raising worker productivity). Left for future work.}
 
 \end{frame}
 
-% --- B6: More on I* ---
+% --- B5: Post-AI Figures ---
+\begin{frame}{Post-AI: Two Scenarios}
+
+\centering
+\includegraphics[width=0.82\linewidth]{fig_postai.png}
+
+\smallskip
+{\small Moderate AI supply: mild compression.  Heavy AI supply: deep compression below $I^*$,
+larger gains above.  The outcome depends on the magnitude of $s(i)$ relative to $f(i)$.}
+
+\end{frame}
+
+% --- B6: Expanding Frontier + Non-Monotone f ---
 \begin{frame}{Further Discussion of $I^*$}
 
 \begin{columns}[t]
 \column{0.50\textwidth}
 
-  \textbf{As AI improves ($\tau \downarrow$), $I^*$ rises}
-  \[
-    \frac{\partial I^*}{\partial \tau} < 0
-  \]
-  The automation frontier expands toward more complex tasks.
+  \textbf{As AI improves, $I^*$ shifts right}\\[4pt]
+  More workers exposed, deeper compression.
 
   \medskip
   \includegraphics[width=\linewidth]{fig_capability.png}
-  {\tiny Decreasing $\tau$ shifts the AI cost curve down, pushing $I^*$ rightward.}
+  {\tiny Each curve shows $w_1$ for a different $I^*$. Higher $I^* \rightarrow$ wider compression.}
 
 \column{0.48\textwidth}
 
-  \textbf{Non-monotone $p_0(i)$: multiple cutoffs}
-  \[
-    \mathcal{A} = [0, I_1^*] \cup [I_2^*, I_3^*] \cup \cdots
-  \]
-  Wage compression applies to all $i^* \in \mathcal{A}$; exposed workers need not be at the low end.
+  \textbf{Non-monotone $f(i)$: scattered effects}\\[4pt]
+  If many workers cluster in a mid-complexity task, wage compression need not be contiguous.
 
   \medskip
   \includegraphics[width=\linewidth]{fig_multiple.png}
-  {\tiny Multiple crossings when the pre-AI wage schedule is non-monotone.}
+  {\tiny Bump in $f$ near $i\approx 0.55$ creates a local dip in $w_0$ and a pocket where workers may gain even inside $[0,I^*)$.}
 
 \end{columns}
 
