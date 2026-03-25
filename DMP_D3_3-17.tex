@@ -206,8 +206,7 @@ output fixed at the pre-AI level $Y_0$ --- before the economy has had
 time to expand production or benefit from general-equilibrium feedback.
 This isolates the \textbf{substitution channel}: AI competing directly
 against workers in task markets, driving down task prices for the tasks
-it can undercut.  Two channels that operate over longer horizons are
-set aside:
+it can undercut.  Several channels are set aside:
 \begin{itemize}
   \item \textbf{Augmentation}: AI may eventually raise the effective
     productivity of workers it complements rather than replaces,
@@ -217,6 +216,15 @@ set aside:
     whose tasks AI cannot undercut.  Holding $Y=Y_0$ abstracts from
     this channel; our immediate-impact analysis therefore provides a
     lower bound on the wages of those workers.
+  \item \textbf{Indirect substitution}: when AI lowers the price of
+    tasks $i<I^*$, the CES aggregate price index
+    $P\equiv\bigl[\int_0^1 p(i)^{1-\sigma}\,di\bigr]^{1/(1-\sigma)}$
+    falls, reducing conditional demand for \emph{all} tasks --- including
+    those above $I^*$ --- through the standard CES formula
+    $y^d(j)=Y_0(P/p(j))^{\sigma}$.
+    This within-period channel is second-order relative to the direct
+    compression below $I^*$ and is discussed formally in
+    Remark~\ref{rem:indirect}.
 \end{itemize}
 
 \paragraph{The automation cutoff.}
@@ -256,10 +264,10 @@ the AI cost lies strictly below the pre-AI task price throughout the
 affected range, so wage compression is immediate and certain.
 Workers below $I^*$ face a compressed wage proportional to how far
 the AI cost undershoots their pre-AI task price.  The zero for
-$i^*\geq I^*$ reflects the absence of direct price pressure through
-the substitution channel; over time, output expansion would push
-these wages above $p_0(i^*)$, but that is a longer-run effect not
-captured here.  Workers whose immediately compressed wage falls
+$i^*\geq I^*$ reflects the absence of \emph{direct} price pressure
+through the substitution channel; the indirect channel operating
+through the CES price index (Remark~\ref{rem:indirect}) and the
+longer-run output-expansion channel are both set aside.  Workers whose immediately compressed wage falls
 below a reservation threshold exit employment --- displacement is
 the extensive-margin counterpart of wage compression and is the
 empirical outcome this paper examines.
@@ -270,9 +278,33 @@ illustration only and is not required by the model.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.82\textwidth]{output/model/fig_postai.png}
-  \caption{Post-AI shock: $I^*$ and wage compression. The AI cost curve $\tau e^{\alpha i}$ (dotted red) undercuts the pre-AI task price $p_0(i)$ (dashed blue) for tasks below the cutoff $I^*$. The solid green line is the effective post-AI price $p(i)=\min(p_0(i),\tau e^{\alpha i})$. Workers below $I^*$ experience wage compression $\Delta w < 0$; workers above are unaffected. The upward slope of $p_0(i)$ is assumed for illustration only.}
+  \caption{Post-AI shock: $I^*$ and wage compression. The AI cost curve $\tau e^{\alpha i}$ (dotted red) undercuts the pre-AI task price $p_0(i)$ (dashed blue) for tasks below the cutoff $I^*$. The solid green line is the effective post-AI price $p(i)=\min(p_0(i),\tau e^{\alpha i})$. Workers below $I^*$ experience direct wage compression $\Delta w < 0$; workers above face no \emph{direct} price pressure (an indirect channel through the falling CES price index also operates; see Remark~\ref{rem:indirect}). The upward slope of $p_0(i)$ is assumed for illustration only.}
   \label{fig:postai}
 \end{figure}
+
+\begin{remark}[Indirect substitution for $i^* \geq I^*$]\label{rem:indirect}
+Equation~\eqref{eq:deltaw} captures the \emph{direct} substitution
+channel only.  A second, within-period channel arises through the
+CES aggregate price index.  Conditional task demands satisfy
+\[
+  y^d(j) = Y_0\!\left(\frac{P}{p(j)}\right)^{\!\sigma},
+  \qquad
+  P \;\equiv\; \left[\int_0^1 p(i)^{1-\sigma}\,di\right]^{\!1/(1-\sigma)}.
+\]
+When AI lowers $p(i)$ to $\tau e^{\alpha i}$ for all $i<I^*$, the
+price index $P$ falls.  With $p(j)$ unchanged for $j\geq I^*$, the
+ratio $P/p(j)$ declines, so $y^d(j)$ falls --- the implicit demand
+for complex tasks contracts even in the short run, placing downward
+pressure on wages throughout the task distribution.  This indirect
+channel is second-order relative to the direct compression: the bulk
+of the immediate impact concentrates below $I^*$ where the price
+comparison is direct and unambiguous, while the indirect effect is a
+diffuse, aggregate general-equilibrium adjustment that depends on the
+size of the automated share $[0, I^*)$.  Disentangling the two
+channels empirically requires variation in both individual AI
+exposure and aggregate exposure at the industry or regional level,
+which is beyond the scope of this paper.
+\end{remark}
 
 %==================================================
 \section{Data}
