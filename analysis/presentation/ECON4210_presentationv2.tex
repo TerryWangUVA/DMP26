@@ -11,8 +11,10 @@
 \graphicspath{
   {../../output/model/}
   {../../output/graphs/}
+  {../../output/graphs/model/}
   {output/model/}
   {output/graphs/}
+  {output/graphs/model/}
 }
 
 \title[AI \& Labor Market Risk]{Present Day, Present Time:\\
@@ -41,16 +43,10 @@
 
   \textbf{November 2022: ChatGPT launches.}\\[10pt]
 
-  Within months, millions of people are using AI to:
-  \begin{itemize}
-    \item Draft emails and documents
-    \item Write and debug code
-    \item Summarize and analyze text
-    \item Answer legal and financial questions
-  \end{itemize}
+  Millions of people start using AI to do things that \emph{people get paid to do}.
 
   \bigskip
-  \textbf{These are jobs people get paid to do.}
+  \textbf{Some workers are much more exposed than others.}
 
   \bigskip
   \large\textbf{Did it cost them?}
@@ -58,7 +54,7 @@
 \column{0.42\textwidth}
   \centering
   \includegraphics[width=0.85\linewidth]{fig_preai.png}\\
-  {\small\color{mygray} Some workers are more exposed than others}
+  {\small\color{mygray} Workers differ in how substitutable their tasks are}
 
 \end{columns}
 
@@ -69,62 +65,54 @@
 % =============================================================================
 \begin{frame}{A Lesson from Trade Economics}
 
-\textbf{Offshoring (2000s):} companies moved jobs abroad when foreign labor was cheaper
+\textbf{Offshoring (2000s):} companies shipped tasks abroad when foreign labor was cheaper
 
 \bigskip
 \begin{itemize}
-  \item \textbf{Grossman \& Rossi-Hansberg (2008):} not whole jobs --- specific \emph{tasks} get offshored
-  \begin{itemize}
-    \item Data entry → India. Customer calls → Philippines. R\&D → stays home.
-    \item Workers in offshored tasks faced wage cuts or job loss
-  \end{itemize}
+  \item \textbf{Grossman \& Rossi-Hansberg (2008):} it's not whole jobs that get offshored ---
+  it's specific \emph{tasks}
 
   \bigskip
   \item \textbf{Ottaviano, Peri \& Wright (2013):} different workers face different cutoffs ---
   not everyone equally at risk
 
-  \bigskip\bigskip
-  \item \textbf{AI is the same story, new technology:}
-  \begin{itemize}
-    \item Instead of cheaper foreign workers --- a cheaper \emph{machine}
-    \item \textbf{``Offshoring'' your tasks to Claudeland, GPTopia, Geminia\ldots}
-    \item Workers whose tasks AI can undercut face the same pressure
-  \end{itemize}
+  \bigskip
+  \item \textbf{AI is the same story, new technology:}\\[4pt]
+    Instead of cheap foreign workers --- a cheap \emph{machine}.\\
+    \textbf{``Offshoring'' your tasks to Claudeland, GPTopia, Geminia\ldots}
 \end{itemize}
 
 \end{frame}
 
 % =============================================================================
-% SLIDE 4 — The Model (plain English + one diagram)
+% SLIDE 4 — The Model
 % =============================================================================
-\begin{frame}{The Model: Who Gets Hit?}
+\begin{frame}{The Model}
 
-\textbf{Key idea:} rank every cognitive task by how easy it is for AI to do
+\textbf{Key idea:} rank every cognitive task by how easily AI can do it
 
 \medskip
 \begin{columns}[c]
-\column{0.52\textwidth}
+\column{0.55\textwidth}
   \includegraphics[width=\linewidth]{fig_postai.png}
-\column{0.45\textwidth}
+\column{0.42\textwidth}
   \small
   \begin{itemize}
-    \item Tasks on the left: \textbf{routine} --- AI can do them cheaply
+    \item \textbf{Left of $I^*$:} routine tasks --- AI undercuts
     \begin{itemize}
-      \item drafting, summarizing, basic coding
-    \end{itemize}
-    \item Tasks on the right: \textbf{``non-routine''} --- AI still struggles
-    \begin{itemize}
-      \item \textit{Where rules end, thinking begins}
-    \end{itemize}
-    \item \textbf{Cutoff $I^*$:} the point where AI cost = human wage
-    \begin{itemize}
-      \item Left of $I^*$: \textcolor{myred}{AI undercuts → wage falls}
-      \item Right of $I^*$: \textcolor{mygreen}{humans retain edge}
+      \item[\textcolor{myred}{$\rightarrow$}] \textcolor{myred}{immediate wage pressure}
     \end{itemize}
 
-    \item As AI improves → $I^*$ shifts right\\
-          More tasks get exposed over time
+    \medskip
+    \item \textbf{Right of $I^*$:} complex tasks --- humans keep the edge
+
+    \medskip
+    \item As AI improves, $I^*$ shifts right ---
+          more workers get exposed over time
   \end{itemize}
+  \vspace{0.4cm}
+  \centering
+  \includegraphics[width=0.72\linewidth]{toy_model.png}
 \end{columns}
 
 \end{frame}
@@ -140,53 +128,87 @@
 \begin{columns}[t]
 \column{0.48\textwidth}
   \textbf{\textcolor{myred}{Wage compression}}\\[6pt]
-  Firms can switch to AI → workers must accept lower pay to stay employed
-  \[
-    \Delta w < 0 \quad \text{for exposed workers}
-  \]
-  The more exposed your tasks, the steeper the cut
+  Firms can switch to AI $\rightarrow$ workers must accept lower pay to stay employed
 
 \column{0.48\textwidth}
   \textbf{\textcolor{myred}{Displacement}}\\[6pt]
-  If the compressed wage drops below what you're willing to accept → you exit
-  \[
-    w_{\text{compressed}} < \underline{w} \;\Rightarrow\; \text{unemployed}
-  \]
-  Displacement is the extreme case of wage compression
+  If the compressed wage drops below what you're willing to accept $\rightarrow$ you exit
 
 \end{columns}
 
 \bigskip\hrule\bigskip
 
 {\small\color{mygray}
-\textit{Note: this captures the \textbf{immediate, substitution effect} only.
-Longer-run channels (AI augmenting workers, creating new tasks, expanding output)
-are real but operate over a longer horizon --- and could go the other way.}}
+\textit{This captures the \textbf{immediate substitution effect} only ---
+longer-run channels (augmentation, output expansion, new tasks) could go the other way.}}
 
 \end{frame}
 
 % =============================================================================
-% SLIDE 6 — Empirical Evidence
+% SLIDE 6 — The Strategy
 % =============================================================================
-\begin{frame}{Do We Actually See This?}
-
-\textbf{Data:} CPS-ASEC survey, 2018--2025\\
-\textbf{AI exposure score:} Eloundou et al.\ (2024) --- occupation-level LLM exposure\\
-\textbf{Strategy:} compare high- vs.\ low-exposure workers before and after ChatGPT (2022)
+\begin{frame}{The Strategy}
 
 \begin{columns}[c]
-\column{0.60\textwidth}
-  \includegraphics[width=\linewidth]{unemployment_stateYFE_plot.pdf}
-\column{0.38\textwidth}
+\column{0.54\textwidth}
+  \[
+    Y_{it} = \alpha + \!\!\sum_{t \neq 2022}\!\! \beta_t \bigl(\mathbf{1}[t] \times \mathrm{AIExp}_i\bigr)
+    + X_{it}'\Gamma + \varepsilon_{it}
+  \]
+  {\small\color{mygray}
+    $X_{it}$: sex, education, state$\times$year FEs\\
+    SEs clustered by occupation \quad Baseline: 2022 $(\beta_{2022} \equiv 0)$
+  }
+
+\column{0.43\textwidth}
   \small
   \begin{itemize}
-    \item Flat pre-trends before 2022 --- comparable groups
+    \item \textbf{Data:} CPS, 500K+ workers, 2018--2025
+    \item \textbf{AI exposure:} Eloundou et al.\ (2024), occupation-level LLM score
+    \item \textbf{Strategy:} high vs.\ low exposure, before vs.\ after ChatGPT
+    \item \textbf{Model says:} $\beta_t$ diverges post-2022
+  \end{itemize}
+\end{columns}
+
+\end{frame}
+
+% =============================================================================
+% SLIDE 7 — Unemployment Results
+% =============================================================================
+\begin{frame}{Result 1: Unemployment}
+
+\begin{columns}[c]
+\column{0.62\textwidth}
+  \includegraphics[width=\linewidth]{unemployment_stateYFE_plot.pdf}
+\column{0.35\textwidth}
+  \small
+  \begin{itemize}
+    \item Flat pre-trends before 2022 --- groups are comparable
     \medskip
-    \item \textbf{Post-2022:} high-exposure workers show a clear, rising unemployment gap
+    \item \textbf{Post-2022:} high-exposure workers show a rising unemployment gap
     \medskip
-    \item Consistent with the model: workers left of $I^*$ are getting displaced
+    \item Effect holds across all specifications
+  \end{itemize}
+\end{columns}
+
+\end{frame}
+
+% =============================================================================
+% SLIDE 8 — Wage Results
+% =============================================================================
+\begin{frame}{Result 2: Wages}
+
+\begin{columns}[c]
+\column{0.62\textwidth}
+  \includegraphics[width=\linewidth]{logwage_stateYFE_plot.pdf}
+\column{0.35\textwidth}
+  \small
+  \begin{itemize}
+    \item Flat pre-trends --- consistent baseline
     \medskip
-    \item Effect is stable across all specifications
+    \item \textbf{Post-2022:} wages compress for high-exposure workers
+    \medskip
+    \item Non-college workers bear the brunt
   \end{itemize}
 \end{columns}
 
@@ -211,8 +233,8 @@ are real but operate over a longer horizon --- and could go the other way.}}
   \centering
   {\small\color{mygray} \textit{The data says:}\\[4pt]}
   {\normalsize Yes, high-exposure workers\\
-  are already seeing it\\
-  in unemployment rates}
+  are already seeing it ---\\
+  unemployment \emph{and} wages}
 \end{columns}
 \end{frame}
 
