@@ -545,25 +545,26 @@ Figure~\ref{fig:capability} illustrates the expanding frontier.
 \end{figure}
 
 %--- B.2 ---
-\subsection*{B.2\quad Non-Monotone AI Supply (General Case)}
+\subsection*{B.2\quad Non-Monotone Human Supply (General Case)}
 
-The main text assumes $s'(i)<0$ throughout $[0,I^*)$, so that AI
-supply decreases monotonically with task complexity.  More generally,
-AI may excel at scattered pockets of the task distribution ---
-$s(i)$ could be high for some complex tasks (e.g.\ legal research)
-while low for intermediate ones.  In this case the supply-dilution
-effect is non-monotone and the set of workers experiencing wage
-compression need not be contiguous.  The wage-ratio
-wage comparison between~\eqref{eq:taskprice_preai}
+The main text illustrates with a monotonically decreasing $f(i)$, but
+in practice the distribution of human workers across the task spectrum
+need not be monotone --- some intermediate or complex tasks may attract
+unusually many workers (e.g.\ mid-level legal or accounting tasks),
+creating bumps in $f(i)$.  Where $f(i)$ is locally high, the pre-AI
+wage $w_0(i)$ dips; if this dip is large enough relative to the AI
+supply $s(i)$, the ratio $s(i)/f(i)$ may fall below the threshold
+needed for wage compression, creating pockets where workers gain even
+inside $[0,I^*)$.  The wage
+comparison between~\eqref{eq:taskprice_preai}
 and~\eqref{eq:taskprice_postai} continues to hold for every task;
 only the pattern of $s(i)/f(i)$ across tasks changes.
-Figure~\ref{fig:multiple} illustrates a configuration with
-non-monotone AI supply.
+Figure~\ref{fig:multiple} illustrates such a configuration.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.82\textwidth]{output/model/fig_multiple.png}
-  \caption{Non-monotone AI supply. When $s(i)$ is not uniformly decreasing, the set of workers experiencing wage compression (where supply dilution dominates output expansion) need not be an interval $[0,I^*)$ but can be a union of segments across the task distribution.}
+  \caption{Non-monotone human supply.  When $f(i)$ has a bump (e.g.\ many workers clustered in a mid-complexity task), the pre-AI wage dips locally.  Even with monotone AI supply $s(i)$, the set of workers experiencing wage compression need not be contiguous --- it depends on the local ratio $s(i)/f(i)$.}
   \label{fig:multiple}
 \end{figure}
 
