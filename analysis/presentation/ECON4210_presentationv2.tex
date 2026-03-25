@@ -102,14 +102,19 @@
           AI adds $s(i)$ on top --- but only below $I^*$
 
     \medskip
-    \item \textbf{Left of $I^*$:} more supply $\rightarrow$ wages fall
+    \item Two competing forces:
     \begin{itemize}
-      \item[\textcolor{myred}{$\rightarrow$}] \textcolor{myred}{wage compression}
+      \item[\textcolor{mygreen}{$\uparrow$}] Economy grows ($\bar Y > Y_0$) --- helps everyone
+      \item[\textcolor{myred}{$\downarrow$}] Extra supply ($f{+}s > f$) --- hurts exposed workers
     \end{itemize}
 
     \medskip
-    \item \textbf{Right of $I^*$:} no AI supply, but the
-          economy grew $\rightarrow$ wages rise
+    \item \textbf{Deep inside $[0,I^*)$:} extra supply dominates
+          $\rightarrow$ \textcolor{myred}{wages fall}
+
+    \medskip
+    \item \textbf{Near or above $I^*$:} output growth dominates
+          $\rightarrow$ \textcolor{mygreen}{wages rise}
 
     \medskip
     \item As AI improves, $I^*$ shifts right
@@ -123,13 +128,13 @@
 % =============================================================================
 \begin{frame}{What the Model Predicts}
 
-\textbf{Workers to the left of $I^*$ face two pressures:}
+\textbf{Workers \emph{heavily} exposed to AI ($s/f$ large) face two pressures:}
 
 \bigskip
 \begin{columns}[t]
 \column{0.48\textwidth}
   \textbf{\textcolor{myred}{Wage compression}}\\[6pt]
-  AI floods their task market with supply $\rightarrow$ their scarcity falls $\rightarrow$ lower pay
+  AI floods their task market with supply --- scarcity falls faster than the economy grows $\rightarrow$ lower pay
 
 \column{0.48\textwidth}
   \textbf{\textcolor{myred}{Displacement}}\\[6pt]
@@ -139,9 +144,11 @@
 
 \bigskip\hrule\bigskip
 
-{\small\color{mygray}
-\textit{One channel is set aside: \textbf{augmentation} --- AI may eventually raise productivity
-of workers it complements rather than supplements. Left for future work.}}
+{\small
+\textit{Workers near $I^*$ (mild exposure) can still \textcolor{mygreen}{gain} --- the output
+expansion outpaces the small supply addition there. The split is \textbf{not}
+at $I^*$ but somewhere below it.}\\[4pt]
+\color{mygray} Augmentation channel (AI raising worker productivity) is set aside.}
 
 \end{frame}
 
@@ -337,10 +344,11 @@ Post-AI wage (same CES logic):
 
 \medskip
 \begin{itemize}
-  \item \textbf{Numerator} $\bar Y > Y_0$: economy grew $\rightarrow$ pushes wages \textcolor{mygreen}{up}
+  \item \textbf{Numerator} $\bar Y > Y_0$: economy grew $\rightarrow$ pushes wages \textcolor{mygreen}{up} for all
   \item \textbf{Denominator} $f+s > f$ for $i<I^*$: more supply $\rightarrow$ pushes wages \textcolor{myred}{down}
   \item For $i\geq I^*$: $s=0$, only numerator moved $\rightarrow$ wages \textcolor{mygreen}{rise}
-  \item For $i<I^*$: denominator growth outpaces numerator for heavily exposed workers $\rightarrow$ wages \textcolor{myred}{fall}
+  \item For $i$ near $I^*$: $s(i)\approx 0$, output growth still dominates $\rightarrow$ wages \textcolor{mygreen}{rise}
+  \item For $i$ deep inside $[0,I^*)$: $s/f$ large, denominator outpaces numerator $\rightarrow$ wages \textcolor{myred}{fall}
 \end{itemize}
 
 \smallskip
@@ -355,8 +363,8 @@ Post-AI wage (same CES logic):
 \includegraphics[width=0.82\linewidth]{fig_postai.png}
 
 \smallskip
-{\small Moderate AI supply: mild compression.  Heavy AI supply: deep compression below $I^*$,
-larger gains above.  The outcome depends on the magnitude of $s(i)$ relative to $f(i)$.}
+{\small The crossover between gain and compression depends on $s(i)/f(i)$ vs.\ $\bar Y/Y_0 - 1$.\\
+Workers near $I^*$ can gain even below the frontier; deep exposure is needed for compression.}
 
 \end{frame}
 
