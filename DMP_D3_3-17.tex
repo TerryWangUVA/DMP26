@@ -364,12 +364,12 @@ where $s_t = 1$ for E1 tasks, $s_t = 0.5$ for E2 tasks, and $s_t = 0$ for E0 tas
 \paragraph{Annotators.}
 \textcite{eloundou2024gpts} collect two independent sets of annotations. \emph{Human ratings} --- produced by the authors and experienced alignment annotators --- are the primary benchmark; they were applied to DWAs and aggregated to the task level. \emph{GPT-4 ratings} were obtained by prompting an early GPT-4 version directly on all task/occupation pairs, serving as a validation dataset. The two sources are highly correlated at the occupation level.
 
-I use \texttt{dv\_rating\_beta}: the \emph{GPT-4-annotated} $\beta$ score. Applying a single model uniformly across all task/occupation pairs ensures internal consistency and avoids noise from human annotation; the cost is potential overconfidence in GPT-4's assessment of its own capabilities. $\beta$ is preferred to $\alpha$ (which ignores the ecosystem of LLM-powered tools already deployed at the time of study) and $\zeta$ (which gives full credit to tasks requiring substantial new software investment); it is therefore the most economically meaningful measure for the post-ChatGPT period.
+I use \texttt{dv\_rating\_beta}: the \emph{GPT-4-annotated} $\beta$ score. Applying a single model uniformly across all task/occupation pairs ensures internal consistency. The cost is potential overconfidence in GPT-4's assessment of its own capabilities. $\beta$ is preferred to $\alpha$ (which ignores the ecosystem of LLM-powered tools already deployed or in development at the time of study) and $\zeta$ (which assumes a hypothetically well-developed AI infrastructure). $\beta$ is therefore the most economically meaningful measure for the post-ChatGPT period.
 
-The variable ranges from approximately 0 (low exposure, e.g., Construction and Extraction) to 0.78 (high exposure, e.g., Computer and Mathematical, Legal, Business and Financial Operations), with a sample standard deviation of roughly 0.17. Because $\beta_o \in [0,1]$, all regression coefficients are interpreted per 0.1-unit increase throughout. The variable is time-invariant and assigned at the occupational level.
+The variable ranges from approximately 0 (low exposure, e.g., Construction and Extraction) to 0.78 (high exposure, e.g., Computer and Mathematical, Legal, Business and Financial Operations), \textcolor{red}{with a sample standard deviation of roughly 0.17.Because $\beta_o \in [0,1]$, all regression coefficients are interpreted per 0.1-unit increase throughout. The variable is time-invariant and assigned at the occupational level.} 
 
 
-Because the CPS-ASEC codes occupations using a Census-based scheme distinct from the SOC codes used by \textcite{eloundou2024gpts}, I construct a hierarchical crosswalk: from Census 2010 occupation codes to 6-digit 2010 SOC codes, then from 2010 SOC to 2018 SOC using the BLS official crosswalk \parencite{bls_soc_crosswalk_2018}. Where exact 6-digit matches are unavailable, exposure scores are aggregated at the 5-digit and 4-digit SOC levels, taking group means. This procedure retains nearly all observations in the sample.
+Because CPS-ASEC codes occupations using a Census-based scheme which is distinct from the SOC occupation codes used by \textcite{eloundou2024gpts}, I construct a hierarchical crosswalk: from Census 2010 occupation codes to 6-digit 2010 SOC codes, then from 2010 SOC to 2018 SOC using the BLS official crosswalk \parencite{bls_soc_crosswalk_2018}. Where exact 6-digit matches are unavailable, exposure scores are aggregated at the 5-digit and 4-digit SOC levels, taking group means. This procedure retains nearly all observations in the sample.
 
 \paragraph{Potential experience.} For the experience heterogeneity specification, I impute potential labor-market experience as $\max(\text{age} - \text{years of schooling} - 6,\, 0)$, with years of schooling assigned from the CPS education recode.
 
@@ -386,13 +386,13 @@ Y_{it} = \alpha
   + \sum_{t \neq 2022} \beta_t \left( \mathbf{1}[t] \times \text{AIExposure}_i \right)
   + X_{it}'\Gamma + \varepsilon_{it},
 \end{equation}
-where $Y_{it}$ is either the unemployment indicator or log wages for worker $i$ in year $t$; $\text{AIExposure}_i$ is the time-invariant exposure score; and year 2022 is the omitted category. The $\beta_t$ coefficients trace, year by year, whether high-exposure workers diverge from low-exposure workers relative to the 2022 baseline. If AI caused labor-market disruption after its diffusion, we expect the post-2022 $\beta_t$ to be positive (for unemployment) or negative (for wages), while the pre-2022 $\beta_t$ should hover near zero.
+where $Y_{it}$ is either the unemployment indicator or log wages for worker $i$ in year $t$; $\text{AIExposure}_i$ is the worker i's occupation's AI exposure score; and year 2022 is the omitted category. The $\beta_t$ coefficients trace, year by year, whether high-exposure workers diverge from low-exposure workers relative to the 2022 baseline. If AI caused labor-market disruption after its diffusion, we expect the post-2022 $\beta_t$ to be positive (for unemployment) or negative (for wages), while the pre-2022 $\beta_t$ should hover near zero.
 
-Four progressively richer specifications are estimated: (1) no additional controls, (2) sex fixed effects, (3) sex and education fixed effects, and (4) sex, education, and state$\times$year fixed effects. Specification (4) absorbs state-specific time shocks and is the preferred specification. Standard errors are clustered at the occupation level throughout.
+Four progressively stricter specifications are estimated: (1) no additional controls, (2) sex fixed effects, (3) sex and education fixed effects, and (4) sex, education, and state$\times$year two-way fixed effects. Specification (4) absorbs state-specific time shocks and is the preferred specification. Standard errors are clustered at the occupation level across all specifications.
 
 \subsection{Heterogeneity: Experience and Education}
 
-\paragraph{Experience.} To examine whether the effect varies by seniority, I supplement the main specification with a triple interaction:
+\paragraph{Experience.} To examine whether the effect varies by seniority of the worker, I supplement the main specification with a triple interaction:
 \begin{equation}
 \label{eq:triple}
 Y_{it} = \alpha
@@ -408,7 +408,7 @@ Y_{it}^{\,g} = \alpha^g
   + \sum_{t \neq 2022} \beta_t^g \left( \mathbf{1}[t] \times \text{AIExposure}_i \right)
   + X_{it}'\Gamma^g + \varepsilon_{it}^g, \quad g \in \{\text{college},\;\text{non-college}\}.
 \end{equation}
-This approach is more transparent than a pooled regression with triple interactions. Each subsample has its own baseline, trend, and exposure gradient, and the two coefficient paths $\{\hat\beta_t^{\text{col}}\}$ and $\{\hat\beta_t^{\text{noncol}}\}$ can be compared directly on a combined coefficient plot.
+Each subsample has its own baseline, trend, and exposure gradient, and the two coefficient paths $\{\hat\beta_t^{\text{col}}\}$ and $\{\hat\beta_t^{\text{noncol}}\}$ can be compared directly.
 
 %==================================================
 \section{Results}
@@ -583,8 +583,6 @@ on $[I^*,1]$, with $s'(i)<0$ for $i<I^*$ (see~\eqref{eq:ai_supply}).
 The parameter $I^*$ indexes the frontier of AI capability: higher
 $I^*$ means AI can supply a wider range of tasks.
 
-%--- B.1 ---
-\subsection*{B.1\quad Comparative Static: Wage Compression Strengthens with~$I^*$}
 
 As $I^*$ increases (holding the shape of $s$ fixed), two reinforcing
 effects operate.  First, a wider set $[0,I^*)$ of workers is directly
@@ -604,29 +602,6 @@ Figure~\ref{fig:capability} illustrates the expanding frontier.
   \label{fig:capability}
 \end{figure}
 
-%--- B.2 ---
-\subsection*{B.2\quad Non-Monotone Human Supply (General Case)}
-
-The main text illustrates with a monotonically decreasing $f(i)$, but
-in practice the distribution of human workers across the task spectrum
-need not be monotone --- some intermediate or complex tasks may attract
-unusually many workers (e.g.\ mid-level legal or accounting tasks),
-creating bumps in $f(i)$.  Where $f(i)$ is locally high, the pre-AI
-wage $w_0(i)$ dips; if this dip is large enough relative to the AI
-supply $s(i)$, the ratio $s(i)/f(i)$ may fall below the threshold
-needed for wage compression, creating pockets where workers gain even
-inside $[0,I^*)$.  The wage
-comparison between~\eqref{eq:taskprice_preai}
-and~\eqref{eq:taskprice_postai} continues to hold for every task;
-only the pattern of $s(i)/f(i)$ across tasks changes.
-Figure~\ref{fig:multiple} illustrates such a configuration.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.82\textwidth]{output/model/fig_multiple.png}
-  \caption{Non-monotone human supply.  When $f(i)$ has a bump (e.g.\ many workers clustered in a mid-complexity task), the pre-AI wage dips locally.  Even with monotone AI supply $s(i)$, the set of workers experiencing wage compression need not be contiguous --- it depends on the local ratio $s(i)/f(i)$.}
-  \label{fig:multiple}
-\end{figure}
 
 \section{Regression Tables}
 \label{app:tables}
