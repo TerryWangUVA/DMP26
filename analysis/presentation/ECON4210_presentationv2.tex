@@ -20,7 +20,7 @@
 \title[AI \& Labor Market Risk]{Present Day, Present Time:\\
   AI Exposure \& Labor Market Risk}
 
-\date{March 2026}
+\date{}
 
 \definecolor{myred}{RGB}{215,48,39}
 \definecolor{mygreen}{RGB}{26,150,65}
@@ -29,13 +29,11 @@
 \begin{document}
 
 \begin{frame}
-\begin{columns}[c]
-\column{0.55\textwidth}
   \maketitle
-\column{0.42\textwidth}
-  \centering
-  \includegraphics[width=0.95\linewidth]{starting_page.png}
-\end{columns}
+  \vspace{-3cm}  % ← adjust this
+    \centering
+  \includegraphics[width=0.4\linewidth]{starting_page.png}
+
 \end{frame}
 
 % =============================================================================
@@ -61,7 +59,7 @@ Where I got the idea: the \textbf{offshoring} literature from trade economics.
 
 \begin{itemize}
   \item Grossman \& Rossi-Hansberg (2008): offshoring works at the \emph{task} level
-  \item Ottaviano, Peri \& Wright (2013): different workers, different cutoffs
+  \item Ottaviano, Peri \& Wright (2013): different workers, different cutoffs. \textit{a slightly ``friendlier'' paper to read than GRH (2008)}
 \end{itemize}
 
 \medskip
@@ -102,7 +100,7 @@ AI is the same story, new technology ---\\
   \]
 
   \medskip
-  \item \textcolor{red}{Output price $P_Y$ fixed (\textit{to make my life a little bit easier})}
+  \item \textcolor{red}{Output price $P_Y$ fixed (\textit{to make my life a bit easier})}
 \end{itemize}
 
 \end{frame}
@@ -227,19 +225,27 @@ Moderate AI $\rightarrow$ mild compression.  Heavy AI $\rightarrow$ deep compres
 %  BRIDGE — Model to Empirics
 % =============================================================================
 
+
+
 \begin{frame}{}
 \begin{columns}[c]
 \column{0.52\textwidth}
   \centering
-  \includegraphics[width=0.95\linewidth]{empirical.png}
+  \includegraphics[width=0.95\linewidth]
+  {empirical.png}
 \column{0.45\textwidth}
   \Large
-  The model predicts high-exposure workers should see worse outcomes post-2022.
+  The model says high-exposure workers should see worse outcomes post-2022.
 
   \bigskip
   \large\textbf{Let's test it.}
 \end{columns}
 \end{frame}
+
+
+
+
+
 
 % =============================================================================
 %  PART 3 — EMPIRICS
@@ -255,7 +261,7 @@ Moderate AI $\rightarrow$ mild compression.  Heavy AI $\rightarrow$ deep compres
     \bigl(\mathbf{1}[t] \times \mathrm{AIExp}_i\bigr)
     + X_{it}'\Gamma + \varepsilon_{it}
   \]
-  {\small\color{mygray}
+  {\small\color{blue}
     $X_{it}$: sex, education, state$\times$year FEs\\
     SEs clustered by occupation \quad Baseline: 2022 $(\beta_{2022}\equiv 0)$
   }
@@ -264,8 +270,8 @@ Moderate AI $\rightarrow$ mild compression.  Heavy AI $\rightarrow$ deep compres
   \small
   \begin{itemize}
     \item \textbf{Data:} CPS, 500K+ obs, 2018--2025
-    \item \textbf{AI exposure:} Eloundou et al.\ (2024), occ-level LLM score
-    \item \textbf{Strategy:} high vs.\ low exposure, before vs.\ after ChatGPT
+    \item \textbf{AI exposure:} Eloundou et al.\ (2024), occ-level LLM exposure score
+    \item \textbf{Strategy:} ``DiD''
     \item \textbf{Model says:} $\beta_t$ diverges post-2022
   \end{itemize}
 \end{columns}
@@ -300,10 +306,10 @@ Moderate AI $\rightarrow$ mild compression.  Heavy AI $\rightarrow$ deep compres
 \column{0.35\textwidth}
   \small
   \begin{itemize}
-    \item Flat pre-trends --- clean baseline
+    \item {\textit{Interesting}} pre-trends
     \medskip
     \item \textbf{Post-2022:} wages compress for high-exposure workers
-    \item But the finding is not as robust as unemployment --- in other specs, not statistically significant
+    \item But the finding is not as robust as unemployment --- in other specs, result's not statistically significant
   \end{itemize}
 \end{columns}
 
@@ -312,26 +318,7 @@ Moderate AI $\rightarrow$ mild compression.  Heavy AI $\rightarrow$ deep compres
 % =============================================================================
 % THANK YOU
 % =============================================================================
-\begin{frame}{}
-\centering
-\vspace{1.5cm}
-{\Large Thank you!}\\[1cm]
-{\normalsize Questions welcome.}\\[1.5cm]
-\begin{columns}[c]
-\column{0.45\textwidth}
-  \centering
-  {\small\color{mygray} \textit{Bottom line:}\\[4pt]}
-  {\normalsize AI is like offshoring ---\\
-  some workers face immediate\\
-  wage and employment risk}
-\column{0.45\textwidth}
-  \centering
-  {\small\color{mygray} \textit{The data says:}\\[4pt]}
-  {\normalsize Yes, high-exposure workers\\
-  are already seeing it ---\\
-  unemployment \emph{and} potentially wages}
-\end{columns}
-\end{frame}
+
 
 % =============================================================================
 % BACKUP SLIDES
