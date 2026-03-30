@@ -134,28 +134,23 @@ Effective supply $\bar y(i) = f(i)+s(i)$, \quad output expands to $\bar Y > Y_0$
   $s\approx 0$ $\rightarrow$ output growth dominates\\
   Wages still \textcolor{mygreen}{rise}
 \end{columns}
-
-\bigskip
-\centering
-\includegraphics[width=0.72\linewidth]{fig_postai.png}
-
 \end{frame}
 
+\begin{frame}{Graphically}
+    \centering
+\includegraphics[width=1.0\linewidth]{fig_postai.png}
+\end{frame}
 % =============================================================================
 %  BRIDGE
 % =============================================================================
 \begin{frame}{}
-\begin{columns}[c]
-\column{0.52\textwidth}
-  \centering
-  \includegraphics[width=0.95\linewidth]{empirical.png}
-\column{0.45\textwidth}
   \Large
+  \centering
   The model says high-exposure workers should see worse outcomes post-2022.
 
   \bigskip
-  \large\textbf{Let's test it.}
-\end{columns}
+  \large
+  \textcolor{red}{\textbf{Let's test it.}}
 \end{frame}
 
 % =============================================================================
@@ -171,8 +166,8 @@ Effective supply $\bar y(i) = f(i)+s(i)$, \quad output expands to $\bar Y > Y_0$
     \item Ages 22--65, labor force participants
     \item Outcomes:
     \begin{itemize}
-      \item Unemployment indicator (mean 3.4\%)
-      \item Log real annual wages (CPI-deflated)
+      \item Unemployment
+      \item Log real annual wages (CPI-U deflated)
     \end{itemize}
   \end{itemize}
 
@@ -181,9 +176,8 @@ Effective supply $\bar y(i) = f(i)+s(i)$, \quad output expands to $\bar Y > Y_0$
   \begin{itemize}
     \item Occupation-level LLM exposure score ($\beta_o$)
     \item GPT-4 annotated, O*NET task database
-    \item 0 (low: construction) to 0.78 (high: legal, CS)
+    \item 0 (eg. construction workers) to 0.80~ (eg. programmers)
     \item Time-invariant, assigned at occ.\ level
-    \item Coefficients: per 0.1 increase in $\beta_o$
   \end{itemize}
 \end{columns}
 
@@ -201,10 +195,10 @@ Effective supply $\bar y(i) = f(i)+s(i)$, \quad output expands to $\bar Y > Y_0$
     \bigl(\mathbf{1}[t] \times \mathrm{AIExp}_i\bigr)
     + X_{it}'\Gamma + \varepsilon_{it}
   \]
-  {\small\color{mygray}
+  {\small\color{blue}
     $X_{it}$: sex, education, state$\times$year FEs\\
     SEs clustered by occupation \quad Baseline: 2022 $(\beta_{2022}\equiv 0)$\\[6pt]
-    Four specs: (1) none $\rightarrow$ (2) sex $\rightarrow$
+    Four control specs: (1) none $\rightarrow$ (2) sex $\rightarrow$
     (3) sex+educ $\rightarrow$ \textbf{(4) + state$\times$year}
   }
 
@@ -214,8 +208,8 @@ Effective supply $\bar y(i) = f(i)+s(i)$, \quad output expands to $\bar Y > Y_0$
     \item Year-by-year interaction with AI exposure
           $\rightarrow$ event-study coefficients $\hat\beta_t$
     \medskip
-    \item Pre-2022 $\hat\beta_t \approx 0$: parallel trends
-    \item Post-2022 $\hat\beta_t$ diverges: AI effect
+    \item Pre-2022 $\hat\beta_t$: tests for parallel trends
+    \item Post-2022 $\hat\beta_t$: possible effects from AI
     \medskip
     \item \textbf{Education heterogeneity:}
           estimate separately for college vs.\ non-college
