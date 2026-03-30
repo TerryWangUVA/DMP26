@@ -418,6 +418,7 @@ preserve
 
 	graph export "$graphs/descriptives/mean_beta_education.pdf", replace
 restore
+*
 
 
 **************************************************
