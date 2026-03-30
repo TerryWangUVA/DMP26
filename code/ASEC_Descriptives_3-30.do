@@ -165,7 +165,6 @@ cap mkdir "$output/tables/descriptives"
 cap mkdir "$output/graphs/descriptives"
 
 
-
 **************************************************
 **# 1. Overall: kdensity of AI exposure
 **************************************************
@@ -443,9 +442,6 @@ use `analysis', clear
 	gen beta_str = string(mean_beta, "%6.3f")
 	gen pct_str  = string(pct_college, "%5.1f")
 
-	* Shorten names: drop "Occupations" since it's in the column header
-	replace soc_gr_str = subinstr(soc_gr_str, " Occupations", "", .)
-	replace soc_gr_str = subinstr(soc_gr_str, " occupations", "", .)
 
 	listtex soc_gr_str beta_str pct_str ///
 		using "$tables/occ_group_exposure.tex", replace ///
