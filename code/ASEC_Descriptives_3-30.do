@@ -427,7 +427,9 @@ restore
 
 use `analysis', clear
 
-preserve
+// preserve
+	drop if missing(soc_gr_str)
+	
 	collapse (mean) mean_beta = dv_rating_beta ///
 			 (mean) pct_college = is_college, ///
 		by(soc_gr soc_gr_str)
@@ -442,15 +444,12 @@ preserve
 	gen beta_str = string(mean_beta, "%6.3f")
 	gen pct_str  = string(pct_college, "%5.1f")
 
-	* Wrap long occupation names (insert \newline if > 30 chars)
-	* Stata doesn't have native wrap, so truncate for table readability
-	gen occ_short = soc_gr_str
-	replace occ_short = substr(soc_gr_str, 1, 40) if length(soc_gr_str) > 40
-
-	listtex occ_short beta_str pct_str ///
+	* Wrap long occupation names using a LaTeX p{} column
+	* Use the full name — LaTeX will wrap automatically
+	listtex soc_gr_str beta_str pct_str ///
 		using "$tables/occ_group_exposure.tex", replace ///
 		rstyle(tabular) ///
-		head("\begin{tabular}{lcc}" "\hline" ///
+		head("\begin{tabular}{p{6cm}cc}" "\hline" ///
 			 "Occupation Group & AI Exposure ($\beta_o$) & \% College \\" "\hline") ///
 		foot("\hline" "\end{tabular}")
-restore
+// restore
