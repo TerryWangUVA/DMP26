@@ -343,6 +343,13 @@ use `analysis', clear
 
 xtile beta_q = dv_rating_beta, nquantiles(4)
 
+* Label variables for clean table output
+label variable age "Age"
+label variable is_college "College (BA+)"
+label variable lnwage "Log Real Wage"
+label variable unemployed "Unemployed"
+label variable dv_rating_beta "AI Exposure (\$\beta_o\$)"
+
 * Overall + by quartile
 eststo all: estpost summarize age is_college lnwage unemployed dv_rating_beta
 
