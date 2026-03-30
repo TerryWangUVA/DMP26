@@ -1,21 +1,19 @@
+limitation page:
+- CPS-ASEC data = identify transition between positions but is an underestimate of the overall layoff (i.e. does not capture those who got another job right after being laid-off)
+- no data on job opening & ppl out-of-college finding jobs 
 
-1. mean AI exposure in the sample over time (2018 - 2025)
-- het versions as well (college vs noncollege)
-
-
-2. 22 occupation %college-educated listing
-
-- should look like the top-5 bottom-5 table but:
-        1) use the soc_gr (grouped exposure measure)
-        2) still sorted by high->low 
-        3) exhaustive list (approx. 22 groups)
-
-        4) the general format: 
-        
-        Occupation Group | Exposure Score | % w/ College Degree in that occupation group
-
-        (of course adjust column labeling)
+for these reasons the estimate is an underestimate
 
 
-Add 1 and 2 into ASEC_Descriptives_3-30.do
-    occupation group name variable is occ_gr_str - but a bit long may need to wrap  
+on the other hand:
+- lots of things going on since 2020
+- pretrend not as clean (due to covid) - though confirm the "cognitive tasks" being replaced hypothesis in a strange way
+- only 2( or 3) post-period
+
+- the shock is not very significant - even if it is an underestimate it is still quite mild. Don't panic I guess
+
+
+the tone shud be light a bit - to be used as the final slide that I gonna talk through 
+
+
+
