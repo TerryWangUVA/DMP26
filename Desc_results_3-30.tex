@@ -8,6 +8,7 @@
 \usepackage{float}
 \usepackage{xcolor}
 \usepackage{amsmath}
+\usepackage{pdflscape}
 
 \graphicspath{{output/graphs/descriptives/}{output/tables/descriptives/}}
 
@@ -115,6 +116,7 @@
 \noindent\footnotesize\textit{Notes:} Raw means, no regression adjustment. The figure shows whether high-exposure workers experienced differential unemployment trends in the post-ChatGPT period. A divergence between Q4 and Q1 after 2022 is the ``eyeball'' version of the formal DiD estimates.
 \end{figure}
 
+\begin{landscape}
 \begin{table}[H]
 \begin{center}
 \caption{Summary statistics by AI exposure quartile.}
@@ -124,5 +126,5 @@
 \smallskip
 \noindent\footnotesize\textit{Notes:} Sample: CPS-ASEC 2018--2025, labor-force participants aged 22--65 with at least a high school diploma. Quartiles defined by the Eloundou et al.\ (2024) GPT-4 $\beta$ score. ``All'' is the pooled sample. Mean and standard deviation reported for each variable.
 \end{table}
-
+\end{landscape}
 \end{document}
