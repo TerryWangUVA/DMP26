@@ -1,0 +1,128 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{amsmath}
+
+\graphicspath{{output/graphs/descriptives/}{output/tables/descriptives/}}
+
+\title{Descriptive Statistics\\
+       \large AI Exposure \& Labor Market Outcomes --- March 30, 2026}
+\author{Leyao Wang}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\noindent\textit{Sample:} CPS-ASEC 2018--2025, labor-force participants aged 22--65 with at least a high school diploma ($N\approx 500{,}669$). AI exposure is the Eloundou et al.\ (2024) GPT-4 $\beta$ score (\texttt{dv\_rating\_beta}), ranging from 0 to $\approx$0.78, assigned at the occupation level and time-invariant. \textit{College} = BA or above (educ $>$ 110). \textit{Non-college} = high school or some college (educ $\leq$ 110).
+
+\bigskip
+
+%==================================================
+\section*{Contents}
+%==================================================
+
+\subsection*{Overall distribution}
+\begin{enumerate}
+  \item \hyperref[fig:kdensity_overall]{Kernel density of AI exposure across workers}
+  \item \hyperref[tab:top5]{Most exposed occupations (top 5)}
+  \item \hyperref[tab:bot5]{Least exposed occupations (bottom 5)}
+\end{enumerate}
+
+\subsection*{Heterogeneity by education}
+\begin{enumerate}\setcounter{enumi}{3}
+  \item \hyperref[fig:kdensity_educ]{Kernel density of AI exposure: college vs.\ non-college}
+\end{enumerate}
+
+\subsection*{Time-series and summary statistics}
+\begin{enumerate}\setcounter{enumi}{4}
+  \item \hyperref[fig:unemp_quartile]{Unemployment rate by AI exposure quartile (post-2022)}
+  \item \hyperref[tab:summary]{Summary statistics by AI exposure quartile}
+\end{enumerate}
+
+\clearpage
+\doublespacing
+
+%==================================================
+\section{Overall Distribution of AI Exposure}
+%==================================================
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{kdensity_beta_overall.pdf}
+\caption{Kernel density of AI exposure ($\beta_o$) across workers in the CPS-ASEC sample. Each observation is a worker-year; the density reflects the worker-level distribution of occupational AI exposure scores.}
+\label{fig:kdensity_overall}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} AI exposure is the Eloundou et al.\ (2024) GPT-4 $\beta$ score, assigned at the occupation level. Higher values indicate greater exposure to LLM automation. The score is time-invariant; variation is entirely cross-occupational.
+\end{figure}
+
+\begin{table}[H]
+\begin{center}
+\caption{Most exposed occupations (top 5 by $\beta_o$).}
+\label{tab:top5}
+\input{output/tables/descriptives/top5_exposed.tex}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Source:} Eloundou et al.\ (2024), occupation-level file (\texttt{occ\_level.csv}). Scores are the GPT-4-annotated $\beta$ measure.
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Least exposed occupations (bottom 5 by $\beta_o$).}
+\label{tab:bot5}
+\input{output/tables/descriptives/bot5_exposed.tex}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Source:} Eloundou et al.\ (2024), occupation-level file (\texttt{occ\_level.csv}). Scores are the GPT-4-annotated $\beta$ measure.
+\end{table}
+
+\clearpage
+
+%==================================================
+\section{AI Exposure by Education}
+%==================================================
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{kdensity_beta_education.pdf}
+\caption{Kernel density of AI exposure ($\beta_o$): college-educated workers (BA or above, navy solid) vs.\ non-college workers (high school or some college, maroon dashed).}
+\label{fig:kdensity_educ}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Each observation is a worker-year. The two distributions show the occupational exposure profile faced by each education group. If the distributions overlap substantially, the asymmetric wage result (non-college compressed, college not) is more striking because it cannot be attributed simply to differential exposure.
+\end{figure}
+
+\clearpage
+
+%==================================================
+\section{Time-Series and Summary Statistics}
+%==================================================
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemp_by_quartile_post2022.pdf}
+\caption{Mean unemployment rate by AI exposure quartile, 2022--2025. Workers are divided into four groups based on quartiles of the AI exposure score ($\beta_o$). Q1 (lowest exposure) to Q4 (highest exposure).}
+\label{fig:unemp_quartile}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Raw means, no regression adjustment. The figure shows whether high-exposure workers experienced differential unemployment trends in the post-ChatGPT period. A divergence between Q4 and Q1 after 2022 is the ``eyeball'' version of the formal DiD estimates.
+\end{figure}
+
+\begin{table}[H]
+\begin{center}
+\caption{Summary statistics by AI exposure quartile.}
+\label{tab:summary}
+\input{output/tables/descriptives/summary_stats_quartile.tex}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Sample: CPS-ASEC 2018--2025, labor-force participants aged 22--65 with at least a high school diploma. Quartiles defined by the Eloundou et al.\ (2024) GPT-4 $\beta$ score. ``All'' is the pooled sample. Mean and standard deviation reported for each variable.
+\end{table}
+
+\end{document}
