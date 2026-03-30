@@ -1,0 +1,100 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{pdflscape}
+
+\graphicspath{{output/graphs/descriptives/}{output/tables/descriptives/}}
+
+\title{Descriptive Statistics\\
+       \large AI Exposure \& Labor Market Outcomes --- March 30, 2026}
+\author{Leyao Wang}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+
+\bigskip
+
+%==================================================
+\section{Overall Distribution of AI Exposure}
+%==================================================
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{kdensity_beta_overall.pdf}
+\caption{Kernel density of AI exposure ($\beta_o$) across workers in the CPS-ASEC sample. Each observation is a worker-year; the density reflects the worker-level distribution of occupational AI exposure scores.}
+\label{fig:kdensity_overall}
+\end{center}
+\smallskip
+\end{figure}
+\clearpage
+\begin{table}[H]
+\begin{center}
+\caption{Most exposed occupations (top 5 by $\beta_o$).}
+\label{tab:top5}
+\input{output/tables/descriptives/top5_exposed.tex}
+\end{center}
+\smallskip
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Least exposed occupations (bottom 5 by $\beta_o$).}
+\label{tab:bot5}
+\input{output/tables/descriptives/bot5_exposed.tex}
+\end{center}
+\smallskip
+\end{table}
+
+\clearpage
+
+%==================================================
+\section{AI Exposure by Education}
+%==================================================
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{kdensity_beta_education.pdf}
+\caption{Kernel density of AI exposure ($\beta_o$): college-educated workers (BA or above, navy solid) vs.\ non-college workers (high school or some college, maroon dashed).}
+\label{fig:kdensity_educ}
+\end{center}
+\smallskip
+\end{figure}
+
+\clearpage
+
+%==================================================
+\section{Time-Series and Summary Statistics}
+%==================================================
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{unemp_by_quartile_post2022.pdf}
+\caption{Mean unemployment rate by AI exposure quartile, 2022--2025. Workers are divided into four groups based on quartiles of the AI exposure score ($\beta_o$). Q1 (lowest exposure) to Q4 (highest exposure).}
+\label{fig:unemp_quartile}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Raw means, no regression adjustment. 
+\end{figure}
+
+\begin{landscape}
+\begin{table}[H]
+\begin{center}
+\caption{Summary statistics by AI exposure quartile.}
+\label{tab:summary}
+\input{output/tables/descriptives/summary_stats_quartile.tex}
+\end{center}
+\smallskip
+
+\end{table}
+\end{landscape}
+\end{document}
