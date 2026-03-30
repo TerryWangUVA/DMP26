@@ -12,9 +12,11 @@
   {../../output/model/}
   {../../output/graphs/}
   {../../output/graphs/model/}
+  {../../output/graphs/descriptives/}
   {output/model/}
   {output/graphs/}
   {output/graphs/model/}
+  {output/graphs/descriptives/}
 }
 
 \title[AI \& Labor Market Risk]{Present Day, Present Time:\\
@@ -180,6 +182,62 @@ Effective supply $\bar y(i) = f(i)+s(i)$, \quad output expands to $\bar Y > Y_0$
     \item Time-invariant, assigned at occ.\ level
   \end{itemize}
 \end{columns}
+
+\end{frame}
+
+% --- Who's exposed? ---
+\begin{frame}{Who's Exposed?}
+
+\begin{columns}[c]
+\column{0.55\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{kdensity_beta_overall.pdf}
+\column{0.42\textwidth}
+  \small
+  \begin{itemize}
+    \item Most workers cluster at low--moderate exposure
+    \item A long right tail: programmers, legal, financial analysts
+    \medskip
+    \item Each observation = one worker-year\\
+          (density reflects the \emph{worker} distribution)
+  \end{itemize}
+\end{columns}
+
+\end{frame}
+
+% --- College vs Non-college exposure ---
+\begin{frame}{Exposure by Education}
+
+\begin{columns}[c]
+\column{0.55\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{kdensity_beta_education.pdf}
+\column{0.42\textwidth}
+  \small
+  \begin{itemize}
+    \item College workers shifted right ---
+          more exposed on average
+    \medskip
+    \item But substantial overlap ---
+          both groups contain high- and low-exposure workers
+    \medskip
+    \item This matters: the asymmetric wage result
+          (non-college hit, college not) is \emph{not} simply
+          because the groups face different exposure
+  \end{itemize}
+\end{columns}
+
+\end{frame}
+
+% --- Raw time series ---
+\begin{frame}{Eyeball Test: Unemployment by Exposure Quartile}
+
+\centering
+\includegraphics[width=0.78\linewidth]{unemp_by_quartile_post2022.pdf}
+
+\smallskip
+{\small Raw means, no regression.  Q4 (highest exposure) diverges from Q1 after 2022 ---
+the pattern the model predicts.}
 
 \end{frame}
 
