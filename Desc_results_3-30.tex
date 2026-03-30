@@ -41,8 +41,19 @@
   \item \hyperref[fig:kdensity_educ]{Kernel density of AI exposure: college vs.\ non-college}
 \end{enumerate}
 
-\subsection*{Time-series and summary statistics}
+\subsection*{Composition over time}
 \begin{enumerate}\setcounter{enumi}{4}
+  \item \hyperref[fig:beta_ts_overall]{Mean AI exposure over time (overall)}
+  \item \hyperref[fig:beta_ts_educ]{Mean AI exposure over time: college vs.\ non-college}
+\end{enumerate}
+
+\subsection*{Occupation group profile}
+\begin{enumerate}\setcounter{enumi}{6}
+  \item \hyperref[tab:occ_group]{Occupation groups: AI exposure and \% college}
+\end{enumerate}
+
+\subsection*{Time-series and summary statistics}
+\begin{enumerate}\setcounter{enumi}{7}
   \item \hyperref[fig:unemp_quartile]{Unemployment rate by AI exposure quartile (post-2022)}
   \item \hyperref[tab:summary]{Summary statistics by AI exposure quartile}
 \end{enumerate}
@@ -99,6 +110,48 @@
 \smallskip
 \noindent\footnotesize\textit{Notes:} Each observation is a worker-year. The two distributions show the occupational exposure profile faced by each education group. If the distributions overlap substantially, the asymmetric wage result (non-college compressed, college not) is more striking because it cannot be attributed simply to differential exposure.
 \end{figure}
+
+\clearpage
+
+%==================================================
+\section{Composition Over Time}
+%==================================================
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{mean_beta_overall.pdf}
+\caption{Mean AI exposure ($\beta_o$) across all workers, by year. Since $\beta_o$ is time-invariant at the occupation level, any movement reflects changes in the occupational composition of the labor force.}
+\label{fig:beta_ts_overall}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Sample mean of the Eloundou et al.\ (2024) GPT-4 $\beta$ score in each CPS-ASEC wave. A flat line indicates that the mix of occupations in the sample is stable over the panel period.
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.88\textwidth]{mean_beta_education.pdf}
+\caption{Mean AI exposure ($\beta_o$) by education group, 2018--2025. College-educated workers (navy solid) vs.\ non-college workers (maroon dashed).}
+\label{fig:beta_ts_educ}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Separate sample means within each education group. Any differential trend would indicate that occupational sorting between education groups is shifting over time, which could confound the heterogeneity analysis.
+\end{figure}
+
+\clearpage
+
+%==================================================
+\section{Occupation Group Profile}
+%==================================================
+
+\begin{table}[H]
+\begin{center}
+\caption{Occupation groups ranked by AI exposure, with share of college-educated workers. All 22 major occupation groups from the CPS classification, sorted by group-mean $\beta_o$ (highest to lowest).}
+\label{tab:occ_group}
+\input{output/tables/descriptives/occ_group_exposure.tex}
+\end{center}
+\smallskip
+\noindent\footnotesize\textit{Notes:} Exposure score is the mean Eloundou et al.\ (2024) GPT-4 $\beta$ score within each occupation group. \% College is the share of workers in that group holding a BA or above. Group labels from CPS major occupation categories (\texttt{occ\_gr\_str}).
+\end{table}
 
 \clearpage
 

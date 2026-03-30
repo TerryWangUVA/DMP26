@@ -322,7 +322,7 @@ preserve
 		xlabel(2018(1)2025) ///
 		xtitle("Year") ///
 		ytitle("Mean Unemployment Rate") ///
-		ylabel(0(0.01)0.05) ///
+		ylabel(0(0.1)0.5) ///
 		title("Unemployment by AI Exposure Quartile (2018-2025)") ///
 		legend(order(1 "Q1 (lowest)" 2 "Q2" 3 "Q3" 4 "Q4 (highest)") ///
 			rows(1) position(6) region(lstyle(none))) ///

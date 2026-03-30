@@ -1,26 +1,21 @@
-Time to prepare descriptives
 
-Find the dofile called ASEC_Descriptives_3-30.do
+1. mean AI exposure in the sample over time (2018 - 2025)
+- het versions as well (college vs noncollege)
 
-here are the descriptives that you need to produce:
 
-1. overall
-    - kdensity of dv_rating_beta (i.e. kinda what proportion of workers distributes at each exposure score)
-      NOTE: weight by person-level survey weights (or occ cell size) so density reflects 
-      the worker distribution, not the occupation distribution --> reject: the data is already worker lvl
-    - a simple tex table listing some of the most exposed occ and least exposed occ (as in Eloundou's csv)
-      eg.      | Exposure Score | Most Exposed Occupations | Least Exposed Occupations
-      (and perhaps list 5 of them) -- for this you may need the csv in raw/Eloundou/ in which variable title is the title of the occupation
-      NOTE: consider adding N (CPS obs per occ) so readers can gauge sample coverage;
-      spot-check SOC titles — some are cryptic, use recognizable labels  --> reject: no need. Just use the eloundou's csv. 3 columns, keep it simple
+2. 22 occupation %college-educated listing
 
-2. het
-    - kdensity of dv_rating_beta, two lines one for college one for non-college (so as to compare the exposure to each group)
-      NOTE: this is the most important descriptive for the het story — if distributions
-      are similar, the asymmetric wage result is more striking
+- should look like the top-5 bottom-5 table but:
+        1) use the soc_gr (grouped exposure measure)
+        2) still sorted by high->low 
+        3) exhaustive list (approx. 22 groups)
 
-3. additional descriptives (suggested)
-    - time-series plot: mean unemployment rate by high/low exposure (e.g. above/below median beta) 
-      over 2018-2025, raw (no regression). The "eyeball" DiD before formal estimates.--> addition: do it for 25p 50p 75p... (split the sample into 4 groups that is) beta(vertical axis) and year 22 23 24 25 (horizontal axis)
-    - sample summary table: N, mean age, % female, % college, mean wage — overall and by
-      high/low exposure terciles. Standard for empirical papers. -> addition: yea but a similar thing: for 25p 50p 75p  (split the sample into 4 groups that is)
+        4) the general format: 
+        
+        Occupation Group | Exposure Score | % w/ College Degree in that occupation group
+
+        (of course adjust column labeling)
+
+
+Add 1 and 2 into ASEC_Descriptives_3-30.do
+    occupation group name variable is occ_gr_str - but a bit long may need to wrap  
