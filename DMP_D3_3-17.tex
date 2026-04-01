@@ -384,9 +384,9 @@ The core empirical question is whether outcomes for workers in high-exposure occ
 \label{eq:main}
 Y_{it} = \alpha
   + \sum_{t \neq 2022} \beta_t \left( \mathbf{1}[t] \times \text{AIExposure}_i \right)
-  + X_{it}'\Gamma + \varepsilon_{it},
+  + \text{lower-order terms} + X_{it}'\Gamma + \varepsilon_{it},
 \end{equation}
-where $Y_{it}$ is either the unemployment indicator or log wages for worker $i$ in year $t$; $\text{AIExposure}_i$ is the worker i's occupation's AI exposure score; and year 2022 is the omitted category. The $\beta_t$ coefficients trace, year by year, whether high-exposure workers diverge from low-exposure workers relative to the 2022 baseline. If AI caused labor-market disruption after its diffusion, we expect the post-2022 $\beta_t$ to be positive (for unemployment) or negative (for wages), while the pre-2022 $\beta_t$ should hover near zero.
+where $Y_{it}$ is either the unemployment indicator or log wages for worker $i$ in year $t$; $\text{AIExposure}_i$ is the worker i's occupation's AI exposure score; and year 2022 is the omitted category. The lower-order terms include year fixed effects and the main effect of AI exposure. The $\beta_t$ coefficients trace, year by year, whether high-exposure workers diverge from low-exposure workers relative to the 2022 baseline. If AI caused labor-market disruption after its diffusion, we expect the post-2022 $\beta_t$ to be positive (for unemployment) or negative (for wages), while the pre-2022 $\beta_t$ should hover near zero.
 
 Four progressively stricter specifications are estimated: (1) no additional controls, (2) sex fixed effects, (3) sex and education fixed effects, and (4) sex, education, and state$\times$year two-way fixed effects. Specification (4) absorbs state-specific time shocks and is the preferred specification. Standard errors are clustered at the occupation level across all specifications.
 
@@ -406,7 +406,7 @@ A negative post-2022 $\delta_t$ would indicate that more-experienced workers are
 \label{eq:split}
 Y_{it}^{\,g} = \alpha^g
   + \sum_{t \neq 2022} \beta_t^g \left( \mathbf{1}[t] \times \text{AIExposure}_i \right)
-  + X_{it}'\Gamma^g + \varepsilon_{it}^g, \quad g \in \{\text{college},\;\text{non-college}\}.
+  + \text{lower-order terms} + X_{it}'\Gamma^g + \varepsilon_{it}^g, \quad g \in \{\text{college},\;\text{non-college}\}.
 \end{equation}
 Each subsample has its own baseline, trend, and exposure gradient, and the two coefficient paths $\{\hat\beta_t^{\text{col}}\}$ and $\{\hat\beta_t^{\text{noncol}}\}$ can be compared directly.
 
