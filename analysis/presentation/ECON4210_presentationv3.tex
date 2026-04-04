@@ -247,42 +247,57 @@ Effective supply $\bar y(i) = f(i)+s(i)$, \quad output expands to $\bar Y > Y_0$
 \smallskip
 
 \end{frame}
-
 % =============================================================================
 %  EMPIRICAL STRATEGY
 % =============================================================================
 \begin{frame}{Empirical Strategy}
 
-\begin{columns}[c]
-\column{0.6\textwidth}
-  \[
-    Y_{it} = \alpha + \!\!\sum_{t \neq 2022}\!\! \beta_t
-    \bigl(\mathbf{1}[t] \times \mathrm{AIExp}_i\bigr)
-    + \text{lower-order terms} + X_{it}'\Gamma + \varepsilon_{it}
-  \]
-  {\small\color{blue}
-    $X_{it}$: sex, education, state$\times$year FEs\\
-    SEs clustered by occupation \quad Baseline: 2022 $(\beta_{2022}\equiv 0)$\\[6pt]
-    Four control specs: (1) none $\rightarrow$ (2) sex $\rightarrow$
-    (3) sex+educ $\rightarrow$ \textbf{(4) + state$\times$year}
-  }
+\begin{columns}[T,onlytextwidth]
+\column{0.58\textwidth}
 
-\column{0.38e\textwidth}
-  \small
-  \begin{itemize}
-    \item Year-by-year interaction with AI exposure
-          $\rightarrow$ event-study coefficients $\hat\beta_t$
+\[
+Y_{it} = \alpha 
++ \sum_{t \neq 2022} \beta_t
+\bigl(\mathbf{1}[t] \times \mathrm{AIExp}_i\bigr)
++ \text{lower-order terms}
++ X_{it}'\Gamma
++ \varepsilon_{it}
+\]
+
+\vspace{0.3em}
+{\scriptsize\color{blue}
+$X_{it}$: sex, education, state$\times$year fixed effects \\
+Standard errors clustered by occupation \\
+Baseline year: 2022 \hspace{0.4em} ($\beta_{2022} \equiv 0$) \\[4pt]
+Four control specifications: 
+(1) none $\rightarrow$ 
+(2) sex $\rightarrow$ 
+(3) sex + education $\rightarrow$ 
+\textbf{(4) + state$\times$year}
+}
+
+\column{0.40\textwidth}
+
+\small
+\begin{itemize}
+    \item Interact year dummies with AI exposure to estimate event-study coefficients $\hat{\beta}_t$
+    
     \medskip
-    \item Pre-2022 $\hat\beta_t$: tests for parallel trends
-    \item Post-2022 $\hat\beta_t$: possible effects from AI
+    
+    \item Pre-2022 $\hat{\beta}_t$: test for parallel trends
+    
     \medskip
-    \item \textbf{Education heterogeneity:}
-          estimate separately for college vs.\ non-college
-  \end{itemize}
+    
+    \item Post-2022 $\hat{\beta}_t$: possible effects of AI exposure
+    
+    \medskip
+    
+    \item \textbf{Education heterogeneity:} estimate separately for college and non-college workers
+\end{itemize}
+
 \end{columns}
 
 \end{frame}
-
 % =============================================================================
 %  RESULTS
 % =============================================================================
