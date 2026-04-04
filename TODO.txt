@@ -21,3 +21,19 @@ potentially relavent dofiles are:
 7) Unemp. (exp # year # Exposure)
 8) Logwage (exp # year # Exposure) 
 
+// above this line is done //
+=====================================================================
+
+
+Now adding descriptives in the following order to ...D3.tex:
+(you can look for the relavent desc outputs in Desc_results_3-30.tex)
+add a new \subsection for descriptive statistics after the subsection for AI Exposure 
+you can find relavent info for how to describe the descriptives in my slide (presentationv3)
+
+1) kdensity overall
+2) top5 bottom5
+3) kdensity by education groups
+4) Occupation Group
+
+
+
