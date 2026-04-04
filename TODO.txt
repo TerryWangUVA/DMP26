@@ -1,19 +1,23 @@
-limitation page:
-- CPS-ASEC data = identify transition between positions but is an underestimate of the overall layoff (i.e. does not capture those who got another job right after being laid-off)
-- no data on job opening & ppl out-of-college finding jobs 
+let's tie up the loose ends before moving on:
+DMP_D3_3-17.tex
+potentially relavent dofiles are:
+- ASEC_Analysis_3-17(Jet).do
+- ASEC_Descriptives_3-30.do
+- IPMUS_CPS-ASEC_Analysis_2-19.do
 
-for these reasons the estimate is an underestimate
-
-
-on the other hand:
-- lots of things going on since 2020
-- pretrend not as clean (due to covid) - though confirm the "cognitive tasks" being replaced hypothesis in a strange way
-- only 2( or 3) post-period
-
-- the shock is not very significant - even if it is an underestimate it is still quite mild. Don't panic I guess
+1. Remove section Interpretation, change Results to Results and Interpretation
+- dont add anything yet. 
 
 
-the tone shud be light a bit - to be used as the final slide that I gonna talk through 
+2. Appendix C Resgression Tables
+- this should include ALL regression tables, in the following order:
+1) Unemp. 
+2) Logwage.
+3) Unemp. (college, split sample reg, year#exposure)
+4) Unemp. (non-college, split sample reg, year#exposure)
+5) Logwage. (college, split sample reg, year#exposure) 
+6) Logwage. (non-college, split sample reg, year#exposure)
 
-
+7) Unemp. (exp # year # Exposure)
+8) Logwage (exp # year # Exposure) 
 
