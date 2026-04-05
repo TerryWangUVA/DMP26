@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/Terry/AppData/Local/Temp/**)",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/resolve/main/release_2025_02_10/SOC_Structure.csv\")",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/resolve/main/release_2025_02_10/onet_task_mappings.csv\")",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/resolve/main/release_2025_02_10/wage_data.csv\")",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/resolve/main/release_2025_02_10/onet_task_statements.csv\")",
+      "Bash(ls c:/Projects/DMP/raw/anthropic*)",
+      "Bash(ls c:/Projects/DMP/raw/Econ*)",
+      "Bash(curl -s \"https://www.onetcenter.org/database.html\")",
+      "Bash(curl -sL \"https://huggingface.co/api/datasets/Anthropic/EconomicIndex\")",
+      "Bash(curl -s \"https://www.onetcenter.org/dictionary/30.1/excel/task_statements.html\")",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/tree/main/release_2025_02_10\")",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex\")",
+      "Bash(curl -sL \"https://huggingface.co/api/datasets/Anthropic/EconomicIndex/tree/main/release_2025_02_10\")",
+      "Bash(curl -sL \"https://huggingface.co/api/datasets/Anthropic/EconomicIndex/tree/main/release_2025_02_10/plots\")",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/README.md\")",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/automation_vs_augmentation.csv\")",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/onet_task_mappings.csv\")",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/onet_task_statements.csv\")",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/wage_data.csv\")",
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/bls_employment_may_2023.csv\")"
+    ]
+  }
+}

@@ -35,5 +35,104 @@ you can find relavent info for how to describe the descriptives in my slide (pre
 3) kdensity by education groups
 4) Occupation Group
 
+========================================================================
 
+Now it is the time to do the narratives... ngl I am not sure whether I can do this while sober but let's try
 
+\sect Intro:
+Intro should be a lighter but sharper tone. Starts with the steins;gate anime reference I used at the end of :
+"Noone know s
+*** stopped due to new thoughts emerging
+
+=============================================================================
+
+** Plan: Constructing Augmentation & Automation Indices **
+** REVISED: Bloom's Taxonomy approach (replaces embedding+clustering) **
+
+Goal: Build two occupation-level indices from the Anthropic task_penetration data
+      that separately measure how much AI is used to SUBSTITUTE vs COMPLEMENT
+      human work in each occupation.
+
+Why not embeddings: O*NET task statements are written in a standardized
+      bureaucratic style. Embedding + K-means clusters by *domain* (healthcare
+      vs finance) not by *cognitive mode* (execute vs analyze). Results are BS.
+
+New approach: Classify the ROOT VERB of each task using Bloom's Taxonomy.
+      Lower-order verbs → automation. Higher-order verbs → augmentation.
+      Grounded in established education-theory framework, fully transparent,
+      no black-box clustering.
+
+Bloom's Taxonomy levels (low → high):
+  1. Remember:   list, define, identify, recall, name, state
+  2. Understand:  describe, explain, summarize, classify, interpret
+  3. Apply:       calculate, compute, execute, implement, process, operate,
+                  prepare, administer, compile, sort, file, schedule
+  4. Analyze:     analyze, compare, examine, inspect, investigate, test,
+                  differentiate, diagnose, audit, assess
+  5. Evaluate:    evaluate, judge, recommend, advise, appraise, critique,
+                  review, select, prioritize, justify
+  6. Create:      design, develop, plan, compose, construct, formulate,
+                  propose, write, create, invent
+
+Mapping to indices:
+  Levels 1-3 (Remember/Understand/Apply) → AUTOMATION score
+  Levels 4-6 (Analyze/Evaluate/Create)   → AUGMENTATION score
+  (Level 3 "Apply" is a judgment call — could go either way.
+   Start with it in automation; sensitivity-check by moving it.)
+
+Data inputs:
+  - raw/Anthropic Task/task_penetration.csv  (17,998 O*NET tasks × penetration)
+  - raw/Crosswalks/onet_task_statements.csv  (task → occupation crosswalk)
+
+Step 1: Extract root verb from each task (spaCy — same as before)
+  - Output: task → root_verb
+
+Step 2: Classify each verb into Bloom's level
+  - Build a lookup dict: verb → Bloom level (1-6)
+  - Use a predefined verb list (~150 common verbs, covers 90%+ of tasks)
+  - Remaining verbs: classify via closest semantic match or manual review
+  - Output: task → bloom_level → auto_score / aug_score
+    auto_score = 1 if bloom ≤ 3, else 0
+    aug_score  = 1 if bloom ≥ 4, else 0
+
+Step 3: Validate
+  - Print verb frequency by Bloom level — sanity check
+  - Cross-tab Bloom level with penetration score
+  - Show top tasks in each category
+
+Step 4: Aggregate to occupation level
+  - Merge tasks → occupations via O*NET crosswalk
+  - For each occupation o:
+    AutoIndex_o  = Σ (penetration_t × auto_score_t × w_t) / Σ w_t
+    AugIndex_o   = Σ (penetration_t × aug_score_t  × w_t) / Σ w_t
+  - Weight: Core (2) × Supplemental (1) × Incumbents Responding
+  - Output: occupation × {automation_index, augmentation_index}
+
+Step 5: Export CSV for Stata (same format as before)
+
+Step 6: Merge with CPS and run regressions (Anthropic_Descriptives_4-5.do)
+  - Horse-race regression:
+    Y_it = α + Σ β_t (1[t] × AutoIndex_i) + Σ γ_t (1[t] × AugIndex_i) + ...
+  - If β_t > 0 and γ_t ≈ 0: automation drives displacement, augmentation doesn't
+
+Files:
+  - code/anthropic_index.ipynb  (Steps 1-5, Python — rewrite existing)
+  - code/Anthropic_Descriptives_4-5.do  (Step 6, Stata — already exists)
+
+Output files (same names, new content):
+  - output/data/anthropic_occ_index.csv   (occupation-level)
+  - output/data/anthropic_task_scores.csv (task-level with Bloom labels)
+  - output/graphs/descriptives/bloom_validation.pdf
+  - output/graphs/descriptives/auto_vs_aug_scatter.pdf
+
+Dependencies:
+  - pip: spacy pandas matplotlib
+  - spacy model: python -m spacy download en_core_web_sm
+  - NO sentence-transformers or scikit-learn needed
+
+Input files (already have):
+  - raw/Anthropic Task/task_penetration.csv
+  - raw/Crosswalks/onet_task_statements.csv
+=============================================================
+
+Output of new approach:

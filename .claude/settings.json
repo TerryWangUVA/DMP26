@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Read(//c/Users/Terry/.claude/projects/c--Projects-DMP/**)"
+      "Read(//c/Users/Terry/.claude/projects/c--Projects-DMP/**)",
+      "Bash(curl -s \"https://www.google.com/search?q=%22Anthropic+Economic+Index%22\" -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "Bash(curl -s \"https://www.google.com/search?q=Anthropic+Economic+Index+AI+usage+categories+2025\" -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:assets.anthropic.com)",
+      "Bash(curl -sL -o /tmp/anthropic_economic_index.pdf \"https://assets.anthropic.com/m/2e23255f1e84ca97/original/Economic_Tasks_AI_Paper.pdf\")",
+      "Read(//tmp/**)",
+      "Bash(cygpath -w /tmp/anthropic_economic_index.pdf)"
     ]
   }
 }
