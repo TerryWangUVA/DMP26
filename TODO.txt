@@ -46,93 +46,90 @@ Intro should be a lighter but sharper tone. Starts with the steins;gate anime re
 
 =============================================================================
 
-** Plan: Constructing Augmentation & Automation Indices **
-** REVISED: Bloom's Taxonomy approach (replaces embedding+clustering) **
+** Plan: Constructing "Needs a Human" vs "Doesn't Need a Human" Indices **
+** REVISED v3: 2D Bloom's Matrix (verb × knowledge depth) **
 
-Goal: Build two occupation-level indices from the Anthropic task_penetration data
-      that separately measure how much AI is used to SUBSTITUTE vs COMPLEMENT
-      human work in each occupation.
+Background:
+  v1 (embeddings + K-means) → clustered by domain, not cognitive mode. Dead.
+  v2 (verb-only Bloom) → works, but ignores the knowledge dimension.
+      "Analyze data" and "analyze policy implications" get the same score.
+      That's wrong — the second one needs expertise, the first one doesn't.
 
-Why not embeddings: O*NET task statements are written in a standardized
-      bureaucratic style. Embedding + K-means clusters by *domain* (healthcare
-      vs finance) not by *cognitive mode* (execute vs analyze). Results are BS.
+Insight from Anderson & Krathwohl (2001) revised Bloom's:
+  The taxonomy is TWO-DIMENSIONAL:
+    X-axis: Cognitive Process (verb)  → Remember ... Create
+    Y-axis: Knowledge Dimension (noun) → Factual ... Metacognitive
 
-New approach: Classify the ROOT VERB of each task using Bloom's Taxonomy.
-      Lower-order verbs → automation. Higher-order verbs → augmentation.
-      Grounded in established education-theory framework, fully transparent,
-      no black-box clustering.
+  The verb tells you WHAT the brain is doing.
+  The noun tells you HOW DEEP the knowledge needs to be.
+  AI substitutability depends on BOTH.
 
-Bloom's Taxonomy levels (low → high):
-  1. Remember:   list, define, identify, recall, name, state
-  2. Understand:  describe, explain, summarize, classify, interpret
-  3. Apply:       calculate, compute, execute, implement, process, operate,
-                  prepare, administer, compile, sort, file, schedule
-  4. Analyze:     analyze, compare, examine, inspect, investigate, test,
-                  differentiate, diagnose, audit, assess
-  5. Evaluate:    evaluate, judge, recommend, advise, appraise, critique,
-                  review, select, prioritize, justify
-  6. Create:      design, develop, plan, compose, construct, formulate,
-                  propose, write, create, invent
+  Bottom-left (factual × remember) = no human needed.
+  Top-right (metacognitive × create) = human essential.
+  The middle is where the interesting variation is.
 
-Mapping to indices:
-  Levels 1-3 (Remember/Understand/Apply) → AUTOMATION score
-  Levels 4-6 (Analyze/Evaluate/Create)   → AUGMENTATION score
-  (Level 3 "Apply" is a judgment call — could go either way.
-   Start with it in automation; sensitivity-check by moving it.)
+Pragmatic implementation:
+  We already have the verb axis (Bloom levels 1-6 from spaCy).
+  For the knowledge axis, use O*NET JOB ZONE as a proxy for expertise depth:
+    Job Zone 1-2 (no degree / HS) ≈ factual / procedural knowledge
+    Job Zone 3   (some college)    ≈ conceptual knowledge
+    Job Zone 4-5 (BA / graduate)   ≈ conceptual / metacognitive knowledge
+
+  This is essentially what "expertise" means in Autor's framework —
+  how much domain-specific knowledge does the task require?
+
+  Job Zone is available in the Anthropic HuggingFace repo (wage_data.csv)
+  and in O*NET directly. It's at the occupation level — every task inherits
+  its occupation's Job Zone.
+
+Scoring: "Needs a human" matrix
+  For each task, compute a 2D score:
+    bloom_verb = Bloom level 1-6 (from spaCy, same as v2)
+    job_zone   = 1-5 (from O*NET, occupation-level)
+
+  "Needs a human" score = f(bloom_verb, job_zone)
+  Simple version:
+    human_score = (bloom_verb / 6) × 0.5 + (job_zone / 5) × 0.5
+    → continuous 0-1 score, higher = more human-essential
+    → automation_score = 1 - human_score
+
+  Or use the matrix cutoff:
+    "Doesn't need a human" if bloom ≤ 3 AND job_zone ≤ 2
+    "Needs a human" if bloom ≥ 4 OR job_zone ≥ 4
+    Middle zone: ambiguous, score proportionally
 
 Data inputs:
-  - raw/Anthropic Task/task_penetration.csv  (17,998 O*NET tasks × penetration)
-  - raw/Crosswalks/onet_task_statements.csv  (task → occupation crosswalk)
+  - raw/Anthropic Task/task_penetration.csv  (task × penetration)
+  - raw/Crosswalks/onet_task_statements.csv  (task → occ crosswalk)
+  - wage_data.csv from Anthropic HuggingFace (occ → JobZone)
+    OR O*NET Job Zones file directly
 
-Step 1: Extract root verb from each task (spaCy — same as before)
-  - Output: task → root_verb
+Steps:
+  1. Extract root verb (spaCy — already done)
+  2. Classify verb into Bloom level (already done)
+  3. NEW: Merge Job Zone onto each task via occupation code
+  4. Compute 2D score: human_score = f(bloom, job_zone)
+  5. Aggregate to occupation:
+     AutoIndex_o  = Σ (pen_t × (1 - human_score_t) × w_t) / Σ w_t
+     AssIndex_o   = Σ (pen_t × human_score_t × w_t) / Σ w_t
+  6. Export, visualize, run regressions (same pipeline as before)
 
-Step 2: Classify each verb into Bloom's level
-  - Build a lookup dict: verb → Bloom level (1-6)
-  - Use a predefined verb list (~150 common verbs, covers 90%+ of tasks)
-  - Remaining verbs: classify via closest semantic match or manual review
-  - Output: task → bloom_level → auto_score / aug_score
-    auto_score = 1 if bloom ≤ 3, else 0
-    aug_score  = 1 if bloom ≥ 4, else 0
+Key advantage over v2:
+  "Calculate tax liabilities" (apply × procedural, JZ=3) gets a DIFFERENT
+  score than "Evaluate treatment options" (evaluate × conceptual, JZ=4)
+  even though both have moderate Bloom levels.
 
-Step 3: Validate
-  - Print verb frequency by Bloom level — sanity check
-  - Cross-tab Bloom level with penetration score
-  - Show top tasks in each category
-
-Step 4: Aggregate to occupation level
-  - Merge tasks → occupations via O*NET crosswalk
-  - For each occupation o:
-    AutoIndex_o  = Σ (penetration_t × auto_score_t × w_t) / Σ w_t
-    AugIndex_o   = Σ (penetration_t × aug_score_t  × w_t) / Σ w_t
-  - Weight: Core (2) × Supplemental (1) × Incumbents Responding
-  - Output: occupation × {automation_index, augmentation_index}
-
-Step 5: Export CSV for Stata (same format as before)
-
-Step 6: Merge with CPS and run regressions (Anthropic_Descriptives_4-5.do)
-  - Horse-race regression:
-    Y_it = α + Σ β_t (1[t] × AutoIndex_i) + Σ γ_t (1[t] × AugIndex_i) + ...
-  - If β_t > 0 and γ_t ≈ 0: automation drives displacement, augmentation doesn't
+  The Job Zone dimension captures exactly the expertise that determines
+  whether AI can do the task alone or needs a human in the loop.
 
 Files:
-  - code/anthropic_index.ipynb  (Steps 1-5, Python — rewrite existing)
-  - code/Anthropic_Descriptives_4-5.do  (Step 6, Stata — already exists)
-
-Output files (same names, new content):
-  - output/data/anthropic_occ_index.csv   (occupation-level)
-  - output/data/anthropic_task_scores.csv (task-level with Bloom labels)
-  - output/graphs/descriptives/bloom_validation.pdf
-  - output/graphs/descriptives/auto_vs_aug_scatter.pdf
+  - code/anthropic_index.ipynb  (update existing — add JZ merge + 2D score)
+  - code/Anthropic_Descriptives_4-5.do  (same Stata pipeline)
+  - NEW input: wage_data.csv (or O*NET Job Zones)
 
 Dependencies:
-  - pip: spacy pandas matplotlib
-  - spacy model: python -m spacy download en_core_web_sm
-  - NO sentence-transformers or scikit-learn needed
-
-Input files (already have):
-  - raw/Anthropic Task/task_penetration.csv
-  - raw/Crosswalks/onet_task_statements.csv
+  - same as v2 (spacy, pandas, matplotlib)
+  - need to download wage_data.csv from HuggingFace if not already present
 =============================================================
 
 Output of new approach:

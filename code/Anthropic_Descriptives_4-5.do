@@ -26,7 +26,7 @@ set more off
 *************************************
 **# 1. Prepare CPS dataset
 *************************************
-
+cap restore
 use "$data/CPS-ASEC_analysis_Dec01", clear
 
 keep if educ >= 73
@@ -254,7 +254,7 @@ esttab all q1 q2 q3 q4 ///
 
 
 **************************************************
-**# 6. Horse-race regression: automation vs augmentation
+**# 6. 2D DiD: automation AND augmentation jointly
 **************************************************
 
 use `analysis', clear
@@ -264,93 +264,69 @@ fvset base 2022 year
 eststo clear
 
 
-*--- Unemployment ---
-
-* (1) Automation only
-reghdfe unemployed i.year##c.automation_index, ///
-	absorb(sex educ year#statefip) cluster(occsoc_2010)
-eststo unemp_auto
-
-* (2) Augmentation only
-reghdfe unemployed i.year##c.augmentation_index, ///
-	absorb(sex educ year#statefip) cluster(occsoc_2010)
-eststo unemp_aug
-
-* (3) Both (horse race)
+*--- Unemployment: 2D ---
 reghdfe unemployed i.year##c.automation_index ///
 	i.year##c.augmentation_index, ///
 	absorb(sex educ year#statefip) cluster(occsoc_2010)
-eststo unemp_both
+eststo unemp_2d
 
-
-*--- Log wages ---
-
-* (4) Automation only
-reghdfe lnwage i.year##c.automation_index, ///
-	absorb(sex educ year#statefip) cluster(occsoc_2010)
-eststo lw_auto
-
-* (5) Augmentation only
-reghdfe lnwage i.year##c.augmentation_index, ///
-	absorb(sex educ year#statefip) cluster(occsoc_2010)
-eststo lw_aug
-
-* (6) Both (horse race)
+*--- Log wages: 2D ---
 reghdfe lnwage i.year##c.automation_index ///
 	i.year##c.augmentation_index, ///
 	absorb(sex educ year#statefip) cluster(occsoc_2010)
-eststo lw_both
+eststo lw_2d
 
 
 *--- Export tables ---
 
-esttab unemp_auto unemp_aug unemp_both ///
-	using "$tables/unemp_horserace.tex", replace ///
+esttab unemp_2d ///
+	using "$tables/unemp_2d.tex", replace ///
 	keep(*.year#c.automation_index *.year#c.augmentation_index) ///
 	se star(* 0.10 ** 0.05 *** 0.01) ///
 	label ///
-	title("Unemployment: Automation vs Augmentation") ///
-	mtitles("Auto only" "Aug only" "Horse race") ///
+	title("Unemployment: 2D DiD (Auto + Ass)") ///
 	nonumbers ///
 	booktabs
 
-esttab lw_auto lw_aug lw_both ///
-	using "$tables/lw_horserace.tex", replace ///
+esttab lw_2d ///
+	using "$tables/lw_2d.tex", replace ///
 	keep(*.year#c.automation_index *.year#c.augmentation_index) ///
 	se star(* 0.10 ** 0.05 *** 0.01) ///
 	label ///
-	title("Log Wage: Automation vs Augmentation") ///
-	mtitles("Auto only" "Aug only" "Horse race") ///
+	title("Log Wage: 2D DiD (Auto + Ass)") ///
 	nonumbers ///
 	booktabs
 
 
 
 **************************************************
-**# 7. Coefplots: automation vs augmentation
+**# 7. Coefplots: both dimensions on same graph
 **************************************************
 
-* Unemployment — automation index
+*--- Unemployment ---
 use `analysis', clear
 fvset base 2022 year
 
-reghdfe unemployed i.year##c.automation_index, ///
+reghdfe unemployed i.year##c.automation_index ///
+	i.year##c.augmentation_index, ///
 	absorb(sex educ year#statefip) cluster(occsoc_2010)
 
-* Extract coefficients
 matrix b = e(b)
 matrix V = e(V)
 
 preserve
 	clear
-	set obs 8
+	set obs 16
 	gen year = .
 	gen estimate = .
 	gen se = .
+	gen grp = ""
 
 	local row = 1
+	* Auto coefficients
 	foreach y in 2018 2019 2020 2021 2022 2023 2024 2025 {
 		replace year = `y' in `row'
+		replace grp = "Auto" in `row'
 		if `y' == 2022 {
 			replace estimate = 0 in `row'
 			replace se = 0 in `row'
@@ -362,50 +338,10 @@ preserve
 		}
 		local row = `row' + 1
 	}
-
-	gen min95 = estimate - 1.96 * se
-	gen max95 = estimate + 1.96 * se
-
-	twoway ///
-		(rcap min95 max95 year if year != 2022, ///
-			lcolor(maroon) lpattern(solid) lwidth(medthin)) ///
-		(line estimate year, ///
-			lcolor(maroon) lpattern(solid) lwidth(medium)) ///
-		(scatter estimate year, ///
-			mcolor(maroon) msymbol(O) msize(medlarge)), ///
-		xline(2022.5, lcolor(gs8) lpattern(dash)) ///
-		yline(0, lcolor(gs8) lpattern(solid)) ///
-		xlabel(2018(1)2025) ///
-		xtitle("Year") ///
-		ytitle("Coefficient on year × Automation Index") ///
-		title("Unemployment: Automation Index") ///
-		legend(order(3 "Coefficient" 1 "95% CI") ///
-			rows(1) position(6) region(lstyle(none))) ///
-		graphregion(color(white)) ///
-		plotregion(color(white)) ///
-		name(unemp_auto_coef, replace)
-
-	graph export "$graphs/unemp_automation_coefplot.pdf", replace
-restore
-
-
-* Unemployment — augmentation index
-reghdfe unemployed i.year##c.augmentation_index, ///
-	absorb(sex educ year#statefip) cluster(occsoc_2010)
-
-matrix b = e(b)
-matrix V = e(V)
-
-preserve
-	clear
-	set obs 8
-	gen year = .
-	gen estimate = .
-	gen se = .
-
-	local row = 1
+	* Ass coefficients
 	foreach y in 2018 2019 2020 2021 2022 2023 2024 2025 {
 		replace year = `y' in `row'
+		replace grp = "Ass" in `row'
 		if `y' == 2022 {
 			replace estimate = 0 in `row'
 			replace se = 0 in `row'
@@ -421,31 +357,42 @@ preserve
 	gen min95 = estimate - 1.96 * se
 	gen max95 = estimate + 1.96 * se
 
+	* Jitter for readability
+	gen x = year - 0.1 if grp == "Auto"
+	replace x = year + 0.1 if grp == "Ass"
+
 	twoway ///
-		(rcap min95 max95 year if year != 2022, ///
+		(rcap min95 max95 x if grp=="Auto" & year != 2022, ///
+			lcolor(maroon) lpattern(solid) lwidth(medthin)) ///
+		(line estimate x if grp=="Auto", ///
+			lcolor(maroon) lpattern(solid) lwidth(medium) sort) ///
+		(scatter estimate x if grp=="Auto", ///
+			mcolor(maroon) msymbol(O) msize(medlarge)) ///
+		(rcap min95 max95 x if grp=="Ass" & year != 2022, ///
 			lcolor(navy) lpattern(solid) lwidth(medthin)) ///
-		(line estimate year, ///
-			lcolor(navy) lpattern(solid) lwidth(medium)) ///
-		(scatter estimate year, ///
-			mcolor(navy) msymbol(O) msize(medlarge)), ///
+		(line estimate x if grp=="Ass", ///
+			lcolor(navy) lpattern(solid) lwidth(medium) sort) ///
+		(scatter estimate x if grp=="Ass", ///
+			mcolor(navy) msymbol(D) msize(medlarge)), ///
 		xline(2022.5, lcolor(gs8) lpattern(dash)) ///
 		yline(0, lcolor(gs8) lpattern(solid)) ///
 		xlabel(2018(1)2025) ///
 		xtitle("Year") ///
-		ytitle("Coefficient on year × Augmentation Index") ///
-		title("Unemployment: Augmentation Index") ///
-		legend(order(3 "Coefficient" 1 "95% CI") ///
+		ytitle("Coefficient") ///
+		title("Unemployment: AutoIndex vs AssIndex (2D DiD)") ///
+		legend(order(3 "AutoIndex" 6 "AssIndex") ///
 			rows(1) position(6) region(lstyle(none))) ///
 		graphregion(color(white)) ///
 		plotregion(color(white)) ///
-		name(unemp_aug_coef, replace)
+		name(unemp_2d_coef, replace)
 
-	graph export "$graphs/unemp_augmentation_coefplot.pdf", replace
+	graph export "$graphs/unemp_2d_coefplot.pdf", replace
 restore
 
 
-* Log wage — automation index
-reghdfe lnwage i.year##c.automation_index, ///
+*--- Log wages ---
+reghdfe lnwage i.year##c.automation_index ///
+	i.year##c.augmentation_index, ///
 	absorb(sex educ year#statefip) cluster(occsoc_2010)
 
 matrix b = e(b)
@@ -453,14 +400,16 @@ matrix V = e(V)
 
 preserve
 	clear
-	set obs 8
+	set obs 16
 	gen year = .
 	gen estimate = .
 	gen se = .
+	gen grp = ""
 
 	local row = 1
 	foreach y in 2018 2019 2020 2021 2022 2023 2024 2025 {
 		replace year = `y' in `row'
+		replace grp = "Auto" in `row'
 		if `y' == 2022 {
 			replace estimate = 0 in `row'
 			replace se = 0 in `row'
@@ -472,50 +421,9 @@ preserve
 		}
 		local row = `row' + 1
 	}
-
-	gen min95 = estimate - 1.96 * se
-	gen max95 = estimate + 1.96 * se
-
-	twoway ///
-		(rcap min95 max95 year if year != 2022, ///
-			lcolor(maroon) lpattern(solid) lwidth(medthin)) ///
-		(line estimate year, ///
-			lcolor(maroon) lpattern(solid) lwidth(medium)) ///
-		(scatter estimate year, ///
-			mcolor(maroon) msymbol(O) msize(medlarge)), ///
-		xline(2022.5, lcolor(gs8) lpattern(dash)) ///
-		yline(0, lcolor(gs8) lpattern(solid)) ///
-		xlabel(2018(1)2025) ///
-		xtitle("Year") ///
-		ytitle("Coefficient on year × Automation Index") ///
-		title("Log Wage: Automation Index") ///
-		legend(order(3 "Coefficient" 1 "95% CI") ///
-			rows(1) position(6) region(lstyle(none))) ///
-		graphregion(color(white)) ///
-		plotregion(color(white)) ///
-		name(lw_auto_coef, replace)
-
-	graph export "$graphs/lw_automation_coefplot.pdf", replace
-restore
-
-
-* Log wage — augmentation index
-reghdfe lnwage i.year##c.augmentation_index, ///
-	absorb(sex educ year#statefip) cluster(occsoc_2010)
-
-matrix b = e(b)
-matrix V = e(V)
-
-preserve
-	clear
-	set obs 8
-	gen year = .
-	gen estimate = .
-	gen se = .
-
-	local row = 1
 	foreach y in 2018 2019 2020 2021 2022 2023 2024 2025 {
 		replace year = `y' in `row'
+		replace grp = "Ass" in `row'
 		if `y' == 2022 {
 			replace estimate = 0 in `row'
 			replace se = 0 in `row'
@@ -531,24 +439,33 @@ preserve
 	gen min95 = estimate - 1.96 * se
 	gen max95 = estimate + 1.96 * se
 
+	gen x = year - 0.1 if grp == "Auto"
+	replace x = year + 0.1 if grp == "Ass"
+
 	twoway ///
-		(rcap min95 max95 year if year != 2022, ///
+		(rcap min95 max95 x if grp=="Auto" & year != 2022, ///
+			lcolor(maroon) lpattern(solid) lwidth(medthin)) ///
+		(line estimate x if grp=="Auto", ///
+			lcolor(maroon) lpattern(solid) lwidth(medium) sort) ///
+		(scatter estimate x if grp=="Auto", ///
+			mcolor(maroon) msymbol(O) msize(medlarge)) ///
+		(rcap min95 max95 x if grp=="Ass" & year != 2022, ///
 			lcolor(navy) lpattern(solid) lwidth(medthin)) ///
-		(line estimate year, ///
-			lcolor(navy) lpattern(solid) lwidth(medium)) ///
-		(scatter estimate year, ///
-			mcolor(navy) msymbol(O) msize(medlarge)), ///
+		(line estimate x if grp=="Ass", ///
+			lcolor(navy) lpattern(solid) lwidth(medium) sort) ///
+		(scatter estimate x if grp=="Ass", ///
+			mcolor(navy) msymbol(D) msize(medlarge)), ///
 		xline(2022.5, lcolor(gs8) lpattern(dash)) ///
 		yline(0, lcolor(gs8) lpattern(solid)) ///
 		xlabel(2018(1)2025) ///
 		xtitle("Year") ///
-		ytitle("Coefficient on year × Augmentation Index") ///
-		title("Log Wage: Augmentation Index") ///
-		legend(order(3 "Coefficient" 1 "95% CI") ///
+		ytitle("Coefficient") ///
+		title("Log Wage: AutoIndex vs AssIndex (2D DiD)") ///
+		legend(order(3 "AutoIndex" 6 "AssIndex") ///
 			rows(1) position(6) region(lstyle(none))) ///
 		graphregion(color(white)) ///
 		plotregion(color(white)) ///
-		name(lw_aug_coef, replace)
+		name(lw_2d_coef, replace)
 
-	graph export "$graphs/lw_augmentation_coefplot.pdf", replace
+	graph export "$graphs/lw_2d_coefplot.pdf", replace
 restore

@@ -1,227 +1,232 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 
-%--- Packages ------------------------------------------------------------------
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{setspace}
-\usepackage{booktabs}
-\usepackage[round,sort]{natbib}
-\usepackage[hidelinks]{hyperref}
 
-\onehalfspacing
-
-%--- Theorem environments ------------------------------------------------------
 \theoremstyle{plain}
-\newtheorem{proposition}{Proposition}
 \newtheorem{assumption}{Assumption}
+\newtheorem{proposition}{Proposition}
 \newtheorem{lemma}{Lemma}
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
 
-%--- Title ---------------------------------------------------------------------
-\title{Theoretical Framework\\
-  \large Present Day, Present Time: AI Exposure and Labor Market Risk}
-\author{}
+\title{The Computation Market}
+\author{Working Notes}
 \date{}
 
 \begin{document}
 \maketitle
+\onehalfspacing
 
-% =============================================================================
-\section{Theoretical Framework}
-\label{sec:model}
-% =============================================================================
+%==================================================
+\section{Environment}
+%==================================================
 
-\subsection{Setup}
+A continuum of cognitive tasks $i \in [0,1]$, ordered by complexity.
+A density $f(i) > 0$ of workers at each task, fixed and exogenous.
 
-Consider a small open economy in which production requires a continuum of
-\emph{cognitive tasks} indexed $i \in [0,1]$, ordered by their susceptibility
-to AI automation.  We restrict attention to cognitive tasks because large
-language models operate primarily through language and reasoning. Tasks at the low
-end of $i$ are routine cognitive tasks easily replicated by AI; tasks at the
-high end are non-routine cognitive tasks that require human expertise that AI
-currently struggles to replicate.  A high \citet{eloundou2024gpts} exposure
-score places an occupation's tasks near the low end of the $i$ spectrum.
-
-Final output $Y$ aggregates tasks via a CES technology:
-\begin{equation}
-  Y = \left[\int_0^1 y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}},
-  \qquad \sigma > 0,
-  \label{eq:ces}
-\end{equation}
-where $y(i)$ is the quantity of task $i$ used in production.  Each task can
-additionally be performed by AI at cost
-\begin{equation}
-  c^{\mathrm{AI}}(i) = \tau\cdot t(i), \qquad t(i) = e^{\alpha i},\quad\alpha>0,
-  \label{eq:ai_cost}
-\end{equation}
-where $\tau>0$ is an aggregate AI capability parameter (lower $\tau$ reflects
-more capable AI) and $t'(i)>0$ ensures that more complex tasks are costlier
-to automate.
-
-\begin{assumption}[Small Open Economy]
-  The economy is a price-taker in the world market for $Y$.  The output price
-  $P_Y$ is exogenous and fixed.
+\begin{assumption}[AI Capability]
+  AI capability at task $i$ is given by $M(i)$, with
+  \begin{itemize}
+    \item $M(i) > 0$ for $i < I^*$,
+    \item $M(I^*) = 0$,
+    \item $M'(i) < 0$ for $i < I^*$.
+  \end{itemize}
+  $I^* \in (0,1)$ is the \textbf{capability frontier}: AI cannot perform tasks beyond $I^*$.
 \end{assumption}
 
-\begin{assumption}[Full Specialization]
-  Workers are indexed by ability type $i^* \in [0,1]$.  A worker of type
-  $i^*$ is capable of performing any task $i \leq i^*$ but fully specializes
-  in task $i^*$ --- the hardest task they can perform, at which they hold
-  comparative advantage over other types.  Each task $i$ is therefore supplied exclusively by
-  workers of type $i^*=i$.
+\begin{assumption}[Computation Demand]
+  Each worker at task $i < I^*$ demands $\gamma \cdot M(i)$ units of computation,
+  where $\gamma > 0$ is a homogeneous preference parameter.
 \end{assumption}
 
-\noindent Full specialization is the natural competitive assignment: workers
-sort to the task at which their relative productivity is highest, analogous
-to comparative advantage in trade models.  It eliminates the need to treat
-workers as indivisible bundles of tasks while preserving the key
-heterogeneity --- workers differ in their susceptibility to AI automation.
-
-% -----------------------------------------------------------------------------
-\subsection{Pre-AI Task Prices and Wages}
-\label{sec:taskprices}
-% -----------------------------------------------------------------------------
-
-Before AI, all tasks are performed by human workers.  Competitive firms
-minimize cost subject to \eqref{eq:ces}, taking $P_Y$ as given.  The
-first-order condition for task $i$ yields the equilibrium task price
-(derived in Appendix~\ref{app:foc}):
-\begin{equation}
-  p_0(i) = P_Y \cdot \left(\frac{Y}{y_0(i)}\right)^{\!1/\sigma},
-  \label{eq:taskprice_preai}
-\end{equation}
-where $y_0(i)$ is the pre-AI equilibrium quantity of task $i$.  Under full
-specialization, $y_0(i) = f(i)$, where $f$ is the density of worker types:
-task supply equals the mass of workers specializing in $i$.
-
-Under full specialization, a worker of type $i^*$ earns the competitive
-price of their task:
-\begin{equation}
-  w_0(i^*) = p_0(i^*).
-  \label{eq:wage_preai}
-\end{equation}
-
-% -----------------------------------------------------------------------------
-\subsection{AI Shock and the Cutoff}
-\label{sec:cutoff}
-% -----------------------------------------------------------------------------
-
-The arrival of AI introduces a competing technology for each task.  In a
-competitive market, the price of task $i$ post-AI is driven down to the
-minimum of the pre-AI price and the AI cost:
-\begin{equation}
-  p(i) = \min\!\bigl(p_0(i),\;\tau e^{\alpha i}\bigr).
-  \label{eq:taskprice_postai}
-\end{equation}
-Under mild regularity conditions there exists a unique cutoff $I^*$ at which
-AI cost equals the pre-AI task price:
-\begin{equation}
-  \tau\, e^{\alpha I^*} = p_0(I^*).
-  \label{eq:cutoff}
-\end{equation}
-For $i < I^*$, AI undercuts the pre-AI price: $p(i) = \tau e^{\alpha i} <
-p_0(i)$.  For $i \geq I^*$, the pre-AI price prevails: $p(i) = p_0(i)$.  As
-AI improves ($\tau$ falls), the cutoff $I^*$ rises --- the automation frontier
-expands toward more complex tasks (see Appendix~\ref{app:cutoff}).
-
-% -----------------------------------------------------------------------------
-\subsection{Wages Post-AI}
-\label{sec:wages}
-% -----------------------------------------------------------------------------
-
-A worker of type $i^*$ earns the post-AI competitive price of their task:
-$w(i^*) = p(i^*)$.  The change in wages following the AI shock is:
-\begin{equation}
-  \Delta w(i^*) \;=\; p(i^*) - p_0(i^*) \;=\;
-  \begin{cases}
-    \tau e^{\alpha i^*} - p_0(i^*) < 0 & \text{if } i^* < I^*, \\[4pt]
-    0 & \text{if } i^* \geq I^*.
-  \end{cases}
-  \label{eq:deltaw}
-\end{equation}
-For workers below the cutoff, the task price is driven down to the AI cost.
-By definition of $I^*$, $\tau e^{\alpha i} < p_0(i)$ for all $i < I^*$, so
-$\Delta w(i^*) < 0$ is unambiguous.  Workers above the cutoff are unaffected
-in partial equilibrium.
-
-\medskip
-\noindent\textbf{Displacement.}  If a worker's compressed wage
-$\tau e^{\alpha i^*}$ falls below a reservation wage $\underline{w}$ --- any
-threshold reflecting outside options, search frictions, or a wage floor ---
-the worker exits employment.  The sign is the same under any such
-specification; we do not model the threshold explicitly and instead treat
-unemployment as an empirical question tested in Section~\ref{sec:results}.
-
-\medskip
-\noindent\textbf{Productivity effect.}  Automating low-$i$ tasks lowers the
-cost of producing $Y$, which in a general equilibrium setting would raise
-output and potentially increase wages for workers at $i^* \geq I^*$.  We
-abstract from this channel --- consistent with the PE, small open economy
-framework --- and note it as a caveat: our model provides a lower bound on
-wages for retained workers.
-
-
-% =============================================================================
-%  APPENDIX
-% =============================================================================
-\appendix
-
-\section{Derivation of the Pre-AI Task Price}
-\label{app:foc}
-
-Competitive firms minimize $\int_0^1 p_0(i)\,y(i)\,di$ subject to
-\eqref{eq:ces}, taking $P_Y$ and task prices $\{p_0(i)\}$ as given.  Writing
-$Y = Z^{\sigma/(\sigma-1)}$ with $Z \equiv \int_0^1 y(j)^{(\sigma-1)/\sigma}dj$,
-the first-order condition for task $i$ is $p_0(i) = \mu\cdot(Y/y(i))^{1/\sigma}$,
-where the chain rule gives $\partial Y/\partial y(i) = Z^{1/(\sigma-1)}y(i)^{-1/\sigma}
-= Y^{1/\sigma}y(i)^{-1/\sigma}$ (using $Z = Y^{(\sigma-1)/\sigma}$).
-In competitive equilibrium $\mu = P_Y$, so the task demand function is:
+\noindent The demand per worker is $\gamma M(i)$: AI can deliver more
+computation for routine tasks and less for complex ones, so the demand
+per worker is decreasing in $i$.  Total demand at task $i$:
 \[
-  y_0^{d}(i) = Y\cdot\left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma}.
+  d(i) = \gamma \cdot M(i) \cdot f(i).
 \]
-Under full specialization (Assumption~2), the supply of task $i$ is $y_0(i) = f(i)$.
-Market clearing $y_0^d(i) = y_0(i)$ then yields \eqref{eq:taskprice_preai}
-directly. $\blacksquare$
 
-\section{The Automation Cutoff: Existence, Uniqueness, and Comparative Static}
-\label{app:cutoff}
+\begin{assumption}[Monopoly Supplier]
+  A single firm supplies computation at total cost
+  \[
+    TC(Q) = F + c \cdot Q, \qquad F > 0,\; c > 0,
+  \]
+  where $F$ is fixed cost (training, infrastructure) and $c$ is marginal cost (inference).
+\end{assumption}
 
-Define $\phi(i) \equiv \tau e^{\alpha i} - p_0(i)$.  The automated set is
-$\mathcal{A} \equiv \{i \in [0,1] : \phi(i) < 0\}$ --- tasks where AI undercuts
-the pre-AI price.
+\begin{assumption}[Firm-Side Purchase]
+  Firms purchase computation on behalf of their workers.  The computation
+  cost does not enter workers' wage bargaining.
+\end{assumption}
 
-\medskip\noindent\textbf{Existence.}  Assuming $\phi(0) < 0$ (AI is cheaper at
-the simplest cognitive task) and $\phi(1) > 0$ (humans retain an advantage at the most
-complex task), continuity of $\phi$ guarantees by the intermediate value theorem
-that at least one crossing $I^* \in (0,1)$ with $\phi(I^*)=0$ exists.
+%==================================================
+\section{Computation Market Equilibrium}
+%==================================================
 
-\medskip\noindent\textbf{Single-crossing assumption.}  Without restrictions on
-$p_0$, the function $\phi$ may cross zero multiple times, making $\mathcal{A}$
-a union of intervals rather than a single interval $[0,I^*)$.  We maintain a
-single-crossing condition as a tractable benchmark: $\phi$ crosses zero exactly
-once, so $\mathcal{A} = [0,I^*)$ for a unique $I^*$.  In the general
-multiple-crossing case, the wage compression result of Section~\ref{sec:wages}
-continues to hold for any $i^* \in \mathcal{A}$, but the affected workers need
-not be concentrated at the low end of the task distribution; the mapping between
-AI exposure scores and displacement then depends on the full shape of $p_0$.
+\subsection{Aggregate Demand}
 
-\medskip\noindent\textbf{Comparative static.}  Under the single-crossing
-assumption, totally differentiating $\tau e^{\alpha I^*} = p_0(I^*)$ with
-respect to $\tau$:
-\[
-  \frac{\partial I^*}{\partial\tau}
-  = \frac{e^{\alpha I^*}}{p_0'(I^*) - \alpha\, p_0(I^*)}.
-\]
-This is negative whenever $p_0'(I^*) < \alpha\, p_0(I^*)$, i.e.\
-$\phi'(I^*) = \alpha\tau e^{\alpha I^*} - p_0'(I^*) > 0$.  Under
-single-crossing with $\phi(0)<0$ and $\phi(1)>0$, the unique crossing must
-have $\phi'(I^*)>0$, so the condition is automatically satisfied.  Hence a
-fall in $\tau$ raises $I^*$. $\blacksquare$
+Total computation demanded across all tasks below the frontier:
+\begin{equation}
+  Q = \gamma \int_0^{I^*} M(i) \cdot f(i) \, di.
+  \label{eq:total_demand}
+\end{equation}
 
+$Q$ does not depend on the price $p$: every worker below $I^*$ demands
+exactly $\gamma M(i)$ units as long as $p \leq \bar{v}$, the reservation
+value.  Demand is perfectly inelastic up to $\bar{v}$, then drops to zero.
 
-% =============================================================================
-\bibliographystyle{plainnat}
-\bibliography{references}
+\subsection{Monopolist's Problem}
+
+The monopolist sets $p \in [c, \bar{v}]$ to maximize:
+\begin{equation}
+  \pi = (p - c) \cdot Q - F.
+  \label{eq:profit}
+\end{equation}
+
+Inelastic demand $\Rightarrow$ trivial solution:
+\begin{equation}
+  \boxed{p^* = \bar{v}}
+  \label{eq:monopoly_price}
+\end{equation}
+
+Full surplus extraction.  Profit:
+\begin{equation}
+  \pi^* = (\bar{v} - c) \cdot \gamma \int_0^{I^*} M(i) \cdot f(i) \, di - F.
+  \label{eq:monopoly_profit}
+\end{equation}
+
+Entry condition: $\pi^* \geq 0$, i.e.,
+\begin{equation}
+  (\bar{v} - c) \cdot \gamma \int_0^{I^*} M(i) \cdot f(i) \, di \geq F.
+  \label{eq:entry}
+\end{equation}
+
+\begin{remark}
+The monopolist determines rents, not the frontier.  $I^*$ is technological.
+All the action in the labor market comes from $M$, $f$, and $\gamma$.
+\end{remark}
+
+%==================================================
+\section{The AI Supply Function}
+%==================================================
+
+Given the equilibrium, AI supply at each task:
+\begin{equation}
+  \boxed{s(i) = \gamma \cdot M(i) \cdot f(i) \quad \text{for } i < I^*, \qquad s(i) = 0 \quad \text{for } i \geq I^*.}
+  \label{eq:si}
+\end{equation}
+
+\begin{proposition}[Shape of $s(i)$]
+  \label{prop:shape}
+  ~
+  \begin{enumerate}
+    \item $s(I^*) = 0$.
+    \item $s(i) > 0$ for all $i < I^*$.
+    \item $s'(i) < 0$ whenever
+    \begin{equation}
+      \frac{M'(i)}{M(i)} + \frac{f'(i)}{f(i)} < 0.
+      \label{eq:shape_condition}
+    \end{equation}
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  (1)--(2): immediate from $M(I^*) = 0$, $M(i) > 0$, $f(i) > 0$.
+
+  (3): $s'(i) = \gamma [M'(i) f(i) + M(i) f'(i)]$.  Divide by
+  $s(i) = \gamma M(i) f(i)$:
+  \[
+    \frac{s'(i)}{s(i)} = \frac{M'(i)}{M(i)} + \frac{f'(i)}{f(i)} < 0. \qedhere
+  \]
+\end{proof}
+
+\begin{remark}
+  Condition~\eqref{eq:shape_condition} says: AI capability declines
+  proportionally faster than worker density rises.  Automatic when $f$
+  is flat or declining.
+\end{remark}
+
+%==================================================
+\section{Parametric Example}
+%==================================================
+
+\begin{align}
+  M(i) &= (I^* - i)^\alpha, \qquad \alpha > 0, \label{eq:M_param} \\
+  f(i)  &= \bar{f} \cdot (1 - \beta i), \qquad \beta \in [0, 1). \label{eq:f_param}
+\end{align}
+
+Then:
+\begin{equation}
+  s(i) = \gamma \bar{f} (1 - \beta i)(I^* - i)^\alpha.
+  \label{eq:si_param}
+\end{equation}
+
+For $\beta = 0$ (uniform $f$):
+\begin{equation}
+  Q = \gamma \bar{f} \cdot \frac{(I^*)^{\alpha+1}}{\alpha + 1}.
+  \label{eq:Q_uniform}
+\end{equation}
+
+\begin{equation}
+  \pi^* = (\bar{v} - c) \cdot \gamma \bar{f} \cdot
+  \frac{(I^*)^{\alpha+1}}{\alpha + 1} - F.
+  \label{eq:pi_uniform}
+\end{equation}
+
+The shape parameter $\alpha$:
+\begin{itemize}
+  \item $\alpha = 1$: linear decline in $M$, quadratic $s$.
+  \item $\alpha > 1$: AI capability drops sharply near $I^*$.
+  \item $\alpha < 1$: AI retains capability across a wide range.
+\end{itemize}
+
+%==================================================
+\section{Comparative Statics}
+%==================================================
+
+\begin{proposition}[AI Improvement: $I^* \uparrow$ or $M \uparrow$]
+  ~
+  \begin{enumerate}
+    \item $s(i)$ rises for all previously automated tasks.
+    \item $s$ extends to newly exposed tasks in $(I^*_{\text{old}}, I^*_{\text{new}})$.
+    \item $Q$ increases.
+    \item $\pi^*$ increases.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proposition}[Adoption: $\gamma \uparrow$]
+  ~
+  \begin{enumerate}
+    \item $s(i)$ scales proportionally: $s \to (\gamma'/\gamma) \cdot s$.
+    \item $I^*$ unchanged (technological).
+    \item $Q$ scales proportionally.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proposition}[Cost Reduction: $c \downarrow$]
+  ~
+  \begin{enumerate}
+    \item $s(i)$, $Q$, $I^*$ unchanged.
+    \item $\pi^*$ increases by $\Delta c \cdot Q$.
+    \item Entry condition relaxed.
+  \end{enumerate}
+\end{proposition}
+
+\begin{remark}[Who benefits from cheaper inference?]
+  With inelastic demand and $p^* = \bar{v}$, a fall in $c$ accrues
+  entirely to the monopolist.  Workers and firms are unaffected.
+  Only competition ($N > 1$) or a binding price cap would pass cost
+  savings through to the labor market.
+\end{remark}
+
+\begin{remark}[Rents]
+  $\pi^* = (\bar{v} - c) Q - F$ is a transfer from the production
+  sector to the AI sector.  As AI improves ($I^* \uparrow$), rents
+  grow.  This may explain the extreme valuations of AI companies:
+  they are capturing the computation surplus that previously resided
+  in workers' wages.
+\end{remark}
 
 \end{document}
