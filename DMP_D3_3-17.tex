@@ -598,73 +598,36 @@ The log-wage experience results are largely null: post-2022 triple-interaction c
 %==================================================
 \appendix
 
-\section{Derivation of the Pre-AI Task Price}
+\section{Derivation of Wage Schedules}
 \label{app:foc}
 
-\medskip\noindent\textbf{Step 1: First-order condition.}
-Competitive firms minimize $\int_0^1 p_0(i)\,y(i)\,di$ subject to
-\eqref{eq:ces}, taking $P_Y$ and task prices $\{p_0(i)\}$ as given.
-Form the Lagrangian $\mathcal{L}=\int_0^1 p_0(i)y(i)\,di - \mu\bigl(Y-\bar Y\bigr)$.
-The FOC for task $i$ is:
+\noindent\textbf{Step 1.} Cost minimization $\to$ FOC:
+$\;p_0(i)=\mu\cdot(Y/y(i))^{1/\sigma}$, \quad $\mu=P_Y$ in competitive equilibrium.
+
+\medskip\noindent\textbf{Step 2.} Task demand:
+$\;y^d(i)=Y(P_Y/p_0(i))^{\sigma}$.
+
+\medskip\noindent\textbf{Step 3.} Market clearing $y^d(i)=f(i)$:
 \[
-  p_0(i) = \mu\cdot\frac{\partial Y}{\partial y(i)}.
-\]
-To evaluate the marginal product, write $Y=Z^{\sigma/(\sigma-1)}$ where
-$Z\equiv\int_0^1 y(j)^{(\sigma-1)/\sigma}dj$.  Then:
-\[
-  \frac{\partial Y}{\partial y(i)}
-  = \frac{\sigma}{\sigma-1}\,Z^{1/(\sigma-1)}\cdot\frac{\sigma-1}{\sigma}\,y(i)^{-1/\sigma}
-  = Z^{1/(\sigma-1)}\,y(i)^{-1/\sigma}
-  = \left(\frac{Y}{y(i)}\right)^{\!1/\sigma},
-\]
-where the last step uses $Z=Y^{(\sigma-1)/\sigma}$.  The FOC becomes:
-\[
-  p_0(i) = \mu\left(\frac{Y}{y(i)}\right)^{\!1/\sigma}.
+  p_0(i) = P_Y\!\left(\frac{Y}{f(i)}\right)^{\!1/\sigma}.
 \]
 
-\medskip\noindent\textbf{Step 2: Competitive equilibrium and task demand.}
-In a competitive equilibrium the Lagrange multiplier equals the output price:
-$\mu=P_Y$.  Solving for task demand:
+\noindent\textbf{Step 4.} Plug $y(i)=f(i)$ into CES $\to$ output is pinned:
 \[
-  y^d(i) = Y\cdot\left(\frac{P_Y}{p_0(i)}\right)^{\!\sigma}.
+  Y_0 = \left[\int_0^1 f(i)^{(\sigma-1)/\sigma}\,di
+  \right]^{\!\sigma/(\sigma-1)}.
 \]
+$Y_0$ depends only on worker distribution $f$ --- not on prices. $\blacksquare$
 
-\medskip\noindent\textbf{Step 3: Market clearing.}
-Under Assumptions~2 (full specialization) and~3 (inelastic labor supply),
-the supply of task $i$ is $f(i)$.  Setting $y^d(i)=f(i)$ and solving for
-$p_0(i)$:
+\medskip\noindent\textbf{Step 5.} Post-AI: effective supply
+$\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \[
-  p_0(i) = P_Y\cdot\left(\frac{Y}{f(i)}\right)^{\!1/\sigma}.
-\]
-
-\medskip\noindent\textbf{Step 4: Solving for $Y_0$.}
-The expression in Step~3 still contains $Y$.  To close the system,
-substitute $y(i)=f(i)$ into the CES aggregator \eqref{eq:ces}:
-\[
-  Y_0 \;\equiv\; \left[\int_0^1 f(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\!\frac{\sigma}{\sigma-1}}.
-\]
-$Y_0$ is fully determined by the distribution of worker types $f$ and does
-not depend on prices.  Substituting back yields the complete pre-AI task
-price as a function of model primitives alone:
-\[
-  p_0(i) = P_Y\cdot\left(\frac{Y_0}{f(i)}\right)^{\!1/\sigma}. \qquad\blacksquare
-\]
-\medskip\noindent\textbf{Step 5: Post-AI task prices.}
-When AI adds supply $s(i)\geq 0$ to each task, the effective supply
-becomes $\bar y(i)=f(i)+s(i)$.  Substituting into the CES aggregator:
-\[
-  \bar Y \;\equiv\; \left[\int_0^1 \bigl(f(i)+s(i)\bigr)^{\frac{\sigma-1}{\sigma}}\,di
-  \right]^{\!\frac{\sigma}{\sigma-1}}
-  \;>\; Y_0.
-\]
-Repeating the logic of Steps~1--3 with $\bar y$ in place of $f$ gives
-the post-AI task price:
-\[
+  \bar Y = \left[\int_0^1 (f(i)+s(i))^{(\sigma-1)/\sigma}\,di
+  \right]^{\!\sigma/(\sigma-1)} > Y_0,
+  \qquad
   p_1(i) = P_Y\!\left(\frac{\bar Y}{f(i)+s(i)}\right)^{\!1/\sigma}.
-  \qquad\blacksquare
+  \quad\blacksquare
 \]
-Comparing with $p_0(i)=P_Y(Y_0/f(i))^{1/\sigma}$ yields the
-wage dynamics discussed in Section~\ref{sec:model}.
 
 \section{The AI Capability Frontier}
 \label{app:cutoff}

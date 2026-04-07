@@ -1,92 +1,106 @@
-# Computation Market: Microfounding s(i)
+# Microfounding s(i): The Computation Market
 
-## Setup
+## Core Insight
 
-### Task side (same as thesis)
+$M(i)$ does double duty:
+1. **AI capability** at task $i$ (how much AI can do)
+2. **Computation-substitutable share** of task $i$ (what fraction of the task is replaceable by tokens)
+
+These are the same thing. If AI can do 80% of task $i$, then 80% of that task is computation. $M(i)$ *is* the firm's WTP structure — not a separate object.
+
+## The Model
+
+### Primitives
+
 - Tasks $i \in [0,1]$, ordered by complexity
-- Worker density $f(i)$, full specialization
-- Pre-AI wage: $w_0(i) = P_Y (Y_0 / f(i))^{1/\sigma}$
+- Worker density $f(i) > 0$, fixed (short run)
+- $M(i)$: AI capability / computation-substitutable share
+  - $M(i) > 0$ for $i < I^*$
+  - $M(I^*) = 0$
+  - $M'(i) < 0$
+- $\gamma > 0$: adoption intensity (homogeneous)
 
-### AI capability
+### AI supply
 
-$M(i)$ = AI's capability at task $i$.
-- Decreasing in $i$: AI is best at routine tasks, worse at complex ones
-- $M(I^*) = 0$: the capability frontier. Beyond $I^*$, AI simply cannot do the task.
-- $M(i) > 0$ for $i < I^*$
+Each worker at task $i < I^*$ generates demand for $\gamma M(i)$ units of computation. With $f(i)$ workers:
 
-This is the primitive. The frontier is technological, not a price outcome.
+$$s(i) = \gamma \cdot M(i) \cdot f(i)$$
 
-### Computation demand
+That's it. Three primitives, one equation.
 
-Each worker at task $i$ wants to offload computation to AI. Their demand depends on:
+### Why the computation price doesn't matter
 
-1. $M(i)$: how much AI can actually help with this task (capability constraint)
-2. $\gamma > 0$: homogeneous preference for computation (how eager workers are to use AI)
-3. $f(i)$: how many workers are at task $i$
+The firm's WTP for computation at task $i$ is proportional to $M(i) \cdot w_0(i)$ — the AI-substitutable share of the task's value. But:
 
-**AI supply at task $i$:**
-$$s(i) = \gamma \cdot M(i) \cdot f(i) \quad \text{for } i < I^*$$
-$$s(i) = 0 \quad \text{for } i \geq I^*$$
+- $Q = \gamma \int_0^{I^*} M(i) f(i) \, di$ is technology-determined
+- $s(i)$ doesn't depend on the price
+- Wages don't depend on the price
+- The price only determines how rents split between AI firms and production firms
 
-Properties (immediate):
-- $s(I^*) = 0$ ✓ (because $M(I^*) = 0$)
-- $s'(i) < 0$ if $[M(i) \cdot f(i)]' < 0$ — holds when AI capability drops faster than worker density rises ✓
+So we suppress the pricing problem. A monopolist (or oligopoly) sets some $p^*$ and earns $\pi = (p^* - c)Q - F$. This is interesting for IO but irrelevant to labor market outcomes.
 
-**Total computation consumed:**
-$$Q = \gamma \int_0^{I^*} M(i) \cdot f(i) \, di$$
+### Effective supply and wages
 
-## Supply side: Monopolist
+Post-AI:
+$$\bar{y}(i) = f(i) + s(i) = f(i)[1 + \gamma M(i)]$$
 
-One AI firm. Cost structure:
-$$TC(Q) = F + c \cdot Q$$
+For $i \geq I^*$: $\bar{y}(i) = f(i)$ (unchanged).
 
-- $F$: fixed cost (training, data centers)
-- $c$: marginal cost per unit (inference, electricity) — low
+Post-AI wages (CES):
+$$w_1(i) = P_Y \left(\frac{\bar{Y}}{\bar{y}(i)}\right)^{1/\sigma}$$
 
-The monopolist sets a uniform price $p$ per unit of computation.
+Wage ratio:
+$$\frac{w_1(i)}{w_0(i)} = \left(\frac{\bar{Y}}{Y_0}\right)^{1/\sigma} \cdot \frac{1}{[1 + \gamma M(i)]^{1/\sigma}}$$
 
-### Monopolist's problem
+- Above $I^*$: $M = 0$, second factor = 1, pure gain from $\bar{Y} > Y_0$
+- Near $I^*$: $M \approx 0$, still gain
+- Deep inside $[0, I^*)$: $M$ large, $[1 + \gamma M(i)]$ outpaces $\bar{Y}/Y_0$, wages fall
 
-At price $p$, total demand is $Q(p)$. Workers buy computation as long as $p$ is below their willingness to pay.
+**Three-group result holds, now with $M(i)$ as the primitive.**
 
-Worker $i^*$'s WTP per unit of computation: the marginal value of AI assistance in their task. Call this $v(i)$ — how much an extra unit of AI capability is worth to them. Plausibly proportional to their wage: $v(i) = \delta \cdot w_0(i) / (\gamma \cdot M(i))$, but we can keep it simple.
+### The threshold $\hat{\imath}$
 
-**Simplest version:** All workers below $I^*$ buy computation at any price $p < \bar{v}$ (reservation value). The monopolist just sets $p = \bar{v}$ and extracts surplus. Quantity is $Q = \gamma \int_0^{I^*} M(i) f(i) \, di$, pinned by capability, not price.
+Worker $i$ loses iff:
+$$1 + \gamma M(i) > \frac{\bar{Y}}{Y_0}$$
 
-**Monopolist's profit:**
-$$\pi = (\bar{v} - c) \cdot \gamma \int_0^{I^*} M(i) \cdot f(i) \, di - F$$
+$$\gamma M(\hat{\imath}) = \frac{\bar{Y}}{Y_0} - 1$$
 
-Entry condition: $\pi \geq 0$.
+Since $M$ is decreasing, $\hat{\imath} < I^*$. Workers below $\hat{\imath}$ lose; workers above gain.
 
-## Comparative statics
+## Shape of $s(i)$
 
-| Change | $I^*$ | $s(i)$ | Wages |
-|---|---|---|---|
-| AI improves: $M(i) \uparrow$, $I^* \uparrow$ | Expands | More supply, more tasks | More compression for newly exposed; more gain for those above |
-| More workers adopt AI: $\gamma \uparrow$ | Unchanged | $s(i)$ scales up | Deeper compression below $I^*$ |
-| MC falls: $c \downarrow$ | Unchanged (tech constraint) | Unchanged (demand-determined) | No direct effect — but makes entry easier ($\pi \uparrow$), may attract more firms |
-| Competition: $N \uparrow$ (extend to oligopoly) | Unchanged | Unchanged (same demand) | $p \downarrow$, surplus shifts from AI firms to... workers? firms? Depends on who buys. |
+$$\frac{s'(i)}{s(i)} = \frac{M'(i)}{M(i)} + \frac{f'(i)}{f(i)} < 0$$
 
-Key insight: **$I^*$ is pinned by technology ($M$), not by price.** The computation market determines *rents* (who captures the surplus), not the *frontier*. This is cleaner than making $I^*$ endogenous to pricing.
+Holds when $M$ declines proportionally faster than $f$ rises. Automatic when $f$ is flat or declining.
 
-## Connection to thesis
+## Comparative Statics
 
-Current thesis: "$s(i) \geq 0$, $s'(i) < 0$ for $i < I^*$, $s(i) = 0$ for $i \geq I^*$."
+| Change | $I^*$ | $s(i)$ | $\hat{\imath}$ | Wages below $\hat{\imath}$ | Wages above |
+|---|---|---|---|---|---|
+| AI improves ($M \uparrow$, $I^* \uparrow$) | Expands | Rises | Shifts right | More compression | More gain |
+| Adoption ($\gamma \uparrow$) | Unchanged | Scales up | Shifts right | More compression | More gain |
+| Worker density shifts ($f$ changes) | Unchanged | Changes | Shifts | Depends | Depends |
 
-Microfoundation: $s(i) = \gamma \cdot M(i) \cdot f(i)$, where $M(i)$ is AI capability (decreasing, zero at $I^*$) and $\gamma$ is adoption intensity.
+## Long Run (not solved, future work)
 
-What this adds:
-- The *shape* of $s(i)$ is determined by $M(i) \cdot f(i)$ — an interaction between AI capability and labor market structure
-- The *level* is scaled by $\gamma$ — how aggressively workers/firms adopt AI
-- The *frontier* $I^*$ is purely technological — where AI capability hits zero
-- The supply side (monopolist) determines who captures the rents, not the frontier itself
+In the LR, workers respond to $w_1(i)$ by reallocating across tasks (Roy sorting). $f(i)$ becomes endogenous:
 
-## Open questions
+- Workers exit low-wage automated tasks → $f(i) \downarrow$ at low $i$
+- $s(i) = \gamma M(i) f(i) \downarrow$ → supply dilution weakens → wages partially recover
+- Self-correcting mechanism
 
-1. Should $\gamma$ vary across workers? (Education, age, tech-savviness.) If so, $s(i)$ becomes $\gamma(i) \cdot M(i) \cdot f(i)$ — richer but harder.
+LR equilibrium: $f(i)$ consistent with $w_1(i)$ under Roy sorting. This is a fixed-point problem requiring: skill distribution, retraining costs, human capital accumulation. A separate paper.
 
-2. $M(i)$ improving over time is the story of AI progress. Each generation of models (GPT-3 → 4 → 5) shifts $M$ up and $I^*$ right. Could parametrize as $M(i; \tau)$ where $\tau$ is a technology vintage.
+The SR model with fixed $f$ provides a **lower bound** on displacement (workers can't flee) and an **upper bound** on wage compression.
 
-3. The monopolist earns rents $(\bar{v} - c) \cdot Q$. These rents are large (look at AI company valuations). Where do they come from? From the gap between what workers/firms are willing to pay and the marginal cost of inference. This is a transfer from the labor market to the AI sector — worth discussing.
+## Summary
 
-4. Quality: $M(i)$ could be continuous (AI does the task partially, with errors) rather than binary. At $i$ near $I^*$, AI output is low quality — workers still needed to check/refine. This is the augmentation zone.
+The model has four moving parts:
+1. $M(i)$: AI capability (the primitive that drives everything)
+2. $f(i)$: worker density (fixed in SR, endogenous in LR)
+3. $\gamma$: adoption intensity
+4. CES production with parameter $\sigma$
+
+One equation: $s(i) = \gamma M(i) f(i)$.
+
+The computation price, the monopolist, the entry condition — all interesting IO questions but orthogonal to the labor market results. The frontier $I^*$ is technological. The displacement pattern is governed by $M(i) \cdot f(i)$. The rest is accounting.
