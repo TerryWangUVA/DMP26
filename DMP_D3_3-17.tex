@@ -136,62 +136,18 @@ Final output $Y$ aggregates tasks via a CES technology:
 \end{equation}
 where $y(i)$ is the quantity of task $i$ used in production.
 
-\subsection{The Computation Market}
-
-AI capability at task $i$ is given by $M(i)$, with $M(i)>0$ for $i<I^*$,
-$M(I^*)=0$, and $M'(i)<0$.  The parameter $I^*\in(0,1)$ is the
-\emph{AI capability frontier}: AI cannot perform tasks beyond $I^*$.
-
-Each worker at task $i<I^*$ demands $\gamma\cdot M(i)$ units of
-computation from AI, where $\gamma>0$ is a homogeneous preference
-parameter.  A monopoly AI firm supplies computation at total cost
-$TC(Q)=F+cQ$, with fixed cost $F>0$ (training, infrastructure) and
-marginal cost $c>0$ (inference).  Firms purchase computation on behalf
-of their workers; the cost does not enter wage bargaining.
-
-The firm's willingness to pay for computation at task~$i$ is
-\[
-  v(i) = M(i)\cdot w_0(i),
-\]
-the AI-substitutable share of the task's value.  At a uniform
-computation price $p$, the firm purchases computation for task~$i$
-whenever $v(i)\geq p$.  Aggregate demand at price~$p$ is therefore
-\[
-  Q(p) = \gamma\int_{\{i<I^*:\,v(i)\geq p\}} M(i)\cdot f(i)\,di,
-\]
-which is downward-sloping: a higher $p$ excludes tasks with lower
-$v(i)$.  The monopolist maximises $(p-c)\,Q(p)-F$ and sets $p^*$ at the
-point where marginal revenue equals marginal cost.  The automated set
-is $\mathcal{A}(p^*)=\{i<I^*: v(i)\geq p^*\}$, and the equilibrium AI
-supply of task~$i$ is:
+AI can additionally supply a subset of these tasks.  Write $s(i)\geq 0$
+for the quantity of task~$i$ that AI contributes, with
 \begin{equation}
-  s(i) = \begin{cases}
-    \gamma\cdot M(i)\cdot f(i) & \text{if } i\in\mathcal{A}(p^*), \\
-    0 & \text{otherwise}.
-  \end{cases}
+  s'(i) < 0 \;\text{ for } i<I^*,
+  \qquad
+  s(i) = 0 \;\text{ for } i \geq I^*,
   \label{eq:ai_supply}
 \end{equation}
-When $p^*$ is sufficiently low (e.g.\ under competition, $p=c$),
-$\mathcal{A}$ approaches $[0,I^*)$ and all tasks below the frontier
-receive AI supply.  Under monopoly pricing, $\mathcal{A}$ may be
-a strict subset --- the monopolist restricts output to extract rents,
-leaving some technologically automatable tasks unserved.
-
-\begin{proposition}[Shape of $s(i)$]
-$s(I^*)=0$, $\;s(i)>0$ for $i<I^*$, and $s'(i)<0$ whenever
-\begin{equation}
-  \frac{M'(i)}{M(i)} + \frac{f'(i)}{f(i)} < 0,
-  \label{eq:shape_condition}
-\end{equation}
-i.e.\ the proportional decline in AI capability exceeds the proportional
-change in worker density.
-\end{proposition}
-\noindent Condition~\eqref{eq:shape_condition} is satisfied whenever $f$
-is flat or declining in $i$, since $M'(i)<0$ dominates.  As AI improves
-($I^*$ rises or $M$ shifts up), the supply shock expands to new tasks and
-deepens for existing ones; an increase in $\gamma$ scales $s$ proportionally
-without moving the frontier (see Appendix~\ref{app:comp_statics} for the
-full comparative statics and a parametric example).
+where $I^*\in(0,1)$ is the \emph{AI capability frontier}.  Tasks below $I^*$
+can be partially supplied by AI, with the contribution strictly decreasing in
+task complexity; tasks at or above $I^*$ remain beyond AI's reach.  As AI
+improves, $I^*$ shifts rightward and $s$ may increase throughout its support.
 
 \begin{assumption}[Small Open Economy]
   The output price $P_Y$ is exogenous and fixed.
@@ -748,49 +704,6 @@ Figure~\ref{fig:capability} illustrates the expanding frontier.
 \resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableB.tex}}
 \end{center}
 \end{table}
-
-\section{Computation Market: Comparative Statics and Parametric Example}
-\label{app:comp_statics}
-
-\noindent\textbf{Proof of Proposition~1.}
-$s(i)=\gamma M(i)f(i)$, so $s'(i)=\gamma[M'(i)f(i)+M(i)f'(i)]$.
-Dividing by $s(i)$: $s'(i)/s(i)=M'(i)/M(i)+f'(i)/f(i)<0$ under
-\eqref{eq:shape_condition}.  $s(I^*)=0$ follows from $M(I^*)=0$;
-$s(i)>0$ for $i<I^*$ follows from $M(i)>0$ and $f(i)>0$. $\blacksquare$
-
-\medskip
-\noindent\textbf{Comparative statics.}
-\begin{enumerate}
-  \item \emph{AI improvement} ($I^*\uparrow$ or $M\uparrow$): $v(i)$ rises,
-    expanding $\mathcal{A}$; $s(i)$ rises for previously automated tasks and
-    extends to newly exposed ones.
-  \item \emph{Adoption} ($\gamma\uparrow$): $s(i)$ scales proportionally
-    within $\mathcal{A}$; $I^*$ unchanged (technological); $Q$ rises,
-    which may shift $p^*$.
-  \item \emph{Cost reduction} ($c\downarrow$): $p^*$ falls (monopolist
-    passes through some savings via $MR=MC$), expanding $\mathcal{A}$.
-    More tasks automated, deeper displacement for exposed workers.
-  \item \emph{Competition} ($p\to c$): maximally expands $\mathcal{A}$;
-    monopoly rents eliminated; surplus transfers back to
-    the production sector.
-  \item \emph{Tax on computation} ($c\uparrow$): $p^*$ rises,
-    $\mathcal{A}$ shrinks; fewer tasks automated; protects routine
-    workers at the cost of aggregate productivity.
-\end{enumerate}
-
-\medskip
-\noindent\textbf{Parametric example.}
-Let $M(i)=(I^*-i)^\alpha$ with $\alpha>0$ and
-$f(i)=\bar f(1-\beta i)$ with $\beta\in[0,1)$.  Then
-$s(i)=\gamma\bar f(1-\beta i)(I^*-i)^\alpha$.  For uniform worker
-density ($\beta=0$):
-\[
-  Q = \gamma\bar f\cdot\frac{(I^*)^{\alpha+1}}{\alpha+1}, \qquad
-  \pi^* = (p^* - c)\cdot Q(p^*) - F.
-\]
-The shape parameter $\alpha$ governs how fast AI capability drops with
-complexity: $\alpha>1$ implies sharp deterioration near $I^*$;
-$\alpha<1$ implies AI retains capability across a wide range.
 
 \clearpage
 
