@@ -149,18 +149,33 @@ $TC(Q)=F+cQ$, with fixed cost $F>0$ (training, infrastructure) and
 marginal cost $c>0$ (inference).  Firms purchase computation on behalf
 of their workers; the cost does not enter wage bargaining.
 
-Total computation demand is:
+The firm's willingness to pay for computation at task~$i$ is
 \[
-  Q = \gamma\int_0^{I^*} M(i)\cdot f(i)\,di.
+  v(i) = M(i)\cdot w_0(i),
 \]
-Demand is perfectly inelastic up to the reservation value $\bar v$, so
-the monopolist sets $p^*=\bar v$ and extracts the full surplus.  The
-equilibrium AI supply of task~$i$ is therefore:
+the AI-substitutable share of the task's value.  At a uniform
+computation price $p$, the firm purchases computation for task~$i$
+whenever $v(i)\geq p$.  Aggregate demand at price~$p$ is therefore
+\[
+  Q(p) = \gamma\int_{\{i<I^*:\,v(i)\geq p\}} M(i)\cdot f(i)\,di,
+\]
+which is downward-sloping: a higher $p$ excludes tasks with lower
+$v(i)$.  The monopolist maximises $(p-c)\,Q(p)-F$ and sets $p^*$ at the
+point where marginal revenue equals marginal cost.  The automated set
+is $\mathcal{A}(p^*)=\{i<I^*: v(i)\geq p^*\}$, and the equilibrium AI
+supply of task~$i$ is:
 \begin{equation}
-  s(i) = \gamma\cdot M(i)\cdot f(i) \quad\text{for }i<I^*,
-  \qquad s(i)=0 \quad\text{for }i\geq I^*.
+  s(i) = \begin{cases}
+    \gamma\cdot M(i)\cdot f(i) & \text{if } i\in\mathcal{A}(p^*), \\
+    0 & \text{otherwise}.
+  \end{cases}
   \label{eq:ai_supply}
 \end{equation}
+When $p^*$ is sufficiently low (e.g.\ under competition, $p=c$),
+$\mathcal{A}$ approaches $[0,I^*)$ and all tasks below the frontier
+receive AI supply.  Under monopoly pricing, $\mathcal{A}$ may be
+a strict subset --- the monopolist restricts output to extract rents,
+leaving some technologically automatable tasks unserved.
 
 \begin{proposition}[Shape of $s(i)$]
 $s(I^*)=0$, $\;s(i)>0$ for $i<I^*$, and $s'(i)<0$ whenever
@@ -746,16 +761,21 @@ $s(i)>0$ for $i<I^*$ follows from $M(i)>0$ and $f(i)>0$. $\blacksquare$
 \medskip
 \noindent\textbf{Comparative statics.}
 \begin{enumerate}
-  \item \emph{AI improvement} ($I^*\uparrow$ or $M\uparrow$): $s(i)$ rises
-    for all previously automated tasks and extends to newly exposed tasks.
-    Total computation $Q$ increases.
-  \item \emph{Adoption} ($\gamma\uparrow$): $s(i)$ scales proportionally;
-    $I^*$ unchanged (technological).
-  \item \emph{Cost reduction} ($c\downarrow$): $s(i)$, $Q$, and $I^*$
-    unchanged.  Monopolist profit increases by $\Delta c\cdot Q$.  With
-    inelastic demand and $p^*=\bar v$, cheaper inference accrues entirely
-    to the AI firm; only competition or a price cap would pass savings
-    through to the labor market.
+  \item \emph{AI improvement} ($I^*\uparrow$ or $M\uparrow$): $v(i)$ rises,
+    expanding $\mathcal{A}$; $s(i)$ rises for previously automated tasks and
+    extends to newly exposed ones.
+  \item \emph{Adoption} ($\gamma\uparrow$): $s(i)$ scales proportionally
+    within $\mathcal{A}$; $I^*$ unchanged (technological); $Q$ rises,
+    which may shift $p^*$.
+  \item \emph{Cost reduction} ($c\downarrow$): $p^*$ falls (monopolist
+    passes through some savings via $MR=MC$), expanding $\mathcal{A}$.
+    More tasks automated, deeper displacement for exposed workers.
+  \item \emph{Competition} ($p\to c$): maximally expands $\mathcal{A}$;
+    monopoly rents eliminated; surplus transfers back to
+    the production sector.
+  \item \emph{Tax on computation} ($c\uparrow$): $p^*$ rises,
+    $\mathcal{A}$ shrinks; fewer tasks automated; protects routine
+    workers at the cost of aggregate productivity.
 \end{enumerate}
 
 \medskip
@@ -766,8 +786,7 @@ $s(i)=\gamma\bar f(1-\beta i)(I^*-i)^\alpha$.  For uniform worker
 density ($\beta=0$):
 \[
   Q = \gamma\bar f\cdot\frac{(I^*)^{\alpha+1}}{\alpha+1}, \qquad
-  \pi^* = (\bar v - c)\cdot\gamma\bar f\cdot
-  \frac{(I^*)^{\alpha+1}}{\alpha+1} - F.
+  \pi^* = (p^* - c)\cdot Q(p^*) - F.
 \]
 The shape parameter $\alpha$ governs how fast AI capability drops with
 complexity: $\alpha>1$ implies sharp deterioration near $I^*$;
