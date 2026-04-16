@@ -20,7 +20,9 @@
       "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/onet_task_mappings.csv\")",
       "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/onet_task_statements.csv\")",
       "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/wage_data.csv\")",
-      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/bls_employment_may_2023.csv\")"
+      "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/bls_employment_may_2023.csv\")",
+      "Bash(python3 -c ':*)",
+      "Bash(py -c ':*)"
     ]
   }
 }

@@ -1372,3 +1372,151 @@ twoway ///
 	plotregion(color(white)) ///
 	name(unemp_stateYFE_colComb, replace)
 graph export "$graphs/unemp_stateYFE_plot_colComb.pdf", replace
+
+
+
+
+**************************************************
+**# Within-occupation test (occ x year FE)
+**************************************************
+/*
+Question: is the college vs non-college wage gap in
+high-exposure occupations driven by
+  H1) within-occupation sorting -- same occupations,
+      college and non-college workers performing
+      different tasks; or
+  H2) between-occupation segregation -- non-college
+      workers concentrated in different (worse)
+      high-exposure occupations than college workers.
+
+Test: pool both groups, absorb occsoc_2010 # year FE,
+and run a triple interaction year x dv_rating_beta x is_college.
+The occ x year FE soaks up all between-occupation variation
+(including the level year x beta term, which varies only
+at the occ-year level). What identifies the triple coefficient
+is variation in is_college within the same occupation in
+the same year.
+
+If the triple interaction reproduces the split-sample
+pattern (college relatively better than non-college in
+high-exposure occs post-2022 ==> positive triple coef),
+then the compression happens within the same occupations
+==> H1.
+If the triple coefs collapse to zero, then the split-sample
+result was driven by occupation composition ==> H2.
+*/
+
+use `analysis', clear
+fvset base 2022 year
+eststo clear
+
+// occsoc_2010 is a string (some imputed cells like "12-34XX"),
+// so encode it to numeric for absorb()/cluster()
+egen occ_id = group(occsoc_2010)
+
+
+*------------------*
+* Log wage: triple interaction with occ x year FE
+*------------------*
+
+reghdfe lnwage i.year##c.dv_rating_beta##i.is_college, ///
+	absorb(sex educ statefip#year occ_id#year) ///
+	cluster(occ_id)
+estadd scalar obs = e(N)
+estadd local sex_FE      "Yes"
+estadd local educ_FE     "Yes"
+estadd local state_yFE   "Yes"
+estadd local occ_yFE     "Yes"
+estadd local se_cluster  "Occupation"
+sum lnwage if e(sample)
+estadd scalar depvar_mean = r(mean)
+eststo lw_within
+
+esttab lw_within using "$tables/het_within_occ_lnwage.tex", replace ///
+	se star(* 0.10 ** 0.05 *** 0.01) ///
+	b(%9.3f) se(%9.3f) ///
+	keep(*year#c.dv_rating_beta*) ///
+	scalars("sex_FE Sex FE" "educ_FE Education FE" ///
+	        "state_yFE State x Year FE" "occ_yFE Occupation x Year FE" ///
+	        "se_cluster SE clustering" "obs Observations" ///
+	        "depvar_mean Mean of Dep. Var.") ///
+	title("Within-Occupation Heterogeneity Test (Log Wage)") ///
+	label compress nomtitles
+
+
+*------------------*
+* Unemployment: triple interaction with occ x year FE
+*------------------*
+
+reghdfe unemployed i.year##c.dv_rating_beta##i.is_college, ///
+	absorb(sex educ statefip#year occ_id#year) ///
+	cluster(occ_id)
+estadd scalar obs = e(N)
+estadd local sex_FE      "Yes"
+estadd local educ_FE     "Yes"
+estadd local state_yFE   "Yes"
+estadd local occ_yFE     "Yes"
+estadd local se_cluster  "Occupation"
+sum unemployed if e(sample)
+estadd scalar depvar_mean = r(mean)
+eststo un_within
+
+esttab un_within using "$tables/het_within_occ_unemp.tex", replace ///
+	se star(* 0.10 ** 0.05 *** 0.01) ///
+	b(%9.3f) se(%9.3f) ///
+	keep(*year#c.dv_rating_beta*) ///
+	scalars("sex_FE Sex FE" "educ_FE Education FE" ///
+	        "state_yFE State x Year FE" "occ_yFE Occupation x Year FE" ///
+	        "se_cluster SE clustering" "obs Observations" ///
+	        "depvar_mean Mean of Dep. Var.") ///
+	title("Within-Occupation Heterogeneity Test (Unemployment)") ///
+	label compress nomtitles
+
+
+*------------------*
+* Plot: triple interaction coefficients (lnwage)
+*------------------*
+
+est restore lw_within
+parmest, norestore
+
+// Stata may reorder factor terms in parm names, so match by
+// substring presence rather than a fixed regex order
+keep if strpos(parm, "year") > 0           ///
+      & strpos(parm, "dv_rating_beta") > 0 ///
+      & strpos(parm, "is_college") > 0
+
+// drop omitted/base rows (zero estimate, missing SE)
+drop if missing(estimate) | missing(stderr)
+
+gen year = .
+forvalues y = 2018/2025 {
+	replace year = `y' if strpos(parm, "`y'.year") > 0
+}
+drop if missing(year)
+
+insobs 1
+replace year     = 2022 in L
+replace estimate = 0    in L
+replace min95    = .    in L
+replace max95    = .    in L
+sort year
+
+twoway ///
+	(rcap min95 max95 year if inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
+		lcolor(dkgreen) lpattern(solid) lwidth(medthin)) ///
+	(line estimate year, ///
+		lcolor(dkgreen) lpattern(solid) lwidth(medium) sort) ///
+	(scatter estimate year, ///
+		mcolor(dkgreen) msymbol(T) msize(medlarge)), ///
+	xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+	yline(0, lcolor(gs8) lpattern(solid)) ///
+	xlabel(2018(1)2025) ///
+	xtitle("Year") ///
+	ytitle("Triple interaction: year x exposure x college") ///
+	title("Within-occupation college vs non-college gap by exposure") ///
+	legend(off) ///
+	graphregion(color(white)) ///
+	plotregion(color(white)) ///
+	name(lw_within_plot, replace)
+graph export "$graphs/lw_within_plot.pdf", replace

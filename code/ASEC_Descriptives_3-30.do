@@ -450,3 +450,124 @@ use `analysis', clear
 			 "Occupation Group & AI Exposure ($\beta_o$) & \% College \\" "\hline") ///
 		foot("\hline" "\end{tabular}" "\end{small}")
 // restore
+
+
+
+**************************************************
+**# 6. Kdensity of real wage
+**************************************************
+
+use `analysis', clear
+
+* (a) Overall
+twoway ///
+	(kdensity real_wage if real_wage > 0 & real_wage < 100000, ///
+		lcolor(navy) lwidth(medium) lpattern(solid)), ///
+	xtitle("Annual Real Wage (1982 dollars)", size(medium)) ///
+	ytitle("Density", size(medium)) ///
+	title("Distribution of Real Wages") ///
+	graphregion(color(white)) ///
+	plotregion(color(white)) ///
+	legend(off) ///
+	name(kd_wage, replace)
+
+graph export "$graphs/descriptives/kdensity_wage_overall.pdf", replace
+
+
+* (b) By education
+twoway ///
+	(kdensity real_wage if is_college == 1 & real_wage > 0 & real_wage < 100000, ///
+		lcolor(navy) lwidth(medium) lpattern(solid)) ///
+	(kdensity real_wage if is_college == 0 & real_wage > 0 & real_wage < 100000, ///
+		lcolor(maroon) lwidth(medium) lpattern(dash)), ///
+	xtitle("Annual Real Wage (1982 dollars)", size(medium)) ///
+	ytitle("Density", size(medium)) ///
+	title("Real Wage Distribution: College vs Non-College") ///
+	legend(order(1 "College (BA+)" 2 "Non-college") ///
+		rows(1) position(6) region(lstyle(none))) ///
+	graphregion(color(white)) ///
+	plotregion(color(white)) ///
+	name(kd_wage_educ, replace)
+
+graph export "$graphs/descriptives/kdensity_wage_education.pdf", replace
+
+
+
+**************************************************
+**# 6b. Export college % by occupation to CSV
+**************************************************
+
+use `analysis', clear
+
+preserve
+	collapse (mean) pct_college = is_college (count) n_workers = is_college, by(occsoc_2010)
+	replace pct_college = pct_college * 100
+	export delimited occsoc_2010 pct_college n_workers using "$data/occ_college_pct.csv", replace
+	di "Exported college % for " _N " occupations"
+restore
+
+
+**************************************************
+**# 7. Scatter: college % vs AI exposure (occupation level)
+**************************************************
+
+use `analysis', clear
+
+preserve
+	collapse (mean) pct_college = is_college ///
+			 (mean) exposure = dv_rating_beta ///
+			 (count) n_workers = is_college, ///
+		by(occsoc_2010)
+
+	replace pct_college = pct_college * 100
+
+	* Regression stats for the fitted line
+	reg pct_college exposure [aw=n_workers]
+	local b_slope: display %5.1f _b[exposure]
+	local r2: display %4.2f e(r2)
+	local N_occ = e(N)
+	di "Slope = `b_slope', R2 = `r2', N = `N_occ'"
+
+	twoway ///
+		(scatter pct_college exposure [aw=n_workers], ///
+			mcolor(navy%30) msymbol(O) msize(small)) ///
+		(lfit pct_college exposure [aw=n_workers], ///
+			lcolor(maroon) lwidth(medium) lpattern(solid)), ///
+		xtitle("AI Exposure Score ({&beta}{subscript:o})", size(medium)) ///
+		ytitle("% College-Educated", size(medium)) ///
+		title("College Share vs AI Exposure (by Occupation)") ///
+		subtitle("Each circle = one occupation, sized by CPS sample") ///
+		yline(50, lcolor(gs8) lpattern(dash)) ///
+		legend(off) ///
+		note("Slope = `b_slope', R{superscript:2} = `r2', N = `N_occ' occupations", size(small)) ///
+		graphregion(color(white)) ///
+		plotregion(color(white)) ///
+		name(college_vs_exposure, replace)
+
+	graph export "$graphs/descriptives/college_vs_exposure.pdf", replace
+
+	* Unweighted version
+	reg pct_college exposure
+	local b_uw: display %5.1f _b[exposure]
+	local r2_uw: display %4.2f e(r2)
+	di "Unweighted: Slope = `b_uw', R2 = `r2_uw'"
+
+	twoway ///
+		(scatter pct_college exposure, ///
+			mcolor(navy%30) msymbol(O) msize(small)) ///
+		(lfit pct_college exposure, ///
+			lcolor(maroon) lwidth(medium) lpattern(solid)), ///
+		xtitle("AI Exposure Score ({&beta}{subscript:o})", size(medium)) ///
+		ytitle("% College-Educated", size(medium)) ///
+		title("College Share vs AI Exposure (unweighted)") ///
+		subtitle("Each circle = one occupation, equal weight") ///
+		yline(50, lcolor(gs8) lpattern(dash)) ///
+		legend(off) ///
+		note("Slope = `b_uw', R{superscript:2} = `r2_uw', N = `N_occ' occupations", size(small)) ///
+		graphregion(color(white)) ///
+		plotregion(color(white)) ///
+		name(college_vs_exposure_uw, replace)
+
+	graph export "$graphs/descriptives/college_vs_exposure_unweighted.pdf", replace
+restore
+

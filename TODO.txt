@@ -1,0 +1,26 @@
+go see the model sect in DMP_D3_3-17.tex 
+
+create a model.tex that does the following 
+this serves to me as a "tool thing" for model
+
+
+
+> production func
+> task-mkt clearing
+> how AI comes in as s(i) to some tasks etc.
+
+**new stuf
+
+> occupations as bundle of tasks
+
+for instance Occupation_x = a_1*i_1 + a_2 * i_2 +...
+
+where i_1,... are within [0,1]
+
+and a_1 + a_2 + ... = 1 (e.g. hour)--> in some sense the occupation in our model is defined as the time distributed to each task... 
+
+let's keep a_1 ... exogenous and let's keep workers in their occupations,... for now...
+
+then the "group analysis" should be carried out on occupation level. 
+
+

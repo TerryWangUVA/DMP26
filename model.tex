@@ -11,13 +11,34 @@
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
 
-\title{The Computation Market}
-\author{Working Notes}
+\title{Working Notes: Computation Market, Task-Based Labor Market, \\ and Occupations as Task Bundles}
+\author{}
 \date{}
 
 \begin{document}
 \maketitle
 \onehalfspacing
+
+\tableofcontents
+\bigskip
+
+\hrule
+\bigskip
+
+\noindent \textbf{Roadmap.}  Part~I derives the AI supply function $s(i)$
+from a monopolist supplying computation to a continuum of tasks.  Part~II
+builds the labor market: a CES-aggregated continuum of tasks produced by
+workers who are sorted into \emph{occupations}, where each occupation is
+a fixed bundle of tasks.  Part~III introduces the AI shock into the
+occupation-level labor market and derives the distributional prediction
+that disciplines the empirical analysis.
+
+\bigskip
+\hrule
+\bigskip
+
+\part*{Part I: The Computation Market}
+\addcontentsline{toc}{part}{Part I: The Computation Market}
 
 %==================================================
 \section{Environment}
@@ -228,5 +249,372 @@ The shape parameter $\alpha$:
   they are capturing the computation surplus that previously resided
   in workers' wages.
 \end{remark}
+
+\bigskip
+\hrule
+\bigskip
+
+\part*{Part II: The Labor Market with Occupations as Task Bundles}
+\addcontentsline{toc}{part}{Part II: The Labor Market with Occupations as Task Bundles}
+
+%==================================================
+\section{Tasks, Occupations, and Workers}
+%==================================================
+
+The labor side reuses the same task continuum $i \in [0,1]$ as Part~I.
+Departing from the full-specialization benchmark in which each worker
+performs exactly one task (as in \textsc{DMP\_D3}), I introduce an
+intermediate layer of \emph{occupations}.  An occupation is a fixed
+recipe over tasks; workers are sorted into occupations; and each
+worker's labor time is distributed across the tasks in the recipe.
+
+\begin{assumption}[Occupations as Task Bundles]
+\label{ass:bundle}
+  The set of occupations is $X$.  Each occupation $x \in X$ is
+  characterized by a bundle density
+  \[
+    a_x : [0,1] \to \mathbb{R}_+, \qquad \int_0^1 a_x(i)\, di = 1.
+  \]
+  The value $a_x(i)$ is the share of working time that a worker in
+  occupation $x$ devotes to task $i$.
+\end{assumption}
+
+\begin{remark}
+  The bundle density is the natural continuous analogue of a discrete
+  recipe
+  \[
+    \text{Occ}_x = a_{x,1}\, i_1 + a_{x,2}\, i_2 + \cdots, \qquad \sum_k a_{x,k} = 1,
+  \]
+  in which occupation $x$ performs a finite set of tasks
+  $\{i_1, i_2, \ldots\}$ with time-share weights $a_{x,k}$.  Discrete
+  occupations correspond to $a_x$ being a sum of point masses.
+\end{remark}
+
+\begin{assumption}[Short-Run Rigidities]
+\label{ass:rigid}
+  ~
+  \begin{itemize}
+    \item[(i)] \textbf{Bundles are exogenous.}  The occupation recipe
+      $a_x$ is fixed by the production technology of occupation $x$
+      (e.g., a paralegal's mix of drafting, research, and client
+      intake), not chosen by the worker.
+    \item[(ii)] \textbf{Workers are stuck in occupations.}  The mass
+      $L_x$ of workers in occupation $x$ is exogenous.  Workers
+      cannot switch occupations in the short run.
+    \item[(iii)] \textbf{No intra-occupation reallocation.}  A worker
+      in occupation $x$ cannot reallocate time across the tasks in
+      the bundle even if wages on individual tasks change.
+  \end{itemize}
+\end{assumption}
+
+\begin{remark}[Interpretation of Assumption~\ref{ass:rigid}]
+  The three rigidities are complementary.  (i) and (iii) together say
+  that an occupation is a Leontief bundle of tasks at the worker
+  level: a lawyer must research, write, and meet clients in fixed
+  proportions.  (ii) says that workers cannot flee a compressed
+  occupation for a safer one.  All three are short-run assumptions,
+  and all three can be relaxed --- doing so would generate the
+  expertise-bundle dynamics of \textcite{autor2025expertise}.  The
+  exogenous-bundle assumption matches the construction of the
+  empirical exposure measure \parencite{eloundou2024gpts}, which uses
+  fixed O*NET task weights as inputs.
+\end{remark}
+
+\begin{proposition}[Induced Task Supply]
+\label{prop:fi}
+  In the pre-AI economy, the total labor-time supplied to task $i$ is
+  \begin{equation}
+    f(i) = \int_X L_x \cdot a_x(i)\, dx
+    \qquad \text{(or } \sum_x L_x\, a_x(i) \text{ if $X$ is discrete).}
+    \label{eq:fi}
+  \end{equation}
+\end{proposition}
+
+\begin{remark}
+  Equation~\eqref{eq:fi} reinterprets the object $f(i)$ that appeared
+  in Part~I.  There it was a primitive; here it is derived from
+  occupation structure $\{L_x, a_x\}$.  The AI-supply derivation of
+  Part~I is unaffected, since $f(i)$ enters $s(i) = \gamma M(i) f(i)$
+  identically.
+\end{remark}
+
+%==================================================
+\section{Production and the Pre-AI Equilibrium}
+%==================================================
+
+\subsection{Final Goods Production}
+
+Competitive firms aggregate tasks via a CES production function:
+\begin{equation}
+  Y = \left[ \int_0^1 y(i)^{\frac{\sigma-1}{\sigma}}\, di \right]^{\frac{\sigma}{\sigma-1}},
+  \qquad \sigma > 1,
+  \label{eq:ces}
+\end{equation}
+where $y(i)$ is the quantity of task $i$ used in production.  The final
+goods price $P_Y$ is exogenous (small open economy).
+
+\subsection{Task Prices}
+
+Cost-minimizing firms demand
+\begin{equation}
+  y(i) = Y \cdot \left( \frac{P_Y}{p(i)} \right)^{\sigma},
+  \label{eq:task_demand}
+\end{equation}
+with the ideal price index
+\begin{equation}
+  P_Y = \left[ \int_0^1 p(i)^{1-\sigma}\, di \right]^{\frac{1}{1-\sigma}}.
+  \label{eq:price_index}
+\end{equation}
+
+Market clearing $y(i) = f(i)$ gives the pre-AI task price:
+\begin{equation}
+  \boxed{p_0(i) = P_Y \cdot \left( \frac{Y_0}{f(i)} \right)^{1/\sigma}.}
+  \label{eq:p0}
+\end{equation}
+
+\subsection{Occupation Wages}
+
+A worker in occupation $x$ spends $a_x(i)\, di$ units of time on task $i$
+and earns $p_0(i)$ per unit of task $i$ produced.  Total pre-AI wage
+per unit of time:
+\begin{equation}
+  \boxed{w_0(x) = \int_0^1 a_x(i) \cdot p_0(i)\, di.}
+  \label{eq:w0x}
+\end{equation}
+
+\begin{remark}[Revenue Shares]
+\label{rem:shares}
+  Define the pre-AI revenue share of task $i$ in occupation $x$:
+  \begin{equation}
+    \omega_x(i) \;\equiv\; \frac{a_x(i)\, p_0(i)}{w_0(x)},
+    \qquad \int_0^1 \omega_x(i)\, di = 1.
+    \label{eq:omega}
+  \end{equation}
+  This is the share of occupation $x$'s wage bill that comes from task
+  $i$.  It differs from the time share $a_x(i)$ because tasks can
+  command different prices.
+\end{remark}
+
+\bigskip
+\hrule
+\bigskip
+
+\part*{Part III: The AI Shock at the Occupation Level}
+\addcontentsline{toc}{part}{Part III: The AI Shock at the Occupation Level}
+
+%==================================================
+\section{Post-AI Task Prices}
+%==================================================
+
+AI adds supply $s(i)$ to task $i$ as derived in Part~I.  Effective task
+supply becomes
+\begin{equation}
+  \tilde{f}(i) \;=\; f(i) + s(i),
+  \qquad s(i) > 0 \text{ for } i < I^*,\quad s(i) = 0 \text{ for } i \geq I^*.
+  \label{eq:ftilde}
+\end{equation}
+With more supply, total output rises to $Y_1 > Y_0$ and each task's
+price adjusts:
+\begin{equation}
+  \boxed{p_1(i) \;=\; P_Y \cdot \left( \frac{Y_1}{f(i) + s(i)} \right)^{1/\sigma}.}
+  \label{eq:p1}
+\end{equation}
+
+Two forces move the task price:
+\begin{itemize}
+  \item \textbf{Output expansion:} $Y_1 > Y_0$ raises every task's price
+    by factor $(Y_1/Y_0)^{1/\sigma}$.  This is a pure gain.
+  \item \textbf{Supply dilution:} $f(i) + s(i) > f(i)$ for $i < I^*$
+    lowers exposed tasks' prices by factor $(f(i)/(f(i)+s(i)))^{1/\sigma}$.
+    This is a pure loss.  Above $I^*$, $s(i) = 0$ and this factor is $1$.
+\end{itemize}
+
+The net effect on $p_1(i)$ can be written
+\begin{equation}
+  \frac{p_1(i)}{p_0(i)} \;=\; \left( \frac{Y_1}{Y_0} \right)^{1/\sigma}
+  \cdot \left( \frac{f(i)}{f(i) + s(i)} \right)^{1/\sigma}.
+  \label{eq:p_ratio}
+\end{equation}
+
+%==================================================
+\section{Post-AI Occupation Wages}
+%==================================================
+
+Occupation wages follow by integrating~\eqref{eq:p1} against the bundle:
+\begin{equation}
+  \boxed{w_1(x) \;=\; \int_0^1 a_x(i) \cdot p_1(i)\, di.}
+  \label{eq:w1x}
+\end{equation}
+
+Taking the ratio to the pre-AI wage and using
+\eqref{eq:omega}--\eqref{eq:p_ratio}:
+\begin{align}
+  \frac{w_1(x)}{w_0(x)}
+  &= \int_0^1 \omega_x(i) \cdot \frac{p_1(i)}{p_0(i)}\, di \notag \\[2pt]
+  &= \left( \frac{Y_1}{Y_0} \right)^{1/\sigma}
+     \cdot \int_0^1 \omega_x(i) \cdot \left( \frac{f(i)}{f(i) + s(i)} \right)^{1/\sigma}\, di.
+  \label{eq:w_ratio}
+\end{align}
+
+The first factor is the common output-expansion boost.  The second
+factor is an occupation-specific dilution discount --- a weighted
+average of per-task dilution factors, weighted by occupation $x$'s
+revenue shares.  For tasks with $s(i) = 0$ (above $I^*$), the
+integrand equals $\omega_x(i)$.  For tasks with $s(i) > 0$ (below
+$I^*$), the integrand is strictly less than $\omega_x(i)$.
+
+\begin{proposition}[Occupation Wage Ratio]
+\label{prop:wage_ratio}
+  Define the occupation dilution index
+  \begin{equation}
+    D_x \;\equiv\; \int_0^{I^*} \omega_x(i) \cdot \left[ 1 - \left( \frac{f(i)}{f(i)+s(i)} \right)^{1/\sigma} \right]\, di
+    \;\in\; [0,\, 1].
+    \label{eq:Dx}
+  \end{equation}
+  Then
+  \begin{equation}
+    \frac{w_1(x)}{w_0(x)} \;=\; \left( \frac{Y_1}{Y_0} \right)^{1/\sigma} \cdot (1 - D_x).
+    \label{eq:wage_ratio_Dx}
+  \end{equation}
+\end{proposition}
+
+\begin{proof}
+  Split the integral in~\eqref{eq:w_ratio} at $I^*$.  For $i \geq I^*$,
+  $s(i)=0$ and the integrand equals $\omega_x(i)$.  For $i < I^*$, the
+  integrand equals $\omega_x(i)(f/(f+s))^{1/\sigma}$.  Using
+  $\int_0^1 \omega_x(i)\, di = 1$ and rearranging yields~\eqref{eq:Dx}.
+\end{proof}
+
+\begin{remark}[What $D_x$ measures]
+  $D_x$ is the fraction of occupation $x$'s pre-AI wage bill that is
+  ``diluted'' by AI supply, weighted by the CES-adjusted intensity of
+  the dilution at each task.  It is the occupation-level analogue of
+  the raw Eloundou beta $\beta_x = \int_0^{I^*} a_x(i)\, di$, but
+  properly weighted by revenue shares and by the strength of the
+  supply shock per task.
+\end{remark}
+
+%==================================================
+\section{The Three-Group Prediction, Occupation Edition}
+%==================================================
+
+Proposition~\ref{prop:wage_ratio} partitions occupations into three
+groups based on $D_x$:
+\begin{enumerate}
+  \item \textbf{Unexposed occupations} ($D_x = 0$): all of $x$'s tasks
+    lie above $I^*$.  The wage ratio reduces to $(Y_1/Y_0)^{1/\sigma} > 1$
+    --- a pure output-expansion gain.
+  \item \textbf{Heavily exposed occupations} ($D_x$ large enough that
+    $(Y_1/Y_0)^{1/\sigma}(1-D_x) < 1$): the dilution discount
+    overwhelms the output boost.  These occupations face
+    \emph{wage compression}.
+  \item \textbf{Moderately exposed occupations} ($D_x > 0$ but small
+    enough that $(Y_1/Y_0)^{1/\sigma}(1-D_x) > 1$): the output
+    expansion still dominates.  Workers in these occupations gain
+    despite having some exposed tasks in their bundle.
+\end{enumerate}
+
+\begin{proposition}[Critical Dilution Level]
+\label{prop:cutoff}
+  Let $G \equiv (Y_1/Y_0)^{1/\sigma}$ denote the common output-expansion
+  factor.  There is a critical dilution level
+  \begin{equation}
+    \hat{D} \;=\; 1 - \frac{1}{G}
+    \label{eq:Dhat}
+  \end{equation}
+  such that $w_1(x) \gtreqless w_0(x)$ as $D_x \lessgtr \hat{D}$.
+  Occupations with $D_x < \hat{D}$ gain; occupations with $D_x > \hat{D}$
+  lose.
+\end{proposition}
+
+\begin{proof}
+  $w_1(x)/w_0(x) = G(1 - D_x) = 1$ iff $D_x = 1 - 1/G$.
+\end{proof}
+
+\begin{remark}[Analog to the task-level threshold]
+  In the full-specialization benchmark of \textsc{DMP\_D3}, there was
+  a critical task $\hat{\imath} < I^*$ at which workers were
+  indifferent: workers with $i^* < \hat{\imath}$ lost, workers with
+  $i^* > \hat{\imath}$ gained.  Proposition~\ref{prop:cutoff} is the
+  occupation-level analog: the critical object is now the dilution
+  index $D_x$, which aggregates exposure across the bundle.  Workers
+  at the same task $i$ can belong to different occupations and
+  therefore experience different wage changes --- the task $i$ of
+  \textsc{DMP\_D3} is no longer a sufficient statistic.
+\end{remark}
+
+%==================================================
+\section{Mapping to the Empirical Exposure Measure}
+%==================================================
+
+The empirical exposure measure \parencite{eloundou2024gpts} is an
+average of binary task-level exposure scores, weighted equally across
+tasks within an occupation.  In the notation above, it approximates
+\begin{equation}
+  \beta_x \;=\; \int_0^{I^*} a_x(i)\, di,
+  \label{eq:beta_x}
+\end{equation}
+the share of occupation $x$'s time devoted to tasks below the
+capability frontier.
+
+Comparing $\beta_x$ to the model's $D_x$:
+\begin{enumerate}
+  \item $\beta_x$ uses \emph{time shares} $a_x(i)$;
+    $D_x$ uses \emph{revenue shares} $\omega_x(i)$.  These differ
+    whenever pre-AI task prices $p_0(i)$ differ across tasks within an
+    occupation.
+  \item $\beta_x$ treats every exposed task symmetrically; $D_x$
+    weights each exposed task by its CES-adjusted dilution intensity
+    $1 - (f/(f+s))^{1/\sigma}$, which is larger for tasks where AI
+    supplies a lot relative to human labor.
+\end{enumerate}
+
+Despite these differences, $\beta_x$ and $D_x$ are \emph{ordinally
+correlated} under weak conditions on $a_x$, $p_0$, and $s$: occupations
+with more of their bundle below $I^*$ tend to have larger $D_x$.  This
+justifies using $\beta_x$ as the empirical regressor.
+
+\begin{remark}[What the empirical specification is estimating]
+  A reduced-form DiD regression of $\log w_x$ on $\beta_x \times \mathbf{1}\{t \geq 2022\}$
+  recovers an average effect of pre-AI exposure on post-AI wages.  In
+  the model, this maps onto the slope of the relationship between
+  $\beta_x$ and $\log(1-D_x)$, scaled by the (occupation-invariant)
+  output-expansion factor $G$.  The sign is negative: higher-$\beta_x$
+  occupations have larger $D_x$ and thus lower $w_1(x)/w_0(x)$.
+\end{remark}
+
+%==================================================
+\section{Extensions (Parked)}
+%==================================================
+
+The following extensions are deliberately not developed here, but are
+noted for future reference.
+
+\begin{enumerate}
+  \item \textbf{Endogenous bundles.}  Allowing workers to reallocate
+    time within the bundle (relaxing Assumption~\ref{ass:rigid}(iii))
+    would let them shift away from AI-supplemented tasks toward
+    tasks where they retain comparative advantage.  Under a linear
+    wage structure $w_x = \int a_x(i) p(i) di$, the optimum is a
+    corner solution (full specialization on the highest-priced task);
+    interior solutions require either a Cobb-Douglas bundle constraint
+    or decreasing returns within task.  The exogenous-bundle case is
+    equivalent to a Cobb-Douglas constraint and gives an upper bound
+    on wage compression.
+
+  \item \textbf{Occupation switching.}  Relaxing
+    Assumption~\ref{ass:rigid}(ii) would let workers flee compressed
+    occupations for safer ones.  In the long run, $L_x$ would adjust
+    until expected wages equalize across accessible occupations.  The
+    present short-run model gives an upper bound on cross-occupation
+    wage dispersion.
+
+  \item \textbf{Expertise bundles.}  \textcite{autor2025expertise}
+    argue that tasks within a bundle are complementary (not
+    additively separable as in~\eqref{eq:w0x}), so automating a
+    routine task within a bundle can raise the value of remaining
+    tasks.  Incorporating this would soften the compression result
+    further.
+\end{enumerate}
 
 \end{document}
