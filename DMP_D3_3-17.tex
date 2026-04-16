@@ -65,7 +65,7 @@ Several recent studies have begun to exploit exactly this kind of occupational o
 
 A parallel line of research uses larger datasets that are more representative of the labor force, sacrificing some identification sharpness in exchange for broader coverage. \textcite{brynjolfsson2025canaries}, drawing on ADP payroll records through July 2025, find that employment among early-career workers, narrowly defined as ages 22--25, in highly AI-exposed occupations fell by roughly 13 percent after late 2022, while employment among older workers and those in less exposed occupations was stable or growing; wage effects are limited, suggesting that adjustment has operated more through employment rather than through wages. \textcite{chandar2025tracking}, using monthly CPS data from Q4 2022 through Q1 2025, finds little effect of exposure on aggregate employment or earnings growth. However, within the most AI-exposed quartile of occupations, occupations with higher college shares, such as software development, have continued to grow, while those with lower college shares, such as customer service, have contracted.
 
-\textcolor{red}{THIS PAPER...}
+\textcolor{red}{THIS ESSAY...}
 
 %==================================================
 \section{Toy Model}
@@ -73,11 +73,9 @@ A parallel line of research uses larger datasets that are more representative of
 %==================================================
 There is an established tradition in economics to analyze the labor market through the lens of \emph{tasks} in production. \textcolor{red}{THIS FRAMEWORK WAS WIDELY USED FOR EXPLAINING LABOR MKT CHANGES IN RESP. TO TECH SHCOKS} \textcite{autor2015whyjobs} used this framework to explain why automation has not destroyed jobs: tasks within production are complementary, so automating routine tasks raises the economic importance of the remaining tasks that require judgment or creativity, sustaining demand for the workers who perform them.
 
-Other researchers have applied a similar framework to immigration and offshoring: \textcite{ottaviano2013immigration}, for instance, used a task-based framework to study how the offshoring of certain tasks abroad reallocates work across heterogeneous groups of local workers.
+Other researchers have applied a similar framework to immigration and offshoring: \textcite{ottaviano2013immigration}, for instance, used a task-based framework to study how the offshoring of certain tasks abroad reallocates work across heterogeneous groups of local workers. The toy model below is inspired by this way of thinking. Instead of cheap foreign labor performing routine cognitive tasks, a cheap machine does it. ``Offshoring to GPTopia'', as it were. 
 
-The toy model below is inspired by this way of thinking. Instead of cheap foreign labor performing routine cognitive tasks, a cheap machine does it. ``Offshoring to GPTopia'', as it were.
-
-The framework is deliberately stylized and highly simplified. It is meant to capture the short-run labor market adjustment after the generative AI shock, not the change in long-run general equilibrium. The goal of the model is to isolate two forces: expansion in aggregate output and dilution in task supply, and to provide a conceptual benchmark for interpreting the reduced-form evidence in the following sections.
+The toy model in this essay is deliberately stylized and highly simplified. It is meant to capture the short-run labor market adjustment after the generative AI shock, not the change in long-run general equilibrium. The goal of the model is to isolate two forces: expansion in aggregate output and dilution in task supply, and to provide a conceptual benchmark for interpreting the reduced-form evidence in the following sections.
 
 
 \subsection{Setup}
@@ -200,9 +198,12 @@ $w_0(i^*)=P_Y\bigl(Y_0/f(i^*)\bigr)^{1/\sigma}$ yields
   \underbrace{\left(\frac{f(i^*)}{f(i^*)+s(i^*)}\right)^{\!1/\sigma}}_{\text{supply dilution}}.
   \label{eq:wage_ratio}
 \end{equation}
-Two competing forces govern the wage change.  The first factor exceeds one: AI adds productive capacity, aggregate output $\bar Y$ rises above $Y_0$, and the marginal value of every task goes up with it.  The second factor is at most one: tasks that AI can supply ($i^*<I^*$) see their effective supply $f+s$ rise above $f$, diluting the task price.  For tasks above the capability frontier ($i^*\geq I^*$), $s(i^*)=0$ and only the output-expansion factor applies; for tasks below, whether the net wage change is positive or negative depends on the size of $s/f$ relative to the aggregate output gain.
+Two competing forces govern the wage change.  The first factor exceeds one: AI adds productive capacity, aggregate output $\bar Y$ rises above $Y_0$, and the marginal value of every task goes up with it.  The second factor is at most one: tasks that AI can supply ($i^*<I^*$) see their effective supply $f+s$ rise above $f$, diluting the task price.  For workers specializing in tasks above the capability frontier ($i^*\geq I^*$), $s(i^*)=0$ and only the output-expansion factor applies; for workers specializing in tasks below $I*$, the net effect on their wage is ambiguous: tt depends on the local $s(i^*)/f(i^*)$ ratio as well as the aggregate output gain $\bar Y / Y_0$, which is itself determined by the full profile of AI supply $s(\cdot)$ across all tasks and by the elasticity of substitution between tasks in production ($\sigma$).
 
-Figure~\ref{fig:postai} illustrates these effects.
+
+However, the relative effect is unambiguous. Workers above the capability frontier ($i^* \geq I^*$) receive only the output-expansion gain, while workers below ($i^* < I^*$) receive the same gain net of supply dilution. The gap between exposed and unexposed workers therefore widens, regardless of whether exposed wages fall in absolute terms. This is the prediction that the empirical analysis will test.
+
+Figure~\ref{fig:postai} provides a graphical illustration of these effects.
 
 \begin{figure}[htbp]
   \centering
@@ -214,11 +215,13 @@ Figure~\ref{fig:postai} illustrates these effects.
 \paragraph{Displacement.}
 The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model tractable but does not fully describe the labor market response to the technology shock.  In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so the adjustment shifts from the intensive margin (wages) to the extensive margin (employment).  Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily.  A formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
 
+\textcolor{red}{TASK BUNDLING, as in Autor (2025) Parked for now-- will explain in result sect.}
+
+With the model's prediction in hand, that workers whose tasks are heavily exposed to AI fare worse in relative terms than workers in unexposed occupations, and that displacement is the labor market's likely outlet when wages cannot fall far enough, I turn to empirical testing of the prediction in the following sections.
+
 %==================================================
 \section{Data}
 \label{sec:data}
-
-With the model's prediction in hand --- that workers whose tasks are heavily exposed to AI fare worse in relative terms than workers in unexposed occupations, and that displacement is the labor market's likely outlet when wages cannot fall far enough --- I now turn to the data. The empirical analysis tests this prediction using a nationally representative U.S. survey matched to a task-level measure of occupational AI exposure, over a window that spans both the pre- and post-ChatGPT periods.
 
 \subsection{CPS-ASEC}
 
@@ -277,7 +280,7 @@ worker-level distribution of occupational exposure scores.}
 \end{center}
 \end{figure}
 
-Tables~\ref{tab:top5} and~\ref{tab:bot5} list the five most and five least exposed occupations, drawn directly from \textcite{eloundou2024gpts}.  The high end of the distribution is occupied by occupations whose task content is predominantly cognitive and language-based --- computer programming, legal work, and financial analysis.  The low end consists of occupations whose task content is predominantly manual or physical, such as construction trades, farming, and building maintenance, for which contemporary generative AI provides little direct substitution.  This pattern is consistent with the construction of the exposure measure, which scores tasks on the basis of whether a large language model can reduce task completion time by at least 50 percent at equivalent quality.
+Tables~\ref{tab:top5} and~\ref{tab:bot5} list the five most and five least exposed occupations. The high end of the distribution is occupied by occupations whose task content is predominantly cognitive: computer programming, legal work, and financial analysis.  The low end consists of occupations whose task content is predominantly manual or physical, such as construction trades, farming, and building maintenance, for which contemporary generative AI provides little direct substitution.  This pattern is consistent with the construction of the exposure measure, which scores tasks on the basis of whether a large language model can reduce task completion time by at least 50 percent at equivalent quality.
 
 \begin{table}[htbp]
 \begin{center}
