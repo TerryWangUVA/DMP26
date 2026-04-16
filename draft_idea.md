@@ -91,67 +91,71 @@ Taking the ratio to the pre-AI benchmark $w_0(i^*)=P_Y\bigl(Y_0/f(i^*)\bigr)^{1/
 
 $$\frac{w_1(i^*)}{w_0(i^*)} \;=\; \underbrace{\left(\frac{\bar Y}{Y_0}\right)^{1/\sigma}}_{\text{output expansion}} \cdot \underbrace{\left(\frac{f(i^*)}{f(i^*)+s(i^*)}\right)^{1/\sigma}}_{\text{supply dilution}}.$$
 
-Two competing forces govern the wage change. The first factor exceeds one: AI adds productive capacity, aggregate output $\bar Y$ rises above $Y_0$, and the marginal value of every task goes up with it. The second factor is at most one: tasks that AI can supply ($i^*<I^*$) see their effective supply $f+s$ rise above $f$, diluting the task price. For tasks above the capability frontier ($i^*\geq I^*$), $s(i^*)=0$ and only the output-expansion factor applies; for tasks below, whether the net wage change is positive or negative depends on the size of $s/f$ relative to the aggregate output gain.
+Two competing forces govern the wage change. The first factor exceeds one: AI adds productive capacity, aggregate output $\bar Y$ rises above $Y_0$, and the marginal value of every task goes up with it. The second factor is at most one: tasks that AI can supply ($i^* < I^*$) see their effective supply $f+s$ rise above $f$, diluting the task price. Whether the *net real wage* of any given exposed worker rises or falls depends on the relative strength of these two forces, and is ambiguous in general. 
 
-**Displacement.** The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model tractable but does not fully describe the labor market response to the technology shock. In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so the adjustment shifts from the intensive margin (wages) to the extensive margin (employment). Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily. A formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
+However, the *relative effect* is unambigious. Workers above the capability frontier ($i^* \geq I^*$) receive only the output-expansion gain, while workers below ($i^* < I^*$) receive the same gain net of supply dilution. The gap between exposed and unexposed workers therefore widens, regardless of whether exposed wages fall in absolute terms. This is the prediction that the empirical analysis will test.
+
+ **Additional Remark about Displacement.** The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model tractable but does not fully describe the labor market response to the technology shock. In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so the adjustment shifts from the intensive margin (wages) to the extensive margin (employment). Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily. A formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
+
+ **Additional Remark about Occupation Level Task Bundling.** (parked)
+
+## 3. Data
+
+With the model's prediction in hand — that workers whose tasks are heavily exposed to AI fare worse in relative terms than workers in unexposed occupations, and that displacement is the labor market's likely outlet when wages cannot fall far enough — I now turn to the data. The empirical analysis tests this prediction using a nationally representative U.S. survey matched to a task-level measure of occupational AI exposure, over a window that spans both the pre- and post-ChatGPT periods.
+
+### CPS-ASEC
+
+The primary data source is the Annual Social and Economic Supplement to the Current Population Survey (CPS-ASEC), accessed through IPUMS (Flood et al., 2025). The CPS-ASEC is a nationally representative annual survey that captures labor-force status, occupation, wage income, and detailed demographic characteristics for approximately 100,000 households per year. I use eight survey waves covering income reference years 2018–2025, spanning both the pre- and post-ChatGPT periods.
+
+I restrict the sample to respondents aged 22–65 who are active in the labor force — either employed or actively seeking work. Workers with less than a high school diploma are excluded. After merging with the AI exposure variable and dropping observations with missing values, the main estimation sample contains 500,669 person-year observations.
+
+**Unemployment.** The unemployment indicator equals one if a respondent is classified as unemployed by the CPS — not working but actively searching for work (CPS `empstat` codes 21 and 22) — and zero otherwise. The sample mean is 3.4%, roughly consistent with official U.S. unemployment statistics over this period.
+
+**Wages.** For the wage analysis, I use annual real wage and salary income (`incwage`), deflated to 1982 dollars using the annual average CPI-U from FRED. The outcome variable is the natural log of real wages. Observations with zero or missing wage income are excluded from the wage sample (workers who are unemployed or out of the labor force for wage purposes), yielding 464,300 observations.
+
+**Potential experience.** For the experience heterogeneity specification, I impute potential labor-market experience as $\max(\text{age} - \text{years of schooling} - 6,\, 0)$, with years of schooling assigned from the CPS education recode.
+
+### AI Exposure
+
+The AI exposure variable is drawn from Eloundou et al. (2024), which constructs occupation-level LLM exposure scores from the O\*NET 27.2 database. O\*NET provides two complementary task-level resources: 19,265 *occupational tasks* (occupation-specific units of work tied to a particular occupation) and 2,087 *Detailed Work Activities* (DWAs) — broader action categories that may be associated with one or more tasks across occupations.
+
+**Exposure rubric.** Annotators assess each task or DWA on a three-category rubric, asking whether access to an LLM could reduce the time required to complete it by at least 50% at equivalent quality:
+
+- **E0** (no exposure): the LLM yields no meaningful time reduction, or degrades output quality.
+- **E1** (direct exposure): a standard LLM interface — ChatGPT or the OpenAI Playground — reduces task time by at least 50% on its own.
+- **E2** (LLM-augmented exposure): the LLM alone cannot meet the threshold, but software built *on top of* the LLM could do so.
+
+Where DWA labels are available, they are first aggregated to the task level before proceeding to the occupation level.
+
+**Occupation-level aggregation.** For each occupation, O\*NET designates each task as *core* (weight $w_t = 2$) or *supplemental* (weight $w_t = 1$). Three summary measures vary how E1 and E2 tasks are scored:
+
+$$\text{Occupation Score} = \frac{\sum_{t \in T_o} w_t \cdot s_t}{\sum_{t \in T_o} w_t},$$
+
+where $s_t = 1$ for E1 tasks, $s_t = 0.5$ for E2 tasks, and $s_t = 0$ for E0 tasks. The *alpha* score ($\alpha_o$) sets $s_t = 0$ for all E2 tasks, counting only direct LLM exposure. The *zeta* score ($\zeta_o$) sets $s_t = 1$ for E2 tasks, providing an upper bound. $\beta_o$ is the weighted middle ground: E2 tasks are discounted by half, reflecting the additional efforts required to build and deploy LLM-powered software on top of the base model.
+
+**Annotators.** Eloundou et al. (2024) collect two independent sets of annotations. *Human ratings* — produced by the authors and experienced alignment annotators — are the primary benchmark; they were applied to DWAs and aggregated to the task level. *GPT-4 ratings* were obtained by prompting an early GPT-4 version directly on all task/occupation pairs, serving as a validation dataset. The two sources are highly correlated at the occupation level.
+
+I use `dv_rating_beta`: the *GPT-4-annotated* $\beta$ score. Applying a single model uniformly across all task/occupation pairs ensures internal consistency. The cost is potential overconfidence in GPT-4's assessment of its own capabilities. $\beta$ is preferred to $\alpha$ (which ignores the ecosystem of LLM-powered tools already deployed or in development at the time of study) and $\zeta$ (which assumes a hypothetically well-developed AI infrastructure). $\beta$ is therefore the most economically meaningful measure for the post-ChatGPT period.
+
+The variable ranges from approximately 0 (low exposure, e.g., Construction and Extraction) to 0.78 (high exposure, e.g., Computer and Mathematical, Legal, Business and Financial Operations), with a sample standard deviation of roughly 0.17. Because $\beta_o \in [0,1]$, all regression coefficients are interpreted per 0.1-unit increase throughout. The variable is time-invariant and assigned at the occupational level.
+
+Because CPS-ASEC codes occupations using a Census-based scheme which is distinct from the SOC occupation codes used by Eloundou et al. (2024), I construct a hierarchical crosswalk: from Census 2010 occupation codes to 6-digit 2010 SOC codes, then from 2010 SOC to 2018 SOC using the BLS official crosswalk. Where exact 6-digit matches are unavailable, exposure scores are aggregated at the 5-digit and 4-digit SOC levels, taking group means. This procedure retains nearly all observations in the sample.
+
+### Descriptive Statistics
+
+
+
+Figure [FIG:KDENSITY_OVERALL] plots the kernel density of the AI exposure score $\beta_o$ across workers in the main sample. The distribution is concentrated in the low-to-moderate range with a long right tail; the tail corresponds primarily to occupations with high cognitive-task content.
+
+Tables [TAB:TOP5] and [TAB:BOT5] list the five most and five least exposed occupations. The high end of the distribution is occupied by occupations whose task content is predominantly cognitive and language-based — computer programming, legal work, and financial analysis. The low end consists of occupations whose task content is predominantly manual or physical, such as construction trades, farming, and building maintenance, for which contemporary generative AI provides little direct substitution. This pattern is consistent with the construction of the exposure measure, which scores tasks on the basis of whether a large language model can reduce task completion time.
+
+Figure [FIG:KDENSITY_EDUC] overlays the exposure distributions for college-educated and non-college workers in the sample. College-educated workers are more exposed to generative AI on average, reflecting their historical sorting into occupations with higher cognitive-task content (Autor and Handel, 2013). Nevertheless, the two distributions nevertheless overlap substantially --- many non-college workers hold jobs with high $\beta_o$, and many college workers hold jobs with low $\beta_o$ --- so the college/non-college split is a weak signal of exposure.
+
+Table [TAB:OCC_GROUP] ranks all 22 major CPS occupation groups by mean $\beta_o$ and reports the share of college-educated workers in each group. Mean exposure and college share are not tightly coupled at the group level: occupation groups with comparable mean exposure differ substantially in their college share. This has implications for the heterogeneity analysis in Section [SEC:RESULTS], where outcomes are compared between college and non-college workers within the distribution of occupational exposure. Because college vs. non-college is not a simple reparameterization of high vs. low exposure, differences in outcomes by education within a given exposure level cannot be attributed to differences in mean exposure alone and plausibly reflect differences in within-occupation task composition.
+
+<!-- USER: you left the fourth bullet with "reason being quite simple" unfinished. I took the reason to be: within an exposure band, the college vs. non-college split picks up bundle-composition differences (task depth within the occupation) rather than level-of-exposure differences. That framing is in the paragraph above; tell me if you had a different reason in mind. -->
+
+<!-- Full figures and tables (overall kdensity, top-5/bottom-5 exposed occupations, education-split kdensity, occupation-group ranking) live in DMP_D3_3-17.tex. -->
 
 ---
 
-## 3. Early Empirics
-
-With this prediction in hand --- that AI-exposed workers should fare worse after 2022 --- what does the early evidence show?
-
-Valid empirical evidence on the labor market effects of generative AI was rare when this project began. The landscape has since grown rapidly, but because generative AI has only been widely available since late 2022, large-scale empirical projects measuring its impact remain limited. The work most relevant to this paper falls into a few categories.
-
-**Firm-level evidence on seniority bias.** Hosseini and Lichtinger (2025) combine LinkedIn resume data covering 62 million workers across 285,000 firms with nearly 200 million job postings. They identify firms that adopted generative AI by detecting "GenAI integrator" job postings --- roles responsible for implementing AI tools. Using a difference-in-differences framework, they find that after ChatGPT's release, junior employment in adopting firms declined by roughly 9--10%, while senior employment remained stable. The effects are concentrated in high-exposure occupations and driven by slower hiring rather than increased separations. A potential concern: firms that publicly hire for AI integration roles may not be representative of the broader labor market.
-
-**Online freelance platforms.** Hui, Reshef, and Zhou (2024) take a different route to a selective sample, scraping the full employment histories of freelancers on Upwork, a large online labor platform where workers are hired on a per-project basis for tasks such as writing, design, and software development, and running a difference-in-differences design that treats writing-related occupations as exposed to ChatGPT (November 2022) and design/image occupations as exposed to DALL-E 2 and Midjourney (April 2022). They find that treated freelancers saw a 2% decline in monthly jobs and a 5% decline in monthly earnings, with the image-AI release producing comparable magnitudes in design occupations. Strikingly, freelancer quality --- measured by past earnings, hourly rates, and skill level of prior jobs --- does not shield workers from the shock, suggesting that generative AI substitutes for knowledge work across the quality distribution rather than displacing only the lowest-skill routine workers. The limitation mirrors the LinkedIn evidence: online freelance markets are a selected slice of the labor market and may respond more sharply than the economy-wide population of workers in the same occupations.
-
-**Administrative payroll data.** Brynjolfsson, Li, and Raymond (2025) --- "Canaries in the Coal Mine" --- use ADP payroll records covering millions of U.S. workers through July 2025. They find that employment among early-career workers (ages 22--25) in highly AI-exposed occupations declined by roughly 13% since late 2022, even after controlling for firm-level shocks. Older workers and those in less exposed occupations remained stable or grew. They find limited wage effects, suggesting that adjustment occurs primarily through employment quantities rather than prices --- firms stop hiring rather than cut pay.
-
-**CPS-based evidence.** Chandar (2025) uses monthly CPS data from Q4 2022 to Q1 2025 and finds that, on aggregate, occupations most exposed to AI show no substantial difference in employment or earnings growth compared to the least exposed. But this aggregate null masks important heterogeneity. Within the most exposed quartile, occupations with a higher share of college-educated workers --- such as software development --- experienced robust employment growth, while those with a lower college share --- such as customer service --- saw declines. This paper is particularly relevant because it uses the same data source (CPS) and the same exposure measure (Eloundou et al. 2024) as the present study, and its finding that education moderates the effect of AI exposure is directly related to the heterogeneity analysis in Section 6.
-
-**What this paper adds.** The existing empirical work uses either firm-level data (Hosseini and Lichtinger), administrative payroll data (Brynjolfsson et al.), or monthly CPS without a formal identification strategy (Chandar). This paper uses the CPS-ASEC --- a nationally representative annual survey covering 500,000+ observations across eight years --- and applies a continuous-exposure event-study difference-in-differences design with pre-trend validation. The contribution is not methodological novelty but the combination: a standard, transparent approach applied to a nationally representative dataset over a longer time horizon that spans both the pre- and post-ChatGPT periods.
-
-<!-- NOTE on contribution framing: not claiming novel contribution to literature, just that this combination hasn't been done. Reframe positively: "This paper contributes a nationally representative event-study analysis that complements the existing firm-level and administrative evidence." -->
-
----
-
-## 4. Measuring AI Exposure
-
-The empirical strategy requires a measure of how exposed each occupation is to generative AI. This paper uses the Eloundou et al. (2024) GPT-4 beta score. A separate literature has attempted to quantify occupational AI exposure; the approaches fall into two broad categories.
-
-**Projected exposure (annotator-based).** These measures predict what AI *could* do based on expert or model assessment of task descriptions.
-
-Felten, Raj, and Seamans (2018, 2021) introduced the earliest systematic approach, linking progress in AI subfields to human abilities defined in O\*NET. Their AI Occupational Exposure (AIOE) index uses Mechanical Turk surveys to map ten AI applications to 52 O\*NET abilities, then aggregates ability-level scores (weighted by importance and prevalence) to occupations, industries, and geographies. This was a pioneering effort, but the AI landscape has changed dramatically since the original index was constructed.
-
-Webb (2020) took a different approach, matching verb-noun pairs from patent text to O\*NET task descriptions via textual similarity. This identified high-skill cognitive tasks --- judgment, analysis --- as most AI-exposed, contrasting with robotics' focus on routine manual work.
-
-Eloundou et al. (2024) --- the measure this paper uses --- had GPT-4 and human annotators classify each O\*NET task on whether an LLM could reduce completion time by at least 50% at equivalent quality. The resulting beta score aggregates task-level ratings to occupations, producing a continuous exposure index that ranges from near-zero (construction, farming) to roughly 0.78 (computer and mathematical, legal occupations). This is the most widely used LLM-specific exposure measure and has the clearest mapping to the O\*NET task structure.
-
-All of the above are *projections* --- predictions of technical feasibility rather than measures of actual adoption. They rely on annotator judgment or model self-assessment rather than observed behavior.
-
-**Revealed usage (behavior-based).** The Anthropic Economic Index (Handa et al. 2025) takes a fundamentally different approach: analyzing over four million anonymized Claude conversations and mapping them to O\*NET tasks and occupations. This measures what AI *is* doing --- actual penetration across the task distribution. Their headline finding: roughly 57% of interactions suggest augmentation, 43% suggest automation. AI use is concentrated in software development and writing, with roughly 36% of occupations using AI for at least a quarter of their tasks. This represents the most current measure of AI exposure, incorporating observed behavior rather than expert annotation. This paper predates the Anthropic release and uses the Eloundou projected measure; incorporating revealed-usage data is a natural direction for future work.
-
-None of these measures perfectly captures "AI exposure." But good enough is good enough. The Eloundou beta score is the most widely used, has the clearest mapping to the O\*NET task structure, and is available for the full set of occupations in my sample.
-
----
-
-<!-- STOP HERE. Data, Empirical Strategy, Results, Limitations, and Conclusion to be written separately. -->
-<!-- Data and Empirical Strategy sections already exist in DMP_D3_3-17.tex. -->
-<!-- Results text already exists in D3. -->
-<!-- Limitations content exists in presentationv3 and brainstorming notes. -->
-
----
-
-## Transition notes (internal, not for thesis):
-
-1. **Intro/Background -> Model**: the offshoring analogy ("offshoring to GPTopia") bridges the lit review into the model section naturally. The model is framed as "same framework, new shock."
-
-2. **Model -> Early Empirics**: the three-group prediction provides the transition: "with this prediction in hand, what does the evidence show?"
-
-3. **Early Empirics -> Measures**: the empirics section discusses what the evidence finds; the measures section discusses *how exposure is measured* --- the input to both the existing literature and this paper's empirical strategy.
-
-4. **Measures -> Data**: natural transition from "what measure do we use" to "what data do we apply it to."
-
-5. **Chandar (2025) and the Het analysis**: Chandar's finding that college share moderates the effect within high-exposure occupations directly motivates the education heterogeneity analysis. This should be referenced again when presenting the Het results.
