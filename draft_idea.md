@@ -167,6 +167,11 @@ ideas about emp strat sect
 2) year x exposure score is also objectively better than simple DiD where it is exposure x post -- because:
 
     i)  yearly interaction terms accounts for the changes in AI improvements post 2022 (perhaps a timeline for major model releases post 2022 is ok?)
-    ii) not everyone starts using genAI once it is released
+    ii) not everyone starts using genAI once it is released. Diffusion takes time - so examining multiple post- periods perhaps is more superior
+
+    iii) any idea?
+
+
+
 
 
