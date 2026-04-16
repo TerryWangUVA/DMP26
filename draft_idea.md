@@ -157,21 +157,37 @@ As a final descriptive look at the data, Figure [FIG:UNEMP_QUARTILE_POST2022] pl
 
 ---
 
-ideas about emp strat sect
+## 4. Empirical Strategy
 
-1. do I need to cite anything about this event study design?
+### Main Specification
 
-2. additional justification for the event study needed perhaps. 
-1) this type of event study design is objectively better than a pre & post analysis, for obvious reason... (maybe too obvious that I don't even need to include)
+The empirical strategy is continuous-treatment difference-in-differences, inspired by Callaway, Goodman-Bacon, and Sant'Anna (2024). The estimating equation is
 
-2) year x exposure score is also objectively better than simple DiD where it is exposure x post -- because:
+$$Y_{it} = \alpha + \sum_{t \neq 2022} \beta_t \cdot \mathbf{1}[t] \cdot \text{AIExposure}_i + \phi \cdot \text{AIExposure}_i + \psi_t + X_{it}'\Gamma + \varepsilon_{it},$$
 
-    i)  yearly interaction terms accounts for the changes in AI improvements post 2022 (perhaps a timeline for major model releases post 2022 is ok?)
-    ii) not everyone starts using genAI once it is released. Diffusion takes time - so examining multiple post- periods perhaps is more superior
+where $Y_{it}$ is either the unemployment indicator or log real wages for worker $i$ in year $t$; $\text{AIExposure}_i$ is the (time-invariant) occupational exposure score $\beta_o$; $\psi_t$ are year fixed effects; $X_{it}$ collects demographic and region-time controls; and year 2022 is the omitted category. The coefficients $\{\hat\beta_t\}$ trace, year by year, the differential outcome between more- and less-exposed workers relative to the 2022 baseline. Standard errors are clustered at the occupation level.
 
-    iii) any idea?
+Four progressively stricter specifications are estimated: (1) no additional controls, (2) sex fixed effects, (3) sex and education fixed effects, and (4) sex, education, and state $\times$ year two-way fixed effects. Specification (4) is the preferred specification; it absorbs state-specific time shocks that would otherwise confound comparisons across occupations with different geographic concentrations.
 
 
 
+The coefficient $\hat\beta_t$ is interpreted as the per-unit marginal effect of AI exposure on the outcome in year $t$, relative to the 2022 baseline. Callaway et al. (2024) show that under the continuous-treatment two-way fixed effects specification, this coefficient is a weighted average of the underlying per-exposure effects, with weights that need not reflect the population exposure distribution. I flag this as a limitation of the headline specification; robustness analysis with binned exposure measures is left to future work.
 
+
+
+I prefer this event-study specification to a simple Treatment $\times$ Post specification for two reasons. First, generative AI capability improved substantially across the post-ChatGPT window. Second, workplace adoption of generative AI tools rose gradually rather than at once: Bick, Blandin, and Deming (2024) document that the share of U.S. workers using generative AI climbed from near-zero at the end of 2022 to roughly one-third by late 2024. Taken together, these features imply treatment effect heterogeneity over time: the per-period effect at $T+1$ is unlikely to equal the effect at $T+3$. A Treatment $\times$ Post specification would fail to capture this time-variation, while the year-by-year coefficients $\{\hat\beta_t\}$ preserve it.
+
+### Heterogeneity: Experience and Education
+
+**Experience.** The experience heterogeneity analysis is inspired by Hosseini and Lichtinger (2025) and Brynjolfsson, Chandar, and Chen (2025), both of whom find that generative AI acts as a seniority-biased technological change. Each paper, however, looks at a limited slice of the labor market: Hosseini and Lichtinger draw on a selective sample of firms that publicly hired for "GenAI integrator" roles, and Brynjolfsson et al. identify the effect on a narrowly defined 22--25 age band. I test whether the same seniority gradient appears in a nationally representative sample using a continuous measure of labor-market experience. The specification supplements the main equation with a triple interaction:
+
+$$Y_{it} = \alpha + \sum_{t \neq 2022} \delta_t \left( \mathbf{1}[t] \times \text{Experience}_i \times \text{AIExposure}_i \right) + \text{lower-order terms} + X_{it}'\Gamma + \varepsilon_{it}.$$
+
+The sign of post-2022 $\delta_t$ is interpreted with respect to the outcome: more-experienced workers are relatively shielded from AI shock if $\delta_t > 0$ for log wages and when $\delta_t < 0$ for unemployment.
+
+**Education.** The education heterogeneity analysis is motivated by the descriptive patterns documented in Section 3. Because $\beta_o$ is assigned at the occupation level, and because college share varies within narrow ranges of $\beta_o$, college and non-college workers with similar measured exposure are sorting into different occupations. The college / non-college split is therefore not a proxy for the exposure split, and differences in outcomes between the two groups reflect occupational sorting by education as much as any direct effect of exposure per se. To isolate this dimension I divide the sample into *college-educated* workers (BA or above, educ $>$ 110) and *non-college* workers (high school or some college, educ $\leq$ 110) and estimate the main specification separately within each group:
+
+$$Y_{it}^{\,g} = \alpha^g + \sum_{t \neq 2022} \beta_t^g \left( \mathbf{1}[t] \times \text{AIExposure}_i \right) + \text{lower-order terms} + X_{it}'\Gamma^g + \varepsilon_{it}^g, \quad g \in \{\text{college},\;\text{non-college}\}.$$
+
+Each subsample has its own baseline, trend, and exposure gradient, and the two coefficient paths $\{\hat\beta_t^{\text{col}}\}$ and $\{\hat\beta_t^{\text{noncol}}\}$ can be compared directly.
 
