@@ -336,6 +336,83 @@ restore
 
 
 **************************************************
+**# 3a-bis. Time-series: log real wage by exposure quartile
+**************************************************
+
+use `analysis', clear
+
+* Create exposure quartile groups
+xtile beta_q = dv_rating_beta, nquantiles(4)
+
+label define beta_q_lbl 1 "Q1 (lowest)" 2 "Q2" 3 "Q3" 4 "Q4 (highest)"
+label values beta_q beta_q_lbl
+
+
+*--- Post-2022 version (main) ---
+
+preserve
+	keep if year >= 2022
+	keep if !missing(lnwage)
+
+	collapse (mean) mean_lnwage = lnwage, by(year beta_q)
+
+	twoway ///
+		(connected mean_lnwage year if beta_q == 1, ///
+			lcolor(navy*0.4) mcolor(navy*0.4) msymbol(O) lwidth(medium)) ///
+		(connected mean_lnwage year if beta_q == 2, ///
+			lcolor(navy*0.7) mcolor(navy*0.7) msymbol(D) lwidth(medium)) ///
+		(connected mean_lnwage year if beta_q == 3, ///
+			lcolor(maroon*0.7) mcolor(maroon*0.7) msymbol(T) lwidth(medium)) ///
+		(connected mean_lnwage year if beta_q == 4, ///
+			lcolor(maroon) mcolor(maroon) msymbol(S) lwidth(medium)), ///
+		xlabel(2022(1)2025) ///
+		xtitle("Year") ///
+		ytitle("Mean Log Real Wage") ///
+		title("Log Real Wage by AI Exposure Quartile (Post-2022)") ///
+		legend(order(1 "Q1 (lowest)" 2 "Q2" 3 "Q3" 4 "Q4 (highest)") ///
+			rows(1) position(6) region(lstyle(none))) ///
+		graphregion(color(white)) ///
+		plotregion(color(white)) ///
+		name(lw_ts_post, replace)
+
+	graph export "$graphs/descriptives/logwage_by_quartile_post2022.pdf", replace
+restore
+
+
+// --- All-years version ---
+
+preserve
+	keep if !missing(lnwage)
+
+	collapse (mean) mean_lnwage = lnwage, by(year beta_q)
+
+	twoway ///
+		(connected mean_lnwage year if beta_q == 1, ///
+			lcolor(navy*0.4) mcolor(navy*0.4) msymbol(O) lwidth(medium)) ///
+		(connected mean_lnwage year if beta_q == 2, ///
+			lcolor(navy*0.7) mcolor(navy*0.7) msymbol(D) lwidth(medium)) ///
+		(connected mean_lnwage year if beta_q == 3, ///
+			lcolor(maroon*0.7) mcolor(maroon*0.7) msymbol(T) lwidth(medium)) ///
+		(connected mean_lnwage year if beta_q == 4, ///
+			lcolor(maroon) mcolor(maroon) msymbol(S) lwidth(medium)), ///
+		xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+		xlabel(2018(1)2025) ///
+		xtitle("Year") ///
+		ytitle("Mean Log Real Wage") ///
+		title("Log Real Wage by AI Exposure Quartile (2018-2025)") ///
+		legend(order(1 "Q1 (lowest)" 2 "Q2" 3 "Q3" 4 "Q4 (highest)") ///
+			rows(1) position(6) region(lstyle(none))) ///
+		graphregion(color(white)) ///
+		plotregion(color(white)) ///
+		name(lw_ts_all, replace)
+
+	graph export "$graphs/descriptives/logwage_by_quartile_allyears.pdf", replace
+restore
+
+
+
+
+**************************************************
 **# 3b. Summary statistics table by exposure quartile
 **************************************************
 

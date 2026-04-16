@@ -149,13 +149,24 @@ Figure [FIG:KDENSITY_OVERALL] plots the kernel density of the AI exposure score 
 
 Tables [TAB:TOP5] and [TAB:BOT5] list the five most and five least exposed occupations. The high end of the distribution is occupied by occupations whose task content is predominantly cognitive and language-based — computer programming, legal work, and financial analysis. The low end consists of occupations whose task content is predominantly manual or physical, such as construction trades, farming, and building maintenance, for which contemporary generative AI provides little direct substitution. This pattern is consistent with the construction of the exposure measure, which scores tasks on the basis of whether a large language model can reduce task completion time.
 
-Figure [FIG:KDENSITY_EDUC] overlays the exposure distributions for college-educated and non-college workers in the sample. College-educated workers are more exposed to generative AI on average, reflecting their historical sorting into occupations with higher cognitive-task content (Autor and Handel, 2013). Nevertheless, the two distributions nevertheless overlap substantially --- many non-college workers hold jobs with high $\beta_o$, and many college workers hold jobs with low $\beta_o$ --- so the college/non-college split is a weak signal of exposure.
+Figure [FIG:KDENSITY_EDUC] overlays the exposure distributions for college-educated and non-college workers in the sample. College-educated workers are more exposed to generative AI on average, reflecting their historical sorting into occupations with higher cognitive-task content (Autor and Handel, 2013). Nevertheless, the two distributions nevertheless overlap substantially: many non-college workers hold jobs with high $\beta_o$, and many college workers hold jobs with low $\beta_o$ --- so the college/non-college split is at best a modest signal for generative AI exposure. 
 
 Table [TAB:OCC_GROUP] ranks all 22 major CPS occupation groups by mean $\beta_o$ and reports the share of college-educated workers in each group. Mean exposure and college share are not tightly coupled at the group level: occupation groups with comparable mean exposure differ substantially in their college share. This has implications for the heterogeneity analysis in Section [SEC:RESULTS], where outcomes are compared between college and non-college workers within the distribution of occupational exposure. Because college vs. non-college is not a simple reparameterization of high vs. low exposure, differences in outcomes by education within a given exposure level cannot be attributed to differences in mean exposure alone and plausibly reflect differences in within-occupation task composition.
 
-<!-- USER: you left the fourth bullet with "reason being quite simple" unfinished. I took the reason to be: within an exposure band, the college vs. non-college split picks up bundle-composition differences (task depth within the occupation) rather than level-of-exposure differences. That framing is in the paragraph above; tell me if you had a different reason in mind. -->
-
-<!-- Full figures and tables (overall kdensity, top-5/bottom-5 exposed occupations, education-split kdensity, occupation-group ranking) live in DMP_D3_3-17.tex. -->
+As a final descriptive look at the data, Figure [FIG:UNEMP_QUARTILE_POST2022] plots the annual unemployment rate within each quartile of the worker-level $\beta_o$ distribution over 2022--2025. The top quartile diverges from the rest after ChatGPT's release, with unemployment rising in the most exposed occupations while remaining roughly flat in the least exposed. This pattern is suggestive at best. Establishing whether the divergence survives controls, pre-trend validation, and alternative specifications is the task of the next section.
 
 ---
+
+ideas about emp strat sect
+
+1. do I need to cite anything about this event study design?
+
+2. additional justification for the event study needed perhaps. 
+1) this type of event study design is objectively better than a pre & post analysis, for obvious reason... (maybe too obvious that I don't even need to include)
+
+2) year x exposure score is also objectively better than simple DiD where it is exposure x post -- because:
+
+    i)  yearly interaction terms accounts for the changes in AI improvements post 2022 (perhaps a timeline for major model releases post 2022 is ok?)
+    ii) not everyone starts using genAI once it is released
+
 

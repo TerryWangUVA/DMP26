@@ -321,6 +321,16 @@ AI exposure ($\beta_o$), with share of college-educated workers.}
 \end{center}
 \end{table}
 
+As a final descriptive look at the data, Figure~\ref{fig:unemp_quartile_post2022} plots the annual unemployment rate within each quartile of the worker-level $\beta_o$ distribution over 2022--2025.  The top quartile diverges from the rest after ChatGPT's release, with unemployment rising in the most exposed occupations while remaining roughly flat in the least exposed.  This pattern is suggestive at best.  Establishing whether the divergence survives controls, pre-trend validation, and alternative specifications is the task of the next section.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{output/graphs/descriptives/unemp_by_quartile_post2022.pdf}
+\caption{Annual unemployment rate by AI exposure quartile, 2022--2025.  Quartile 1 contains workers in the least exposed occupations (worker-level $\beta_o$ in the bottom 25\%); Quartile 4 contains the most exposed.  Each point is the mean unemployment indicator within the quartile-year cell.}
+\label{fig:unemp_quartile_post2022}
+\end{center}
+\end{figure}
+
 %==================================================
 \section{Empirical Strategy}
 \label{sec:strategy}
