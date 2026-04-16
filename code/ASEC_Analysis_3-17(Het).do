@@ -470,7 +470,7 @@ foreach grp in col noncol {
 		using "$tables/logwage_tableA_`grp'.tex", replace ///
 		cells(b(star fmt(a3)) se(fmt(a3) par)) ///
 		style(tex) se starlevels(* 0.10 ** 0.05 *** 0.01) ///
-		keep(`keepA') ///
+		keep(*year#c.dv_rating_beta*) nobaselevels ///
 		varlabels( ///
 			2018.year#c.dv_rating_beta "2018 $\times$ AI exposure" ///
 			2019.year#c.dv_rating_beta "2019 $\times$ AI exposure" ///
@@ -510,7 +510,7 @@ foreach grp in col noncol {
 		using "$tables/logwage_tableB_`grp'.tex", replace ///
 		cells(b(star fmt(a3)) se(fmt(a3) par)) ///
 		style(tex) se starlevels(* 0.10 ** 0.05 *** 0.01) ///
-		keep(`keepB') ///
+		keep(*year#c.exp#c.dv_rating_beta*) nobaselevels ///
 		varlabels( ///
 			2018.year#c.exp#c.dv_rating_beta "2018 $\times$ Experience $\times$ AI exposure" ///
 			2019.year#c.exp#c.dv_rating_beta "2019 $\times$ Experience $\times$ AI exposure" ///
@@ -550,7 +550,7 @@ foreach grp in col noncol {
 		using "$tables/unemp_tableA_`grp'.tex", replace ///
 		cells(b(star fmt(a3)) se(fmt(a3) par)) ///
 		style(tex) se starlevels(* 0.10 ** 0.05 *** 0.01) ///
-		keep(`keepA') ///
+		keep(*year#c.dv_rating_beta*) nobaselevels ///
 		varlabels( ///
 			2018.year#c.dv_rating_beta "2018 $\times$ AI exposure" ///
 			2019.year#c.dv_rating_beta "2019 $\times$ AI exposure" ///
@@ -590,7 +590,7 @@ foreach grp in col noncol {
 		using "$tables/unemp_tableB_`grp'.tex", replace ///
 		cells(b(star fmt(a3)) se(fmt(a3) par)) ///
 		style(tex) se starlevels(* 0.10 ** 0.05 *** 0.01) ///
-		keep(`keepB') ///
+		keep(*year#c.exp#c.dv_rating_beta*) nobaselevels ///
 		varlabels( ///
 			2018.year#c.exp#c.dv_rating_beta "2018 $\times$ Experience $\times$ AI exposure" ///
 			2019.year#c.exp#c.dv_rating_beta "2019 $\times$ Experience $\times$ AI exposure" ///
