@@ -73,26 +73,16 @@ A parallel line of research uses larger datasets that are more representative of
 %==================================================
 There is an established tradition in economics to analyze the labor market through the lens of \emph{tasks} in production. \textcite{autor2015whyjobs} used this framework to explain why automation has not destroyed jobs: tasks within production are complementary, so automating routine tasks raises the economic importance of the remaining tasks that require judgment or creativity, sustaining demand for the workers who perform them.
 
-\textcolor{red}{DO I NEED TO PUT AUTOR (2003) IN???}
-
 Other researchers have applied a similar framework to offshoring: \textcite{ottaviano2013immigration}, for instance, used the task-based framework to study how the relocation of tasks abroad reallocates work across heterogeneous groups of workers.
-
-
-\iffalse
-The toy model below is inspired by this way of thinking. Instead of firms offshoring foreign labor performing tasks, a cheap machine does it --- offshoring to GPTopia, as it were. AI enters as a supply shock to a subset of tasks, the effects propagate through production complementarities, and the distributional consequences depend on where different workers sit in the task distribution.
-\fi
-
 
 The toy model below is inspired by this way of thinking. Instead of cheap foreign labor performing routine cognitive tasks, a cheap machine does it. ``Offshoring to GPTopia'', as it were.
 
-The framework is deliberately stylized and highly simplified. Its purpose is not to capture every margin of adjustment, but to isolate two forces, namely output expansion and supply dilution, and provide a simple conceptual benchmark for interpreting the reduced-form evidence in the following sections.
+The framework is deliberately stylized and highly simplified. It is meant to capture the short-run labor market adjustment after the generative AI shock, not the change in long-run general equilibrium. The goal of the model is to isolate two forces: expansion in aggregate output and dilution in task supply, and to provide a conceptual benchmark for interpreting the reduced-form evidence in the following sections.
 
 
 \subsection{Setup}
 
-Production requires a continuum of tasks indexed $i \in [0,1]$,
-ordered by susceptibility to AI. Tasks at the low end are routine cognitive tasks easily replicated by large language models; tasks at the high end require human expertise that AI currently struggles to replicate.
-
+Production requires a continuum of tasks indexed $i \in [0,1]$, ordered by susceptibility to AI. Tasks at the low end are routine cognitive tasks easily replicated by large language models (e.g., drafting emails); tasks at the high end require human expertise that AI currently struggles to replicate (e.g., negotiating complex contracts).
 
 Final output $Y$ aggregates tasks via a CES technology:
 \begin{equation}
@@ -115,7 +105,7 @@ can theoretically be supplied by AI, with the contribution strictly decreasing i
 task complexity; tasks at or above $I^*$ remain beyond AI's reach.  As AI
 improves, $I^*$ shifts rightward and $s$ may increase throughout its support.
 
-\begin{assumption}[Small Open Economy]
+\begin{assumption}[Fixed Output Price]
   The output price $P_Y$ is exogenous and fixed.
 \end{assumption}
 
@@ -135,9 +125,6 @@ improves, $I^*$ shifts rightward and $s$ may increase throughout its support.
 \noindent Competitive firms take $P_Y$ and task prices $\{p_0(i)\}$ as given and minimize the
 cost of producing $Y$ subject to~\eqref{eq:ces}.  The equilibrium task prices and wages are derived
 in Appendix~\ref{app:foc}.
-
-
-
 
 
 
@@ -197,90 +184,23 @@ and by the same cost-minimization logic as before
 
 
 \paragraph{Post-AI wages.}
-Since $w_1(i^*)=p_1(i^*)$, the post-AI wage is read directly from
+Since $w_1(i^*)=p_1(i^*)$, the post-AI wage is derived directly from
 \eqref{eq:taskprice_postai}:
 \begin{equation}
   w_1(i^*) \;=\; P_Y\!\left(\frac{\bar Y}{f(i^*)+s(i^*)}\right)^{\!1/\sigma}.
   \label{eq:wage_postai}
 \end{equation}
-The wage change relative to the pre-AI benchmark
-$w_0(i^*)=P_Y\bigl(Y_0/f(i^*)\bigr)^{1/\sigma}$ is governed by
-two competing movements: the numerator has grown ($\bar Y>Y_0$)
-because AI adds productive capacity, while the denominator has grown
-($f+s>f$) for tasks AI can supply.  The interaction of these two
-forces partitions workers into three groups, examined in turn below.
-
-\paragraph{Group 1: Workers above the frontier ($i^*\geq I^*$).}
-For these workers $s(i^*)=0$, so the denominator is unchanged.
-The wage ratio simplifies to
+Taking the ratio to the pre-AI benchmark
+$w_0(i^*)=P_Y\bigl(Y_0/f(i^*)\bigr)^{1/\sigma}$ yields
 \begin{equation}
   \frac{w_1(i^*)}{w_0(i^*)}
   \;=\;
-  \left(\frac{\bar Y}{Y_0}\right)^{\!1/\sigma}
-  \;>\; 1.
-  \label{eq:above_frontier}
-\end{equation}
-These workers \emph{unambiguously benefit}: the economy's expanded
-output raises the marginal value of every task whose supply has not
-changed.  The gain is uniform across all $i^*\geq I^*$ and
-increasing in the aggregate size of the AI supply shock.
-
-\paragraph{Group 2: Heavily exposed workers ($i^*<I^*$, large $s/f$).}
-For workers deep inside $[0,I^*)$, AI supply $s(i^*)$ is large
-relative to human supply $f(i^*)$.  The wage ratio becomes
-\begin{equation}
-  \frac{w_1(i^*)}{w_0(i^*)}
-  \;=\;
-  \left(\frac{\bar Y}{Y_0}\right)^{\!1/\sigma}
+  \underbrace{\left(\frac{\bar Y}{Y_0}\right)^{\!1/\sigma}}_{\text{output expansion}}
   \cdot
-  \left(\frac{f(i^*)}{f(i^*)+s(i^*)}\right)^{\!1/\sigma}.
-  \label{eq:heavily_exposed}
+  \underbrace{\left(\frac{f(i^*)}{f(i^*)+s(i^*)}\right)^{\!1/\sigma}}_{\text{supply dilution}}.
+  \label{eq:wage_ratio}
 \end{equation}
-The first factor exceeds one (output expansion), but the second
-factor is strictly less than one and shrinks as $s/f$ grows.
-A worker experiences wage \emph{compression} whenever
-\begin{equation}
-  \frac{s(i^*)}{f(i^*)} \;>\; \frac{\bar Y}{Y_0} - 1,
-  \label{eq:compression_threshold}
-\end{equation}
-i.e.\ whenever the proportional supply increase in their task exceeds
-the proportional increase in aggregate output.  Because $\bar Y/Y_0$
-reflects a CES average over \emph{all} tasks --- including the
-majority where $s=0$ --- while $s(i^*)/f(i^*)$ is concentrated among
-AI-supplied tasks, condition~\eqref{eq:compression_threshold} is
-satisfied for workers whose tasks are heavily supplemented by AI.
-These workers face unambiguous wage losses.
-
-\paragraph{Group 3: Mildly exposed workers ($i^*<I^*$, small $s/f$).}
-Near the frontier, $s(i^*)\to 0$ as $i^*\to I^*$ (by
-continuity of $s$).  For these workers the second factor
-in~\eqref{eq:heavily_exposed} is close to one, and the output
-expansion factor dominates:
-\[
-  \frac{w_1(i^*)}{w_0(i^*)}
-  \;\approx\;
-  \left(\frac{\bar Y}{Y_0}\right)^{\!1/\sigma}
-  \;>\; 1
-  \qquad\text{when } s(i^*)/f(i^*) \text{ is small}.
-\]
-These workers \emph{gain} despite being below $I^*$.  There exists a
-threshold task $\hat\imath < I^*$ at which the two effects exactly
-offset:
-\[
-  \frac{s(\hat\imath)}{f(\hat\imath)}
-  \;=\; \frac{\bar Y}{Y_0} - 1.
-\]
-Workers with $i^*>\hat\imath$ (including all of $[I^*,1]$)
-experience wage gains; workers with $i^*<\hat\imath$ experience wage
-compression.  The boundary between winners and losers therefore lies
-\emph{strictly below} $I^*$, not at it.
-
-\paragraph{Displacement.}
-Workers anywhere in the distribution whose post-AI wage falls below a
-reservation threshold exit employment; displacement is the
-extensive-margin counterpart of wage compression.  As AI capability
-improves ($I^*$ rises and $s$ increases), the set of compressed
-workers expands and the threshold $\hat\imath$ shifts rightward.
+Two competing forces govern the wage change.  The first factor exceeds one: AI adds productive capacity, aggregate output $\bar Y$ rises above $Y_0$, and the marginal value of every task goes up with it.  The second factor is at most one: tasks that AI can supply ($i^*<I^*$) see their effective supply $f+s$ rise above $f$, diluting the task price.  For tasks above the capability frontier ($i^*\geq I^*$), $s(i^*)=0$ and only the output-expansion factor applies; for tasks below, whether the net wage change is positive or negative depends on the size of $s/f$ relative to the aggregate output gain.
 
 Figure~\ref{fig:postai} illustrates these effects.
 
@@ -290,6 +210,9 @@ Figure~\ref{fig:postai} illustrates these effects.
   \caption{Post-AI shock under two AI supply intensities.  Left panel: task supply $f(i)$ (blue) and $f(i)+s(i)$ (dashed).  Right panel: pre-AI wage $w_0$ (dashed blue) vs.\ post-AI wage $w_1$ (solid).  Workers deep inside $[0,I^*)$ with large $s/f$ see wage compression; workers near $I^*$ with small $s/f$ can still gain from output expansion; workers above $I^*$ gain uniformly.}
   \label{fig:postai}
 \end{figure}
+
+\paragraph{Displacement.}
+The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model tractable but does not fully describe the labor market response to the technology shock.  In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so the adjustment shifts from the intensive margin (wages) to the extensive margin (employment).  Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily.  A formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
 
 %==================================================
 \section{Data}

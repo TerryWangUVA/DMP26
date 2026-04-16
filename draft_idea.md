@@ -25,47 +25,75 @@ This paper asks ... (ROADMAP, intentionally kept empty, will finish after the dr
 
 ## 2. Toy Model
 
-<!-- This section is written in DMP_D3_3-17.tex. The key points to set up here in the draft: -->
-
-This section sketches a toy model, deliberately simple and not meant to be taken too seriously, that organizes the intuition about what might happen to wages and employment when a new technology can perform some of the tasks that workers currently do. The goal is modest: to isolate two competing forces, output expansion and substitution, and extract a testable prediction that can discipline the empirical analysis that follows.
-
-There is an established tradition in economics to analyze the labor market the through lens of *tasks* in production. Autor (2015) used this framework to explain why automation has not destroyed jobs: tasks within production are complementary, so automating routine tasks raises the economic importance of the remaining tasks that require judgment or creativity, sustaining demand for the workers who perform them. 
+There is an established tradition in economics to analyze the labor market through the lens of *tasks* in production. Autor (2015) used this framework to explain why automation has not destroyed jobs: tasks within production are complementary, so automating routine tasks raises the economic importance of the remaining tasks that require judgment or creativity, sustaining demand for the workers who perform them.
 
 Other researchers have applied a similar framework to offshoring: Ottaviano, Peri, and Wright (2013), for instance, used the task-based framework to study how the relocation of tasks abroad reallocates work across heterogeneous groups of workers.
 
-The toy model below is inspired by this way of thinking. Instead of cheap foreign labor performing routine cognitive tasks, a cheap machine does it --- offshoring to GPTopia, as it were. AI enters as a supply shock to a subset of tasks, the effects propagate through production complementarities, and the distributional consequences depend on where different workers sit in the task distribution.
+The toy model below is inspired by this way of thinking. Instead of cheap foreign labor performing routine cognitive tasks, a cheap machine does it. "Offshoring to GPTopia", as it were.
+
+The framework is deliberately stylized and highly simplified. It is meant to capture the short-run labor market adjustment after the generative AI shock, not the change in long-run general equilibrium. The goal of the model is to isolate two forces: expansion in aggregate output and dilution in task supply, and to provide a conceptual benchmark for interpreting the reduced-form evidence in the following sections.
 
 <!-- Autor-Thompson (2025) expertise-bundles caveat moved to Het section -- will deploy there to frame the education heterogeneity story. -->
 
+### Setup
 
-The setup is as follows. A continuum of cognitive tasks, ordered by susceptibility to AI. Workers fully specialize in one task each. CES production aggregates tasks into output.
+Production requires a continuum of tasks indexed $i \in [0,1]$, ordered by susceptibility to AI. Tasks at the low end are routine cognitive tasks easily replicated by large language models (e.g., drafting emails); tasks at the high end require human expertise that AI currently struggles to replicate (e.g., negotiating complex contracts).
 
-AI enters as a supply shock: it adds supply $s(i)$ to tasks below a capability frontier $I^*$, with $s'(i) < 0$ (AI is better at routine tasks) and $s(I^*) = 0$ (beyond $I^*$, AI cannot perform the task).
+Final output $Y$ aggregates tasks via a CES technology:
 
-The post-AI wage is:
-$$w_1(i^*) = P_Y \left(\frac{\bar{Y}}{f(i^*) + s(i^*)}\right)^{1/\sigma}$$
+$$Y = \left[\int_0^1 y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\frac{\sigma}{\sigma-1}}, \qquad \sigma > 0,$$
 
-Two things moved relative to the pre-AI wage: the numerator grew ($\bar{Y} > Y_0$, output expansion) and the denominator grew for exposed tasks ($f + s > f$, supply dilution). This partitions workers into three groups:
+where $y(i)$ is the quantity of task $i$ used in production.
 
-1. **Above $I^*$**: pure gain from output expansion.
-2. **Deep inside $[0, I^*)$**: supply dilution outpaces output expansion --- wage compression.
-3. **Near $I^*$ from below**: output expansion still dominates --- these workers gain despite being below the frontier.
+AI can additionally supply a subset of these tasks. Write $s(i)\geq 0$ for the quantity of task $i$ that AI contributes, with
 
-The boundary between winners and losers is at $\hat{\imath} < I^*$, not at $I^*$ itself. Workers whose tasks are heavily supplemented by AI lose; workers near the frontier, where AI's contribution is small, still benefit from the expanding pie.
+$$s'(i) < 0 \;\text{ for } i<I^*, \qquad s(i) = 0 \;\text{ for } i \geq I^*,$$
 
-**Modeling choices and limitations.**
+where $I^*\in(0,1)$ is the *AI capability frontier*. Tasks below $I^*$ can theoretically be supplied by AI, with the contribution strictly decreasing in task complexity; tasks at or above $I^*$ remain beyond AI's reach. As AI improves, $I^*$ shifts rightward and $s$ may increase throughout its support.
 
-The model makes three simplifying assumptions:
+**Assumption (Fixed Output Price).** The output price $P_Y$ is exogenous and fixed.
 
-1. *Workers fully specialize.* Each worker performs exactly one task. As noted above, this strips out the expertise-bundle logic of Autor and Thompson (2025); the wage compression result is likely a lower bound.
+**Assumption (Full Specialization).** Workers are indexed by ability type $i^*\in[0,1]$. A worker of type $i^*$ fully specializes in task $i^*$ --- the task at which they hold comparative advantage over other types. Each task $i$ is therefore supplied exclusively by workers of type $i^*=i$.
 
-2. *Workers cannot move.* The labor supply $f(i)$ is fixed. No reallocation in response to wage changes. This is a short-run assumption --- in the long run, workers would flee compressed tasks and crowd into safe ones, partially self-correcting the displacement. The fixed-$f$ version provides an upper bound on compression.
+**Assumption (Inelastic Labor Supply).** The density of worker types $f(i)$ over $[0,1]$ is fixed and exogenous. Workers do not adjust their type in response to wages, so the pre-AI supply of task $i$ is just $f(i)$ regardless of the task price.
 
-3. *Small open economy.* Output price $P_Y$ is exogenous. Standard in trade-flavored task models.
+Competitive firms take $P_Y$ and task prices $\{p_0(i)\}$ as given and minimize the cost of producing $Y$ subject to the CES production function. The equilibrium task prices and wages are derived in the appendix.
 
-Despite these, the model delivers the three-group prediction and a testable implication: workers in high-exposure occupations should see worse outcomes post-2022.
+### Pre-AI Wages
 
-<!-- The full model derivation, figures, and propositions live in DMP_D3_3-17.tex. This section is a narrative summary. -->
+Before AI, cost minimization subject to the CES production function yields equilibrium task prices:
+
+$$p_0(i) = P_Y \cdot \left(\frac{Y_0}{f(i)}\right)^{1/\sigma},$$
+
+where $Y_0 \equiv \bigl[\int_0^1 f(i)^{(\sigma-1)/\sigma}\,di\bigr]^{\sigma/(\sigma-1)}$ is pre-AI aggregate output, fully determined by the distribution of worker types $f$ via the CES aggregator. In this equilibrium, a worker of type $i^*$ earns:
+
+$$w_0(i^*) = p_0(i^*).$$
+
+### Effects of the AI Supply Shock
+
+When AI enters the economy, it augments the supply side of each task market it can serve. The effective supply of task $i$ becomes
+
+$$\bar y(i) \;=\; f(i) + s(i),$$
+
+where $s(i)>0$ for $i<I^*$ (AI contributes to supply) and $s(i)=0$ for $i\geq I^*$ (beyond AI's capability). Because some task supplies have risen while others have not, the CES aggregator yields a new level of aggregate output
+
+$$\bar Y \;=\; \left[\int_0^1 \bar y(i)^{\frac{\sigma-1}{\sigma}}\,di\right]^{\frac{\sigma}{\sigma-1}} \;>\; Y_0,$$
+
+and by the same cost-minimization logic as before, the post-AI task price is
+
+$$p_1(i) \;=\; P_Y\!\left(\frac{\bar Y}{\bar y(i)}\right)^{1/\sigma}.$$
+
+**Post-AI wages.** Since $w_1(i^*)=p_1(i^*)$, the post-AI wage is derived directly from the post-AI task price:
+
+$$w_1(i^*) \;=\; P_Y\!\left(\frac{\bar Y}{f(i^*)+s(i^*)}\right)^{1/\sigma}.$$
+
+Taking the ratio to the pre-AI benchmark $w_0(i^*)=P_Y\bigl(Y_0/f(i^*)\bigr)^{1/\sigma}$ yields
+
+$$\frac{w_1(i^*)}{w_0(i^*)} \;=\; \underbrace{\left(\frac{\bar Y}{Y_0}\right)^{1/\sigma}}_{\text{output expansion}} \cdot \underbrace{\left(\frac{f(i^*)}{f(i^*)+s(i^*)}\right)^{1/\sigma}}_{\text{supply dilution}}.$$
+
+Two competing forces govern the wage change. The first factor exceeds one: AI adds productive capacity, aggregate output $\bar Y$ rises above $Y_0$, and the marginal value of every task goes up with it. The second factor is at most one: tasks that AI can supply ($i^*<I^*$) see their effective supply $f+s$ rise above $f$, diluting the task price. For tasks above the capability frontier ($i^*\geq I^*$), $s(i^*)=0$ and only the output-expansion factor applies; for tasks below, whether the net wage change is positive or negative depends on the size of $s/f$ relative to the aggregate output gain.
+
+**Displacement.** The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model tractable but does not fully describe the labor market response to the technology shock. In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so the adjustment shifts from the intensive margin (wages) to the extensive margin (employment). Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily. A formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
 
 ---
 
