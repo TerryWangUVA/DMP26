@@ -46,9 +46,7 @@ AI Exposure and Labor Market Frictions}
 
 \clearpage
 
-%==================================================
-\section{Introduction}
-
+%==========================
 %==================================================
 
 %==================================================
@@ -65,7 +63,7 @@ Fortunately from an empirical standpoint, workplace exposure to generative AI ha
 
 Several recent studies have begun to exploit exactly this kind of occupational or firm-level variation in AI exposure. The literature has developed along two lines distinguished by the kinds of data they use. One line of research relies on selective samples, where the treated group is narrow but relatively cleanly identified. Using LinkedIn resume data linked to job postings, \textcite{hosseini2025seniority} identify AI-adopting firms through their hiring of ``GenAI integrator'' roles and, in a difference-in-differences framework, find that junior employment at adopting firms falls by roughly 9 percent within a year, while senior employment remains unchanged; the effect appears to operate through slower hiring rather than increased layoffs. Using scraped employment histories from Upwork, a large online freelance platform, \textcite{hui2024short} find that workers in writing-related occupations experienced a 2 percent decline in monthly jobs and a 5 percent decline in monthly earnings after the release of ChatGPT. They also show that the release of text-to-image models such as DALL-E~2 and Midjourney generated comparable declines in design and illustration work. Importantly, these effects do not appear to be concentrated among lower-quality freelancers, suggesting that generative AI can substitute across a broad range of workers within exposed occupations.
 
-A parallel line of work uses larger datasets that are more representative of the labor force, sacrificing some identification sharpness in exchange for broader coverage. \textcite{brynjolfsson2025canaries}, drawing on ADP payroll records through July 2025, find that employment among early-career workers, narrowly defined as ages 22--25, in highly AI-exposed occupations fell by roughly 13 percent after late 2022, while employment among older workers and those in less exposed occupations was stable or growing; wage effects are limited, suggesting that adjustment has operated more through employment rather than through wages. \textcite{chandar2025tracking}, using monthly CPS data from Q4 2022 through Q1 2025, finds little effect of exposure on aggregate employment or earnings growth. However, within the most AI-exposed quartile of occupations, occupations with higher college shares, such as software development, have continued to grow, while those with lower college shares, such as customer service, have contracted.
+A parallel line of research uses larger datasets that are more representative of the labor force, sacrificing some identification sharpness in exchange for broader coverage. \textcite{brynjolfsson2025canaries}, drawing on ADP payroll records through July 2025, find that employment among early-career workers, narrowly defined as ages 22--25, in highly AI-exposed occupations fell by roughly 13 percent after late 2022, while employment among older workers and those in less exposed occupations was stable or growing; wage effects are limited, suggesting that adjustment has operated more through employment rather than through wages. \textcite{chandar2025tracking}, using monthly CPS data from Q4 2022 through Q1 2025, finds little effect of exposure on aggregate employment or earnings growth. However, within the most AI-exposed quartile of occupations, occupations with higher college shares, such as software development, have continued to grow, while those with lower college shares, such as customer service, have contracted.
 
 \textcolor{red}{THIS PAPER...}
 
@@ -73,19 +71,27 @@ A parallel line of work uses larger datasets that are more representative of the
 \section{Toy Model}
 \label{sec:model}
 %==================================================
-
-This section sketches a toy model, deliberately simple and not meant to be taken too seriously, that organizes the intuition about what might happen to wages and employment when a new technology can perform some of the tasks that workers currently do. The goal is modest: to isolate two competing forces, output expansion and substitution, and extract a testable prediction that can discipline the empirical analysis that follows.
-
 There is an established tradition in economics to analyze the labor market through the lens of \emph{tasks} in production. \textcite{autor2015whyjobs} used this framework to explain why automation has not destroyed jobs: tasks within production are complementary, so automating routine tasks raises the economic importance of the remaining tasks that require judgment or creativity, sustaining demand for the workers who perform them.
+
+\textcolor{red}{DO I NEED TO PUT AUTOR (2003) IN???}
 
 Other researchers have applied a similar framework to offshoring: \textcite{ottaviano2013immigration}, for instance, used the task-based framework to study how the relocation of tasks abroad reallocates work across heterogeneous groups of workers.
 
-The toy model below is inspired by this way of thinking. Instead of cheap foreign labor performing routine cognitive tasks, a cheap machine does it --- offshoring to GPTopia, as it were. AI enters as a supply shock to a subset of tasks, the effects propagate through production complementarities, and the distributional consequences depend on where different workers sit in the task distribution.
+
+\iffalse
+The toy model below is inspired by this way of thinking. Instead of firms offshoring foreign labor performing tasks, a cheap machine does it --- offshoring to GPTopia, as it were. AI enters as a supply shock to a subset of tasks, the effects propagate through production complementarities, and the distributional consequences depend on where different workers sit in the task distribution.
+\fi
+
+
+The toy model below is inspired by this way of thinking. Instead of cheap foreign labor performing routine cognitive tasks, a cheap machine does it. ``Offshoring to GPTopia'', as it were.
+
+The framework is deliberately stylized and highly simplified. Its purpose is not to capture every margin of adjustment, but to isolate two forces, namely output expansion and supply dilution, and provide a simple conceptual benchmark for interpreting the reduced-form evidence in the following sections.
+
 
 \subsection{Setup}
 
-Production requires a continuum of cognitive tasks indexed $i \in [0,1]$,
-ordered by susceptibility to AI automation. Tasks at the low end are routine cognitive tasks easily replicated by large language models; tasks at the high end require human expertise that AI currently struggles to replicate.
+Production requires a continuum of tasks indexed $i \in [0,1]$,
+ordered by susceptibility to AI. Tasks at the low end are routine cognitive tasks easily replicated by large language models; tasks at the high end require human expertise that AI currently struggles to replicate.
 
 
 Final output $Y$ aggregates tasks via a CES technology:
@@ -105,7 +111,7 @@ for the quantity of task~$i$ that AI contributes, with
   \label{eq:ai_supply}
 \end{equation}
 where $I^*\in(0,1)$ is the \emph{AI capability frontier}.  Tasks below $I^*$
-can be partially supplied by AI, with the contribution strictly decreasing in
+can theoretically be supplied by AI, with the contribution strictly decreasing in
 task complexity; tasks at or above $I^*$ remain beyond AI's reach.  As AI
 improves, $I^*$ shifts rightward and $s$ may increase throughout its support.
 
@@ -160,7 +166,7 @@ imposes no explicit restriction on the shape of $p_0$.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.82\textwidth]{output/model/fig_preai.png}
-  \caption{Pre-AI equilibrium wage schedule. Each worker of type $i^*$ earns the competitive task price $w_0(i^*) = p_0(i^*)$. The upward slope is assumed for illustration only; the model places no explicit restriction on the shape of $p_0(i)$.}
+  \caption{Pre-AI equilibrium wage schedule. Each worker of type $i^*$ earns the competitive task price $w_0(i^*) = p_0(i^*)$. The downward slope in $f$ is assumed for illustration only; the model places no explicit restriction on the distribution of initial task supply}
   \label{fig:preai}
 \end{figure}
 
