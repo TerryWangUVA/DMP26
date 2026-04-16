@@ -29,30 +29,14 @@ This paper asks ... (ROADMAP, intentionally kept empty, will finish after the dr
 
 This section sketches a toy model, deliberately simple and not meant to be taken too seriously, that organizes the intuition about what might happen to wages and employment when a new technology can perform some of the tasks that workers currently do. The goal is modest: to isolate two competing forces, output expansion and substitution, and extract a testable prediction that can discipline the empirical analysis that follows.
 
-There is an established tradition in economics to analyze the labor market the through lens of *tasks* in production. Autor (2015) used this framework to explain why automation has not destroyed jobs: tasks within production are complementary, so automating routine tasks raises the economic value of the remaining tasks that require judgment or creativity, sustaining demand for the workers who perform them. 
+There is an established tradition in economics to analyze the labor market the through lens of *tasks* in production. Autor (2015) used this framework to explain why automation has not destroyed jobs: tasks within production are complementary, so automating routine tasks raises the economic importance of the remaining tasks that require judgment or creativity, sustaining demand for the workers who perform them. 
 
-Others have applied a similar framework to offshoring: Ottaviano, Peri, and Wright (2013) model a continuum of tasks ordered by complexity and assign heterogeneous worker types to different segments of the distribution, with endogenous cutoffs that shift when the cost of substitution changes. 
+Other researchers have applied a similar framework to offshoring: Ottaviano, Peri, and Wright (2013), for instance, used the task-based framework to study how the relocation of tasks abroad reallocates work across heterogeneous groups of workers.
 
+The toy model below is inspired by this way of thinking. Instead of cheap foreign labor performing routine cognitive tasks, a cheap machine does it --- offshoring to GPTopia, as it were. AI enters as a supply shock to a subset of tasks, the effects propagate through production complementarities, and the distributional consequences depend on where different workers sit in the task distribution.
 
+<!-- Autor-Thompson (2025) expertise-bundles caveat moved to Het section -- will deploy there to frame the education heterogeneity story. -->
 
-the model goes like this 
-> task market clearing as is
-
-> occupation defined by a bundle of tasks --> and workers within each occupation are homogeneous & cannot allocate time betwen tasks --> these are pinned down
-
-
-
-> then the group analysis becomes more interesting
-
-
-
-
-
-
-
-
-
-The model below follows this tradition. Instead of cheap foreign labor performing routine cognitive tasks, a cheap machine does it --- offshoring to GPTopia, as it were. AI enters as a supply shock to a subset of tasks, the effects propagate through production complementarities, and the distributional consequences depend on where different workers sit in the task distribution. One further theoretical development is worth noting: Autor and Thompson (2025) argue that real-world workers are not single-task specialists but holders of *expertise bundles* --- packages of complementary tasks whose value derives from accumulated expertise. Automation that removes routine tasks from a bundle can *raise* expertise requirements and wages for remaining workers, while automation that removes expert tasks can *lower* barriers to entry and compress wages. The model below adopts the simpler full-specialization benchmark, which is standard in this literature and delivers the cleanest prediction; the cost is that the wage compression result is likely a lower bound, since workers who hold task bundles have more room to absorb the shock.
 
 The setup is as follows. A continuum of cognitive tasks, ordered by susceptibility to AI. Workers fully specialize in one task each. CES production aggregates tasks into output.
 
