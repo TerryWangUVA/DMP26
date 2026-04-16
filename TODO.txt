@@ -1,6 +1,19 @@
-go see the model sect in DMP_D3_3-17.tex 
+DECISION (2026-04-16):
+Killed the occupation-layer model extension. The toy model stays as is
+(full specialization, task-level prediction). The occupation-bundle
+intuition moves to the Het section as a descriptive/interpretive device:
+compare two representative occupations with similar Eloundou beta but
+different underlying task distributions (O*NET), use this to explain
+the education heterogeneity narratively. No formal derivation --- the
+connection is asserted, not derived, and the thesis is transparent
+about that.
 
-create a model.tex that does the following 
+
+---------- ARCHIVED NOTES ----------
+
+go see the model sect in DMP_D3_3-17.tex
+
+create a model.tex that does the following
 this serves to me as a "tool thing" for model
 
 
@@ -17,10 +30,9 @@ for instance Occupation_x = a_1*i_1 + a_2 * i_2 +...
 
 where i_1,... are within [0,1]
 
-and a_1 + a_2 + ... = 1 (e.g. hour)--> in some sense the occupation in our model is defined as the time distributed to each task... 
+and a_1 + a_2 + ... = 1 (e.g. hour)--> in some sense the occupation in our model is defined as the time distributed to each task...
 
 let's keep a_1 ... exogenous and let's keep workers in their occupations,... for now...
 
-then the "group analysis" should be carried out on occupation level. 
-
+then the "group analysis" should be carried out on occupation level.
 
