@@ -22,7 +22,10 @@
       "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/wage_data.csv\")",
       "Bash(curl -sL \"https://huggingface.co/datasets/Anthropic/EconomicIndex/raw/main/release_2025_02_10/bls_employment_may_2023.csv\")",
       "Bash(python3 -c ':*)",
-      "Bash(py -c ':*)"
+      "Bash(py -c ':*)",
+      "Bash(awk 'NR>=190' \"c:/Projects/DMP/draft_idea.md\")",
+      "Bash(awk 'NR>=193 && NR<=230' \"c:/Projects/DMP/draft_idea.md\")",
+      "Bash(awk 'NR>=204 && NR<=212' \"c:/Projects/DMP/draft_idea.md\")"
     ]
   }
 }

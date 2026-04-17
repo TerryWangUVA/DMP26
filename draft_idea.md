@@ -191,3 +191,57 @@ $$Y_{it}^{\,g} = \alpha^g + \sum_{t \neq 2022} \beta_t^g \left( \mathbf{1}[t] \t
 
 Each subsample has its own baseline, trend, and exposure gradient, and the two coefficient paths $\{\hat\beta_t^{\text{col}}\}$ and $\{\hat\beta_t^{\text{noncol}}\}$ can be compared directly.
 
+
+
+Results & Interpretation 
+
+Unemployment
+
+- pre-trend - vibe it for now: it makes intuitive sense that cognitively heavy jobs (high exposure jobs) are more remote-compatible hence relatively more shilded from the COVID layoff. coef for 2018 and 2019 are flat thou- so pre-trend is tricky but explainable. 
+
+
+- higher lvl of unemp for higher-AI exposed jobs 
+- result begin to emerge in 2024 and 2025, robust across all specs (table C1 for your ref)
+- interpretation: -- brainstorm a bit?
+    - **timing aligns with AI capability + adoption ramp.** Null in 2023 (immediately after ChatGPT), significant in 2024 and 2025. Consistent with the year-by-year specification's rationale: GPT-4, GPT-4o, o1 and Claude 3.5/3.7 arrive across 2023-2025, and adoption rose from near-zero to ~one-third over the same window (Bick-Blandin-Deming). The lag isn't a bug — it's what the diffusion story predicts.
+    - **the coefficient is a marginal effect per unit of the Eloundou $\beta_o$ exposure score.** A $0.1$-unit increase in $\beta_o$ --- corresponding to roughly half a standard deviation, or a step of one exposure quartile --- is associated with a $0.2$ percentage-point increase in the probability of unemployment in the preferred specification. The reading is a slope, not a treatment effect on the average worker; the §4 weighting caveat (CGS 2024) applies.
+    - **extensive-margin adjustment matches the Displacement paragraph in §2.** The model's supply-dilution force predicts wage compression for exposed workers, but §2's Displacement remark notes that when wages are sticky downward, firms absorb the shock by slowing hiring and laying off marginal workers. The unemployment result is exactly this extensive-margin response — which is why it shows up here before wages do.
+    - **robustness across all four specs strengthens the reading.** Neither sex FE, nor education FE, nor state × year FE meaningfully change the post-2022 coefficients. The effect is not an artifact of demographic or geographic composition.
+
+
+Wage
+
+- weaker results -- in stricter specs there are statistically sig effects but not in loser specs (Table C3 for your ref)
+- pull the figure in main text!!! (check ASEC_Analysis_2-19.do to find it)
+
+- statistically sig effects only in 2025 -- even later than unemployment, and we dont know if this will persist in 2026 -- so there are some uncertainty
+
+- interpretation: -- brainstorm a bit?
+    - **consistent with the Displacement paragraph's prediction that wages move after employment, not before.** Wage stickiness routes adjustment first through the extensive margin (unemployment), and the intensive margin (wage compression) only starts to show once the stock of affected workers is large enough that the labor-market clearing price cannot be held up by rigidity alone. The one-year lag of wage relative to unemployment (2025 vs. 2024) is consistent with this ordering.
+    - **the fact that significance emerges only in the state × year FE spec is itself informative.** Pre-ChatGPT, AI-exposed occupations are geographically concentrated (tech hubs, financial centers, legal markets), so state-level aggregate shocks — in-migration, state-specific labor demand — correlate with the exposure regressor and add noise to the looser specs. Only when those shocks are absorbed does the exposure signal emerge cleanly. This should be framed as a feature of identification, not weakness.
+    - **honest caveat:** the 2025 signal is one year, end-of-sample. Whether it persists or grows in 2026 onward is an empirical question the current data cannot answer. Flag this openly.
+    - **tie back to §2 two-force framing.** The wage result is consistent with output-expansion and supply-dilution forces both being operative, with supply dilution dominating for workers deep in the exposed region of the distribution — yielding a net compression that materializes as AI capability and adoption accumulate.
+
+
+Het:experience
+null results lmao. this should be a short sect. Just refer the papers saying I find nothing, which provides an interesting contrast to their findings.
+
+- **interpretation ideas:**
+    - the null contrasts with H&L (LinkedIn firm sample) and BCC (22--25 age band). The nationally representative CPS-ASEC sample with a continuous experience measure does not reproduce the seniority gradient.
+    - one reading: the seniority-biased technological change documented in those papers may be concentrated in specific slices of the labor market --- tech-forward firms that publicly adopt GenAI (H&L) or the just-out-of-college margin (BCC) --- and not generalize to the broader U.S. workforce.
+    - another, less favorable reading: the CPS-ASEC sample may lack the statistical power to detect what is a fundamentally narrow effect. BCC's 13 percent decline is concentrated in a four-year age band; a continuous experience × exposure interaction averages over the entire experience distribution and dilutes the signal.
+    - Either way, the finding is genuinely a null rather than a contradiction.
+
+another caveat is that you should move C7 to before C3 -- since I decide to have experience before educ het
+
+Het:educ
+
+- unemp broadly shared
+- relative wage difference post AI from noncol group rather than col group. 
+
+- interpretation?
+    - **the asymmetry is the headline.** Unemployment response is broadly shared (both groups show positive post-2022 coefficients); wage response is concentrated among non-college workers. This is the key finding of the paper.
+    - **occupational sorting mechanism (per §4.4 Education motivation).** Within the same measured-exposure band, college and non-college workers are in *different* occupations with different task bundles. Non-college-heavy exposed occupations (customer service, some office roles, data entry) likely have task bundles sitting deeper in $[0, I^*)$, where supply dilution bites hardest. College-heavy exposed occupations (software, legal, financial) have task bundles closer to the capability frontier, where output expansion dominates and may even complement the college worker (as in Autor 2015).
+    - **Autor-Thompson (2025) expertise bundles** — a cleaner theoretical frame. College workers hold bundles of complementary tasks and can plausibly reshuffle time within the bundle when AI supplements one task; non-college workers hold more rigidly defined task portfolios and cannot. The full-specialization model in §2 is silent on this margin, so the wage compression among non-college workers is likely a lower bound on the compression that would emerge in a richer specification.
+    - **why unemployment is symmetric but wages are not.** Extensive-margin adjustment (layoffs, slower hiring) operates at the occupation level and hits both education groups in exposed occupations. Intensive-margin compression (actual wage cuts for workers who keep their jobs) requires the employer to push wages down past whatever floor wage stickiness provides. That floor is plausibly higher for college workers --- more bargaining power, tenure, within-occupation outside options --- so only non-college workers experience the compression margin.
+    - **tie back to Chandar (2025).** Chandar's finding within the most exposed quartile (software grows, customer service contracts) is consistent with this education asymmetry and provides independent corroboration in a different data source. Name this in the interpretation paragraph.

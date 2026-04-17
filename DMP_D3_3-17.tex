@@ -302,7 +302,15 @@ Tables~\ref{tab:top5} and~\ref{tab:bot5} list the five most and five least expos
 \end{center}
 \end{table}
 
-Figure~\ref{fig:kdensity_educ} overlays the exposure distributions for college-educated and non-college workers in the sample.  College-educated workers are more exposed to generative AI on average, reflecting their historical sorting into occupations with higher cognitive-task content \parencite{autor2013putting}.  The two distributions nevertheless overlap substantially --- many non-college workers hold jobs with high $\beta_o$, and many college workers hold jobs with low $\beta_o$ --- so the college/non-college split is a weak signal of exposure.
+Figure~\ref{fig:kdensity_educ} overlays the exposure distributions for college-educated and non-college workers in the sample.  College-educated workers are more exposed to generative AI on average, reflecting their historical sorting into occupations with higher cognitive-task content \parencite{autor2013putting}.  The two distributions nevertheless overlap substantially --- many non-college workers hold jobs with high $\beta_o$, and many college workers hold jobs with low $\beta_o$ --- so the college/non-college split is a weak signal of exposure.  Table~\ref{tab:beta_summary} reports summary statistics of $\beta_o$ for the full sample and each education subsample.
+
+\begin{table}[htbp]
+\begin{center}
+\caption{Summary statistics for the AI exposure score $\beta_o$ in the CPS-ASEC worker-year sample, 2018--2025. Statistics are reported for the full sample and separately for college-educated (BA or above) and non-college (high school or some college) workers.}
+\label{tab:beta_summary}
+\input{output/tables/descriptives/beta_summary.tex}
+\end{center}
+\end{table}
 
 \begin{figure}[htbp]
 \begin{center}
@@ -493,13 +501,13 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \]
 
 
-\section{Regression Tables}
+\section{Tables}
 \label{app:tables}
 \setcounter{table}{0}
-\renewcommand{\thetable}{C\arabic{table}}
-\renewcommand{\theHtable}{C\arabic{table}}
+\renewcommand{\thetable}{B\arabic{table}}
+\renewcommand{\theHtable}{B\arabic{table}}
 
-% ── C1: Unemployment (full sample) ──
+% ── B1: Unemployment (full sample) ──
 \begin{table}[H]
 \begin{center}
 \caption{Unemployment regression results. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Columns (1)--(4): no fixed effects, sex FE, sex + education FE, sex + education + state$\times$year FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
@@ -508,7 +516,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{center}
 \end{table}
 
-% ── C2: Log wage (full sample) ──
+% ── B2: Log wage (full sample) ──
 \begin{table}[H]
 \begin{center}
 \caption{Log wage regression results. Dependent variable: natural log of annual real wages (1982 dollars). Year 2022 is the omitted baseline. Columns (1)--(4): no fixed effects, sex FE, sex + education FE, sex + education + state$\times$year FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
@@ -517,7 +525,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{center}
 \end{table}
 
-% ── C3: Unemployment (college, split sample) ──
+% ── B3: Unemployment (college, split sample) ──
 \begin{table}[H]
 \begin{center}
 \caption{Unemployment --- college subsample. Dependent variable: binary unemployment indicator. Split-sample regression on college-educated workers (BA or above). Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
@@ -526,7 +534,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{center}
 \end{table}
 
-% ── C4: Unemployment (non-college, split sample) ──
+% ── B4: Unemployment (non-college, split sample) ──
 \begin{table}[H]
 \begin{center}
 \caption{Unemployment --- non-college subsample. Dependent variable: binary unemployment indicator. Split-sample regression on non-college workers (high school or some college). Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
@@ -535,7 +543,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{center}
 \end{table}
 
-% ── C5: Log wage (college, split sample) ──
+% ── B5: Log wage (college, split sample) ──
 \begin{table}[H]
 \begin{center}
 \caption{Log wage --- college subsample. Dependent variable: log annual real wages (1982 dollars). Split-sample regression on college-educated workers. Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
@@ -544,7 +552,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{center}
 \end{table}
 
-% ── C6: Log wage (non-college, split sample) ──
+% ── B6: Log wage (non-college, split sample) ──
 \begin{table}[H]
 \begin{center}
 \caption{Log wage --- non-college subsample. Dependent variable: log annual real wages (1982 dollars). Split-sample regression on non-college workers. Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
@@ -553,7 +561,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{center}
 \end{table}
 
-% ── C7: Unemployment experience heterogeneity (full sample) ──
+% ── B7: Unemployment experience heterogeneity (full sample) ──
 \begin{table}[H]
 \begin{center}
 \caption{Unemployment experience heterogeneity. Dependent variable: binary unemployment indicator. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Full sample. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
@@ -562,7 +570,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{center}
 \end{table}
 
-% ── C8: Log wage experience heterogeneity (full sample) ──
+% ── B8: Log wage experience heterogeneity (full sample) ──
 \begin{table}[H]
 \begin{center}
 \caption{Log wage experience heterogeneity. Dependent variable: log annual real wages. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Full sample. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}

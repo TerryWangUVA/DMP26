@@ -260,6 +260,50 @@ graph export "$graphs/descriptives/kdensity_beta_education.pdf", replace
 
 
 **************************************************
+**# 2b. Summary statistics for AI exposure score (full / college / non-college)
+**************************************************
+
+use `analysis', clear
+
+* Compute stats for three samples: 0 = full, 1 = college, 2 = non-college
+forvalues g = 0/2 {
+	if `g' == 0 local cond "1"
+	if `g' == 1 local cond "is_college == 1"
+	if `g' == 2 local cond "is_college == 0"
+
+	quietly count if `cond'
+	scalar N_`g' = r(N)
+
+	quietly summarize dv_rating_beta if `cond', detail
+	scalar mean_`g' = r(mean)
+	scalar sd_`g'   = r(sd)
+	scalar min_`g'  = r(min)
+	scalar p25_`g'  = r(p25)
+	scalar p50_`g'  = r(p50)
+	scalar p75_`g'  = r(p75)
+	scalar max_`g'  = r(max)
+}
+
+* Build each row as a local, then write to file
+local row_0 "Full sample & `: display %12.0fc N_0' & `: display %4.3f mean_0' & `: display %4.3f sd_0' & `: display %4.3f min_0' & `: display %4.3f p25_0' & `: display %4.3f p50_0' & `: display %4.3f p75_0' & `: display %4.3f max_0'"
+local row_1 "College & `: display %12.0fc N_1' & `: display %4.3f mean_1' & `: display %4.3f sd_1' & `: display %4.3f min_1' & `: display %4.3f p25_1' & `: display %4.3f p50_1' & `: display %4.3f p75_1' & `: display %4.3f max_1'"
+local row_2 "Non-college & `: display %12.0fc N_2' & `: display %4.3f mean_2' & `: display %4.3f sd_2' & `: display %4.3f min_2' & `: display %4.3f p25_2' & `: display %4.3f p50_2' & `: display %4.3f p75_2' & `: display %4.3f max_2'"
+
+file open tab using "$tables/beta_summary.tex", write replace
+file write tab "\begin{tabular}{lrrrrrrrr}" _n
+file write tab "\toprule" _n
+file write tab " & N & Mean & SD & Min & p25 & p50 & p75 & Max \\" _n
+file write tab "\midrule" _n
+file write tab "`row_0' \\" _n
+file write tab "`row_1' \\" _n
+file write tab "`row_2' \\" _n
+file write tab "\bottomrule" _n
+file write tab "\end{tabular}" _n
+file close tab
+
+
+
+**************************************************
 **# 3a. Time-series: unemployment by exposure quartile
 **************************************************
 
