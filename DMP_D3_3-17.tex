@@ -395,11 +395,11 @@ Each subsample has its own baseline, trend, and exposure gradient, and the two c
 \section{Results and Interpretation}
 \label{sec:results}
 
-Before presenting results, one feature of the pre-period deserves a once-and-for-all note.  Coefficients for 2020 and 2021 are systematically negative for unemployment and attenuated for wages across every specification and every heterogeneity cut.  This reflects the differential impact of the COVID-19 pandemic: high-exposure occupations, typically cognitively heavy positions, were largely remote- and hybrid-compatible and were partly shielded from the COVID shocks that concentrated in in-person service work.  The 2020--2021 pattern is therefore a pre-existing feature of the comparison between high- and low-exposure occupations, not a violation of parallel trends induced by the treatment.  I do not re-interpret the pandemic coefficients at each appearance; they should be read throughout as a replication of this same pattern within each subsample.
-
 \subsection{Unemployment}
 
-Figure~\ref{fig:unemployment_stateYFE_plot} plots the event-study coefficients for unemployment in the preferred specification, which absorbs sex, education, and state$\times$year fixed effects.  The full regression results across all four specifications are reported in Table~\ref{tab:unemployment_main} in Appendix~\ref{app:tables}.  Pre-ChatGPT coefficients for 2018 and 2019 are close to zero and statistically insignificant; the 2020--2021 negatives reflect the pandemic shield discussed above.
+Figure~\ref{fig:unemployment_stateYFE_plot} plots the event-study coefficients for unemployment in the preferred specification, which absorbs sex, education, and state$\times$year fixed effects.  The full regression results across all four specifications are reported in Table~\ref{tab:unemployment_main} in Appendix~\ref{app:tables}.
+
+Pre-ChatGPT coefficients for 2018 and 2019 are close to zero and statistically insignificant.  The 2020 and 2021 coefficients, by contrast, are significantly negative.  This reflects the differential impact of the COVID-19 pandemic: high-exposure occupations --- typically cognitively heavy positions such as legal, financial, managerial, and computational work --- were largely remote- and hybrid-compatible and were partly shielded from the layoffs that concentrated in in-person service work.  The 2020--2021 pattern is therefore a pre-existing feature of the comparison between high- and low-exposure occupations, not a violation of parallel trends induced by the treatment.  The same pattern will reappear in every specification and every heterogeneity cut below; I do not re-interpret it at each appearance.
 
 \begin{figure}[htbp]
 \begin{center}
