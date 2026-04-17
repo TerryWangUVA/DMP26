@@ -25,7 +25,8 @@
       "Bash(py -c ':*)",
       "Bash(awk 'NR>=190' \"c:/Projects/DMP/draft_idea.md\")",
       "Bash(awk 'NR>=193 && NR<=230' \"c:/Projects/DMP/draft_idea.md\")",
-      "Bash(awk 'NR>=204 && NR<=212' \"c:/Projects/DMP/draft_idea.md\")"
+      "Bash(awk 'NR>=204 && NR<=212' \"c:/Projects/DMP/draft_idea.md\")",
+      "Bash(awk 'NR>=193' \"c:/Projects/DMP/draft_idea.md\")"
     ]
   }
 }

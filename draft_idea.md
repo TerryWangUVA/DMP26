@@ -204,9 +204,9 @@ Unemployment
 - result begin to emerge in 2024 and 2025, robust across all specs (table C1 for your ref)
 - interpretation: -- brainstorm a bit?
     - **timing aligns with AI capability + adoption ramp.** Null in 2023 (immediately after ChatGPT), significant in 2024 and 2025. Consistent with the year-by-year specification's rationale: GPT-4, GPT-4o, o1 and Claude 3.5/3.7 arrive across 2023-2025, and adoption rose from near-zero to ~one-third over the same window (Bick-Blandin-Deming). The lag isn't a bug — it's what the diffusion story predicts.
-    - **the coefficient is a marginal effect per unit of the Eloundou $\beta_o$ exposure score.** A $0.1$-unit increase in $\beta_o$ --- corresponding to roughly half a standard deviation, or a step of one exposure quartile --- is associated with a $0.2$ percentage-point increase in the probability of unemployment in the preferred specification. The reading is a slope, not a treatment effect on the average worker; the §4 weighting caveat (CGS 2024) applies.
-    - **extensive-margin adjustment matches the Displacement paragraph in §2.** The model's supply-dilution force predicts wage compression for exposed workers, but §2's Displacement remark notes that when wages are sticky downward, firms absorb the shock by slowing hiring and laying off marginal workers. The unemployment result is exactly this extensive-margin response — which is why it shows up here before wages do.
-    - **robustness across all four specs strengthens the reading.** Neither sex FE, nor education FE, nor state × year FE meaningfully change the post-2022 coefficients. The effect is not an artifact of demographic or geographic composition.
+    - **the coefficient is a marginal effect per unit of the Eloundou $\beta_o$ exposure score.** A $0.1$-unit increase in $\beta_o$, corresponding to roughly half a standard deviation, is associated with a $0.2$ percentage-point increase in the probability of unemployment in the preferred specification. 
+    - **extensive-margin adjustment matches the Displacement paragraph in §2.** The model's supply-dilution force predicts wage compression for exposed workers, but §2's Displacement remark notes that when wages are sticky downward, firms absorb the shock by slowing hiring and laying off marginal workers. The unemployment result is exactly part of the extensive-margin response.
+    - **robustness across all four specs strengthens the reading.** Neither sex FE, nor education FE, nor state × year FE meaningfully change the post-2022 coefficients. The effect is not an artifact of demographic or geographic composition. (comment: this wont be a standalone para -- should be a simple sentence after the coef interpretation)
 
 
 Wage
@@ -217,10 +217,13 @@ Wage
 - statistically sig effects only in 2025 -- even later than unemployment, and we dont know if this will persist in 2026 -- so there are some uncertainty
 
 - interpretation: -- brainstorm a bit?
-    - **consistent with the Displacement paragraph's prediction that wages move after employment, not before.** Wage stickiness routes adjustment first through the extensive margin (unemployment), and the intensive margin (wage compression) only starts to show once the stock of affected workers is large enough that the labor-market clearing price cannot be held up by rigidity alone. The one-year lag of wage relative to unemployment (2025 vs. 2024) is consistent with this ordering.
+    -  Wage stickiness routes adjustment first through the extensive margin (unemployment), and the intensive margin (wage compression) effect lags one year... (dont be too wordy)
+
     - **the fact that significance emerges only in the state × year FE spec is itself informative.** Pre-ChatGPT, AI-exposed occupations are geographically concentrated (tech hubs, financial centers, legal markets), so state-level aggregate shocks — in-migration, state-specific labor demand — correlate with the exposure regressor and add noise to the looser specs. Only when those shocks are absorbed does the exposure signal emerge cleanly. This should be framed as a feature of identification, not weakness.
     - **honest caveat:** the 2025 signal is one year, end-of-sample. Whether it persists or grows in 2026 onward is an empirical question the current data cannot answer. Flag this openly.
-    - **tie back to §2 two-force framing.** The wage result is consistent with output-expansion and supply-dilution forces both being operative, with supply dilution dominating for workers deep in the exposed region of the distribution — yielding a net compression that materializes as AI capability and adoption accumulate.
+
+
+    - **tie back to §2 two-force framing.** The wage result is consistent with output-expansion and supply-dilution forces both being operative, with supply dilution dominating for workers deep in the exposed region of the distribution — yielding a net compression that materializes as AI capability and adoption accumulate. --> this is very imporant!!! it is actually the *relative* thing, not straight out net compression of wage. 
 
 
 Het:experience
@@ -229,11 +232,11 @@ null results lmao. this should be a short sect. Just refer the papers saying I f
 - **interpretation ideas:**
     - the null contrasts with H&L (LinkedIn firm sample) and BCC (22--25 age band). The nationally representative CPS-ASEC sample with a continuous experience measure does not reproduce the seniority gradient.
     - one reading: the seniority-biased technological change documented in those papers may be concentrated in specific slices of the labor market --- tech-forward firms that publicly adopt GenAI (H&L) or the just-out-of-college margin (BCC) --- and not generalize to the broader U.S. workforce.
-    - another, less favorable reading: the CPS-ASEC sample may lack the statistical power to detect what is a fundamentally narrow effect. BCC's 13 percent decline is concentrated in a four-year age band; a continuous experience × exposure interaction averages over the entire experience distribution and dilutes the signal.
-    - Either way, the finding is genuinely a null rather than a contradiction.
+    - another reading is that the "seniority-based" actually means "out-of-school noobs unfriendly..."
+    - Either way, the finding is genuinely a null.
 
 another caveat is that you should move C7 to before C3 -- since I decide to have experience before educ het
-
+//////////////////////////////////////////////////////
 Het:educ
 
 - unemp broadly shared
