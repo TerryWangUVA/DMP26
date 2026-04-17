@@ -287,19 +287,23 @@ worker-level distribution of occupational exposure scores.}
 Tables~\ref{tab:top5} and~\ref{tab:bot5} list the five most and five least exposed occupations. The high end of the distribution is occupied by occupations whose task content is predominantly cognitive: computer programming, legal work, and financial analysis.  The low end consists of occupations whose task content is predominantly manual or physical, such as construction trades, farming, and building maintenance, for which contemporary generative AI provides little direct substitution.  This pattern is consistent with the construction of the exposure measure, which scores tasks on the basis of whether a large language model can reduce task completion time by at least 50 percent at equivalent quality.
 
 \begin{table}[htbp]
-\begin{center}
+\centering
+\begin{minipage}[t]{0.48\textwidth}
+\centering
 \caption{Most exposed occupations (top 5 by $\beta_o$).}
 \label{tab:top5}
 \input{output/tables/descriptives/top5_exposed.tex}
-\end{center}
-\end{table}
-
-\begin{table}[htbp]
-\begin{center}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering
 \caption{Least exposed occupations (bottom 5 by $\beta_o$).}
 \label{tab:bot5}
 \input{output/tables/descriptives/bot5_exposed.tex}
-\end{center}
+\end{minipage}
+\vspace{4pt}
+
+{\small \textit{Note:} Both tables are drawn directly from \textcite{eloundou2024gpts}. Because CPS-ASEC uses coarser Census occupation codes, not all listed occupations appear as distinct categories in the estimation sample.}
 \end{table}
 
 Figure~\ref{fig:kdensity_educ} overlays the exposure distributions for college-educated and non-college workers in the sample.  College-educated workers are more exposed to generative AI on average, reflecting their historical sorting into occupations with higher cognitive-task content \parencite{autor2013putting}.  The two distributions nevertheless overlap substantially --- many non-college workers hold jobs with high $\beta_o$, and many college workers hold jobs with low $\beta_o$ --- so the college/non-college split is a weak signal of exposure. For the precise sample statistics, see Table~\ref{tab:beta_summary}.
