@@ -97,7 +97,11 @@ However, the *relative effect* is unambigious. Workers above the capability fron
 
  **Additional Remark about Displacement.** The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model tractable but does not fully describe the labor market response to the technology shock. In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so the adjustment shifts from the intensive margin (wages) to the extensive margin (employment). Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily. A formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
 
- **Additional Remark about Occupation Level Task Bundling.** (parked)
+ **Additional Remark about Occupation Level Task Bundling.** The model treats a worker as a single-task specialist. An occupation $x$ consisting of a bundle of tasks with fixed time shares $\theta_k^x$ (where $\sum_k \theta_k^x = 1$) earns the weighted wage
+
+$$w_x = \sum_k \theta_k^x \, p_k,$$
+
+and the post-AI wage ratio for occupation $x$ is simply the $\theta^x$-weighted average of the underlying task-level wage ratios. Two occupations with the same average exposure $\beta_o$ can therefore face different wage responses when their bundle compositions differ. The formulation is static by assumption --- a worker cannot re-weight tasks in response to the shock --- but I return to both fixed-$\theta^x$ composition effects and the case for endogenous bundle reallocation in Section 5.
 
 ## 3. Data
 
@@ -244,7 +248,29 @@ Het:educ
 
 - interpretation?
     - **the asymmetry is the headline.** Unemployment response is broadly shared (both groups show positive post-2022 coefficients); wage response is concentrated among non-college workers. This is the key finding of the paper.
-    - **occupational sorting mechanism (per §4.4 Education motivation).** Within the same measured-exposure band, college and non-college workers are in *different* occupations with different task bundles. Non-college-heavy exposed occupations (customer service, some office roles, data entry) likely have task bundles sitting deeper in $[0, I^*)$, where supply dilution bites hardest. College-heavy exposed occupations (software, legal, financial) have task bundles closer to the capability frontier, where output expansion dominates and may even complement the college worker (as in Autor 2015).
     - **Autor-Thompson (2025) expertise bundles** — a cleaner theoretical frame. College workers hold bundles of complementary tasks and can plausibly reshuffle time within the bundle when AI supplements one task; non-college workers hold more rigidly defined task portfolios and cannot. The full-specialization model in §2 is silent on this margin, so the wage compression among non-college workers is likely a lower bound on the compression that would emerge in a richer specification.
-    - **why unemployment is symmetric but wages are not.** Extensive-margin adjustment (layoffs, slower hiring) operates at the occupation level and hits both education groups in exposed occupations. Intensive-margin compression (actual wage cuts for workers who keep their jobs) requires the employer to push wages down past whatever floor wage stickiness provides. That floor is plausibly higher for college workers --- more bargaining power, tenure, within-occupation outside options --- so only non-college workers experience the compression margin.
+
+write little formula examples, like in bundling: 
+
+wage = theta1 * p_task1 + theta2 * p_task2 --> tasks for an occupation; where all theta sums up to 1
+
+and say that college may have provided more tasks in their bundle (each w/ dif AI exposure score) --> so even on avg at the same beta, the college workers might have adjusted themselves via changing theta (more on relatively less exposed tasks) so as to attenuate the wage effect?
+
+
+
+    - **why unemployment is symmetric but wages are not.** -- parked
     - **tie back to Chandar (2025).** Chandar's finding within the most exposed quartile (software grows, customer service contracts) is consistent with this education asymmetry and provides independent corroboration in a different data source. Name this in the interpretation paragraph.
+
+---
+
+### 5.4 Education Heterogeneity --- Draft (dual approach)
+
+Splitting the sample by education reveals an asymmetric picture that the main-specification results do not. The unemployment response to AI exposure is broadly shared across education groups: in the preferred specification, the 2024 coefficient is $+0.018^{**}$ for college-educated workers (BA or above) and $+0.020^{***}$ for non-college workers (high school or some college), and the 2025 coefficient is $+0.018^{**}$ and $+0.014^{*}$ respectively. The wage response, by contrast, concentrates almost entirely on non-college workers: the 2025 log-wage coefficient is $-0.094^{***}$ for non-college workers in the preferred specification, while the corresponding college-worker coefficients are indistinguishable from zero in every post-2022 year ($+0.066$ in 2023, $+0.060$ in 2024, and $-0.001$ in 2025). The unemployment burden of generative AI is broadly shared across education groups; the wage compression is not.
+
+The task-bundling remark in Section 2 offers a starting frame but, by assumption, holds the bundle weights $\theta^x$ fixed. In practice, workers are likely to reallocate time across tasks within their bundles when AI supplements some of the tasks, shifting effort toward tasks where AI does not substitute in an attempt to preserve productivity and earnings. The richer framework in \textcite{autor2025expertise} formalizes this margin as an expertise-bundle mechanism: when AI automates the routine portion of an occupation's task bundle, workers with the judgment and flexibility to redirect their time toward the remaining complementary tasks can attenuate the wage effect; workers in more rigidly defined roles cannot.
+
+College-educated workers in high-exposure occupations are plausibly better positioned on this margin. Their occupations tend to include a larger share of judgment-intensive tasks that AI does not yet substitute for, providing natural destinations for within-bundle reallocation. Software engineers, for instance, spend part of their time on tasks AI now assists with (boilerplate coding, documentation) and part on tasks where expertise remains valuable (system design, architectural judgment, debugging); attorneys spend part on drafting and summarizing and part on counseling and strategy. Non-college-heavy exposed occupations tend to be more scripted, with fewer complementary non-exposed tasks to redirect effort toward. \textcite{chandar2025tracking} documents that employment has grown in software development and contracted in customer service within the most exposed quartile of occupations, a pattern consistent with within-bundle reassignment operating more effectively among college-heavy exposed occupations. The current data do not directly test for within-occupation time reallocation, and task-level evidence on reshuffling in response to AI adoption remains a natural direction for future work.
+
+The symmetry of the unemployment response, despite the asymmetry in wages, is coherent with this picture. Extensive-margin adjustments --- slower hiring into exposed roles and layoffs of marginal workers --- operate at the firm-and-occupation level, and the pressure on the firm's wage bill is determined largely by occupation-level exposure, not by workers' individual capacity to reassign time. Intensive-margin wage compression, in contrast, requires the compression pressure to pass through to individual pay. Whether it does depends on whether the worker can preserve productivity through within-bundle reallocation --- a margin on which the two education groups plausibly differ in the direction described above.
+
+///

@@ -216,10 +216,16 @@ Figure~\ref{fig:postai} provides a graphical illustration of these effects.
   \label{fig:postai}
 \end{figure}
 
+\paragraph{Task bundling.}
+The model treats a worker as a single-task specialist.  An occupation $x$ consisting of a bundle of tasks with fixed time shares $\theta_k^x$ (where $\sum_k \theta_k^x = 1$) earns the weighted wage
+\begin{equation}
+  w_x \;=\; \sum_k \theta_k^x \, p_k,
+  \label{eq:bundle}
+\end{equation}
+and the post-AI wage ratio for occupation $x$ is the $\theta^x$-weighted average of the underlying task-level wage ratios.  Two occupations with the same average exposure score $\beta_o$ can therefore face different wage responses when their bundle compositions differ.  The formulation is static by assumption --- a worker cannot re-weight tasks in response to the shock --- but I return to both fixed-$\theta^x$ composition effects and the case for endogenous bundle reallocation in Section~\ref{sec:results}.
+
 \paragraph{Displacement.}
 The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model tractable but does not fully describe the labor market response to the technology shock.  In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so part of the adjustment shifts from the intensive margin (wages) to the extensive margin (employment).  Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily.  A more formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
-
-\textcolor{red}{TASK BUNDLING, as in Autor (2025) Parked for now-- will explain in result sect.}
 
 With the model's prediction in hand, that workers whose tasks are heavily exposed to AI fare worse in relative terms than workers in unexposed occupations, and that displacement is the labor market's likely outlet when wages cannot fall far enough, I turn to empirical testing of the prediction in the following sections.
 
@@ -458,7 +464,13 @@ The null results provide an interesting contrast to \textcite{hosseini2025senior
 \subsection{Education Heterogeneity}
 %==================================================
 
-% Placeholder: the education heterogeneity subsection will be drafted separately.
+Splitting the sample by education reveals an asymmetric picture that the main-specification results do not.  The unemployment response to AI exposure is broadly shared across education groups: in the preferred specification, the 2024 coefficient is $+0.018^{**}$ for college-educated workers (BA or above) and $+0.020^{***}$ for non-college workers (high school or some college), and the 2025 coefficient is $+0.018^{**}$ and $+0.014^{*}$ respectively (Tables~\ref{tab:unemp_col} and~\ref{tab:unemp_noncol}).  The point estimates are comparable in magnitude and the confidence intervals overlap.  The wage response, by contrast, concentrates almost entirely on non-college workers: the 2025 log-wage coefficient is $-0.094^{***}$ for non-college workers in the preferred specification, while the corresponding college-worker coefficients are indistinguishable from zero in every post-2022 year ($+0.066$ in 2023, $+0.060$ in 2024, and $-0.001$ in 2025; Tables~\ref{tab:lw_col} and~\ref{tab:lw_noncol}).  The unemployment burden of generative AI is broadly shared across education groups; the wage compression is not.
+
+The task-bundling remark in Section~\ref{sec:model} offers a starting frame but, by assumption, holds the bundle weights $\theta^x$ fixed.  In practice, workers are likely to reallocate time across tasks within their bundles when AI supplements some of the tasks, shifting effort toward tasks where AI does not substitute in an attempt to preserve productivity and earnings.  The richer framework in \textcite{autor2025expertise} formalizes this margin as an expertise-bundle mechanism: when AI automates the routine portion of an occupation's task bundle, workers with the judgment and flexibility to redirect their time toward the remaining complementary tasks can attenuate the wage effect; workers in more rigidly defined roles cannot.
+
+College-educated workers in high-exposure occupations are plausibly better positioned on this margin.  Their occupations tend to include a larger share of judgment-intensive tasks that AI does not yet substitute for, providing natural destinations for within-bundle reallocation.  Software engineers, for instance, spend part of their time on tasks AI now assists with (boilerplate coding, documentation) and part on tasks where expertise remains valuable (system design, architectural judgment, debugging); attorneys spend part on drafting and summarizing and part on counseling and strategy.  Non-college-heavy exposed occupations tend to be more scripted, with fewer complementary non-exposed tasks to redirect effort toward.  \textcite{chandar2025tracking} documents that employment has grown in software development and contracted in customer service within the most exposed quartile of occupations, a pattern consistent with within-bundle reassignment operating more effectively among college-heavy exposed occupations.  The current data do not directly test for within-occupation time reallocation, and task-level evidence on reshuffling in response to AI adoption remains a natural direction for future work.
+
+The symmetry of the unemployment response, despite the asymmetry in wages, is coherent with this picture.  Extensive-margin adjustments --- slower hiring into exposed roles and layoffs of marginal workers --- operate at the firm-and-occupation level, and the pressure on the firm's wage bill is determined largely by occupation-level exposure, not by workers' individual capacity to reassign time.  Intensive-margin wage compression, in contrast, requires the compression pressure to pass through to individual pay.  Whether it does depends on whether the worker can preserve productivity through within-bundle reallocation --- a margin on which the two education groups plausibly differ in the direction described above.
 
 
 %==================================================

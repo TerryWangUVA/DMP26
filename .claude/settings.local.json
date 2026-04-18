@@ -26,7 +26,16 @@
       "Bash(awk 'NR>=190' \"c:/Projects/DMP/draft_idea.md\")",
       "Bash(awk 'NR>=193 && NR<=230' \"c:/Projects/DMP/draft_idea.md\")",
       "Bash(awk 'NR>=204 && NR<=212' \"c:/Projects/DMP/draft_idea.md\")",
-      "Bash(awk 'NR>=193' \"c:/Projects/DMP/draft_idea.md\")"
+      "Bash(awk 'NR>=193' \"c:/Projects/DMP/draft_idea.md\")",
+      "Bash(awk -F',' 'NR>1 {print $1}' \"c:/Projects/DMP/raw/Crosswalks/onet_task_statements.csv\")",
+      "Bash(awk '{print $1}')",
+      "Bash(awk ' *)",
+      "Bash(python3)",
+      "Bash(awk -F',' 'NR>1 {split\\($1,a,\".\"\\); soc=a[1]; count[soc]++} END {for \\(s in count\\) print s\",\"count[s]}' \"c:/Projects/DMP/raw/Crosswalks/onet_task_statements.csv\")",
+      "Bash(awk -F',' 'NR>1 {split\\($1,a,\".\"\\); soc=a[1]; print soc}' \"c:/Projects/DMP/raw/Crosswalks/onet_task_statements.csv\")",
+      "Bash(awk 'NR>=240' \"c:/Projects/DMP/draft_idea.md\")",
+      "Bash(awk 'NR>=255' \"c:/Projects/DMP/draft_idea.md\")",
+      "Bash(echo '=== __TRACKED_VAR__ ===' grep -E '^\\(2023|2024|2025\\) \\\\$\\\\\\\\times\\\\$ AI exposure' c:/Projects/DMP/output/tables/__TRACKED_VAR__)"
     ]
   }
 }

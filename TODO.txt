@@ -1,38 +1,30 @@
-DECISION (2026-04-16):
-Killed the occupation-layer model extension. The toy model stays as is
-(full specialization, task-level prediction). The occupation-bundle
-intuition moves to the Het section as a descriptive/interpretive device:
-compare two representative occupations with similar Eloundou beta but
-different underlying task distributions (O*NET), use this to explain
-the education heterogeneity narratively. No formal derivation --- the
-connection is asserted, not derived, and the thesis is transparent
-about that.
+Notes for "Task Bundling"
+
+> in current Toy Model sect: 
+-- add that some "bundling of tasks"? perhaos a remark para (kinda like the displacement para)
+> e.g. a worker's payoff = theta*task i + (1-theata) * task j ...
+> if theta are exogenous I gues the model still holds
 
 
----------- ARCHIVED NOTES ----------
-
-go see the model sect in DMP_D3_3-17.tex
-
-create a model.tex that does the following
-this serves to me as a "tool thing" for model
+before it I hope to grasp if my direction is on the right rail:
 
 
+I assume the O*NET soc is 2018 code, and what I got w/ the CPS-ASEC was non-perfect crosswalk... kinda
 
-> production func
-> task-mkt clearing
-> how AI comes in as s(i) to some tasks etc.
+is there any way we can still make use of the onet_task_statement.csv --> kinda put it and have a #of tasks count for each occ (specific occ, not occ_gr)...
 
-**new stuf
 
-> occupations as bundle of tasks
+then descriptives help I guess
 
-for instance Occupation_x = a_1*i_1 + a_2 * i_2 +...
+overall stats
 
-where i_1,... are within [0,1]
+- on avg college workers' occ task count 
+- on avg non-college workers' occ task count
+(perhaps a sidebyside bargraph?)
 
-and a_1 + a_2 + ... = 1 (e.g. hour)--> in some sense the occupation in our model is defined as the time distributed to each task...
 
-let's keep a_1 ... exogenous and let's keep workers in their occupations,... for now...
 
-then the "group analysis" should be carried out on occupation level.
 
+////
+> in dofile check if those highly exposed high college% occupations tend to have higher # of tasks on avg
+> original 
