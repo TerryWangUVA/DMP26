@@ -27,7 +27,7 @@
 \setlength{\epigraphwidth}{0.82\textwidth}
 \setlength{\epigraphrule}{0pt}
 
-\title{Present Day, Present Time:  \\\
+\title{Human in the Loop:  \\\
 AI Exposure and Labor Market Frictions}
 \author{Leyao Wang\\
         \small University of Virginia}
@@ -73,10 +73,13 @@ Another line of research uses larger datasets that are more representative of th
 %==================================================
 There is an established tradition in economics to analyze the labor market through the lens of \emph{tasks} in production. \textcolor{red}{THIS FRAMEWORK WAS WIDELY USED FOR EXPLAINING LABOR MKT CHANGES IN RESP. TO TECH SHCOKS} \textcite{autor2015whyjobs} used this framework to explain why automation has not destroyed all jobs: tasks within production are complementary, so automating routine tasks raises the economic importance of the remaining tasks that require judgment or creativity, sustaining demand for the workers who perform them.
 
+\iffalse
 Other researchers have applied a similar framework to immigration and offshoring: \textcite{ottaviano2013immigration}, for instance, used a task-based framework to study how the offshoring of certain tasks abroad reallocates work across heterogeneous groups of local workers. My toy model is inspired by this way of thinking. Instead of foreign labor performing tasks, a generative AI model
 does it. ``Offshoring to GPTopia'', if a punchline helps. 
+\fi
+Other researchers have applied a similar framework to immigration and offshoring: \textcite{ottaviano2013immigration}, for instance, use a task-based approach to study how relocating tasks abroad reallocates work across heterogeneous groups of local workers. The toy model developed here follows a similar logic. Rather than foreign labor performing a subset of tasks, a machine does them. One might think of this as a form of “offshoring to GPTopia.” 
 
-The following toy model is deliberately stylized and highly simplified. It is meant to capture the short-run labor market adjustment after the generative AI shock, not the change in long-run general equilibrium. The goal of the model is to isolate two forces: expansion in aggregate output and dilution in task supply, and to provide a conceptual benchmark for interpreting the reduced-form evidence in the following sections.
+My model is deliberately stylized and highly simplified. It is meant to capture the short-run labor market adjustment after the generative AI shock, not the change in long-run general equilibrium. The goal of the model is to isolate two forces: expansion in aggregate output and dilution in task supply, and to provide a conceptual benchmark for interpreting the reduced-form evidence in the following sections.
 
 
 \subsection{Setup}
@@ -214,7 +217,7 @@ Figure~\ref{fig:postai} provides a graphical illustration of these effects.
 \end{figure}
 
 \paragraph{Displacement.}
-The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model tractable but does not fully describe the labor market response to the technology shock.  In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so the adjustment shifts from the intensive margin (wages) to the extensive margin (employment).  Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily.  A formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
+The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model tractable but does not fully describe the labor market response to the technology shock.  In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so part of the adjustment shifts from the intensive margin (wages) to the extensive margin (employment).  Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily.  A more formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
 
 \textcolor{red}{TASK BUNDLING, as in Autor (2025) Parked for now-- will explain in result sect.}
 
@@ -381,7 +384,7 @@ Y_{it} = \alpha
   + \sum_{t \neq 2022} \delta_t \left( \mathbf{1}[t] \times \text{Experience}_i \times \text{AIExposure}_i \right)
   + \text{lower-order terms} + X_{it}'\Gamma + \varepsilon_{it}.
 \end{equation}
-The sign of post-2022 $\delta_t$ is interpreted with respect to the outcome: more-experienced workers are relatively shielded when $\delta_t > 0$ for log wages and when $\delta_t < 0$ for unemployment.
+The sign of post-2022 $\delta_t$ is interpreted with respect to the outcome: more-experienced workers are relatively shielded if $\delta_t > 0$ for log wages and if $\delta_t < 0$ for unemployment.
 
 \paragraph{Education.} The education heterogeneity analysis is motivated by the descriptive patterns documented in Section~\ref{sec:data}. Because $\beta_o$ is assigned at the occupation level, and because college share varies within narrow ranges of $\beta_o$, college and non-college workers with similar measured exposure are sorting into different occupations. The college / non-college split is therefore not a proxy for the exposure split, and differences in outcomes between the two groups reflect occupational sorting by education as much as any direct effect of exposure per se. To isolate this dimension I divide the sample into \emph{college-educated} workers (BA or above, educ $>$ 110) and \emph{non-college} workers (high school or some college, educ $\leq$ 110) and estimate the main specification \eqref{eq:main} separately within each group:
 \begin{equation}
@@ -436,9 +439,9 @@ In the naive and sex-FE specifications, the 2025 coefficient is $-0.036$ and $-0
 
 The delayed wage response is consistent with the displacement channel discussed in the unemployment results: with wages downward-sticky, adjustment flows first through the extensive margin (employment), and the intensive margin (wages) lags behind.  The one-year separation between the unemployment signal (emerging in 2024) and the wage signal (emerging in 2025) matches this explanation.
 
-The fact that statistical significance requires state$\times$year fixed effects is itself interesting. On the one hand, this could be a weakness of the wage result: the estimate is not robust across all 4 specifications. On the other hand, this could suggest that noise from region-specific shocks in 2025 may have been large enough to mask the exposure signal in looser specifications. I note both interpretations as possible and do not strongly favor one over the other.
+The fact that statistical significance requires state$\times$year fixed effects is itself interesting. On the one hand, this could suggest a potential weakness of the wage result: the estimate is not robust across all 4 specifications. On the other hand, this could suggest that noise from region-specific shocks in 2025 may have been large enough to mask the exposure signal in looser specifications. I note both interpretations as possible and do not strongly favor one over the other.
 
-My second concern is that 2025 is the end of the sample. Whether the relative difference in wage persists in 2026 is an empirical question the current data cannot answer, given my inability to travel to the future. I suggest readers to interpret the 2025 result with that uncertainty in mind.
+ My second concern is that 2025 is the end of the sample. Whether the relative difference in wage persists in 2026 is an empirical question the current data cannot answer, given my inability to travel to the future. I suggest readers to interpret the 2025 result with that uncertainty in mind.
 
 Finally, the 2025 estimate should be interpreted in relative terms, in line with the analysis in Section~\ref{sec:model}. A negative estimate does not imply that higher-$\beta_o$ workers' wages fell in absolute terms; it implies that wages declined more steeply along the $\beta_o$ distribution post-2022, widening the wage gap between workers at higher and lower levels of exposure.
 %==================================================
