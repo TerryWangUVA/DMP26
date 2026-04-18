@@ -101,7 +101,7 @@ However, the *relative effect* is unambigious. Workers above the capability fron
 
 $$w_x = \sum_k \theta_k^x \, p_k,$$
 
-and the post-AI wage ratio for occupation $x$ is simply the $\theta^x$-weighted average of the underlying task-level wage ratios. Two occupations with the same average exposure $\beta_o$ can therefore face different wage responses when their bundle compositions differ. The formulation is static by assumption --- a worker cannot re-weight tasks in response to the shock --- but I return to both fixed-$\theta^x$ composition effects and the case for endogenous bundle reallocation in Section 5.
+and the post-AI wage ratio for occupation $x$ is simply the $\theta^x$-weighted average of the underlying task-level wage ratios. Two occupations with the same average exposure $\beta_o$ can therefore face different wage responses when their bundle compositions differ. The discrete formulation here and a continuous analogue with a task-share density $\theta^x(i)$ are equivalent for this exercise so long as $\theta^x$ is exogenous. The formulation is static by assumption --- a worker cannot re-weight tasks in response to the shock --- but I return to both fixed-$\theta^x$ composition effects and the case for endogenous bundle reallocation in Section 5.
 
 ## 3. Data
 
