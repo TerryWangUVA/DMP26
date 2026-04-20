@@ -1374,8 +1374,8 @@ twoway ///
 	name(unemp_stateYFE_colComb, replace)
 graph export "$graphs/unemp_stateYFE_plot_colComb.pdf", replace
 
-*/
 
+*/
 
 **************************************************
 **# Within-occupation test (occ x year FE)
@@ -1434,14 +1434,39 @@ estadd scalar depvar_mean = r(mean)
 eststo lw_within
 
 esttab lw_within using "$tables/het_within_occ_lnwage.tex", replace ///
-	se star(* 0.10 ** 0.05 *** 0.01) ///
-	b(%9.3f) se(%9.3f) ///
-	keep(*is_college*dv_rating_beta*) nobaselevels ///
-	scalars("sex_FE Sex FE" "educ_FE Education FE" ///
-	        "state_yFE State x Year FE" "occ_yFE Occupation x Year FE" ///
-	        "se_cluster SE clustering" "obs Observations" ///
-	        "depvar_mean Mean of Dep. Var.") ///
-	fragment nomtitles compress
+	cells(b(star fmt(a3)) se(fmt(a3) par)) ///
+	style(tex) se starlevels(* 0.10 ** 0.05 *** 0.01) ///
+	keep(*year*is_college*dv_rating_beta*) nobaselevels ///
+	varlabels( ///
+		2018.year#1.is_college#c.dv_rating_beta "2018 $\times$ College $\times$ AI exposure" ///
+		2019.year#1.is_college#c.dv_rating_beta "2019 $\times$ College $\times$ AI exposure" ///
+		2020.year#1.is_college#c.dv_rating_beta "2020 $\times$ College $\times$ AI exposure" ///
+		2021.year#1.is_college#c.dv_rating_beta "2021 $\times$ College $\times$ AI exposure" ///
+		2023.year#1.is_college#c.dv_rating_beta "2023 $\times$ College $\times$ AI exposure" ///
+		2024.year#1.is_college#c.dv_rating_beta "2024 $\times$ College $\times$ AI exposure" ///
+		2025.year#1.is_college#c.dv_rating_beta "2025 $\times$ College $\times$ AI exposure" ///
+	) ///
+	stats(depvar_mean sex_FE educ_FE state_yFE occ_yFE se_cluster obs, ///
+	      fmt(3 0 0 0 0 0 %12.0gc) ///
+	      labels("Mean of dependent variable" ///
+	             "Sex FE" ///
+	             "Education FE" ///
+	             "State $\times$ Year FE" ///
+	             "Occupation $\times$ Year FE" ///
+	             "SE clustered at" ///
+	             "Observations")) ///
+	booktabs collabels(none) mlabels(none) nonumbers nomtitles gaps nonotes ///
+	prehead( ///
+		"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}" ///
+		"\begin{tabular}{l*{1}{c}}" ///
+		"\toprule" ///
+		"Dependent Variable: & \multicolumn{1}{c}{Log Wage} \\" ///
+		"\cmidrule(lr){2-2}" ///
+		" & (1) \\" ///
+	) ///
+	postfoot( ///
+		"\bottomrule" ///
+		"\end{tabular}" )
 
 
 *------------------*

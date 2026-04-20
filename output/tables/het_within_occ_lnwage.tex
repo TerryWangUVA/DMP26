@@ -1,34 +1,31 @@
-          &\multicolumn{1}{c}{(1)}         \\
-\hline
-1.is\_college#c.dv\_rating\_beta&    0.211\sym{***}\\
-          &  (0.079)         \\
-[1em]
-2018.year#1.is\_college#c.dv\_rating\_beta&   -0.072         \\
-          &  (0.062)         \\
-[1em]
-2019.year#1.is\_college#c.dv\_rating\_beta&   -0.016         \\
-          &  (0.062)         \\
-[1em]
-2020.year#1.is\_college#c.dv\_rating\_beta&   -0.025         \\
-          &  (0.063)         \\
-[1em]
-2021.year#1.is\_college#c.dv\_rating\_beta&   -0.015         \\
-          &  (0.056)         \\
-[1em]
-2023.year#1.is\_college#c.dv\_rating\_beta&   -0.037         \\
-          &  (0.059)         \\
-[1em]
-2024.year#1.is\_college#c.dv\_rating\_beta&    0.002         \\
-          &  (0.061)         \\
-[1em]
-2025.year#1.is\_college#c.dv\_rating\_beta&   -0.004         \\
-          &  (0.073)         \\
-\hline
-\(N\)     &   464275         \\
-Sex FE    &      Yes         \\
-Education FE&      Yes         \\
-State x Year FE&      Yes         \\
-Occupation x Year FE&      Yes         \\
-SE clustering&Occupation         \\
-Observations& 4.64e+05         \\
-Mean of Dep. Var.&    9.733         \\
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{1}{c}}
+\toprule
+Dependent Variable: & \multicolumn{1}{c}{Log Wage} \\
+\cmidrule(lr){2-2}
+ & (1) \\
+\midrule
+2018 $\times$ College $\times$ AI exposure&     -0.0721   \\
+            &    (0.0615)   \\
+2019 $\times$ College $\times$ AI exposure&     -0.0161   \\
+            &    (0.0621)   \\
+2020 $\times$ College $\times$ AI exposure&     -0.0245   \\
+            &    (0.0629)   \\
+2021 $\times$ College $\times$ AI exposure&     -0.0151   \\
+            &    (0.0561)   \\
+2023 $\times$ College $\times$ AI exposure&     -0.0370   \\
+            &    (0.0586)   \\
+2024 $\times$ College $\times$ AI exposure&     0.00224   \\
+            &    (0.0610)   \\
+2025 $\times$ College $\times$ AI exposure&    -0.00382   \\
+            &    (0.0732)   \\
+\midrule
+Mean of dependent variable&       9.733   \\
+Sex FE      &         Yes   \\
+Education FE&         Yes   \\
+State $\times$ Year FE&         Yes   \\
+Occupation $\times$ Year FE&         Yes   \\
+SE clustered at&  Occupation   \\
+Observations&     464,275   \\
+\bottomrule
+\end{tabular}
