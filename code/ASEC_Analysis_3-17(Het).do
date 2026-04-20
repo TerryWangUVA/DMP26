@@ -199,7 +199,7 @@ program define make_coef_file
 end
 
 
-
+/*
 **************************************************
 **# Main loop: college and noncollege
 **************************************************
@@ -1374,7 +1374,7 @@ twoway ///
 	name(unemp_stateYFE_colComb, replace)
 graph export "$graphs/unemp_stateYFE_plot_colComb.pdf", replace
 
-
+*/
 
 
 **************************************************
@@ -1441,8 +1441,7 @@ esttab lw_within using "$tables/het_within_occ_lnwage.tex", replace ///
 	        "state_yFE State x Year FE" "occ_yFE Occupation x Year FE" ///
 	        "se_cluster SE clustering" "obs Observations" ///
 	        "depvar_mean Mean of Dep. Var.") ///
-	title("Within-Occupation Heterogeneity Test (Log Wage)") ///
-	compress nomtitles
+	fragment nomtitles compress
 
 
 *------------------*

@@ -493,11 +493,11 @@ The two readings are observationally equivalent in the split-sample regressions,
 \end{equation}
 where $\mathrm{Col}_i = \mathbf{1}\{\text{educ}_i > 110\}$ is an indicator for college-educated, $\alpha_{o,t}$ is a full occupation$\times$year fixed effect, $X_{it}$ absorbs sex, education, and state$\times$year fixed effects, and standard errors are clustered at the occupation level.  The occupation$\times$year fixed effect absorbs any variation in log wages that is common to all workers in occupation $o$ in year $t$, including the occupation-level exposure path itself.  The coefficient of interest, $\gamma_t$, therefore isolates the differential wage response of college-educated workers \emph{within} the same occupation-year cell.  If the within-occupation reading is right, $\gamma_t$ should be positive in the post-2022 years; if the between-occupation reading is right, the selection that drives the split-sample asymmetry is absorbed into $\alpha_{o,t}$ and $\gamma_t$ should be indistinguishable from zero.
 
-Figure~\ref{fig:lw_within_plot} plots the estimated $\gamma_t$ for 2018--2025, with the full regression reported in Table~\ref{tab:lw_within_occ} in Appendix~\ref{app:tables}.  The post-2022 coefficients are [insert sign/magnitude once the regression is re-run with the fixed \texttt{esttab keep} pattern] and statistically indistinguishable from zero, with 95\% confidence intervals that include zero in every post-2022 year.  Within the same occupation-year cell, then, college-educated and non-college workers do not experience systematically different wage responses to AI exposure, and the education gap visible in the split-sample regressions does not survive occupation$\times$year fixed effects.  The evidence therefore points to the between-occupation reading: the education gap in the wage response reflects sorting on dimensions correlated with college share but not captured by $\beta_o$, rather than an individual-level productivity gap within occupations.
+Figure~\ref{fig:lw_within_plot} plots the estimated $\gamma_t$ for 2018--2025, with the full regression reported in Table~\ref{tab:lw_within_occ} in Appendix~\ref{app:tables}.  The post-2022 coefficients are small and statistically indistinguishable from zero: $-0.037$ in 2023, $+0.002$ in 2024, and $-0.004$ in 2025, with standard errors of $0.059$, $0.061$, and $0.073$ respectively.  Within the same occupation-year cell, then, college-educated and non-college workers do not experience systematically different wage responses to AI exposure, and the education gap visible in the split-sample regressions does not survive occupation$\times$year fixed effects.  The evidence therefore points to the between-occupation reading: the education gap in the wage response reflects sorting on dimensions correlated with college share but not captured by $\beta_o$, rather than an individual-level productivity gap within occupations.
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{output/graphs/het/lw_within_plot.pdf}
+\includegraphics[width=0.8\textwidth]{lw_within_plot.pdf}
 \caption{Within-occupation test: estimated $\gamma_t$ from \eqref{eq:within_occ}, the college-$\times$-exposure-$\times$-year triple interaction with occupation$\times$year fixed effects.  A coefficient of zero indicates that college-educated and non-college workers in the same occupation-year cell experience the same wage response to AI exposure.  Year 2022 is the baseline.  Error bars are 95\% CI, SEs clustered at the occupation level.}
 \label{fig:lw_within_plot}
 \end{center}
@@ -632,6 +632,15 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \caption{Log wage --- non-college subsample. Dependent variable: log annual real wages (1982 dollars). Split-sample regression on non-college workers. Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_noncol}
 \resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableA_noncol.tex}}
+\end{center}
+\end{table}
+
+% ── B9: Within-occupation heterogeneity test (log wage) ──
+\begin{table}[H]
+\begin{center}
+\caption{Within-occupation heterogeneity test (log wage). Dependent variable: log annual real wages (1982 dollars). Reports the coefficients $\gamma_t$ on the college $\times$ $\beta_o$ $\times$ year triple interaction from equation~\eqref{eq:within_occ}. Fixed effects: sex, education, state$\times$year, and occupation$\times$year. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:lw_within_occ}
+\resizebox{0.6\textwidth}{!}{\input{output/tables/het_within_occ_lnwage.tex}}
 \end{center}
 \end{table}
 
