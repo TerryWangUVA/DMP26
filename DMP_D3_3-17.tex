@@ -227,7 +227,7 @@ The derivation above treats each worker as a single-task specialist of type $i^*
 The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model tractable but does not fully describe the labor market response to the technology shock.  In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so part of the adjustment shifts from the intensive margin (wages) to the extensive margin (employment).  Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily.  A more formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
 \end{remark}
 
-With the model's prediction in hand, that workers whose tasks are heavily exposed to AI fare worse in relative terms than workers in unexposed occupations, and that displacement is the labor market's likely outlet when wages cannot fall far enough, I turn to empirical testing of the prediction in the following sections.
+With the model's prediction in hand, that workers whose tasks are heavily exposed to AI fare worse in relative terms than workers in unexposed occupations, and that displacement is the labor market's likely outlet when wages cannot fall far enough, I turn to empirical analysis in the following sections.
 
 %==================================================
 \section{Data}
@@ -243,7 +243,7 @@ I restrict the sample to respondents aged 22--65 who are active in the labor for
 
 \paragraph{Wages.} For the wage analysis, I use annual real wage and salary income (\texttt{incwage}), deflated to 1982 dollars using the annual average CPI-U from FRED \parencite{fred_cpiaucsl}. The outcome variable is the natural log of real wages. Observations with zero or missing wage income are excluded from the wage sample (workers who are unemployed or out of the labor force for wage purposes), yielding 464,300 observations.
 
-\paragraph{Potential experience.} For the experience heterogeneity specification, I impute potential labor-market experience as $\max(\text{age} - \text{years of schooling} - 6,\, 0)$, with years of schooling assigned from the CPS education recode.
+\paragraph{Potential experience.} For the experience heterogeneity specification, I impute potential labor-market experience as $\max(\text{age} - \text{years of schooling} - 6,\, 0)$, with years of schooling approximated from the CPS education level.
 
 \subsection{AI Exposure}
 
@@ -269,7 +269,7 @@ where $s_t = 1$ for E1 tasks, $s_t = 0.5$ for E2 tasks, and $s_t = 0$ for E0 tas
 \paragraph{Annotators.}
 \textcite{eloundou2024gpts} collect two independent sets of annotations. \emph{Human ratings} --- produced by the authors and experienced alignment annotators --- are the primary benchmark; they were applied to DWAs and aggregated to the task level. \emph{GPT-4 ratings} were obtained by prompting an early GPT-4 version directly on all task/occupation pairs, serving as a validation dataset. The two sources are highly correlated at the occupation level.
 
-I use \texttt{dv\_rating\_beta}: the \emph{GPT-4-annotated} $\beta$ score. Applying a single model uniformly across all task/occupation pairs ensures internal consistency. The cost is potential overconfidence in GPT-4's assessment of its own capabilities. $\beta$ is preferred to $\alpha$ (which ignores the ecosystem of LLM-powered tools already deployed or in development at the time of study) and $\zeta$ (which assumes a hypothetically well-developed AI infrastructure). $\beta$ is therefore the most economically meaningful measure for the post-ChatGPT period.
+I use \texttt{dv\_rating\_beta}: the \emph{GPT-4-annotated} $\beta$ score. Applying a single model uniformly across all task/occupation pairs better preserves internal consistency. The cost is potential overconfidence in GPT-4's assessment of its own capabilities. $\beta$ is preferred to $\alpha$ (which ignores the ecosystem of LLM-powered tools already deployed or in development at the time of study) and $\zeta$ (which assumes a hypothetically well-developed AI infrastructure). $\beta$ is therefore the most economically meaningful measure for the post-ChatGPT period.
 
 
 Because CPS-ASEC codes occupations using a Census-based scheme which is distinct from the SOC occupation codes used by \textcite{eloundou2024gpts}, I construct a hierarchical crosswalk: from Census 2010 occupation codes to 6-digit 2010 SOC codes, then from 2010 SOC to 2018 SOC using the BLS official crosswalk \parencite{bls_soc_crosswalk_2018}. Where exact 6-digit matches are unavailable, exposure scores are aggregated at the 5-digit and 4-digit SOC levels, taking group means. This procedure retains nearly all observations in the sample.
@@ -298,7 +298,7 @@ worker-level distribution of occupational exposure scores.}
 \end{center}
 \end{figure}
 
-Tables~\ref{tab:top5} and~\ref{tab:bot5} list the five most and five least exposed occupations. The high end of the distribution is occupied by occupations whose task content is predominantly cognitive.  The low end consists of occupations whose task content is predominantly manual or physical, for which contemporary generative AI provides little direct substitution.  This pattern is consistent with the construction of the exposure measure, which scores tasks on the basis of whether a large language model can reduce task completion time by at least 50 percent at equivalent quality.
+Tables~\ref{tab:top5} and~\ref{tab:bot5} list the five most and five least exposed occupations. The high end of the distribution is occupied by occupations whose task content is predominantly cognitive.  The low end consists of occupations whose task content is predominantly manual or physical, for which contemporary generative AI provides little direct assistance or substitution. 
 
 \begin{table}[htbp]
 \centering
@@ -626,7 +626,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \renewcommand{\theHtable}{B\arabic{table}}
 
 % ── B1: Unemployment (full sample) ──
-\begin{table}[H]
+\begin{table}[htbp]
 \begin{center}
 \caption{Unemployment regression results. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Columns (1)--(4): no fixed effects, sex FE, sex + education FE, sex + education + state$\times$year FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemployment_main}
@@ -635,7 +635,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{table}
 
 % ── B2: Log wage (full sample) ──
-\begin{table}[H]
+\begin{table}[htbp]
 \begin{center}
 \caption{Log wage regression results. Dependent variable: natural log of annual real wages (1982 dollars). Year 2022 is the omitted baseline. Columns (1)--(4): no fixed effects, sex FE, sex + education FE, sex + education + state$\times$year FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:logwage_main}
@@ -644,7 +644,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{table}
 
 % ── B3: Unemployment experience heterogeneity (full sample) ──
-\begin{table}[H]
+\begin{table}[htbp]
 \begin{center}
 \caption{Unemployment experience heterogeneity. Dependent variable: binary unemployment indicator. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Full sample. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_exphet}
@@ -653,7 +653,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{table}
 
 % ── B4: Log wage experience heterogeneity (full sample) ──
-\begin{table}[H]
+\begin{table}[htbp]
 \begin{center}
 \caption{Log wage experience heterogeneity. Dependent variable: log annual real wages. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Full sample. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_exphet}
@@ -662,7 +662,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{table}
 
 % ── B5: Unemployment (college, split sample) ──
-\begin{table}[H]
+\begin{table}[htbp]
 \begin{center}
 \caption{Unemployment --- college subsample. Dependent variable: binary unemployment indicator. Split-sample regression on college-educated workers (BA or above). Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_col}
@@ -671,7 +671,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{table}
 
 % ── B6: Unemployment (non-college, split sample) ──
-\begin{table}[H]
+\begin{table}[htbp]
 \begin{center}
 \caption{Unemployment --- non-college subsample. Dependent variable: binary unemployment indicator. Split-sample regression on non-college workers (high school or some college). Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_noncol}
@@ -680,7 +680,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{table}
 
 % ── B7: Log wage (college, split sample) ──
-\begin{table}[H]
+\begin{table}[htbp]
 \begin{center}
 \caption{Log wage --- college subsample. Dependent variable: log annual real wages (1982 dollars). Split-sample regression on college-educated workers. Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_col}
@@ -689,7 +689,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{table}
 
 % ── B8: Log wage (non-college, split sample) ──
-\begin{table}[H]
+\begin{table}[htbp]
 \begin{center}
 \caption{Log wage --- non-college subsample. Dependent variable: log annual real wages (1982 dollars). Split-sample regression on non-college workers. Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_noncol}
@@ -698,7 +698,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{table}
 
 % ── B9: Within-occupation heterogeneity test (log wage) ──
-\begin{table}[H]
+\begin{table}[htbp]
 \begin{center}
 \caption{Within-occupation heterogeneity test (log wage). Dependent variable: log annual real wages (1982 dollars). Reports the coefficients $\gamma_t$ on the college $\times$ $\beta_o$ $\times$ year triple interaction from equation~\eqref{eq:within_occ}. Fixed effects: sex, education, state$\times$year, and occupation$\times$year. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_within_occ}
