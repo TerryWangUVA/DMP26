@@ -380,7 +380,7 @@ Four progressively stricter specifications are estimated: (1) no additional cont
 \textcolor{red}{The coefficient $\hat\beta_t$ is interpreted as the per-unit marginal effect of AI exposure on the outcome in year $t$, relative to the 2022 baseline. \textcite{callaway2024continuous} show that under the continuous-treatment two-way fixed effects specification, this coefficient is a weighted average of the underlying per-exposure effects, with weights that need not reflect the population exposure distribution. I acknowledge this as an important limitation of the specification;}
  \textcolor{red}{if have time robustness checks with binned regs}
 
-This event-study specification is preferred to a simple Treatment $\times$ Post specification for two reasons. First, generative AI capability improved substantially across the post-ChatGPT window, as successive frontier models were released (Figure~\ref{fig:model_timeline}). Second, workplace adoption of generative AI tools rose gradually rather than at once: \textcite{bick2024rapid} document that the share of U.S.\ workers using generative AI climbed from near-zero at the end of 2022 to roughly one-third by late 2024. Taken together, these features imply treatment effect heterogeneity over time: the per-period effect at $T+1$ is unlikely to equal the effect at $T+3$. A Treatment $\times$ Post specification would fail to capture this time-variation, while the year-by-year coefficients $\{\hat\beta_t\}$ preserve it.
+This event-study specification is preferred to a simple Treatment $\times$ Post specification for two reasons. First, generative AI capability improved substantially across the post-ChatGPT window, as successive frontier models were released (Figure~\ref{fig:model_timeline}). Second, workplace adoption of generative AI tools rose gradually rather than at once: \textcite{bick2024rapid} document that the share of U.S.\ workers using generative AI climbed from near-zero at the end of 2022 to roughly one-third by late 2024. Taken together, these features imply treatment effect heterogeneity over time: the period-specific effect at $T+1$ is unlikely to equal the effect at $T+3$. A Treatment $\times$ Post specification would fail to capture this time-variation, while the year-by-year coefficients $\{\hat\beta_t\}$ preserve it.
 
 \begin{figure}[htbp]
 \centering
@@ -401,9 +401,9 @@ This event-study specification is preferred to a simple Treatment $\times$ Post 
   % releases above the line
   \foreach \x/\name/\date/\h in {%
     0/ChatGPT/Nov~2022/0.9,
+    12/Gemini/Dec~2023/0.9,
     16/Claude~3/Mar~2024/0.9,
-    19/Claude~3.5/Jun~2024/1.9,
-    25/o1/Dec~2024/0.9%
+    19/Claude~3.5/Jun~2024/1.9
   } {
     \node[dot] at (\x,0) {};
     \draw[gray] (\x,0.05) -- (\x,\h);
@@ -413,9 +413,9 @@ This event-study specification is preferred to a simple Treatment $\times$ Post 
   % releases below the line
   \foreach \x/\name/\date/\h in {%
     4/GPT-4/Mar~2023/0.9,
+    15/Gemini~1.5/Feb~2024/0.9,
     18/GPT-4o/May~2024/0.9,
-    22/o1-preview/Sep~2024/1.9,
-    27/Claude~3.7/Feb~2025/0.9%
+    27/Claude~3.7/Feb~2025/0.9
   } {
     \node[dot] at (\x,0) {};
     \draw[gray] (\x,-0.05) -- (\x,-\h);
@@ -533,9 +533,9 @@ Unlike unemployment, the wage response is not symmetric. The 2025 log-wage coeff
 \end{center}
 \end{figure}
 
-The wage asymmetry reveals two potential readings that the split-sample regressions in Tables~\ref{tab:lw_col}--\ref{tab:lw_noncol} cannot distinguish.  The first reading is a between-occupation story.  Because $\beta_o$ is assigned at the occupation level, workers with the same measured exposure can still hold systematically different jobs, and Section~\ref{sec:data} already documented that college share in occupations varies widely within narrow bands of $\beta_o$: a college worker and a non-college worker may self-select into occupations that are quite different despite having similar $\beta_o$ .  On this reading, the education gap in the wage response reflects sorting: occupational attributes correlated with college share, but not with the exposure score, generate the different post-2022 wage paths. Therefore, what looks like an heterogeneous effect in education is at heart a between-occupation effect that $\beta_o$ does not capture.  The second reading is a within-occupation story.  Holding occupation fixed, college-educated workers may simply be more productive or more adaptable to generative AI, and therefore better shielded from the wage pressure that $\beta_o$ predicts, in which case the education gap is an individual-level productivity story that survives conditioning on occupation.
+The wage asymmetry implies two potential readings that the split-sample approach in \eqref{eq:split} cannot distinguish between.  The first reading is a between-occupation story.  Because $\beta_o$ is assigned at the occupation level, workers with the same measured exposure can still hold systematically different jobs. Section~\ref{sec:data} already documented that college share in occupations varies widely within narrow bands of $\beta_o$: a college worker and a non-college worker may self-select into occupations that are quite different despite having similar $\beta_o$ .  On this reading, the education gap in the wage response reflects sorting: occupational attributes correlated with college share, but not with the exposure score, generate the different post-2022 wage paths. Therefore, what looks like an heterogeneous effect in education is in fact differences across occupations that $\beta_o$ fail to capture.  The second reading is a within-occupation story.  Holding occupation fixed, college-educated workers may simply be more productive or more adaptable to generative AI, and therefore better shielded from the wage pressure, in which case the education gap is an individual-level productivity story that survives conditioning on occupation.
 
-The two readings are observationally equivalent in the split-sample regressions, which do not absorb occupation, but they are separable by a within-occupation specification.
+The two readings are observationally equivalent in the split-sample regressions, but they are separable by the following specification.
 \begin{equation}
 \label{eq:within_occ}
 \ln w_{it} = \sum_{t\ne 2022} \gamma_t\,(\mathbf{1}\{\text{year}=t\}\times \beta_{o(i)}\times \mathrm{Col}_i) + \text{lower-order terms} + \alpha_{o(i),t} + X_{it}'\Gamma + \varepsilon_{it},
@@ -553,17 +553,17 @@ Figure~\ref{fig:lw_within_plot} plots the estimated $\gamma_t$ for 2018--2025, w
 \end{figure}
 
 What, then, are the between-occupation differences affecting the wage paths post 2022?  I here provide two possible explanations. Both are conjectural rather than tested.
-What, then, are the between-occupation differences affecting the wage paths post 2022?  Two non-exclusive explanations are consistent with the pattern; both are conjectural rather than tested.
+
 
 \emph{Explanation 1: intra-bundle time reallocation.}  
-Remark~1 in Section~\ref{sec:model} held the bundle weights $\theta^x$ fixed by assumption. 
-However, if workers can instead adjust $\theta^x$ in response to the shock by reallocating time and effort away from AI-substitutable tasks and toward less exposed tasks, then the wage effect on the effective task bundle is attenuated.  
+Remark~1 in Section~\ref{sec:model} held the task bundle weights $\theta^x$ fixed by assumption. 
+However, if workers can instead adjust $\theta^x$ in response to the shock by reallocating time and effort away from AI-exposed tasks and toward less exposed tasks, then the wage effect on the effective task bundle is attenuated.  
 
 College-educated workers in high-exposure occupations may be better positioned along this margin. 
-This could reflect either (i) greater heterogeneity in task exposure within the occupation, creating larger scope for reallocation across tasks, or (ii) greater flexibility in adjusting effort across tasks within the bundle.
-Neither channel is directly tested in this paper and both are offered as conjectures. That said, existing literature points in a similar direction.
+This could reflect their (i) greater heterogeneity in task exposure within the occupation, creating larger scope for reallocation across tasks, and / or (ii) greater flexibility in adjusting effort across tasks within the bundle.
+Both channels here are offered as conjectures. That said, existing literature points in a similar direction.
 
-\textcite{hampole2025ai} formalize within-occupation task reallocation in response to technology shock, showing that the capacity to offset task displacement is governed by the concentration of exposure across tasks. \textcite{autor2025expertise} offer a related angle. In their framework, AI's wage effect depends on whether the tasks it removes are expert or inexpert within an occupation's bundle: removing inexpert tasks concentrates labor in the remaining expert tasks and raises both wage and entry requirements, while removing expert tasks lowers expertise thresholds and admits less-skilled entrants. College-heavy high-exposure occupations presumably belong to the first case, where the residual tasks demand more judgment and domain knowledge and education functions as an entry requirement; non-college-heavy high-exposure occupations presumably belong to the second, where AI erodes the expert content of the job.
+\textcite{hampole2025ai} formalize within-occupation task reallocation in response to technology shock, showing that the capacity to offset task displacement is governed by the concentration of exposure across tasks. \textcite{autor2025expertise} offer a related angle. In their framework, AI's wage effect depends on whether the tasks it removes are expert or inexpert within an occupation's bundle: removing inexpert tasks concentrates labor in the remaining expert tasks and raises both wage and entry requirements, while removing expert tasks lowers expertise thresholds and admits less-skilled entrants. College-heavy high-exposure occupations presumably belong to the first case, where the residual tasks demand judgment and domain knowledge and education functions as an entry requirement; non-college-heavy high-exposure occupations presumably belong to the second, where AI erodes the expert content of the jobs.
 
 
 
