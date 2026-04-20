@@ -35,7 +35,8 @@
       "Bash(awk -F',' 'NR>1 {split\\($1,a,\".\"\\); soc=a[1]; print soc}' \"c:/Projects/DMP/raw/Crosswalks/onet_task_statements.csv\")",
       "Bash(awk 'NR>=240' \"c:/Projects/DMP/draft_idea.md\")",
       "Bash(awk 'NR>=255' \"c:/Projects/DMP/draft_idea.md\")",
-      "Bash(echo '=== __TRACKED_VAR__ ===' grep -E '^\\(2023|2024|2025\\) \\\\$\\\\\\\\times\\\\$ AI exposure' c:/Projects/DMP/output/tables/__TRACKED_VAR__)"
+      "Bash(echo '=== __TRACKED_VAR__ ===' grep -E '^\\(2023|2024|2025\\) \\\\$\\\\\\\\times\\\\$ AI exposure' c:/Projects/DMP/output/tables/__TRACKED_VAR__)",
+      "Bash(awk 'NR>=270' \"c:/Projects/DMP/draft_idea.md\")"
     ]
   }
 }
