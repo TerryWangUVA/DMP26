@@ -12,6 +12,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{epigraph}
+\usepackage{tikz}
 
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}
@@ -379,7 +380,51 @@ Four progressively stricter specifications are estimated: (1) no additional cont
 \textcolor{red}{The coefficient $\hat\beta_t$ is interpreted as the per-unit marginal effect of AI exposure on the outcome in year $t$, relative to the 2022 baseline. \textcite{callaway2024continuous} show that under the continuous-treatment two-way fixed effects specification, this coefficient is a weighted average of the underlying per-exposure effects, with weights that need not reflect the population exposure distribution. I acknowledge this as an important limitation of the specification;}
  \textcolor{red}{if have time robustness checks with binned regs}
 
-This event-study specification is preferred to a simple Treatment $\times$ Post specification for two reasons. First, generative AI capability improved substantially across the post-ChatGPT window. Second, workplace adoption of generative AI tools rose gradually rather than at once: \textcite{bick2024rapid} document that the share of U.S.\ workers using generative AI climbed from near-zero at the end of 2022 to roughly one-third by late 2024. Taken together, these features imply treatment effect heterogeneity over time: the per-period effect at $T+1$ is unlikely to equal the effect at $T+3$. A Treatment $\times$ Post specification would fail to capture this time-variation, while the year-by-year coefficients $\{\hat\beta_t\}$ preserve it. \textcolor{red}{AI MODEL RELEASE TIMELINE}
+This event-study specification is preferred to a simple Treatment $\times$ Post specification for two reasons. First, generative AI capability improved substantially across the post-ChatGPT window, as successive frontier models were released (Figure~\ref{fig:model_timeline}). Second, workplace adoption of generative AI tools rose gradually rather than at once: \textcite{bick2024rapid} document that the share of U.S.\ workers using generative AI climbed from near-zero at the end of 2022 to roughly one-third by late 2024. Taken together, these features imply treatment effect heterogeneity over time: the per-period effect at $T+1$ is unlikely to equal the effect at $T+3$. A Treatment $\times$ Post specification would fail to capture this time-variation, while the year-by-year coefficients $\{\hat\beta_t\}$ preserve it.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    x=0.5cm,
+    font=\footnotesize,
+    dot/.style={circle,fill=black,inner sep=1.2pt}
+]
+  % baseline
+  \draw[thick] (-1,0) -- (28.5,0);
+
+  % year markers
+  \foreach \x/\year in {2/2023, 14/2024, 26/2025} {
+    \draw (\x, -0.12) -- (\x, 0.12);
+    \node[below=4pt] at (\x, -0.12) {\textbf{\year}};
+  }
+
+  % releases above the line
+  \foreach \x/\name/\date/\h in {%
+    0/ChatGPT/Nov~2022/0.9,
+    16/Claude~3/Mar~2024/0.9,
+    19/Claude~3.5/Jun~2024/1.9,
+    25/o1/Dec~2024/0.9%
+  } {
+    \node[dot] at (\x,0) {};
+    \draw[gray] (\x,0.05) -- (\x,\h);
+    \node[above, align=center, inner sep=1pt] at (\x,\h) {\name\\\scriptsize\date};
+  }
+
+  % releases below the line
+  \foreach \x/\name/\date/\h in {%
+    4/GPT-4/Mar~2023/0.9,
+    18/GPT-4o/May~2024/0.9,
+    22/o1-preview/Sep~2024/1.9,
+    27/Claude~3.7/Feb~2025/0.9%
+  } {
+    \node[dot] at (\x,0) {};
+    \draw[gray] (\x,-0.05) -- (\x,-\h);
+    \node[below, align=center, inner sep=1pt] at (\x,-\h) {\name\\\scriptsize\date};
+  }
+\end{tikzpicture}
+\caption{Major generative AI model releases, November 2022 through February 2025.  Dates indicate first public release; minor intermediate versions are omitted.}
+\label{fig:model_timeline}
+\end{figure}
 
 \subsection{Heterogeneity: Experience and Education}
 
@@ -421,7 +466,7 @@ Pre-ChatGPT coefficients for 2018 and 2019 are close to zero and statistically i
 
 Post-2022, a positive unemployment effect of AI exposure emerges. In the preferred specification, the 2023 coefficient is essentially zero; the 2024 coefficient rises to $+0.0205^{***}$ and the 2025 coefficient is $+0.0180^{***}$.  The pattern is stable across all four specifications.
 
-The timing of the response reflects the time heterogeneity of treatment effect anticipated in Section~\ref{sec:strategy}. Models became substantially more capable as GPT-4, GPT-4o, OpenAI o1, and Claude 3.5 and 3.7 were released, and \textcite{bick2024rapid} document that the share of U.S.\ workers using generative AI rose from near-zero at the end of 2022 to roughly one-third by late 2024. The null 2023 coefficient and the significant 2024 and 2025 estimates are consistent with the accumulation of both forces: the effective intensity of the shock was smaller in 2023 than in 2024 and 2025.
+The timing of the response reflects the time heterogeneity of treatment effect anticipated in Section~\ref{sec:strategy}. Models became substantially more capable across the post-ChatGPT window (Figure~\ref{fig:model_timeline}), and \textcite{bick2024rapid} document that the share of U.S.\ workers using generative AI rose from near-zero at the end of 2022 to roughly one-third by late 2024. The null 2023 coefficient and the significant 2024 and 2025 estimates are consistent with the accumulation of both forces: the effective intensity of the shock was smaller in 2023 than in 2024 and 2025.
 The coefficient $\hat\beta_t$ is the per-unit marginal effect of the Eloundou $\beta_o$ exposure score on the unemployment indicator.  A $0.1$-unit increase in $\beta_o$, corresponding to roughly half a standard deviation of $\beta_o$ in the sample, is associated with a $0.2$ percentage-point increase in the probability of unemployment in the preferred specification. 
 
 The unemployment response is consistent with the displacement mechanism outlined in Section~\ref{sec:model}. The model's supply-dilution force predicts wage compression for exposed workers, but downward wage stickiness prevents wages from falling too far. Adjustment then shifts to the extensive margin on both sides of the market: firms lay off workers in heavily exposed positions, and some workers whose best outside option exceeds the attenuated post-AI wage choose to exit their current jobs. The statistically significant post-2022 unemployment response reflects this combined extensive-margin adjustment.
