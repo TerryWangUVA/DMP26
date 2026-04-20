@@ -6,11 +6,10 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{hyperref}
-\usepackage{setspace}
+\usepackage[style=apa,backend=biber]{biblatex}
+\addbibresource{references.bib}
 
 \graphicspath{{output/graphs/}}
-
-\setlength{\parskip}{4pt}
 
 \title{Human in the Loop: AI Exposure and Labor Market Frictions\\
        \large Writing Sample (Excerpt)}
@@ -19,71 +18,44 @@
 
 \begin{document}
 \maketitle
-\vspace{-1.5em}
 
-\section*{1. Motivation}
+\section*{Empirical Strategy}
 
-The public release of ChatGPT in November 2022 marked a turning point in the diffusion of generative AI.  Within months, firms and workers began adopting generative AI tools to perform a growing range of tasks: drafting emails, writing code, summarizing documents, analyzing data.  When a new technology performs tasks that workers are paid to do, the net effect on their wages and employment is not obvious \emph{a priori}: it depends on whether the productivity gains that accrue to them, through expanded output and rising demand for tasks complementary to generative AI, are large enough to offset the substitution pressure they bear directly.  Labor economists have long analyzed such shocks through the lens of \emph{tasks} in production --- decomposing occupations into collections of tasks, some complemented and some substituted by the technology (Autor, Levy, and Murnane, 2003; Autor, 2015).  This paper follows that tradition, adapted to generative AI.
-
-This paper uses the Current Population Survey Annual Social and Economic Supplement (CPS-ASEC) for 2018--2025, linked to the occupation-level AI exposure scores of Eloundou et al.\ (2024), to estimate how generative AI has affected U.S.\ labor-market outcomes in the three years since ChatGPT's release.  An event-study difference-in-differences design exploiting cross-occupation variation in exposure delivers two main findings.  First, workers in high-exposure occupations experienced an increase in unemployment risk beginning in 2024, broadly shared across education groups.  Second, wage compression in high-exposure occupations is sharply asymmetric: it concentrates on non-college workers, while wages of college-educated workers in exposed occupations are statistically indistinguishable from those in less-exposed occupations.  A within-occupation specification further suggests that the education gap in the wage response reflects sorting across occupations on dimensions correlated with college share but not captured by the exposure score --- rather than an individual-level productivity gap within occupations.  The remainder of this sample focuses on that education-asymmetric finding and its interpretation.
-
-\section*{2. Data and Empirical Strategy}
-
-The empirical analysis combines the CPS-ASEC 2018--2025 with the occupation-level AI exposure scores of Eloundou et al.\ (2024).  Their construction rates, at the detailed task level, whether large language models would reduce by at least 50\% the time required for a human to perform the task; I use the preferred $\beta_o$ score, which reflects partial task exposure through the deployed ecosystem of LLM-powered tools.  After a hierarchical crosswalk from Census 2010 occupation codes to 2018 SOC codes, the resulting $\beta_o$ is time-invariant and assigned at the occupational level.  In the worker-year sample, $\beta_o$ has a mean of $0.37$ and a standard deviation of $0.21$, ranging from $0$ to $0.98$.
-
-The core empirical question is whether outcomes for workers in high-exposure occupations moved differently from outcomes in low-exposure occupations after ChatGPT's release, relative to how they moved before.  The estimating equation is
+The core empirical question is whether outcomes for workers in high-exposure occupations moved differently from outcomes in low-exposure occupations after ChatGPT's release, relative to how they moved before.  The estimating equation is:
 \begin{equation}
 \label{eq:main}
 Y_{it} = \alpha
-  + \sum_{t \neq 2022} \beta_t \left( \mathbf{1}[t] \times \beta_{o(i)} \right)
+  + \sum_{t \neq 2022} \beta_t \left( \mathbf{1}[t] \times \text{AIExposure}_i \right)
   + \text{lower-order terms} + X_{it}'\Gamma + \varepsilon_{it},
 \end{equation}
-where $Y_{it}$ is either a binary unemployment indicator or log real wages for worker $i$ in year $t$; $\beta_{o(i)}$ is the AI exposure score of $i$'s occupation; year 2022 is the omitted baseline; lower-order terms include year fixed effects and the main effect of exposure; and $X_{it}$ absorbs sex, education, and state$\times$year fixed effects in the preferred specification.  Standard errors are clustered at the occupation level.  The $\beta_t$ coefficients trace, year by year, whether high-exposure workers diverge from low-exposure workers relative to the 2022 baseline.  The coefficient is interpreted as the per-unit marginal effect of $\beta_o$ on the outcome in year $t$.  Callaway, Goodman-Bacon, and Sant'Anna (2024) show that under the continuous-treatment two-way fixed effects specification, this coefficient is a weighted average of the underlying per-exposure effects, with weights that need not reflect the population exposure distribution; I acknowledge this as a known limitation and leave binned-treatment robustness checks to future work.
+where $Y_{it}$ is either the unemployment indicator or log wages for worker $i$ in year $t$; $\text{AIExposure}_i$ is the worker $i$'s occupation's AI exposure score; and year 2022 is the omitted category.  The lower-order terms include year fixed effects and the main effect of AI exposure.  The $\beta_t$ coefficients trace, year by year, whether high-exposure workers diverge from low-exposure workers relative to the 2022 baseline.  If AI caused labor-market disruption after its diffusion, we expect the post-2022 $\beta_t$ to be positive (for unemployment) or negative (for wages), while the pre-2022 $\beta_t$ should hover near zero.
 
-\section*{3. Main Wage Result}
+Four progressively stricter specifications are estimated: (1) no additional controls, (2) sex fixed effects, (3) sex and education fixed effects, and (4) sex, education, and state$\times$year two-way fixed effects.  Specification (4) absorbs state-specific time shocks and is the preferred specification.  Standard errors are clustered at the occupation level across all specifications to address heteroskedasticity and within-occupation correlation in the error term that arises because $\beta_o$ is assigned at the occupation level.
 
-In the preferred specification, the 2025 log-wage coefficient is $-0.059^{**}$, while the 2023 and 2024 coefficients are indistinguishable from zero.  Pre-ChatGPT coefficients for 2018--2020 are uniformly small and statistically insignificant, consistent with parallel wage trends.  A negative 2025 estimate does not imply that wages fell in absolute terms for high-$\beta_o$ workers, or indeed that wages fell at all: aggregate wages may have risen uniformly post-2022, and the coefficient would still be negative if they rose by less in high-exposure occupations than in low-exposure ones.  What the estimate captures is the differential wage path along the $\beta_o$ distribution post-2022 --- a widening of the wage gap between workers in higher- and lower-exposure occupations, whatever the overall level trend.
+The coefficient $\hat\beta_t$ is interpreted as the per-unit marginal effect of AI exposure on the outcome in year $t$, relative to the 2022 baseline.  \textcite{callaway2024continuous} show that under the continuous-treatment two-way fixed effects specification, this coefficient is a weighted average of the underlying per-exposure effects, with weights that need not reflect the population exposure distribution.  I acknowledge this as a known limitation of the specification; a full defense would require binned-treatment robustness checks (e.g., above- and below-median $\beta_o$), which I leave to future work.
 
-Splitting the sample by education uncovers an asymmetric picture that the main-specification results do not.  The unemployment response to AI exposure is broadly shared across education groups: the 2024 coefficient is $+0.018^{**}$ for college-educated workers (BA or above) and $+0.020^{***}$ for non-college workers (high school or some college), with confidence intervals that overlap.  The wage response, by contrast, is sharply asymmetric.  The 2025 log-wage coefficient is $-0.094^{***}$ for non-college workers, while the corresponding college-worker coefficients are indistinguishable from zero in every post-2022 year ($+0.066$ in 2023, $+0.060$ in 2024, and $-0.001$ in 2025).  Figure~\ref{fig:lw_colComb} plots the two coefficient paths side by side; the non-college 2025 compression stands in sharp contrast to the flat college path.
+\section*{Main Wage Result}
+
+Figure~\ref{fig:logwage_stateYFE_plot} plots the event-study coefficients for log real wages in the preferred specification.  Pre-ChatGPT coefficients for 2018, 2019, and 2020 are uniformly small and statistically insignificant across all four specifications, consistent with parallel wage trends.  The 2021 coefficient is positive ($\approx +0.05$) and marginally significant at the 10 percent level in the two specifications that include education fixed effects.  I interpret this as a carryover of the same COVID-recovery asymmetry flagged in the unemployment results, with wages in high-exposure occupations rebounding faster than those of less-exposed occupations as the pandemic receded.  Post-ChatGPT, the wage adjustment is weaker than the unemployment adjustment and emerges only late in the sample.
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.8\textwidth]{lw_stateYFE_plot_colComb.pdf}
-\caption{Log real wage: DiD coefficients (year $\times$ AI exposure), college-educated (navy circles) versus non-college workers (maroon diamonds), preferred specification.  Year 2022 is the baseline ($\hat\beta_{2022} \equiv 0$).  Error bars are 95\% CI, SEs clustered at the occupation level.}
-\label{fig:lw_colComb}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{logwage_stateYFE_plot.pdf}
+\caption{Log real wage: DiD coefficients (year $\times$ AI exposure), preferred specification (sex, education, and state$\times$year fixed effects). Year 2022 is the baseline ($\hat\beta_{2022} = 0$). Error bars are 95\% CI, SEs clustered at the occupation level.}
+\label{fig:logwage_stateYFE_plot}
+\end{center}
 \end{figure}
 
-\section*{4. Between- or Within-Occupation? A Diagnostic Test}
+In the naive and sex-FE specifications, the 2025 coefficient is $-0.036$ and $-0.046$ respectively, neither significant at conventional levels.  Only the most demanding specification (absorbing sex, education, and state$\times$year fixed effects) produces a statistically significant 2025 coefficient ($-0.059^{**}$).  No significant effect appears in 2023 or 2024 under any specification.
 
-The wage asymmetry admits two readings that the split-sample regressions cannot distinguish.  The first is a \emph{between-occupation} story.  Because $\beta_o$ is assigned at the occupation level, workers with the same measured exposure can still hold systematically different jobs: in the CPS-ASEC sample, college share varies widely within narrow bands of $\beta_o$, so a college worker and a non-college worker with the same $\beta_o$ are typically not in the same occupation.  On this reading, the education gap in the wage response reflects sorting --- occupational attributes correlated with college share but orthogonal to $\beta_o$ generate the different post-2022 wage paths.  The second is a \emph{within-occupation} story: holding occupation fixed, college-educated workers may be more productive or more adaptable, and therefore better shielded from the compression pressure that $\beta_o$ predicts.
+The delayed wage response is consistent with the displacement channel discussed in the unemployment results: with wages downward-sticky, adjustment flows first through the extensive margin (employment), and the intensive margin (wages) lags behind.
 
-The two readings are observationally equivalent in the split-sample regressions, which do not absorb occupation, but they are separable by a within-occupation specification that pushes the exposure variation inside the occupation cell.  I estimate
-\begin{equation}
-\label{eq:within_occ}
-\ln w_{it} = \sum_{t\ne 2022} \gamma_t\,(\mathbf{1}\{\text{year}=t\}\times \beta_{o(i)}\times \mathrm{Col}_i) + \text{lower-order terms} + \alpha_{o(i),t} + X_{it}'\Gamma + \varepsilon_{it},
-\end{equation}
-where $\mathrm{Col}_i = \mathbf{1}\{\text{BA or above}\}$, $\alpha_{o,t}$ is a full occupation$\times$year fixed effect, $X_{it}$ absorbs sex, education, and state$\times$year fixed effects, and standard errors are clustered at the occupation level.  The occupation$\times$year fixed effect absorbs any wage variation common to all workers in occupation $o$ in year $t$, including the occupation-level exposure path.  The coefficient of interest, $\gamma_t$, isolates the differential wage response of college-educated workers \emph{within} the same occupation-year cell.  If the within-occupation reading is correct, $\gamma_t$ should be positive in the post-2022 years; if the between-occupation reading is correct, $\gamma_t$ should be indistinguishable from zero.
+The fact that statistical significance requires state$\times$year fixed effects is itself interesting.  On the one hand, this could suggest a potential weakness of the wage result: the estimate is not robust across all 4 specifications.  On the other hand, this could suggest that noise from region-specific shocks in 2025 may have been large enough to mask the exposure signal in looser specifications.  I note both interpretations as possible and do not strongly favor one over the other.
 
-The post-2022 estimates of $\gamma_t$ are small and statistically indistinguishable from zero in every year: $-0.037$ in 2023, $+0.002$ in 2024, and $-0.004$ in 2025, with standard errors of $0.059$, $0.061$, and $0.073$ respectively.  Within the same occupation-year cell, college-educated and non-college workers do not experience systematically different wage responses to AI exposure, and the education gap visible in the split-sample regressions does not survive occupation$\times$year fixed effects.  The evidence points to the between-occupation reading: the education gap reflects sorting on dimensions correlated with college share but not captured by $\beta_o$, rather than an individual-level productivity gap within occupations.
+My second concern is that 2025 is the end of the sample.  Whether the relative difference in wage persists in 2026 is an empirical question the current data cannot answer, given my inability to travel to the future.  I suggest readers to interpret the 2025 result with that uncertainty in mind.
 
-\section*{5. Two Non-Exclusive Mechanisms}
+Finally, the 2025 estimate should be interpreted in relative terms.  A negative estimate does not imply that real wages fell in absolute terms for high-$\beta_o$ workers, or indeed that wages fell at all: aggregate wages may have risen uniformly post-2022, and the coefficient would still be negative if they rose by less in high-exposure occupations than in low-exposure ones.  What the estimate captures is the differential wage path along the $\beta_o$ distribution post-2022.
 
-What, then, are the between-occupation differences doing the work?  Two mechanisms are consistent with the pattern; both are conjectural rather than tested.  One operates through the \emph{reallocability of the task bundle}.  If workers can adjust their time allocation across tasks in response to the shock --- reallocating away from AI-substitutable tasks toward tasks where AI does not substitute --- the wage effect is attenuated on the re-weighted bundle.  Occupations with college-heavy workforces may be systematically better positioned on this margin, either because their bundles contain a larger number of tasks with heterogeneous exposure or because the occupation itself permits more flexibility in how time is divided across tasks.  Hampole et al.\ (2025) formalize within-occupation task reallocation in response to AI, showing that the capacity to offset task displacement is governed by the concentration of exposure across tasks.  Autor and Thompson (2025) offer a related angle: in their framework, AI's wage effect depends on whether the tasks it removes are expert or inexpert within the bundle, with removal of inexpert tasks concentrating labor in expert residuals and raising both wages and expertise requirements.  On this reading, what distinguishes college-heavy high-exposure occupations from non-college-heavy ones is not the education of the workers \emph{per se} --- the within-occupation test rules that out --- but the occupation-level task structure that determines how reallocatable exposure is.
-
-A second and more conservative possibility attributes the wage asymmetry to \emph{output-market effects} that the regression does not separately identify.  The estimated education gap absorbs any asymmetric shift in product demand correlated with college share alongside the supply-side pressure from task substitution.  Chandar (2025) documents patterns consistent with such a demand channel: within the most AI-exposed quartile of occupations, employment has grown in college-intensive occupations (e.g., software development) and contracted in less college-intensive ones (e.g., customer service).  Both mechanisms are compatible with the intensive-margin wage finding; the extensive-margin pressure captured by unemployment is broadly shared across education groups, consistent with firm-level hiring and layoff decisions responding to occupation-level exposure regardless of workforce composition.  The two mechanisms are not mutually exclusive, and distinguishing them is left to future work.
-
-\vspace{1em}
-\hrule
-\vspace{0.5em}
-\small
-
-\noindent \textbf{References (abbreviated).}
-Autor, D.~H., F.\ Levy, and R.\ J.\ Murnane (2003). ``The Skill Content of Recent Technological Change,'' \emph{QJE} 118(4): 1279--1333.
-Autor, D.~H.\ (2015). ``Why Are There Still So Many Jobs?,'' \emph{JEP} 29(3): 3--30.
-Callaway, B., A.\ Goodman-Bacon, and P.\ H.\ C.\ Sant'Anna (2024). ``Difference-in-Differences with a Continuous Treatment,'' NBER Working Paper No.\ 32117.
-Chandar, B.\ (2025). ``Tracking Employment Changes in AI-Exposed Jobs,'' SSRN Working Paper.
-Eloundou, T., S.\ Manning, P.\ Mishkin, and D.\ Rock (2024). ``GPTs are GPTs: An Early Look at the Labor Market Impact of Large Language Models,'' \emph{Science} 384(6699): 262--268.
-Hampole, M., D.\ Papanikolaou, L.\ D.\ W.\ Schmidt, and B.\ Seegmiller (2025). ``Artificial Intelligence and the Labor Market,'' NBER Working Paper No.\ 33509.
-Autor, D.\ H., and N.\ Thompson (2025). ``Expertise,'' NBER Working Paper No.\ 33941.
+\printbibliography
 
 \end{document}
