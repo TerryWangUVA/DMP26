@@ -1,30 +1,7 @@
-Notes for "Task Bundling"
+The public release of ChatGPT in November 2022 sharply accelerated the diffusion of generative AI. Within months, firms and workers were using these tools to perform tasks that had previously required paid human labor, including drafting documents, writing code, summarizing information, and analyzing data. Adoption spread quickly, but unevenly, across workers and occupations, suggesting from the outset that the labor-market effects of generative AI were unlikely to be uniform.
 
-> in current Toy Model sect: 
--- add that some "bundling of tasks"? perhaos a remark para (kinda like the displacement para)
-> e.g. a worker's payoff = theta*task i + (1-theata) * task j ...
-> if theta are exogenous I gues the model still holds
+Yet those effects are not obvious a priori. Generative AI may raise productivity and expand output, increasing demand for tasks that remain complementary to human labor. At the same time, it may substitute directly for workers in the tasks it can perform, putting downward pressure on the value of that work. In a task-based view of production, generative AI therefore acts as a shock to some tasks more than others, and the net effect on workers depends on how exposed their occupations are to that shift.
 
+This paper studies those short-run labor-market effects using worker-level data from the Current Population Survey Annual Social and Economic Supplement (CPS-ASEC), linked to occupation-level AI exposure scores from Eloundou et al. (2024). I first develop a simple task-based framework to organize the economic intuition. I then exploit cross-occupation variation in exposure in an event-study difference-in-differences design covering 2018–2025 to estimate how outcomes in more exposed occupations changed relative to those in less exposed occupations after the release of ChatGPT.
 
-before it I hope to grasp if my direction is on the right rail:
-
-
-I assume the O*NET soc is 2018 code, and what I got w/ the CPS-ASEC was non-perfect crosswalk... kinda
-
-is there any way we can still make use of the onet_task_statement.csv --> kinda put it and have a #of tasks count for each occ (specific occ, not occ_gr)...
-
-
-then descriptives help I guess
-
-overall stats
-
-- on avg college workers' occ task count 
-- on avg non-college workers' occ task count
-(perhaps a sidebyside bargraph?)
-
-
-
-
-////
-> in dofile check if those highly exposed high college% occupations tend to have higher # of tasks on avg
-> original 
+I document two main findings. First, workers in more exposed occupations experience a relative increase in unemployment beginning in 2024. Second, wage effects emerge later and are concentrated among non-college workers, while college-educated workers show little comparable wage decline. Additional evidence suggests that this wage asymmetry is driven more by differences across occupations than by differential adjustment within the same occupation. Taken together, the results suggest that the early labor-market effects of generative AI are better understood not as a uniform productivity shock, but as an uneven revaluation of tasks across workers and occupations
