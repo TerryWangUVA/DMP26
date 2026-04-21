@@ -19,6 +19,22 @@
 \begin{document}
 \maketitle
 
+\section*{Introduction}
+
+The public release of ChatGPT in November 2022 marked a turning point in the diffusion of generative AI.  Within months, firms and workers began adopting generative AI tools to perform a growing range of tasks: drafting emails, writing code, summarizing documents, analyzing data.  When a new technology performs tasks that workers are paid to do, the net effect on their wages and employment is not obvious \emph{a priori}: it depends on whether the productivity gains that accrue to them, through expanded output and rising demand for tasks complementary to generative AI, are large enough to offset the substitution pressure they bear directly.
+
+This paper uses the Current Population Survey Annual Social and Economic Supplement (CPS-ASEC) for 2018--2025, linked to the occupation-level AI exposure scores of \textcite{eloundou2024gpts}, to estimate how generative AI has affected U.S.\ labor-market outcomes in the three years since ChatGPT's release.  The excerpt that follows reproduces the data, empirical strategy, and main wage-result sections of the full thesis; the thesis itself additionally develops a task-based toy model, reports unemployment and heterogeneity results, and discusses the mechanisms behind an education-asymmetric wage compression finding.
+
+\section*{Data}
+
+The primary data source is the Annual Social and Economic Supplement to the Current Population Survey (CPS-ASEC), accessed through IPUMS \parencite{ipumscps2025}.  The CPS-ASEC is a nationally representative annual survey that captures labor-force status, occupation, wage income, and detailed demographic characteristics for approximately 100,000 households.  I use eight survey waves covering income reference years 2018--2025, spanning both the pre- and post-ChatGPT periods.
+
+\paragraph{Unemployment.} The unemployment indicator equals one if a respondent is classified as unemployed by the CPS --- not working but actively searching for work (CPS \texttt{empstat} codes 21 and 22) --- and zero otherwise.  The sample mean is 3.4\%, roughly consistent with official U.S.\ unemployment statistics over this period.
+
+\paragraph{Wages.} For the wage analysis, I use annual real wage and salary income (\texttt{incwage}), deflated to 1982 dollars using the annual average CPI-U from FRED \parencite{fred_cpiaucsl}.  The outcome variable is the natural log of real wages.  Observations with zero or missing wage income are excluded from the wage sample (workers who are unemployed or out of the labor force for wage purposes), yielding 464,300 observations.
+
+\paragraph{AI exposure.} The AI exposure variable is drawn from \textcite{eloundou2024gpts}, which constructs occupation-level LLM exposure scores from the O*NET 27.2 database.  Annotators rate each task on a three-category rubric (no exposure, direct exposure, LLM-augmented exposure), and the occupation-level score $\beta_o$ aggregates these ratings with partial weight on LLM-augmented tasks.  After a hierarchical crosswalk from Census occupation codes to 2018 SOC codes, the resulting $\beta_o$ is time-invariant and assigned at the occupational level.  In the CPS-ASEC worker-year sample, $\beta_o$ has a mean of $0.37$ and a standard deviation of $0.21$, ranging from $0$ to $0.98$.
+
 \section*{Empirical Strategy}
 
 The core empirical question is whether outcomes for workers in high-exposure occupations moved differently from outcomes in low-exposure occupations after ChatGPT's release, relative to how they moved before.  The estimating equation is:
