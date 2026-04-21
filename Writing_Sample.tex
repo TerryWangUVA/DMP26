@@ -21,7 +21,7 @@
 \maketitle
 \doublespacing
 
-\noindent This document reproduces the Main Specification subsection and the Unemployment and Wage result subsections of my undergraduate thesis.  Section numbering is preserved from the thesis; the sections that precede (Introduction, Background, Toy Model, Data) and follow (Heterogeneity, Mechanisms, Conclusion) are omitted here.
+\noindent This document reproduces the Main Specification subsection and the Unemployment and Wage result subsections of my undergraduate thesis.  Section numbering is preserved from the thesis; the sections that precede (Introduction, Background, Toy Model, Data) and follow (Heterogeneity in Experience and Education, Limitations, Conclusion) are omitted here.
 
 \setcounter{section}{4}
 
@@ -40,7 +40,7 @@ where $Y_{it}$ is either the unemployment indicator or log wages for worker $i$ 
 
 Four progressively stricter specifications are estimated: (1) no additional controls, (2) sex fixed effects, (3) sex and education fixed effects, and (4) sex, education, and state$\times$year two-way fixed effects.  Specification (4) absorbs state-specific time shocks and is the preferred specification.  Standard errors are clustered at the occupation level across all specifications to address heteroskedasticity and within-occupation correlation in the error term that arises because $\beta_o$ is assigned at the occupation level.
 
-The coefficient $\hat\beta_t$ is interpreted as the per-unit marginal effect of AI exposure on the outcome in year $t$, relative to the 2022 baseline.  \textcite{callaway2024continuous} show that under the continuous-treatment two-way fixed effects specification, this coefficient is a weighted average of the underlying per-exposure effects, with weights that need not reflect the population exposure distribution.  I acknowledge this as a known limitation of the specification; a full defense would require binned-treatment robustness checks (e.g., above- and below-median $\beta_o$), which I leave to future work.
+The coefficient $\hat\beta_t$ is interpreted as the per-unit marginal effect of AI exposure on the outcome in year $t$, relative to the 2022 baseline.  \textcite{callaway2024continuous} show that under the continuous-treatment two-way fixed effects specification, this coefficient is a weighted average of the underlying per-exposure effects, with weights that need not reflect the population exposure distribution.  I acknowledge this as a known limitation of the specification.
 
 This event-study specification is preferred to a simple Treatment $\times$ Post specification for two reasons.  First, generative AI capability improved substantially across the post-ChatGPT window, as successive frontier models were released.  Second, workplace adoption of generative AI tools rose gradually rather than at once: \textcite{bick2024rapid} document that the share of U.S.\ workers using generative AI climbed from near-zero at the end of 2022 to roughly one-third by late 2024.  Taken together, these features imply treatment effect heterogeneity over time: the period-specific effect at $T+1$ is unlikely to equal the effect at $T+3$.  A Treatment $\times$ Post specification would fail to capture this time-variation, while the year-by-year coefficients $\{\hat\beta_t\}$ preserve it.
 
