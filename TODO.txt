@@ -78,30 +78,38 @@ ACTIVE PIPELINE (in order of execution):
      Purpose: Task-count vs. college-share scatter, by above/below-median exposure.
               Supporting material for the education heterogeneity narrative.
 
-4. code/ASEC_Analysis_3-17(Het).do
-     Main regressions + heterogeneity (experience, education) + within-occupation test.
+4. code/IPMUS_CPS-ASEC_Analysis_2-19.do
+     Full-sample regressions (main specification + experience heterogeneity).
      Reads:   output/data/CPS-ASEC_analysis_Dec01.dta + output/data/Eloundou_updated_crosswalk.dta
      Writes:  output/tables/unemployment_tableA.tex,
               output/tables/logwage_tableA.tex,
               output/tables/unemployment_tableB.tex,
               output/tables/logwage_tableB.tex,
-              output/tables/unemp_tableA_col.tex,
+              output/graphs/unemployment_stateYFE_plot.pdf,
+              output/graphs/logwage_stateYFE_plot.pdf,
+              (plus naive / sexFE / sexeducFE intermediate coefplots NOT in draft).
+     Purpose: Appendix B Tables B1-B4 and the two full-sample state x year FE
+              coefficient plots used in Sections 6.1 and 6.2 of the draft.
+
+5. code/ASEC_Analysis_3-17(Het).do
+     Split-sample (college/non-college) + within-occupation test.
+     Reads:   output/data/CPS-ASEC_analysis_Dec01.dta + output/data/Eloundou_updated_crosswalk.dta
+     Writes:  output/tables/unemp_tableA_col.tex,
               output/tables/unemp_tableA_noncol.tex,
               output/tables/logwage_tableA_col.tex,
               output/tables/logwage_tableA_noncol.tex,
               output/tables/het_within_occ_lnwage.tex,
-              output/graphs/unemployment_stateYFE_plot.pdf,
-              output/graphs/logwage_stateYFE_plot.pdf,
               output/graphs/unemp_stateYFE_plot_colComb.pdf,
               output/graphs/lw_stateYFE_plot_colComb.pdf,
               output/graphs/lw_within_plot.pdf,
-              (many other intermediate plots per specification).
-     Purpose: All main-text and appendix regression tables and coefficient plots
-              used in Sections 6.1, 6.2, 6.3, 6.5 of the draft.
+              (plus per-group + per-spec intermediate coefplots and B-tables NOT in draft).
+     Purpose: Appendix B Tables B5-B9, the two combined college-vs-non-college
+              coefficient plots, and the within-occupation triple-interaction
+              coefficient plot used in Sections 6.5 of the draft.
 
 SUPPLEMENTARY (non-Stata):
 
-5. code/model_graph.ipynb
+6. code/model_graph.ipynb
      Python/Jupyter notebook.
      Writes:  output/model/fig_preai.png, output/model/fig_postai.png,
               and other model-illustration PNGs.
@@ -110,9 +118,8 @@ SUPPLEMENTARY (non-Stata):
 
 ORPHANS (earlier iterations, parallel tracks, or dev artifacts):
 - code/IPMUS_CPS-ASEC_Extract.do         infrastructure; raw-to-Stata extract, superseded by _Dec01 direct load
-- code/IPMUS_CPS-ASEC_Analysis_1-13.do   Jan 2026, preliminary; superseded by 3-17 version
+- code/IPMUS_CPS-ASEC_Analysis_1-13.do   Jan 2026, preliminary; superseded
 - code/IPMUS_CPS-ASEC_Analysis_2-6.do    Feb 2026, exploratory; superseded
-- code/IPMUS_CPS-ASEC_Analysis_2-19.do   Feb 2026, lacks education heterogeneity; superseded
 - code/IPMUS_ACS_Prelim.do               ACS parallel track, not used in thesis
 - code/IPMUS_ACS_Analysis_11-27.do       ACS parallel track, not used
 - code/IPMUS_ACS_Extract.do              ACS infrastructure, not used
@@ -126,10 +133,12 @@ step3: created outputs (label -> file -> source)
 INTERMEDIATE DATASETS (output/data/):
 - output/data/CPS-ASEC_analysis_Dec01.dta
     created by: IPMUS_CPS-ASEC_Prelim.do
-    consumed by: ASEC_Descriptives_3-30.do, Descriptives_educ_4-18.do, ASEC_Analysis_3-17(Het).do
+    consumed by: ASEC_Descriptives_3-30.do, Descriptives_educ_4-18.do,
+                 IPMUS_CPS-ASEC_Analysis_2-19.do, ASEC_Analysis_3-17(Het).do
 - output/data/Eloundou_updated_crosswalk.dta
     created by: IPMUS_CPS-ASEC_Prelim.do
-    consumed by: ASEC_Analysis_3-17(Het).do, Descriptives_educ_4-18.do
+    consumed by: IPMUS_CPS-ASEC_Analysis_2-19.do, ASEC_Analysis_3-17(Het).do,
+                 Descriptives_educ_4-18.do
 - output/data/FRED_CPI_cleaned.dta
     created by: IPMUS_CPS-ASEC_Prelim.do
     consumed by: IPMUS_CPS-ASEC_Prelim.do internally (for wage deflation)
@@ -143,10 +152,10 @@ Main text / Data section:
 - tab:occ_group       -> output/tables/descriptives/occ_group_exposure.tex  <- ASEC_Descriptives_3-30.do
 
 Appendix B:
-- tab:unemployment_main -> output/tables/unemployment_tableA.tex     <- ASEC_Analysis_3-17(Het).do
-- tab:logwage_main      -> output/tables/logwage_tableA.tex          <- ASEC_Analysis_3-17(Het).do
-- tab:unemp_exphet      -> output/tables/unemployment_tableB.tex     <- ASEC_Analysis_3-17(Het).do
-- tab:lw_exphet         -> output/tables/logwage_tableB.tex          <- ASEC_Analysis_3-17(Het).do
+- tab:unemployment_main -> output/tables/unemployment_tableA.tex     <- IPMUS_CPS-ASEC_Analysis_2-19.do
+- tab:logwage_main      -> output/tables/logwage_tableA.tex          <- IPMUS_CPS-ASEC_Analysis_2-19.do
+- tab:unemp_exphet      -> output/tables/unemployment_tableB.tex     <- IPMUS_CPS-ASEC_Analysis_2-19.do
+- tab:lw_exphet         -> output/tables/logwage_tableB.tex          <- IPMUS_CPS-ASEC_Analysis_2-19.do
 - tab:unemp_col         -> output/tables/unemp_tableA_col.tex        <- ASEC_Analysis_3-17(Het).do
 - tab:unemp_noncol      -> output/tables/unemp_tableA_noncol.tex     <- ASEC_Analysis_3-17(Het).do
 - tab:lw_col            -> output/tables/logwage_tableA_col.tex      <- ASEC_Analysis_3-17(Het).do
@@ -168,10 +177,24 @@ Empirical Strategy (Section 5):
 - fig:model_timeline           -> (inline TikZ in DMP_D3_3-17.tex, no external file)
 
 Results (Section 6):
-- fig:unemployment_stateYFE_plot -> output/graphs/unemployment_stateYFE_plot.pdf    <- ASEC_Analysis_3-17(Het).do
-- fig:logwage_stateYFE_plot      -> output/graphs/logwage_stateYFE_plot.pdf         <- ASEC_Analysis_3-17(Het).do
+- fig:unemployment_stateYFE_plot -> output/graphs/unemployment_stateYFE_plot.pdf    <- IPMUS_CPS-ASEC_Analysis_2-19.do
+- fig:logwage_stateYFE_plot      -> output/graphs/logwage_stateYFE_plot.pdf         <- IPMUS_CPS-ASEC_Analysis_2-19.do
 - fig:unemp_stateYFE_colComb     -> output/graphs/unemp_stateYFE_plot_colComb.pdf   <- ASEC_Analysis_3-17(Het).do
 - fig:lw_stateYFE_colComb        -> output/graphs/lw_stateYFE_plot_colComb.pdf      <- ASEC_Analysis_3-17(Het).do
 - fig:lw_within_plot             -> output/graphs/lw_within_plot.pdf                <- ASEC_Analysis_3-17(Het).do
 /////////////////////////////////////////////////////////////////////////////
-Prepare Replication/
+Prepare /Replication/
+
+1. copy-paste relavent raw datasets from /raw/ into /Replication/raw/
+2. organize the three empty dofiles currently in /Replication/code
+    - try imitate how I organize macros
+    - the part preparing analysis datasets & dealing with raw should be in cleaning.do
+    - the rest shouold be in analysis.do
+    - analysis.do should not produce any excessive output tables & graphs (that though created but never used in the draft)
+
+    - clear comments & writeups for the dofiles 
+
+    - currently u dont need to worry about: 1) tikz timeline 2) the pyton model graphs
+
+    
+/////////////////////////////////////////////////////////////////////////////////

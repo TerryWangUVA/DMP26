@@ -59,9 +59,9 @@ replace occsoc_2018 = strtrim(occsoc_2018)
 keep if occsoc_2010 != occsoc_2018
 
 
-gen rand = runiform()
-bysort occsoc_2018 (rand): keep if _n == 1
-drop rand
+// keep one 2010 SOC per 2018 SOC; deterministic sort on occsoc_2010
+// (previously used runiform(); replaced 2026-04-23 for reproducibility)
+bysort occsoc_2018 (occsoc_2010): keep if _n == 1
 
 drop if missing(occsoc_2010) | missing(occsoc_2018)
 
