@@ -1,6 +1,9 @@
 # raw data
 raw/
 
+# replication 
+replication/
+
 # intermediate data
 output/data/
 
