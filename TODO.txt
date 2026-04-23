@@ -1,7 +1,177 @@
-The public release of ChatGPT in November 2022 sharply accelerated the diffusion of generative AI. Within months, firms and workers were using these tools to perform tasks that had previously required paid human labor, including drafting documents, writing code, summarizing information, and analyzing data. Adoption spread quickly, but unevenly, across workers and occupations, suggesting from the outset that the labor-market effects of generative AI were unlikely to be uniform.
+Replication Package preparation
 
-Yet those effects are not obvious a priori. Generative AI may raise productivity and expand output, increasing demand for tasks that remain complementary to human labor. At the same time, it may substitute directly for workers in the tasks it can perform, putting downward pressure on the value of that work. In a task-based view of production, generative AI therefore acts as a shock to some tasks more than others, and the net effect on workers depends on how exposed their occupations are to that shift.
+dofiles are in /code/
+raw files are in /raw/
+outputs are in /output/
 
-This paper studies those short-run labor-market effects using worker-level data from the Current Population Survey Annual Social and Economic Supplement (CPS-ASEC), linked to occupation-level AI exposure scores from Eloundou et al. (2024). I first develop a simple task-based framework to organize the economic intuition. I then exploit cross-occupation variation in exposure in an event-study difference-in-differences design covering 2018–2025 to estimate how outcomes in more exposed occupations changed relative to those in less exposed occupations after the release of ChatGPT.
 
-I document two main findings. First, workers in more exposed occupations experience a relative increase in unemployment beginning in 2024. Second, wage effects emerge later and are concentrated among non-college workers, while college-educated workers show little comparable wage decline. Additional evidence suggests that this wage asymmetry is driven more by differences across occupations than by differential adjustment within the same occupation. Taken together, the results suggest that the early labor-market effects of generative AI are better understood not as a uniform productivity shock, but as an uneven revaluation of tasks across workers and occupations
+========================================================
+step1: raw datasets
+========================================================
+
+USED (loaded by at least one dofile in the active pipeline):
+- raw/IPMUS CPS ASEC/CPS-ASEC18-25_Dec01.dta
+    IPUMS CPS-ASEC 2018-2025 extract; worker-year microdata
+    consumed by: IPMUS_CPS-ASEC_Prelim.do (main merge input)
+- raw/FRED CPI/CPIAUCSL.csv
+    Monthly CPI-U (Consumer Price Index for All Urban Consumers); used for wage deflation to 1982 dollars
+    consumed by: IPMUS_CPS-ASEC_Prelim.do
+- raw/Eloundou/occ_level.csv
+    Eloundou et al. (2024) occupation-level AI exposure scores (alpha/beta/gamma/human variants)
+    consumed by: IPMUS_CPS-ASEC_Prelim.do, ASEC_Descriptives_3-30.do
+- raw/Crosswalks/soc_2010_to_2018_crosswalk.xlsx
+    BLS crosswalk between 2010 SOC and 2018 SOC occupation codes
+    consumed by: IPMUS_CPS-ASEC_Prelim.do
+- raw/Crosswalks/2010-occ-codes-with-crosswalk-from-2002-2011.xls
+    Census 2010 occupation codes with 2010 SOC mapping
+    consumed by: IPMUS_CPS-ASEC_Prelim.do
+- raw/Crosswalks/onet_task_statements.csv
+    O*NET task statements at 6-digit SOC level; used for per-occupation task count
+    consumed by: Descriptives_educ_4-18.do
+
+ORPHANS (present but not loaded by any active-pipeline dofile):
+- raw/AIOE/* (Felten et al. AI Occupational Exposure; alternate exposure measure not used)
+- raw/Anthropic Task/* (Handa et al. Claude conversation task data; not used)
+- raw/Crosswalks/2018-occupation-code-list-and-crosswalk.xlsx
+- raw/Crosswalks/nem-occcode-cps-crosswalk.xlsx
+- raw/Crosswalks/nem-occcode-acs-crosswalk.xlsx (ACS-only crosswalk)
+- raw/Crosswalks/2019_to_SOC_Crosswalk.csv (ACS-only crosswalk)
+- raw/Crosswalks/soc-acs.xlsx, raw/Crosswalks/soc-cps.xlsx
+- raw/IPMUS ACS/ACS18-23_Nov27.dat (ACS track, superseded by CPS-ASEC focus)
+- raw/IPMUS CPS/ (empty directory)
+- raw/Stackoverflow/ (2025 Developer Survey, not used)
+
+
+========================================================
+step2: dofiles
+========================================================
+
+ACTIVE PIPELINE (in order of execution):
+
+1. code/IPMUS_CPS-ASEC_Prelim.do
+     Data prep / merging / crosswalk.
+     Reads:   raw CPS-ASEC .dta + Eloundou scores + CPI + BLS crosswalk + Census->SOC crosswalk
+     Writes:  output/data/CPS-ASEC_analysis_Dec01.dta
+              output/data/Eloundou_updated_crosswalk.dta
+              output/data/FRED_CPI_cleaned.dta
+     Purpose: Build the CPS-ASEC worker-year sample with merged beta_o exposure scores
+              and CPI-deflated real wages.  Feeds everything downstream.
+
+2. code/ASEC_Descriptives_3-30.do
+     Descriptive statistics.
+     Reads:   output/data/CPS-ASEC_analysis_Dec01.dta + raw/Eloundou/occ_level.csv
+     Writes:  output/tables/descriptives/beta_summary.tex,
+              output/tables/descriptives/top5_exposed.tex,
+              output/tables/descriptives/bot5_exposed.tex,
+              output/tables/descriptives/occ_group_exposure.tex,
+              output/graphs/descriptives/kdensity_beta_overall.pdf,
+              output/graphs/descriptives/kdensity_beta_education.pdf,
+              output/graphs/descriptives/unemp_by_quartile_post2022.pdf,
+              (additional unused kdensity / mean_beta / college_vs_exposure PDFs).
+     Purpose: Produce the descriptive tables and kernel-density / quartile plots
+              used in Section 4 (Data) of the draft.
+
+3. code/Descriptives_educ_4-18.do  [supplementary descriptive, not currently referenced in draft]
+     Reads:   output/data/CPS-ASEC_analysis_Dec01.dta + raw/Crosswalks/onet_task_statements.csv
+              + output/data/Eloundou_updated_crosswalk.dta
+     Writes:  output/graphs/descriptives/<task_count_vs_college>*.pdf (scatter plots)
+     Purpose: Task-count vs. college-share scatter, by above/below-median exposure.
+              Supporting material for the education heterogeneity narrative.
+
+4. code/ASEC_Analysis_3-17(Het).do
+     Main regressions + heterogeneity (experience, education) + within-occupation test.
+     Reads:   output/data/CPS-ASEC_analysis_Dec01.dta + output/data/Eloundou_updated_crosswalk.dta
+     Writes:  output/tables/unemployment_tableA.tex,
+              output/tables/logwage_tableA.tex,
+              output/tables/unemployment_tableB.tex,
+              output/tables/logwage_tableB.tex,
+              output/tables/unemp_tableA_col.tex,
+              output/tables/unemp_tableA_noncol.tex,
+              output/tables/logwage_tableA_col.tex,
+              output/tables/logwage_tableA_noncol.tex,
+              output/tables/het_within_occ_lnwage.tex,
+              output/graphs/unemployment_stateYFE_plot.pdf,
+              output/graphs/logwage_stateYFE_plot.pdf,
+              output/graphs/unemp_stateYFE_plot_colComb.pdf,
+              output/graphs/lw_stateYFE_plot_colComb.pdf,
+              output/graphs/lw_within_plot.pdf,
+              (many other intermediate plots per specification).
+     Purpose: All main-text and appendix regression tables and coefficient plots
+              used in Sections 6.1, 6.2, 6.3, 6.5 of the draft.
+
+SUPPLEMENTARY (non-Stata):
+
+5. code/model_graph.ipynb
+     Python/Jupyter notebook.
+     Writes:  output/model/fig_preai.png, output/model/fig_postai.png,
+              and other model-illustration PNGs.
+     Purpose: Numerical illustrations of the task-based toy model (pre-AI wage schedule,
+              post-AI wage schedule under AI supply shock).  Standalone from the Stata pipeline.
+
+ORPHANS (earlier iterations, parallel tracks, or dev artifacts):
+- code/IPMUS_CPS-ASEC_Extract.do         infrastructure; raw-to-Stata extract, superseded by _Dec01 direct load
+- code/IPMUS_CPS-ASEC_Analysis_1-13.do   Jan 2026, preliminary; superseded by 3-17 version
+- code/IPMUS_CPS-ASEC_Analysis_2-6.do    Feb 2026, exploratory; superseded
+- code/IPMUS_CPS-ASEC_Analysis_2-19.do   Feb 2026, lacks education heterogeneity; superseded
+- code/IPMUS_ACS_Prelim.do               ACS parallel track, not used in thesis
+- code/IPMUS_ACS_Analysis_11-27.do       ACS parallel track, not used
+- code/IPMUS_ACS_Extract.do              ACS infrastructure, not used
+- code/test.do                           dev scratch
+
+
+========================================================
+step3: created outputs (label -> file -> source)
+========================================================
+
+INTERMEDIATE DATASETS (output/data/):
+- output/data/CPS-ASEC_analysis_Dec01.dta
+    created by: IPMUS_CPS-ASEC_Prelim.do
+    consumed by: ASEC_Descriptives_3-30.do, Descriptives_educ_4-18.do, ASEC_Analysis_3-17(Het).do
+- output/data/Eloundou_updated_crosswalk.dta
+    created by: IPMUS_CPS-ASEC_Prelim.do
+    consumed by: ASEC_Analysis_3-17(Het).do, Descriptives_educ_4-18.do
+- output/data/FRED_CPI_cleaned.dta
+    created by: IPMUS_CPS-ASEC_Prelim.do
+    consumed by: IPMUS_CPS-ASEC_Prelim.do internally (for wage deflation)
+
+TABLES (label -> file -> source dofile):
+
+Main text / Data section:
+- tab:beta_summary    -> output/tables/descriptives/beta_summary.tex        <- ASEC_Descriptives_3-30.do
+- tab:top5            -> output/tables/descriptives/top5_exposed.tex        <- ASEC_Descriptives_3-30.do
+- tab:bot5            -> output/tables/descriptives/bot5_exposed.tex        <- ASEC_Descriptives_3-30.do
+- tab:occ_group       -> output/tables/descriptives/occ_group_exposure.tex  <- ASEC_Descriptives_3-30.do
+
+Appendix B:
+- tab:unemployment_main -> output/tables/unemployment_tableA.tex     <- ASEC_Analysis_3-17(Het).do
+- tab:logwage_main      -> output/tables/logwage_tableA.tex          <- ASEC_Analysis_3-17(Het).do
+- tab:unemp_exphet      -> output/tables/unemployment_tableB.tex     <- ASEC_Analysis_3-17(Het).do
+- tab:lw_exphet         -> output/tables/logwage_tableB.tex          <- ASEC_Analysis_3-17(Het).do
+- tab:unemp_col         -> output/tables/unemp_tableA_col.tex        <- ASEC_Analysis_3-17(Het).do
+- tab:unemp_noncol      -> output/tables/unemp_tableA_noncol.tex     <- ASEC_Analysis_3-17(Het).do
+- tab:lw_col            -> output/tables/logwage_tableA_col.tex      <- ASEC_Analysis_3-17(Het).do
+- tab:lw_noncol         -> output/tables/logwage_tableA_noncol.tex   <- ASEC_Analysis_3-17(Het).do
+- tab:lw_within_occ     -> output/tables/het_within_occ_lnwage.tex   <- ASEC_Analysis_3-17(Het).do
+
+GRAPHS (label -> file -> source):
+
+Toy Model (Section 3):
+- fig:preai                    -> output/model/fig_preai.png                              <- model_graph.ipynb
+- fig:postai                   -> output/model/fig_postai.png                             <- model_graph.ipynb
+
+Data / Descriptives (Section 4):
+- fig:kdensity_overall         -> output/graphs/descriptives/kdensity_beta_overall.pdf    <- ASEC_Descriptives_3-30.do
+- fig:kdensity_educ            -> output/graphs/descriptives/kdensity_beta_education.pdf  <- ASEC_Descriptives_3-30.do
+- fig:unemp_quartile_post2022  -> output/graphs/descriptives/unemp_by_quartile_post2022.pdf <- ASEC_Descriptives_3-30.do
+
+Empirical Strategy (Section 5):
+- fig:model_timeline           -> (inline TikZ in DMP_D3_3-17.tex, no external file)
+
+Results (Section 6):
+- fig:unemployment_stateYFE_plot -> output/graphs/unemployment_stateYFE_plot.pdf    <- ASEC_Analysis_3-17(Het).do
+- fig:logwage_stateYFE_plot      -> output/graphs/logwage_stateYFE_plot.pdf         <- ASEC_Analysis_3-17(Het).do
+- fig:unemp_stateYFE_colComb     -> output/graphs/unemp_stateYFE_plot_colComb.pdf   <- ASEC_Analysis_3-17(Het).do
+- fig:lw_stateYFE_colComb        -> output/graphs/lw_stateYFE_plot_colComb.pdf      <- ASEC_Analysis_3-17(Het).do
+- fig:lw_within_plot             -> output/graphs/lw_within_plot.pdf                <- ASEC_Analysis_3-17(Het).do
+/////////////////////////////////////////////////////////////////////////////
+Prepare Replication/
