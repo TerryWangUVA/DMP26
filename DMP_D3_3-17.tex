@@ -263,7 +263,7 @@ Annotators assess each task or DWA on a three-category rubric, asking whether ac
   \item \textbf{E1} (direct exposure): a standard LLM interface, like ChatGPT or the OpenAI Playground, reduces task time by at least 50\% on its own.
   \item \textbf{E2} (LLM-augmented exposure): the LLM alone cannot meet the threshold of 50\% time reduction in the task, but software built on top of the LLM could do so.
 \end{itemize}
-Where DWA labels are available, they are first aggregated to the task level before proceeding to the occupation level.
+Where tasks are linked to DWAs, annotators rated the DWA rather than the task directly, and each DWA's rating was applied to every task associated with it.  Task-level ratings are then aggregated up to the occupation level.
 
 \paragraph{Occupation-level aggregation.}
 For each occupation, O*NET designates each task as \emph{core} (weight $w_t = 2$) or \emph{supplemental} (weight $w_t = 1$). Three summary measures vary how E1 and E2 tasks are scored:
