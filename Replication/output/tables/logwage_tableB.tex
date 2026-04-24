@@ -1,0 +1,31 @@
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{5}{c}}
+\toprule
+Dependent Variable: & \multicolumn{5}{c}{Log Wage} \\
+\cmidrule(lr){2-6}
+ & (1) & (2) & (3) & (4) & (5) \\
+\midrule
+2018 $\times$ Experience $\times$ AI exposure&    0.000184   &  -0.0000517   &   -0.000292   &   -0.000232   &    0.000205   \\
+            &   (0.00203)   &   (0.00186)   &   (0.00167)   &   (0.00167)   &   (0.00159)   \\
+2019 $\times$ Experience $\times$ AI exposure&    -0.00250   &    -0.00276   &    -0.00251*  &    -0.00248   &    -0.00195   \\
+            &   (0.00188)   &   (0.00168)   &   (0.00150)   &   (0.00152)   &   (0.00147)   \\
+2020 $\times$ Experience $\times$ AI exposure&   -0.000634   &    -0.00126   &    -0.00139   &    -0.00135   &    -0.00170   \\
+            &   (0.00202)   &   (0.00185)   &   (0.00164)   &   (0.00165)   &   (0.00163)   \\
+2021 $\times$ Experience $\times$ AI exposure&    -0.00355** &    -0.00392** &    -0.00432***&    -0.00447***&    -0.00440***\\
+            &   (0.00170)   &   (0.00156)   &   (0.00144)   &   (0.00146)   &   (0.00136)   \\
+2023 $\times$ Experience $\times$ AI exposure&    -0.00212   &    -0.00276*  &    -0.00278** &    -0.00284** &    -0.00246*  \\
+            &   (0.00160)   &   (0.00143)   &   (0.00134)   &   (0.00135)   &   (0.00126)   \\
+2024 $\times$ Experience $\times$ AI exposure&    -0.00112   &    -0.00171   &    -0.00221   &    -0.00218   &    -0.00185   \\
+            &   (0.00187)   &   (0.00180)   &   (0.00169)   &   (0.00171)   &   (0.00164)   \\
+2025 $\times$ Experience $\times$ AI exposure&    -0.00171   &    -0.00224   &    -0.00252   &    -0.00248   &    -0.00217   \\
+            &   (0.00184)   &   (0.00174)   &   (0.00162)   &   (0.00161)   &   (0.00153)   \\
+\midrule
+Mean of dependent variable&       9.733   &       9.733   &       9.733   &       9.733   &       9.733   \\
+Sex FE      &          No   &         Yes   &         Yes   &         Yes   &         Yes   \\
+Education FE&          No   &          No   &         Yes   &         Yes   &         Yes   \\
+State $\times$ Year FE&          No   &          No   &          No   &         Yes   &         Yes   \\
+Industry $\times$ Year FE&          No   &          No   &          No   &          No   &         Yes   \\
+SE clustered at&  Occupation   &  Occupation   &  Occupation   &  Occupation   &  Occupation   \\
+Observations&     464,300   &     464,300   &     464,300   &     464,300   &     464,297   \\
+\bottomrule
+\end{tabular}
