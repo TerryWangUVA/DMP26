@@ -81,7 +81,7 @@ This paper is closest to the second line of this literature, using nationally re
 \section{Toy Model}
 \label{sec:model}
 %==================================================
-There is an established tradition in economics of analyzing how technological change affects labor market outcomes through the lens of \emph{tasks} in production. \textcite{autor2003skill} introduced this framework to document how computerization reallocates labor away from routine cognitive tasks, and \textcite{autor2013growth} extended it to explain the polarization of the US labor market due to routine-biased technological change. 
+There is an established tradition in economics of analyzing how technological change affects labor market outcomes through the lens of \textit{tasks} in production. \textcite{autor2003skill} introduced this framework to document how computerization reallocates labor away from routine cognitive tasks, and \textcite{autor2013growth} extended it to explain the polarization of the US labor market due to routine-biased technological change. 
 \textcite{autor2015whyjobs} further showed that automation need not reduce overall labor demand: because tasks are complementary within production, automating routine tasks increases the economic importance of the remaining tasks that require judgment or creativity, thereby sustaining demand for the workers who perform them.
 
 Other researchers have applied a similar framework to immigration and offshoring: \textcite{ottaviano2013immigration}, for instance, use a task-based approach to study how relocating tasks abroad reallocates work across heterogeneous groups of local workers. The toy model developed here follows a similar logic. Rather than foreign labor performing a subset of tasks, generative AI does it. One might think of this as a form of ``offshoring to GPTopia.''
@@ -109,7 +109,7 @@ for the quantity of task~$i$ that AI contributes, with
   s(i) = 0 \;\text{ for } i \geq I^*,
   \label{eq:ai_supply}
 \end{equation}
-where $I^*\in(0,1)$ is the \emph{AI capability frontier}.  Tasks below $I^*$
+where $I^*\in(0,1)$ is the \textit{AI capability frontier}.  Tasks below $I^*$
 can theoretically be supplied by AI, with the contribution strictly decreasing in
 task complexity; tasks at or above $I^*$ remain beyond AI's reach.  As AI
 improves, $I^*$ shifts rightward and $s$ may increase throughout its support.
@@ -256,7 +256,7 @@ I restrict the sample to respondents aged 22--65 who are active in the labor for
 
 \subsection{AI Exposure}
 
-The AI exposure variable is drawn from \textcite{eloundou2024gpts}, which constructs occupation-level LLM exposure scores from the O*NET 27.2 database. O*NET provides two complementary task-level resources: 19,265 \emph{occupational tasks} (occupation-specific units of work tied to a particular occupation) and 2,087 \emph{Detailed Work Activities} (DWAs) --- broader action categories that may be associated with one or more tasks across occupations.
+The AI exposure variable is drawn from \textcite{eloundou2024gpts}, which constructs occupation-level LLM exposure scores from the O*NET 27.2 database. O*NET provides two complementary task-level resources: 19,265 \textit{occupational tasks} (occupation-specific units of work tied to a particular occupation) and 2,087 \textit{Detailed Work Activities} (DWAs) --- broader action categories that may be associated with one or more tasks across occupations.
 
 \paragraph{Exposure rubric.}
 Annotators assess each task or DWA on a three-category rubric, asking whether access to an LLM could reduce the time required to complete it by at least 50\% at equivalent quality:
@@ -268,17 +268,17 @@ Annotators assess each task or DWA on a three-category rubric, asking whether ac
 Where tasks are linked to DWAs, annotators rated the DWA rather than the task directly, and each DWA's rating was applied to every task associated with it.  Task-level ratings are then aggregated up to the occupation level.
 
 \paragraph{Occupation-level aggregation.}
-For each occupation, O*NET designates each task as \emph{core} (weight $w_t = 2$) or \emph{supplemental} (weight $w_t = 1$). Three summary measures vary how E1 and E2 tasks are scored:
+For each occupation, O*NET designates each task as \textit{core} (weight $w_t = 2$) or \textit{supplemental} (weight $w_t = 1$). Three summary measures vary how E1 and E2 tasks are scored:
 \begin{equation}
   \text{Occupation Score} = \frac{\displaystyle\sum_{t \in T_o} w_t \cdot s_t}{\displaystyle\sum_{t \in T_o} w_t},
   \label{eq:beta}
 \end{equation}
-where $s_t = 1$ for E1 tasks, $s_t = 0.5$ for E2 tasks, and $s_t = 0$ for E0 tasks. The \emph{alpha} score ($\alpha_o$) sets $s_t = 0$ for all E2 tasks, counting only direct LLM exposure. The \emph{zeta} score ($\zeta_o$) sets $s_t = 1$ for E2 tasks, providing an upper bound. $\beta_o$ is the weighted middle ground: E2 tasks are discounted by half, reflecting the additional efforts required to build and deploy LLM-powered software on top of the base model.
+where $s_t = 1$ for E1 tasks, $s_t = 0.5$ for E2 tasks, and $s_t = 0$ for E0 tasks. The \textit{alpha} score ($\alpha_o$) sets $s_t = 0$ for all E2 tasks, counting only direct LLM exposure. The \textit{zeta} score ($\zeta_o$) sets $s_t = 1$ for E2 tasks, providing an upper bound. $\beta_o$ is the weighted middle ground: E2 tasks are discounted by half, reflecting the additional efforts required to build and deploy LLM-powered software on top of the base model.
 
 \paragraph{Annotators.}
-\textcite{eloundou2024gpts} collect two independent sets of annotations. \emph{Human ratings} --- produced by the authors and experienced alignment annotators --- are the primary benchmark; they were applied to DWAs and aggregated to the task level. \emph{GPT-4 ratings} were obtained by prompting an early GPT-4 version directly on all task/occupation pairs, serving as a validation dataset. The two sources are highly correlated at the occupation level.
+\textcite{eloundou2024gpts} collect two independent sets of annotations. \textit{Human ratings} (ratings produced by the authors and experienced alignment annotators) are the primary benchmark; they were applied to DWAs and aggregated to the task level. \textit{GPT-4 ratings} were obtained by prompting an early GPT-4 version directly on all task/occupation pairs, serving as a validation dataset. The two sources are highly correlated at the occupation level.
 
-I use \texttt{dv\_rating\_beta}: the \emph{GPT-4-annotated} $\beta$ score. Applying a single model uniformly across all task/occupation pairs better preserves internal consistency. The cost is potential overconfidence in GPT-4's assessment of its own capabilities. $\beta$ is preferred to $\alpha$ (which ignores the ecosystem of LLM-powered tools already deployed or in development at the time of study) and $\zeta$ (which assumes a hypothetically well-developed AI infrastructure). $\beta$ is therefore the most economically meaningful measure for the post-ChatGPT period.  
+I use \texttt{dv\_rating\_beta}: the \textit{GPT-4-annotated} $\beta$ score. Applying a single model uniformly across all task/occupation pairs better preserves internal consistency. The cost is potential overconfidence in GPT-4's assessment of its own capabilities. $\beta$ is preferred to $\alpha$ (which ignores the ecosystem of LLM-powered tools already deployed or in development at the time of study) and $\zeta$ (which assumes a hypothetically well-developed AI infrastructure). $\beta$ is therefore the most economically meaningful measure for the post-ChatGPT period.  
 
 Although $\beta_o$ is constructed from annotator judgments rather than observed workplace use, \textcite{bick2024rapid} provide some external validation: using Real-Time Population Survey, a nationally representative survey of U.S. workers, they report a correlation of $\rho = 0.67$ between \textcite{eloundou2024gpts}'s ChatGPT-$\beta$ exposure score and self-reported generative AI adoption at the occupation-group level, supporting the interpretation of $\beta_o$ as a proxy for actual workplace adoption of generative AI tools.
 
@@ -447,7 +447,7 @@ Y_{it} = \alpha
 The sign of post-2022 $\delta_t$ is interpreted with respect to the outcome: more-experienced workers are relatively shielded if $\delta_t > 0$ for log wages and if $\delta_t < 0$ for unemployment.
 
 
-\paragraph{Education.} The education heterogeneity analysis is motivated by the descriptive patterns documented in Section~\ref{sec:data}. Because $\beta_o$ is assigned at the occupation level, and because college share varies within narrow ranges of $\beta_o$, college and non-college workers with similar measured exposure may still sort into different occupations. The college / non-college split is therefore not a proxy for the exposure split, and differences in outcomes between the two groups need not simply reflect differences in exposure per se. To examine this dimension, I divide the sample into \emph{college-educated} workers (BA or above, educ $>$ 110) and \emph{non-college} workers (high school or some college, educ $\leq$ 110) and estimate the main specification \eqref{eq:main} separately within each group:
+\paragraph{Education.} The education heterogeneity analysis is motivated by the descriptive patterns documented in Section~\ref{sec:data}. Because $\beta_o$ is assigned at the occupation level, and because college share varies within narrow ranges of $\beta_o$, college and non-college workers with similar measured exposure may still sort into different occupations. The college / non-college split is therefore not a proxy for the exposure split, and differences in outcomes between the two groups need not simply reflect differences in exposure per se. To examine this dimension, I divide the sample into \textit{college-educated} workers (BA or above, educ $>$ 110) and \textit{non-college} workers (high school or some college, educ $\leq$ 110) and estimate the main specification \eqref{eq:main} separately within each group:
 
 
 
@@ -627,7 +627,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \]
 
 
-\section{Tables}
+\section{Regression Tables}
 \label{app:tables}
 \setcounter{table}{0}
 \renewcommand{\thetable}{B\arabic{table}}
