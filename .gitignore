@@ -1,8 +1,9 @@
 # raw data
 raw/
 
-# replication 
-replication/
+# replication
+Replication/raw/
+Replication/output/data/
 
 # intermediate data
 output/data/
@@ -21,4 +22,4 @@ Thumbs.db
 *.log
 *.tmp
 *.bak
-
+*.dta

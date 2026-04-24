@@ -23,7 +23,7 @@
 \usepackage[style=apa,backend=biber]{biblatex}
 \addbibresource{references.bib}
 
-\graphicspath{{output/graphs/}}
+\graphicspath{{Replication/output/graphs/}}
 
 \setlength{\epigraphwidth}{0.82\textwidth}
 \setlength{\epigraphrule}{0pt}
@@ -291,7 +291,7 @@ The resulting $\beta_o$ is time-invariant and assigned at the occupational level
 \begin{center}
 \caption{Summary statistics for the AI exposure score $\beta_o$ in the CPS-ASEC worker-year sample, 2018--2025. Statistics are reported for the full sample and separately for college-educated (BA or above) and non-college (high school or some college) workers.}
 \label{tab:beta_summary}
-\input{output/tables/descriptives/beta_summary.tex}
+\input{Replication/output/tables/descriptives/beta_summary.tex}
 \end{center}
 \end{table}
 
@@ -301,7 +301,7 @@ Tables~\ref{tab:top5} and~\ref{tab:bot5} list the five most and five least expos
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{output/graphs/descriptives/kdensity_beta_overall.pdf}
+\includegraphics[width=0.8\textwidth]{Replication/output/graphs/descriptives/kdensity_beta_overall.pdf}
 \caption{Distribution of AI exposure ($\beta_o$) across workers.
 Each observation is a worker-year; the density reflects the
 worker-level distribution of occupational exposure scores.}
@@ -317,7 +317,7 @@ worker-level distribution of occupational exposure scores.}
 \centering
 \caption{Most exposed occupations (top 5 by $\beta_o$).}
 \label{tab:top5}
-\input{output/tables/descriptives/top5_exposed.tex}
+\input{Replication/output/tables/descriptives/top5_exposed.tex}
 \end{minipage}
 
 \vspace{8pt}
@@ -327,7 +327,7 @@ worker-level distribution of occupational exposure scores.}
 
 \caption{Least exposed occupations (bottom 5 by $\beta_o$).}
 \label{tab:bot5}
-\input{output/tables/descriptives/bot5_exposed.tex}
+\input{Replication/output/tables/descriptives/bot5_exposed.tex}
 \end{center}
 \end{minipage}
 \vspace{4pt}
@@ -340,7 +340,7 @@ Figure~\ref{fig:kdensity_educ} overlays the exposure distributions for college-e
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{output/graphs/descriptives/kdensity_beta_education.pdf}
+\includegraphics[width=0.8\textwidth]{Replication/output/graphs/descriptives/kdensity_beta_education.pdf}
 \caption{Distribution of AI exposure ($\beta_o$): college-educated
 workers (BA or above) vs.\ non-college workers (high school or some
 college).}
@@ -355,7 +355,7 @@ Table~\ref{tab:occ_group} ranks all 22 major CPS occupation groups by mean $\bet
 \caption{Occupation groups ranked by
 AI exposure ($\beta_o$), with share of college-educated workers.}
 \label{tab:occ_group}
-{\input{output/tables/descriptives/occ_group_exposure.tex}}
+{\input{Replication/output/tables/descriptives/occ_group_exposure.tex}}
 \end{center}
 \end{table}
 
@@ -363,7 +363,7 @@ As a final descriptive look at the data, Figure~\ref{fig:unemp_quartile_post2022
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{output/graphs/descriptives/unemp_by_quartile_post2022.pdf}
+\includegraphics[width=0.8\textwidth]{Replication/output/graphs/descriptives/unemp_by_quartile_post2022.pdf}
 \caption{Annual unemployment rate by AI exposure quartile, 2022--2025.  Quartile 1 contains workers in the least exposed occupations ( $\beta_o$ in the bottom 25\% of workers); Quartile 4 contains the most exposed.  Each point is the mean unemployment indicator within the quartile-year cell.}
 \label{fig:unemp_quartile_post2022}
 \end{center}
@@ -470,13 +470,13 @@ Pre-ChatGPT coefficients for 2018 and 2019 are close to zero and statistically i
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{unemployment_stateYFE_plot.pdf}
+\includegraphics[width=0.8\textwidth]{unemployment_indFE_plot.pdf}
 \caption{Unemployment: DiD coefficients (year $\times$ AI exposure), preferred specification (sex, education, and state$\times$year fixed effects). Year 2022 is the baseline ($\hat\beta_{2022} = 0$). Error bars are 95\% CI, SEs clustered at the occupation level.}
 \label{fig:unemployment_stateYFE_plot}
 \end{center}
 \end{figure}
 
-Post-2022, a positive unemployment effect of AI exposure emerges. In the preferred specification, the 2023 coefficient is essentially zero; the 2024 coefficient rises to $+0.0205^{***}$ and the 2025 coefficient is $+0.0180^{***}$.  The pattern is stable across all four specifications.
+Post-2022, a positive unemployment effect of AI exposure emerges. In the preferred specification, the 2023 coefficient is essentially zero; the 2024 coefficient rises to $+0.0208^{***}$ and the 2025 coefficient is $+0.0180^{***}$.  The pattern is stable across all four specifications.
 
 The unemployment response is also consistent with the remark about displacement outlined in Section~\ref{sec:model}. In the model, AI’s supply-dilution force compresses the value of exposed tasks, but downward wage stickiness limits adjustment through wages alone. Part of the adjustment therefore shifts to the extensive margin, displacing workers from exposed positions. The statistically significant post-2022 unemployment response is consistent with this mechanism.
 
@@ -488,13 +488,13 @@ Figure~\ref{fig:logwage_stateYFE_plot} plots the event-study coefficients for lo
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{logwage_stateYFE_plot.pdf}
+\includegraphics[width=0.8\textwidth]{logwage_indFE_plot.pdf}
 \caption{Log real wage: DiD coefficients (year $\times$ AI exposure), preferred specification (sex, education, and state$\times$year fixed effects). Year 2022 is the baseline ($\hat\beta_{2022} = 0$). Error bars are 95\% CI, SEs clustered at the occupation level.}
 \label{fig:logwage_stateYFE_plot}
 \end{center}
 \end{figure}
 
-In the naive and sex-FE specifications, the 2025 coefficient is $-0.036$ and $-0.046$ respectively, neither significant at conventional levels.  Only the most demanding specification (absorbing sex, education, and state$\times$year fixed effects) produces a statistically significant 2025 coefficient ($-0.059^{**}$).  No significant effect appears in 2023 or 2024 under any specification.
+In the naive and sex-FE specifications, the 2025 coefficient is $-0.035$ and $-0.045$ respectively, neither significant at conventional levels.  Only the most demanding specification (absorbing sex, education, and state$\times$year fixed effects) produces a statistically significant 2025 coefficient ($-0.059^{**}$).  No significant effect appears in 2023 or 2024 under any specification.
 
 The delayed wage response is consistent with the displacement channel discussed in the unemployment results: with wages downward-sticky, adjustment flows first through the extensive margin (employment), and the intensive margin (wages) lags behind.
 
@@ -521,22 +521,22 @@ Another reason my estimation using CPS-ASEC may understate the entry-level unemp
 
 While the experience heterogeneity yields null results, splitting the sample by education uncovers an asymmetric picture that the main-specification results do not.  The unemployment response to AI exposure is broadly shared across education groups, but the wage response concentrates on non-college workers.
 
-On the unemployment front, in the preferred specification the 2024 coefficient is $+0.018^{**}$ for college-educated workers (BA or above) and $+0.020^{***}$ for non-college workers (high school or some college), and the 2025 coefficient is $+0.018^{**}$ and $+0.014^{*}$ respectively (Tables~\ref{tab:unemp_col} and~\ref{tab:unemp_noncol}).  The point estimates are comparable in magnitude and the confidence intervals overlap.  The unemployment response to AI exposure is thus broadly shared across education groups.
+On the unemployment front, in the preferred specification the 2024 coefficient is $+0.019^{**}$ for college-educated workers (BA or above) and $+0.021^{***}$ for non-college workers (high school or some college), and the 2025 coefficient is $+0.018^{**}$ and $+0.014^{*}$ respectively (Tables~\ref{tab:unemp_col} and~\ref{tab:unemp_noncol}).  The point estimates are comparable in magnitude and the confidence intervals overlap.  The unemployment response to AI exposure is thus broadly shared across education groups.
 Figure~\ref{fig:unemp_stateYFE_colComb} plots the two coefficient paths side by side.
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{unemp_stateYFE_plot_colComb.pdf}
+\includegraphics[width=0.8\textwidth]{unemp_indFE_plot_colComb.pdf}
 \caption{Unemployment: DiD coefficients (year $\times$ AI exposure), college-educated (navy circles) versus non-college workers (maroon diamonds), preferred specification (sex, education, and state$\times$year FE).  Year 2022 is the baseline ($\hat\beta_{2022} \equiv 0$).  Error bars are 95\% CI, SEs clustered at the occupation level.}
 \label{fig:unemp_stateYFE_colComb}
 \end{center}
 \end{figure}
 
-Unlike unemployment, the wage response is not symmetric. The 2025 log-wage coefficient is $-0.094^{***}$ for non-college workers in the preferred specification, while the corresponding college-worker coefficients are indistinguishable from zero in every post-2022 year ($+0.066$ in 2023, $+0.060$ in 2024, and $-0.001$ in 2025; Tables~\ref{tab:lw_col} and~\ref{tab:lw_noncol}).  Figure~\ref{fig:lw_stateYFE_colComb} plots the two coefficient paths side by side; the non-college 2025 compression stands in sharp contrast to the flat college path.
+Unlike unemployment, the wage response is not symmetric. The 2025 log-wage coefficient is $-0.093^{***}$ for non-college workers in the preferred specification, while the corresponding college-worker coefficients are indistinguishable from zero in every post-2022 year ($+0.071$ in 2023, $+0.066$ in 2024, and $+0.001$ in 2025; Tables~\ref{tab:lw_col} and~\ref{tab:lw_noncol}).  Figure~\ref{fig:lw_stateYFE_colComb} plots the two coefficient paths side by side; the non-college 2025 compression stands in sharp contrast to the flat college path.
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{lw_stateYFE_plot_colComb.pdf}
-\caption{Log real wage: DiD coefficients (year $\times$ AI exposure), college-educated (navy circles) versus non-college workers (maroon diamonds), preferred specification (sex, education, and state$\times$year FE).  Year 2022 is the baseline.  The non-college 2025 compression ($-0.094^{***}$) stands in contrast to the flat college path.  Error bars are 95\% CI, SEs clustered at the occupation level.}
+\includegraphics[width=0.8\textwidth]{lw_indFE_plot_colComb.pdf}
+\caption{Log real wage: DiD coefficients (year $\times$ AI exposure), college-educated (navy circles) versus non-college workers (maroon diamonds), preferred specification (sex, education, and state$\times$year FE).  Year 2022 is the baseline.  The non-college 2025 compression ($-0.093^{***}$) stands in contrast to the flat college path.  Error bars are 95\% CI, SEs clustered at the occupation level.}
 \label{fig:lw_stateYFE_colComb}
 \end{center}
 \end{figure}
@@ -550,11 +550,11 @@ The two readings are observationally equivalent in the split-sample regressions,
 \end{equation}
 where $\mathrm{Col}_i$ is an indicator for worker $i$ being college-educated, $\alpha_{o,t}$ is a full occupation$\times$year fixed effect, $X_{it}$ absorbs sex, education, and state$\times$year fixed effects, and standard errors are clustered at the occupation level.  The occupation$\times$year fixed effect absorbs any variation in log wages that is common to all workers in occupation $o$ in year $t$, including the occupation-level exposure path itself.  The coefficient of interest, $\gamma_t$, therefore isolates the differential wage response of college-educated workers within the same occupation-year cell.  If the within-occupation reading is right, $\gamma_t$ should be positive in the post-2022 years; if the between-occupation reading is right, the selection that drives the split-sample asymmetry is absorbed into $\alpha_{o,t}$ and $\gamma_t$ should be indistinguishable from zero.
 
-Figure~\ref{fig:lw_within_plot} plots the estimated $\gamma_t$ for 2018--2025, with the full regression reported in Table~\ref{tab:lw_within_occ} in Appendix~\ref{app:tables}.  The post-2022 coefficients are small and statistically indistinguishable from zero: $-0.037$ in 2023, $+0.002$ in 2024, and $-0.004$ in 2025, with standard errors of $0.059$, $0.061$, and $0.073$ respectively.  Within the same occupation-year cell, then, college-educated and non-college workers do not experience systematically different wage responses to AI exposure, and the education gap visible in the split-sample regressions does not survive occupation$\times$year fixed effects.  The evidence therefore points to the between-occupation reading: the education gap in the wage response reflects occupation sorting on dimensions correlated with college share but not captured by $\beta_o$, rather than an individual-level productivity gap within occupations.
+Figure~\ref{fig:lw_within_plot} plots the estimated $\gamma_t$ for 2018--2025, with the full regression reported in Table~\ref{tab:lw_within_occ} in Appendix~\ref{app:tables}.  The post-2022 coefficients are small and statistically indistinguishable from zero: $-0.039$ in 2023, $0.000$ in 2024, and $-0.006$ in 2025, with standard errors of $0.060$, $0.062$, and $0.074$ respectively.  Within the same occupation-year cell, then, college-educated and non-college workers do not experience systematically different wage responses to AI exposure, and the education gap visible in the split-sample regressions does not survive occupation$\times$year fixed effects.  The evidence therefore points to the between-occupation reading: the education gap in the wage response reflects occupation sorting on dimensions correlated with college share but not captured by $\beta_o$, rather than an individual-level productivity gap within occupations.
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{lw_within_plot.pdf}
+\includegraphics[width=0.8\textwidth]{lw_within_ind_plot.pdf}
 \caption{Within-occupation test: estimated $\gamma_t$ from \eqref{eq:within_occ}, the college-$\times$-exposure-$\times$-year triple interaction with occupation$\times$year fixed effects.  A coefficient of zero indicates that college-educated and non-college workers in the same occupation-year cell experience the same wage response to AI exposure.  Year 2022 is the baseline.  Error bars are 95\% CI, SEs clustered at the occupation level.}
 \label{fig:lw_within_plot}
 \end{center}
@@ -637,7 +637,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \begin{center}
 \caption{Unemployment regression results. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Columns (1)--(4): no fixed effects, sex FE, sex + education FE, sex + education + state$\times$year FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemployment_main}
-\resizebox{0.9\textwidth}{!}{\input{output/tables/unemployment_tableA.tex}}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemployment_tableA.tex}}
 \end{center}
 \end{table}
 
@@ -646,7 +646,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \begin{center}
 \caption{Log wage regression results. Dependent variable: natural log of annual real wages (1982 dollars). Year 2022 is the omitted baseline. Columns (1)--(4): no fixed effects, sex FE, sex + education FE, sex + education + state$\times$year FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:logwage_main}
-\resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableA.tex}}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA.tex}}
 \end{center}
 \end{table}
 
@@ -655,7 +655,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \begin{center}
 \caption{Unemployment experience heterogeneity. Dependent variable: binary unemployment indicator. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Full sample. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_exphet}
-\resizebox{0.9\textwidth}{!}{\input{output/tables/unemployment_tableB.tex}}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemployment_tableB.tex}}
 \end{center}
 \end{table}
 
@@ -664,7 +664,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \begin{center}
 \caption{Log wage experience heterogeneity. Dependent variable: log annual real wages. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Full sample. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_exphet}
-\resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableB.tex}}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableB.tex}}
 \end{center}
 \end{table}
 
@@ -673,7 +673,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \begin{center}
 \caption{Unemployment --- college subsample. Dependent variable: binary unemployment indicator. Split-sample regression on college-educated workers (BA or above). Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_col}
-\resizebox{0.9\textwidth}{!}{\input{output/tables/unemp_tableA_col.tex}}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemp_tableA_col.tex}}
 \end{center}
 \end{table}
 
@@ -682,7 +682,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \begin{center}
 \caption{Unemployment --- non-college subsample. Dependent variable: binary unemployment indicator. Split-sample regression on non-college workers (high school or some college). Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_noncol}
-\resizebox{0.9\textwidth}{!}{\input{output/tables/unemp_tableA_noncol.tex}}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemp_tableA_noncol.tex}}
 \end{center}
 \end{table}
 
@@ -691,7 +691,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \begin{center}
 \caption{Log wage --- college subsample. Dependent variable: log annual real wages (1982 dollars). Split-sample regression on college-educated workers. Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_col}
-\resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableA_col.tex}}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA_col.tex}}
 \end{center}
 \end{table}
 
@@ -700,7 +700,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \begin{center}
 \caption{Log wage --- non-college subsample. Dependent variable: log annual real wages (1982 dollars). Split-sample regression on non-college workers. Year 2022 is the omitted baseline. Columns (1)--(4) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_noncol}
-\resizebox{0.9\textwidth}{!}{\input{output/tables/logwage_tableA_noncol.tex}}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA_noncol.tex}}
 \end{center}
 \end{table}
 
@@ -709,7 +709,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \begin{center}
 \caption{Within-occupation heterogeneity test (log wage). Dependent variable: log annual real wages (1982 dollars). Reports the coefficients $\gamma_t$ on the college $\times$ $\beta_o$ $\times$ year triple interaction from equation~\eqref{eq:within_occ}. Fixed effects: sex, education, state$\times$year, and occupation$\times$year. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_within_occ}
-{\footnotesize\input{output/tables/het_within_occ_lnwage.tex}}
+{\footnotesize\input{Replication/output/tables/het_within_occ_lnwage.tex}}
 \end{center}
 \end{table}
 
