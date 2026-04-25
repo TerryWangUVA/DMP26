@@ -639,7 +639,7 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \label{app:robustness}
 %==================================================
 
-\textcite{callaway2024continuous} show that under a continuous-treatment two-way fixed effects specification, the estimated coefficient is a weighted average of underlying per-exposure effects, with weights that need not reflect the population distribution of exposure.  This appendix reports a binarized-treatment robustness check that addresses the concern by replacing the continuous $\beta_o$ score with a binary indicator and re-estimating the main and education-split specifications.
+\textcite{callaway2024continuous} show that under a continuous-treatment two-way fixed effects specification, the estimated coefficient is a weighted average of underlying per-exposure effects, with weights that need not reflect the population distribution of exposure.  This appendix reports a binarized-treatment robustness check that partially addresses this concern by replacing the continuous $\beta_o$ score with a binary indicator and re-estimating the main and education-split specifications.
 
 I define
 \begin{equation*}
@@ -648,7 +648,7 @@ I define
 where $\widetilde{\beta}$ is the median of $\beta_o$ in the pooled full sample of worker-years.  The same cut point is applied uniformly to college and non-college subsamples.  All five fixed-effect layers from the main specification are re-estimated with $\text{high-}\beta_o$ in place of $\beta_o$, with year 2022 again as the omitted baseline.
 
 \paragraph{Full-sample results.}
-Figures~\ref{fig:unemployment_indFE_bin} and~\ref{fig:logwage_indFE_bin} plot the binarized-treatment event-study coefficients in the preferred specification; Tables~\ref{tab:unemp_main_bin} and~\ref{tab:logwage_main_bin} report all five specifications.  Both headline findings survive: the 2024 and 2025 unemployment coefficients are positive and significant at the 5\% level, and the 2025 log-wage coefficient is negative and significant at the 5\% level.
+Figures~\ref{fig:unemployment_indFE_bin} and~\ref{fig:logwage_indFE_bin} plot the binarized-treatment event-study coefficients in the preferred specification; Tables~\ref{tab:unemp_main_bin} and~\ref{tab:logwage_main_bin} report all five specifications.  Both intensive and extensive margin findings survive: the 2024 and 2025 unemployment coefficients are positive and significant at the 5\% level, and the 2025 log-wage coefficient is negative and significant at the 5\% level.
 
 \begin{figure}[htbp]
 \begin{center}
