@@ -162,7 +162,7 @@ imposes no explicit restriction on the shape of $p_0$.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.82\textwidth]{output/model/fig_preai.png}
-  \caption{Pre-AI equilibrium wage schedule. Each worker of type $i^*$ earns the competitive task price $w_0(i^*) = p_0(i^*)$. The downward slope in $f$ is assumed for illustration only; the model places no explicit restriction on the distribution of initial task supply}
+  \caption{Pre-AI equilibrium wage schedule. Each worker of type $i^*$ earns the competitive task price $w_0(i^*) = p_0(i^*)$. The downward slope in $f$ is assumed for illustration only; the model places no explicit restriction on the distribution of initial task supply.}
   \label{fig:preai}
 \end{figure}
 
@@ -233,7 +233,7 @@ The derivation above treats each worker as a single-task specialist of type $i^*
 \end{remark}
 
 \begin{remark}[Displacement]
-The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model in tact but does not fully describe the labor market response to the technology shock.  In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so part of the adjustment shifts from the intensive margin (wages) to the extensive margin (employment).  Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily.  A more formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
+The full-specialization and inelastic-labor-supply assumptions rule out workers switching task types in response to wages, which keeps the model intact but does not fully describe the labor market response to the technology shock.  In reality, wages are sticky downward: firms often cannot cut pay to the new market-clearing level, so part of the adjustment shifts from the intensive margin (wages) to the extensive margin (employment).  Firms faced with compressed task prices slow hiring into exposed roles and lay off workers, and workers whose reservation wage exceeds the post-AI offer may exit their current jobs voluntarily.  A more formal model would require endogenous worker mobility, wage-setting frictions, and a reservation-wage mechanism, none of which the toy model incorporates.
 \end{remark}
 
 With the toy model's prediction in hand, that workers whose tasks are heavily exposed to AI fare worse in relative terms than workers in unexposed occupations, and that displacement is the labor market's likely outlet when wages cannot fall far enough, I turn to empirical analysis in the following sections.
@@ -276,11 +276,11 @@ For each occupation, O*NET designates each task as \textit{core} (weight $w_t = 
 where $s_t = 1$ for E1 tasks, $s_t = 0.5$ for E2 tasks, and $s_t = 0$ for E0 tasks. The \textit{alpha} score ($\alpha_o$) sets $s_t = 0$ for all E2 tasks, counting only direct LLM exposure. The \textit{zeta} score ($\zeta_o$) sets $s_t = 1$ for E2 tasks, providing an upper bound. $\beta_o$ is the weighted middle ground: E2 tasks are discounted by half, reflecting the additional efforts required to build and deploy LLM-powered software on top of the base model.
 
 \paragraph{Annotators.}
-\textcite{eloundou2024gpts} collect two independent sets of annotations. \textit{Human ratings} (ratings produced by the authors and experienced alignment annotators are the primary benchmark; they were applied to DWAs and aggregated to the task level. \textit{GPT-4 ratings} were obtained by prompting an early GPT-4 version directly on all task/occupation pairs, serving as a validation dataset. The two sources are highly correlated at the occupation level.
+\textcite{eloundou2024gpts} collect two independent sets of annotations. \textit{Human ratings} --- ratings produced by the authors and experienced alignment annotators --- are the primary benchmark; they were applied to DWAs and aggregated to the task level. \textit{GPT-4 ratings} were obtained by prompting an early GPT-4 version directly on all task/occupation pairs, serving as a validation dataset. The two sources are highly correlated at the occupation level.
 
 I use \texttt{dv\_rating\_beta}: the \textit{GPT-4-annotated} $\beta$ score. Applying a single model uniformly across all task/occupation pairs better preserves internal consistency. The cost is potential overconfidence in GPT-4's assessment of its own capabilities. $\beta$ is preferred to $\alpha$ (which ignores the ecosystem of LLM-powered tools already deployed or in development at the time of study) and $\zeta$ (which assumes a hypothetically well-developed AI infrastructure). $\beta$ is therefore the most economically meaningful measure for the post-ChatGPT period.  
 
-Although $\beta_o$ is constructed from annotator judgments rather than observed workplace use, \textcite{bick2024rapid} provide some external validation: using Real-Time Population Survey, a nationally representative survey of U.S. workers, they report a correlation of $\rho = 0.67$ between \textcite{eloundou2024gpts}'s ChatGPT-$\beta$ exposure score and self-reported generative AI adoption at the occupation-group level, supporting the interpretation of $\beta_o$ as a proxy for actual workplace adoption of generative AI tools.
+Although $\beta_o$ is constructed from annotator judgments rather than observed workplace use, \textcite{bick2024rapid} provide some external validation: using the Real-Time Population Survey, a nationally representative survey of U.S. workers, they report a correlation of $\rho = 0.67$ between \textcite{eloundou2024gpts}'s ChatGPT-$\beta$ exposure score and self-reported generative AI adoption at the occupation-group level, supporting the interpretation of $\beta_o$ as a proxy for actual workplace adoption of generative AI tools.
 
 
 Because CPS-ASEC codes occupations using a Census-based scheme which is distinct from the SOC occupation codes used by \textcite{eloundou2024gpts}, I construct a hierarchical crosswalk: from Census 2010 occupation codes to 6-digit 2010 SOC codes, then from 2010 SOC to 2018 SOC using the BLS official crosswalk \parencite{bls_soc_crosswalk_2018}. Where exact 6-digit matches are unavailable, exposure scores are aggregated at the 5-digit and 4-digit SOC levels, taking group means. This procedure retains nearly all observations in the sample.
@@ -359,7 +359,7 @@ AI exposure ($\beta_o$), with share of college-educated workers.}
 \end{center}
 \end{table}
 
-As a final descriptive look at the data, Figure~\ref{fig:unemp_quartile_post2022} plots the annual unemployment rate within each quartile of the worker-level $\beta_o$ distribution over 2022--2025.  The top two quartiles diverges from the bottom two after ChatGPT's release with unemployment rising in the most exposed occupations while remaining roughly flat in the least exposed.  This pattern is mildly indicative at best. The next section develops the empirical strategy used to evaluate this divergence more systematically.
+As a final descriptive look at the data, Figure~\ref{fig:unemp_quartile_post2022} plots the annual unemployment rate within each quartile of the worker-level $\beta_o$ distribution over 2022--2025.  The top two quartiles diverge from the bottom two after ChatGPT's release, with unemployment rising in the most exposed occupations while remaining roughly flat in the least exposed.  This pattern is mildly indicative at best. The next section develops the empirical strategy used to evaluate this divergence more systematically.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -477,7 +477,7 @@ Pre-ChatGPT coefficients for 2018 and 2019 are close to zero and statistically i
 \end{center}
 \end{figure}
 
-Post-2022, a positive unemployment effect of AI exposure emerges. In the preferred specification, the 2023 coefficient is essentially zero; the 2024 coefficient rises to $+0.0113^{**}$ and the 2025 coefficient is $+0.0140^{**}$.  The pattern is stable across all five specifications.
+Post-2022, a positive unemployment effect of AI exposure emerges. In the preferred specification, the 2023 coefficient is essentially zero; the 2024 coefficient rises to $+0.0113$ ($p<0.05$) and the 2025 coefficient is $+0.0140$ ($p<0.05$).  The pattern is stable across all five specifications.
 
 The unemployment response is also consistent with the remark about displacement outlined in Section~\ref{sec:model}. In the model, AI’s supply-dilution force compresses the value of exposed tasks, but downward wage stickiness limits adjustment through wages alone. Part of the adjustment therefore shifts to the extensive margin, displacing workers from exposed positions. The statistically significant post-2022 unemployment response is consistent with this mechanism.
 
@@ -495,7 +495,7 @@ Figure~\ref{fig:logwage_stateYFE_plot} plots the event-study coefficients for lo
 \label{fig:logwage_stateYFE_plot}
 \end{center}
 \end{figure}
-Post-ChatGPT, the wage adjustment is weaker than the unemployment adjustment and emerges only late in the sample. In the naive and sex-FE specifications, the 2025 coefficient is $-0.035$ and $-0.045$ respectively, neither significant at conventional levels.  The two most demanding specifications yield statistically significant 2025 coefficients: the spec absorbing sex, education, and state$\times$year fixed effects gives $-0.059^{**}$, and the preferred spec further absorbing industry$\times$year fixed effects gives $-0.061^{**}$.  No significant effect appears in 2023 or 2024 under any specification.
+Post-ChatGPT, the wage adjustment is weaker than the unemployment adjustment and emerges only late in the sample. In the naive and sex-FE specifications, the 2025 coefficient is $-0.035$ and $-0.045$ respectively, neither significant at conventional levels.  The two most demanding specifications yield statistically significant 2025 coefficients: the spec absorbing sex, education, and state$\times$year fixed effects gives $-0.059$ ($p<0.05$), and the preferred spec further absorbing industry$\times$year fixed effects gives $-0.061$ ($p<0.05$).  No significant effect appears in 2023 or 2024 under any specification.
 
 The delayed wage response is consistent with the displacement channel discussed in the unemployment results: with wages downward-sticky, adjustment flows first through the extensive margin (employment), and the intensive margin (wages) adjustment lags behind.
 
@@ -521,7 +521,7 @@ Another reason my estimation using CPS-ASEC may understate the entry-level unemp
 
 While the experience heterogeneity analysis yields largely null results, splitting the sample by education groups reveals an asymmetry that is less visible in the pooled specification. Both the unemployment and wage responses to AI exposure are concentrated among non-college workers, whereas the corresponding coefficients for college-educated workers are statistically indistinguishable from zero on both margins.
 
-On the unemployment margin, in the preferred specification, the 2024 coefficient is $-0.002$ for college-educated workers (BA or above) and $+0.017^{}$ for non-college workers (high school or some college); the corresponding 2025 coefficients are $+0.004$ and $+0.016^{}$ (Tables~\ref{tab:unemp_col} and~\ref{tab:unemp_noncol}). Thus, the unemployment response is concentrated among non-college workers. Figure~\ref{fig:unemp_stateYFE_colComb} plots the two coefficient paths side by side.
+On the unemployment margin, in the preferred specification, the 2024 coefficient is $-0.002$ for college-educated workers (BA or above) and $+0.017$ ($p<0.05$) for non-college workers (high school or some college); the corresponding 2025 coefficients are $+0.004$ and $+0.016$ ($p<0.05$) (Tables~\ref{tab:unemp_col} and~\ref{tab:unemp_noncol}). Thus, the unemployment response is concentrated among non-college workers. Figure~\ref{fig:unemp_stateYFE_colComb} plots the two coefficient paths side by side.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -531,7 +531,7 @@ On the unemployment margin, in the preferred specification, the 2024 coefficient
 \end{center}
 \end{figure}
 
-The wage response shows the same pattern. The 2025 log-wage coefficient is $-0.070^{**}$ for non-college workers in the preferred specification, while the corresponding college-worker coefficients are indistinguishable from zero in every post-2022 year ($+0.050$ in 2023, $+0.073$ in 2024, and $-0.024$ in 2025; Tables~\ref{tab:lw_col} and~\ref{tab:lw_noncol}).  Figure~\ref{fig:lw_stateYFE_colComb} plots the two coefficient paths side by side; the non-college 2025 compression stands in sharp contrast to the flat college path.
+The wage response shows the same pattern. The 2025 log-wage coefficient is $-0.070$ ($p<0.05$) for non-college workers in the preferred specification, while the corresponding college-worker coefficients are indistinguishable from zero in every post-2022 year ($+0.050$ in 2023, $+0.073$ in 2024, and $-0.024$ in 2025; Tables~\ref{tab:lw_col} and~\ref{tab:lw_noncol}).  Figure~\ref{fig:lw_stateYFE_colComb} plots the two coefficient paths side by side; the non-college 2025 compression stands in sharp contrast to the flat college path.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -572,7 +572,7 @@ Why do between-occupation differences generate different post-2022 wage and unem
 However, if workers can instead adjust $\theta^x$ in response to the shock by reallocating time and effort away from AI-exposed tasks and toward less exposed tasks, then the wage effect on the effective task bundle can be attenuated.  
 
 College-educated workers in high-exposure occupations may be better positioned along this margin. 
-This could reflect their (i) greater heterogeneity in task exposure within the occupation, creating larger scope for effort reallocation across tasks, and / or (ii) greater flexibility in adjusting effort across tasks within the bundle.
+This could reflect their (i) greater heterogeneity in task exposure within the occupation, creating larger scope for effort reallocation across tasks, or (ii) greater flexibility in adjusting effort across tasks within the bundle, or both.
 Both channels here are offered as conjectures. That said, existing literature points in a similar direction.
 
 \textcite{hampole2025ai} formalize within-occupation task reallocation in response to technology shocks, showing that workers’ capacity to offset task displacement depends on how exposure is distributed across tasks. \textcite{autor2025expertise} offer a related but different angle: AI’s wage effect depends not only on how many tasks in an occupation are exposed, but on which kinds of tasks are exposed. In other words, AI may automate either the routine, easy-to-delegate parts of a job or the skill-defining parts that previously made the job require specialized expertise. In the first case, the remaining human work may become more ``expertise-intensive'', potentially protecting wages and employment for workers who are already holding those jobs. In the second case, AI may lower the expertise threshold required to perform the job, expanding the pool of workers able to compete for those positions and placing downward pressure on wages. One interpretation of the education split is that college-heavy, high-exposure occupations are more likely to resemble the first case, while non-college-heavy, high-exposure occupations are more vulnerable to the second. I treat this mechanism as suggestive rather than definitive, since the  exposure measure in \textcite{eloundou2024gpts} does not distinguish whether the exposed tasks are routine/inexpert tasks or skill-defining/expert tasks.
@@ -588,7 +588,7 @@ A secondary possibility is that part of the pattern reflects shifts in output de
 \label{sec:conclusion}
 This paper studies the short-run labor-market effects of generative AI in the years following the public release of ChatGPT. The results support a view of generative AI’s early labor-market effects as an uneven revaluation of tasks rather than a simple productivity shock. In the toy model, AI raises output by augmenting the supply of some tasks while simultaneously diluting the relative value of the other tasks that it can assist or substitute. 
 
-The empirical results are consistent with this logic. Two main findings emerge from the analysis. First, workers in more exposed occupations experience a relative increase in unemployment beginning in 2024. This extensive-margin response appears earlier than the wage response, consistent with a setting in which downward wage stickiness limits immediate adjustment through pay and shifts part of the response to displacement. Second, by 2025, wages in more exposed occupations begin to diverge onto a lower path, but this intensive-margin adjustment is concentrated among non-college workers, whereas college-educated workers in exposed occupations show no comparable change in wages. Further analysis indicates that the gap is driven primarily by occupational sorting on dimensions the exposure score does not capture, rather than by differential wage responses within the same occupation.
+The empirical results are consistent with this logic. Two main findings emerge from the analysis. First, workers in more exposed occupations experience a relative increase in unemployment beginning in 2024, with this extensive-margin response concentrated among non-college workers. This response appears earlier than the wage response, consistent with a setting in which downward wage stickiness limits immediate adjustment through pay and shifts part of the response to displacement. Second, by 2025, wages in more exposed occupations also begin to diverge onto a lower path, with this intensive-margin adjustment again concentrated among non-college workers, whereas college-educated workers in exposed occupations show no comparable change in either margin. Further analysis indicates that the education gap on both margins is driven primarily by occupational sorting on dimensions the exposure score does not capture, rather than by differential responses within the same occupation.
 
 
 Taken together, the evidence suggests that the early labor-market effects of generative AI are not best understood as an immediate, uniform wage or employment shock. Instead, they appear to be unfolding as an uneven process of adjustment across occupations and worker groups. As the technology continues to diffuse, understanding these occupational and distributional margins of generative AI's impact will be essential for interpreting both its broader social gains, in the form of potential output expansion, and its labor-market costs, including worker displacement and the frictions associated with adjustment toward a new long run equilibrium.
