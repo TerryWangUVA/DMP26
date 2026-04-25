@@ -27,14 +27,16 @@
       unemp_tableA_noncol.tex            tab:unemp_noncol        (B6)
       logwage_tableA_col.tex             tab:lw_col              (B7)
       logwage_tableA_noncol.tex          tab:lw_noncol           (B8)
-      het_within_occ_lnwage.tex          tab:lw_within_occ       (B9)
+      het_within_occ.tex                 tab:lw_within_occ       (B9)
+                                         (2 cols: log wage and unemployment)
 
     Figures (in $graphs), ind x year FE spec -- the preferred spec shown in draft:
       logwage_indFE_plot.pdf             full-sample log wage, ind x year FE
       unemployment_indFE_plot.pdf        full-sample unemployment, ind x year FE
       lw_indFE_plot_colComb.pdf          split-sample combined log wage, ind x year FE
       unemp_indFE_plot_colComb.pdf       split-sample combined unemp, ind x year FE
-      lw_within_ind_plot.pdf             within-occ triple interaction, ind x year FE
+      lw_within_ind_plot.pdf             within-occ triple interaction (log wage)
+      unemp_within_ind_plot.pdf          within-occ triple interaction (unemployment)
 
     (Older state x year FE only plots are commented out in the code but retained
      for reference: logwage_stateYFE_plot.pdf, unemployment_stateYFE_plot.pdf,
@@ -1296,7 +1298,7 @@ estadd scalar depvar_mean = r(mean)
 eststo lw_within
 */
 
-// Preferred spec: occ x year FE + ind x year FE
+// Preferred spec: occ x year FE + ind x year FE (log wage)
 reghdfe lnwage i.year##c.dv_rating_beta##i.is_college, ///
     absorb(sex educ statefip#year occ_id#year year#ind) ///
     cluster(occ_id)
@@ -1311,12 +1313,28 @@ sum lnwage if e(sample)
 estadd scalar depvar_mean = r(mean)
 eststo lw_within_ind
 
+// Preferred spec: occ x year FE + ind x year FE (unemployment)
+reghdfe unemployed i.year##c.dv_rating_beta##i.is_college, ///
+    absorb(sex educ statefip#year occ_id#year year#ind) ///
+    cluster(occ_id)
+estadd scalar obs = e(N)
+estadd local sex_FE     "Yes"
+estadd local educ_FE    "Yes"
+estadd local state_yFE  "Yes"
+estadd local occ_yFE    "Yes"
+estadd local ind_FE     "Yes"
+estadd local se_cluster "Occupation"
+sum unemployed if e(sample)
+estadd scalar depvar_mean = r(mean)
+eststo un_within_ind
+
 
 **************************************************
 **# C.2  Export B9 (within-occupation table)
+**   Columns: (1) log wage, (2) unemployment
 **************************************************
 
-esttab lw_within_ind using "$tables/het_within_occ_lnwage.tex", replace ///
+esttab lw_within_ind un_within_ind using "$tables/het_within_occ.tex", replace ///
     cells(b(star fmt(a3)) se(fmt(a3) par)) ///
     style(tex) se starlevels(* 0.10 ** 0.05 *** 0.01) ///
     keep(*year*is_college*dv_rating_beta*) nobaselevels ///
@@ -1342,11 +1360,11 @@ esttab lw_within_ind using "$tables/het_within_occ_lnwage.tex", replace ///
     booktabs collabels(none) mlabels(none) nonumbers nomtitles gaps nonotes ///
     prehead( ///
         "\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}" ///
-        "\begin{tabular}{l*{1}{c}}" ///
+        "\begin{tabular}{l*{2}{c}}" ///
         "\toprule" ///
-        "Dependent Variable: & \multicolumn{1}{c}{Log Wage} \\" ///
-        "\cmidrule(lr){2-2}" ///
-        " & (1) \\" ///
+        "Dependent Variable: & Log Wage & Unemployment \\" ///
+        "\cmidrule(lr){2-3}" ///
+        " & (1) & (2) \\" ///
     ) ///
     postfoot("\bottomrule" "\end{tabular}")
 
@@ -1447,4 +1465,48 @@ twoway ///
 graph export "$graphs/lw_within_ind_plot.pdf", replace
 
 
-display as text "analysis.do complete.  Wrote 9 tables + 5 coefficient plots."
+// Unemployment within-occupation plot (same layout, from un_within_ind)
+est restore un_within_ind
+parmest, norestore
+
+keep if strpos(parm, "year") > 0           ///
+      & strpos(parm, "dv_rating_beta") > 0 ///
+      & strpos(parm, "is_college") > 0
+
+drop if missing(estimate) | missing(stderr)
+
+gen year = .
+forvalues y = 2018/2025 {
+    replace year = `y' if strpos(parm, "`y'.year") > 0
+}
+drop if missing(year)
+
+insobs 1
+replace year     = 2022 in L
+replace estimate = 0    in L
+replace min95    = .    in L
+replace max95    = .    in L
+sort year
+
+twoway ///
+    (rcap min95 max95 year if inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
+        lcolor(dkgreen) lpattern(solid) lwidth(medthin)) ///
+    (line estimate year, ///
+        lcolor(dkgreen) lpattern(solid) lwidth(medium) sort) ///
+    (scatter estimate year, ///
+        mcolor(dkgreen) msymbol(T) msize(medlarge)), ///
+    xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+    yline(0, lcolor(gs8) lpattern(solid)) ///
+    xlabel(2018(1)2025) ///
+    xtitle("Year") ///
+    ytitle("Triple interaction: year x exposure x college") ///
+    title("Within-occupation college vs non-college gap in unemployment by exposure", ///
+        size(medsmall)) ///
+    legend(off) ///
+    graphregion(color(white)) plotregion(color(white)) ///
+    name(unemp_within_ind_plot, replace)
+
+graph export "$graphs/unemp_within_ind_plot.pdf", replace
+
+
+display as text "analysis.do complete.  Wrote 9 tables + 6 coefficient plots."
