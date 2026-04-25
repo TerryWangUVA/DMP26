@@ -219,7 +219,7 @@ Figure~\ref{fig:postai} provides a graphical illustration of these effects.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.82\textwidth]{output/model/fig_postai.png}
-  \caption{Post-AI shock under two AI supply intensities.  Left panel: task supply $f(i)$ (blue) and $f(i)+s(i)$ (dashed).  Right panel: pre-AI wage $w_0$ (dashed blue) vs.\ post-AI wage $w_1$ (solid).  Workers deep inside $[0,I^*)$ with large $s/f$ see wage compression; workers near $I^*$ with small $s/f$ can still gain from output expansion; workers above $I^*$ gain uniformly.}
+  \caption{Post-AI shock under two AI supply intensities.  Left panel: task supply $f(i)$ (blue) and $f(i)+s(i)$ (dashed).  Right panel: pre-AI wage $w_0$ (dashed blue) vs.\ post-AI wage $w_1$ (solid).  Workers deep inside $[0,I^*)$ with large $s/f$ see wage compression; workers near $I^*$ with small $s/f$ can still gain from output expansion; workers above $I^*$ gain uniformly.  As in Figure~\ref{fig:preai}, the downward slope in $f(i)$ is assumed for illustration only; the asymmetric wage-compression pattern depicted here relies on this convention, under which workers deep inside $[0,I^*)$ are those with the lowest $f(i)$ relative to AI supply $s(i)$.}
   \label{fig:postai}
 \end{figure}
 
@@ -699,7 +699,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B1: Unemployment (full sample) ──
 \begin{table}[H]
 \begin{center}
-\caption{Unemployment regression results. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Columns (1)--(5): no fixed effects, sex FE, sex + education FE, sex + education + state$\times$year FE, sex + education + state$\times$year + industry$\times$year FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Event-study estimates from~\eqref{eq:main}. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Columns (1)--(5) add fixed effects progressively. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemployment_main}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemployment_tableA.tex}}
 \end{center}
@@ -708,7 +708,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B2: Log wage (full sample) ──
 \begin{table}[H]
 \begin{center}
-\caption{Log wage regression results. Dependent variable: natural log of annual real wages (1982 dollars). Year 2022 is the omitted baseline. Columns (1)--(5): no fixed effects, sex FE, sex + education FE, sex + education + state$\times$year FE, sex + education + state$\times$year + industry$\times$year FE. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Event-study estimates from~\eqref{eq:main}. Dependent variable: natural log of annual real wages (1982 dollars). Year 2022 is the omitted baseline. Columns (1)--(5) add fixed effects progressively. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:logwage_main}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA.tex}}
 \end{center}
@@ -717,7 +717,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B3: Unemployment experience heterogeneity (full sample) ──
 \begin{table}[H]
 \begin{center}
-\caption{Unemployment experience heterogeneity. Dependent variable: binary unemployment indicator. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Full sample. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Estimates from~\eqref{eq:triple}: triple interaction year $\times$ potential experience $\times$ $\beta_o$. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_exphet}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemployment_tableB.tex}}
 \end{center}
@@ -726,7 +726,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B4: Log wage experience heterogeneity (full sample) ──
 \begin{table}[H]
 \begin{center}
-\caption{Log wage experience heterogeneity. Dependent variable: log annual real wages. Reported coefficients are on the triple interaction year $\times$ potential experience $\times$ AI exposure. Full sample. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Estimates from~\eqref{eq:triple}: triple interaction year $\times$ potential experience $\times$ $\beta_o$. Dependent variable: log annual real wages (1982 dollars). Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_exphet}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableB.tex}}
 \end{center}
@@ -735,7 +735,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B5: Unemployment (college, split sample) ──
 \begin{table}[H]
 \begin{center}
-\caption{Unemployment --- college subsample. Dependent variable: binary unemployment indicator. Split-sample regression on college-educated workers (BA or above). Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Estimates from~\eqref{eq:split} on the college subsample (BA or above). Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_col}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemp_tableA_col.tex}}
 \end{center}
@@ -744,7 +744,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B6: Unemployment (non-college, split sample) ──
 \begin{table}[H]
 \begin{center}
-\caption{Unemployment --- non-college subsample. Dependent variable: binary unemployment indicator. Split-sample regression on non-college workers (high school or some college). Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Estimates from~\eqref{eq:split} on the non-college subsample (high school or some college). Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_noncol}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemp_tableA_noncol.tex}}
 \end{center}
@@ -753,7 +753,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B7: Log wage (college, split sample) ──
 \begin{table}[H]
 \begin{center}
-\caption{Log wage --- college subsample. Dependent variable: log annual real wages (1982 dollars). Split-sample regression on college-educated workers. Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Estimates from~\eqref{eq:split} on the college subsample (BA or above). Dependent variable: log annual real wages (1982 dollars). Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_col}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA_col.tex}}
 \end{center}
@@ -762,7 +762,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B8: Log wage (non-college, split sample) ──
 \begin{table}[H]
 \begin{center}
-\caption{Log wage --- non-college subsample. Dependent variable: log annual real wages (1982 dollars). Split-sample regression on non-college workers. Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Estimates from~\eqref{eq:split} on the non-college subsample (high school or some college). Dependent variable: log annual real wages (1982 dollars). Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_noncol}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA_noncol.tex}}
 \end{center}
@@ -771,7 +771,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B9: Within-occupation heterogeneity test (log wage and unemployment) ──
 \begin{table}[H]
 \begin{center}
-\caption{Within-occupation heterogeneity test. Column (1): dependent variable is log annual real wages (1982 dollars). Column (2): dependent variable is the unemployment indicator. Reports the coefficients $\gamma_t$ on the college $\times$ $\beta_o$ $\times$ year triple interaction from equation~\eqref{eq:within_occ}. Fixed effects: sex, education, state$\times$year, occupation$\times$year, and industry$\times$year. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Estimates of $\gamma_t$ from~\eqref{eq:within_occ} (college $\times$ $\beta_o$ $\times$ year triple interaction with occupation $\times$ year fixed effects). Column (1): log annual real wages (1982 dollars). Column (2): unemployment indicator. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_within_occ}
 {\footnotesize\input{Replication/output/tables/het_within_occ.tex}}
 \end{center}
@@ -780,7 +780,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B10: Unemployment, full sample, binarized treatment ──
 \begin{table}[H]
 \begin{center}
-\caption{Unemployment, binarized-treatment robustness. Dependent variable: binary unemployment indicator. Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$. Year 2022 is the omitted baseline. Columns (1)--(5) as in Table~\ref{tab:unemployment_main}. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Binarized-treatment robustness: treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_main_bin}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemployment_tableA_bin.tex}}
 \end{center}
@@ -789,7 +789,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B11: Log wage, full sample, binarized treatment ──
 \begin{table}[H]
 \begin{center}
-\caption{Log wage, binarized-treatment robustness. Dependent variable: natural log of annual real wages (1982 dollars). Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$. Year 2022 is the omitted baseline. Columns (1)--(5) as in Table~\ref{tab:logwage_main}. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Binarized-treatment robustness: treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$. Dependent variable: natural log of annual real wages (1982 dollars). Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:logwage_main_bin}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA_bin.tex}}
 \end{center}
@@ -798,7 +798,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B12: Unemployment, college, binarized treatment ──
 \begin{table}[H]
 \begin{center}
-\caption{Unemployment --- college subsample, binarized-treatment robustness. Split-sample regression on college-educated workers (BA or above). Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Binarized-treatment robustness on the college subsample (BA or above). Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_col_bin}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemp_tableA_col_bin.tex}}
 \end{center}
@@ -807,7 +807,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B13: Unemployment, non-college, binarized treatment ──
 \begin{table}[H]
 \begin{center}
-\caption{Unemployment --- non-college subsample, binarized-treatment robustness. Split-sample regression on non-college workers (high school or some college). Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Binarized-treatment robustness on the non-college subsample (high school or some college). Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Dependent variable: binary unemployment indicator. Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:unemp_noncol_bin}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemp_tableA_noncol_bin.tex}}
 \end{center}
@@ -816,7 +816,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B14: Log wage, college, binarized treatment ──
 \begin{table}[H]
 \begin{center}
-\caption{Log wage --- college subsample, binarized-treatment robustness. Split-sample regression on college-educated workers. Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Binarized-treatment robustness on the college subsample (BA or above). Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Dependent variable: log annual real wages (1982 dollars). Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_col_bin}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA_col_bin.tex}}
 \end{center}
@@ -825,7 +825,7 @@ The unemployment findings are fully robust to binarization.  The full-sample wag
 % ── B15: Log wage, non-college, binarized treatment ──
 \begin{table}[H]
 \begin{center}
-\caption{Log wage --- non-college subsample, binarized-treatment robustness. Split-sample regression on non-college workers. Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\caption{Binarized-treatment robustness on the non-college subsample (high school or some college). Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Dependent variable: log annual real wages (1982 dollars). Year 2022 is the omitted baseline. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
 \label{tab:lw_noncol_bin}
 \resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA_noncol_bin.tex}}
 \end{center}
