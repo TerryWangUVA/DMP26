@@ -53,7 +53,10 @@
 
 //================== Directory setup =======================//
 
-global folder "C:\Projects\DMP\Replication"
+// When run via main.do, $folder is already set; otherwise edit this path.
+if "$folder" == "" {
+    global folder "C:\Projects\DMP\Replication"
+}
 cd "$folder"
 
 global raw     "$folder/raw"
@@ -727,6 +730,11 @@ replace min95    = .    in L
 replace max95    = .    in L
 sort year
 
+quietly summarize min95, meanonly
+local _ymin = r(min) - 0.002
+quietly summarize max95, meanonly
+local _ymax = r(max) + 0.002
+
 twoway ///
     (rcap min95 max95 year if inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
         lcolor(navy)   lpattern(solid) lwidth(medthin)) ///
@@ -734,7 +742,9 @@ twoway ///
         lcolor(maroon) lpattern(solid) lwidth(medium)) ///
     (scatter estimate year, ///
         mcolor(maroon) msymbol(O) msize(medlarge)), ///
-    xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+    text(`_ymax' 2020.5 "<-- COVID -->", place(s) color(red) size(small)) ///
+    xline(2019.8 2021.2, lcolor(gs10) lpattern(dash)) ///
+    xline(2022.75, lcolor(blue) lpattern(dash)) ///
     yline(0, lcolor(gs8) lpattern(solid)) ///
     xlabel(2018(1)2025) ///
     xtitle("Year") ///
@@ -756,6 +766,11 @@ replace min95    = .    in L
 replace max95    = .    in L
 sort year
 
+quietly summarize min95, meanonly
+local _ymin = r(min) - 0.002
+quietly summarize max95, meanonly
+local _ymax = r(max) + 0.002
+
 twoway ///
     (rcap min95 max95 year if inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
         lcolor(navy)   lpattern(solid) lwidth(medthin)) ///
@@ -763,7 +778,9 @@ twoway ///
         lcolor(maroon) lpattern(solid) lwidth(medium)) ///
     (scatter estimate year, ///
         mcolor(maroon) msymbol(O) msize(medlarge)), ///
-    xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+    text(`_ymax' 2020.5 "<-- COVID -->", place(s) color(red) size(small)) ///
+    xline(2019.8 2021.2, lcolor(gs10) lpattern(dash)) ///
+    xline(2022.75, lcolor(blue) lpattern(dash)) ///
     yline(0, lcolor(gs8) lpattern(solid)) ///
     xlabel(2018(1)2025) ///
     xtitle("Year") ///
@@ -1170,6 +1187,11 @@ gen x = year - 0.1 if grp == "College"
 replace x = year + 0.1 if grp == "Non-college"
 sort grp year
 
+quietly summarize min95, meanonly
+local _ymin = r(min) - 0.002
+quietly summarize max95, meanonly
+local _ymax = r(max) + 0.002
+
 twoway ///
     (rcap min95 max95 x if grp=="College" & inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
         lcolor(navy)   lpattern(solid) lwidth(medthin)) ///
@@ -1183,7 +1205,9 @@ twoway ///
         lcolor(maroon) lpattern(solid) lwidth(medium) sort) ///
     (scatter estimate x if grp=="Non-college", ///
         mcolor(maroon) msymbol(D) msize(medlarge)), ///
-    xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+    text(`_ymax' 2020.5 "<-- COVID -->", place(s) color(red) size(small)) ///
+    xline(2019.8 2021.2, lcolor(gs10) lpattern(dash)) ///
+    xline(2022.75, lcolor(blue) lpattern(dash)) ///
     yline(0, lcolor(gs8) lpattern(solid)) ///
     xlabel(2018(1)2025) ///
     xtitle("Year") ///
@@ -1219,6 +1243,11 @@ gen x = year - 0.1 if grp == "College"
 replace x = year + 0.1 if grp == "Non-college"
 sort grp year
 
+quietly summarize min95, meanonly
+local _ymin = r(min) - 0.002
+quietly summarize max95, meanonly
+local _ymax = r(max) + 0.002
+
 twoway ///
     (rcap min95 max95 x if grp=="College" & inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
         lcolor(navy)   lpattern(solid) lwidth(medthin)) ///
@@ -1232,7 +1261,9 @@ twoway ///
         lcolor(maroon) lpattern(solid) lwidth(medium) sort) ///
     (scatter estimate x if grp=="Non-college", ///
         mcolor(maroon) msymbol(D) msize(medlarge)), ///
-    xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+    text(`_ymax' 2020.5 "<-- COVID -->", place(s) color(red) size(small)) ///
+    xline(2019.8 2021.2, lcolor(gs10) lpattern(dash)) ///
+    xline(2022.75, lcolor(blue) lpattern(dash)) ///
     yline(0, lcolor(gs8) lpattern(solid)) ///
     xlabel(2018(1)2025) ///
     xtitle("Year") ///
@@ -1445,6 +1476,11 @@ replace min95    = .    in L
 replace max95    = .    in L
 sort year
 
+quietly summarize min95, meanonly
+local _ymin = r(min) - 0.002
+quietly summarize max95, meanonly
+local _ymax = r(max) + 0.002
+
 twoway ///
     (rcap min95 max95 year if inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
         lcolor(dkgreen) lpattern(solid) lwidth(medthin)) ///
@@ -1452,7 +1488,9 @@ twoway ///
         lcolor(dkgreen) lpattern(solid) lwidth(medium) sort) ///
     (scatter estimate year, ///
         mcolor(dkgreen) msymbol(T) msize(medlarge)), ///
-    xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+    text(`_ymax' 2020.5 "<-- COVID -->", place(s) color(red) size(small)) ///
+    xline(2019.8 2021.2, lcolor(gs10) lpattern(dash)) ///
+    xline(2022.75, lcolor(blue) lpattern(dash)) ///
     yline(0, lcolor(gs8) lpattern(solid)) ///
     xlabel(2018(1)2025) ///
     xtitle("Year") ///
@@ -1488,6 +1526,11 @@ replace min95    = .    in L
 replace max95    = .    in L
 sort year
 
+quietly summarize min95, meanonly
+local _ymin = r(min) - 0.002
+quietly summarize max95, meanonly
+local _ymax = r(max) + 0.002
+
 twoway ///
     (rcap min95 max95 year if inlist(year,2018,2019,2020,2021,2023,2024,2025), ///
         lcolor(dkgreen) lpattern(solid) lwidth(medthin)) ///
@@ -1495,7 +1538,9 @@ twoway ///
         lcolor(dkgreen) lpattern(solid) lwidth(medium) sort) ///
     (scatter estimate year, ///
         mcolor(dkgreen) msymbol(T) msize(medlarge)), ///
-    xline(2022.5, lcolor(gs8) lpattern(dash)) ///
+    text(`_ymax' 2020.5 "<-- COVID -->", place(s) color(red) size(small)) ///
+    xline(2019.8 2021.2, lcolor(gs10) lpattern(dash)) ///
+    xline(2022.75, lcolor(blue) lpattern(dash)) ///
     yline(0, lcolor(gs8) lpattern(solid)) ///
     xlabel(2018(1)2025) ///
     xtitle("Year") ///

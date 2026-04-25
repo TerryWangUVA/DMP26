@@ -29,8 +29,10 @@
 
 //================== Directory setup =======================//
 
-// Edit this single path to the replication folder's location.
-global folder "C:\Projects\DMP\Replication"
+// When run via main.do, $folder is already set; otherwise edit this path.
+if "$folder" == "" {
+    global folder "C:\Projects\DMP\Replication"
+}
 cd "$folder"
 
 global raw     "$folder/raw"

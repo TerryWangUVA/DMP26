@@ -1,11 +1,10 @@
-additional clean-ups 
+two things about the replication package:
 
-- graph & table notes:
-Post-AI shock under two AI supply intensities. Left panel: task supply f (i) (blue) and
-f (i) + s(i) (dashed). Right panel: pre-AI wage w0 (dashed blue) vs. post-AI wage w1 (solid).
-Workers deep inside [0, I∗) with large s/f see wage compression; workers near I∗ with small s/f
-can still gain from output expansion; workers above I∗ gain uniformly. --> perhaphs also restate that this graph is under the prerequisite of the downward sloping in f(i) 
+Imagine I will be zipping the /Replication/ and send to a comittee
 
-- regression table top notes are currently all fxxked up... try trim down to minimally representative of what the tables are doing... 
+1. I have created a main.do --> put the macro settings and use include to call other dofiles... (so this should be a "main" dofile and that the comittee should only open this, change the macro path, and then just run smoothly)
 
+2. the ipynb file stands alone. this is fine. 
+
+3. create a README.txt talking about code structure & data in /raw/
 
