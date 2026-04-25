@@ -720,4 +720,116 @@ $\bar y(i)=f(i)+s(i)$.  Repeat Steps 1--4 with $\bar y$ in place of $f$:
 \end{center}
 \end{table}
 
+% ── B10: Unemployment, full sample, binarized treatment ──
+\begin{table}[H]
+\begin{center}
+\caption{Unemployment, binarized-treatment robustness. Dependent variable: binary unemployment indicator. Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$. Year 2022 is the omitted baseline. Columns (1)--(5) as in Table~\ref{tab:unemployment_main}. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:unemp_main_bin}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemployment_tableA_bin.tex}}
+\end{center}
+\end{table}
+
+% ── B11: Log wage, full sample, binarized treatment ──
+\begin{table}[H]
+\begin{center}
+\caption{Log wage, binarized-treatment robustness. Dependent variable: natural log of annual real wages (1982 dollars). Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$. Year 2022 is the omitted baseline. Columns (1)--(5) as in Table~\ref{tab:logwage_main}. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:logwage_main_bin}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA_bin.tex}}
+\end{center}
+\end{table}
+
+% ── B12: Unemployment, college, binarized treatment ──
+\begin{table}[H]
+\begin{center}
+\caption{Unemployment --- college subsample, binarized-treatment robustness. Split-sample regression on college-educated workers (BA or above). Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:unemp_col_bin}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemp_tableA_col_bin.tex}}
+\end{center}
+\end{table}
+
+% ── B13: Unemployment, non-college, binarized treatment ──
+\begin{table}[H]
+\begin{center}
+\caption{Unemployment --- non-college subsample, binarized-treatment robustness. Split-sample regression on non-college workers (high school or some college). Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:unemp_noncol_bin}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/unemp_tableA_noncol_bin.tex}}
+\end{center}
+\end{table}
+
+% ── B14: Log wage, college, binarized treatment ──
+\begin{table}[H]
+\begin{center}
+\caption{Log wage --- college subsample, binarized-treatment robustness. Split-sample regression on college-educated workers. Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:lw_col_bin}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA_col_bin.tex}}
+\end{center}
+\end{table}
+
+% ── B15: Log wage, non-college, binarized treatment ──
+\begin{table}[H]
+\begin{center}
+\caption{Log wage --- non-college subsample, binarized-treatment robustness. Split-sample regression on non-college workers. Treatment is $\text{high-}\beta_o = \mathbf{1}\{\beta_o > \text{sample median}\}$, with the median computed on the full pooled sample. Year 2022 is the omitted baseline. Columns (1)--(5) as above. Standard errors clustered at the occupation level. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.}
+\label{tab:lw_noncol_bin}
+\resizebox{0.9\textwidth}{!}{\input{Replication/output/tables/logwage_tableA_noncol_bin.tex}}
+\end{center}
+\end{table}
+
+
+\clearpage
+%==================================================
+\section{Robustness: Binarized-Treatment DiD}
+\label{app:robustness}
+%==================================================
+
+\textcite{callaway2024continuous} show that under a continuous-treatment two-way fixed effects specification, the estimated coefficient on the treatment-by-period interaction is a weighted average of underlying per-exposure treatment effects, with weights that need not reflect the population distribution of exposure.  Under treatment-effect heterogeneity, this can produce coefficients that mislead about the average effect for any well-defined subpopulation.  This appendix reports a binarized-treatment robustness check that addresses the first-order CGS concern by replacing the continuous $\beta_o$ score with a binary indicator and re-estimating the main and education-split specifications.
+
+I define
+\begin{equation*}
+  \text{high-}\beta_o = \mathbf{1}\{\beta_o > \widetilde{\beta}\},
+\end{equation*}
+where $\widetilde{\beta}$ is the median of $\beta_o$ in the pooled full sample of worker-years.  The same cut point is applied uniformly to the college and non-college subsamples, so that the binary classification of an occupation as ``high-exposure'' does not drift across specifications.  All five fixed-effect layers from the main specification are re-estimated with $\text{high-}\beta_o$ in place of the continuous $\beta_o$, with year 2022 again as the omitted baseline.
+
+\paragraph{Full-sample results.}
+Figures~\ref{fig:unemployment_indFE_bin} and~\ref{fig:logwage_indFE_bin} plot the binarized-treatment event-study coefficients for unemployment and log wages in the preferred specification (sex, education, state$\times$year, and industry$\times$year fixed effects); Tables~\ref{tab:unemp_main_bin} and~\ref{tab:logwage_main_bin} report all five specifications.  Both headline findings survive binarization.  The 2024 and 2025 unemployment coefficients are $+0.005$ and $+0.006$ respectively, both significant at the 5 percent level; the 2025 log-wage coefficient is $-0.028$, also significant at the 5 percent level.  Magnitudes are roughly half their continuous-treatment counterparts, which is mechanically expected --- the continuous coefficient is a per-unit response while the binarized coefficient is the level difference between the upper and lower halves of the $\beta_o$ distribution, whose mean separation is approximately one-half a unit.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{unemployment_indFE_plot_bin.pdf}
+\caption{Unemployment, binarized-treatment robustness: DiD coefficients on year $\times$ $\text{high-}\beta_o$ in the preferred specification (sex, education, state$\times$year, and industry$\times$year FE).  Year 2022 is the baseline.  Error bars are 95\% CI, SEs clustered at the occupation level.}
+\label{fig:unemployment_indFE_bin}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{logwage_indFE_plot_bin.pdf}
+\caption{Log real wage, binarized-treatment robustness: DiD coefficients on year $\times$ $\text{high-}\beta_o$ in the preferred specification.  Year 2022 is the baseline.  Error bars are 95\% CI, SEs clustered at the occupation level.}
+\label{fig:logwage_indFE_bin}
+\end{center}
+\end{figure}
+
+\paragraph{Education split-sample results.}
+Figures~\ref{fig:unemp_colComb_bin} and~\ref{fig:lw_colComb_bin} plot the binarized college-vs-non-college coefficient paths; Tables~\ref{tab:unemp_col_bin}--\ref{tab:lw_noncol_bin} report all five specifications for each subsample.  The unemployment asymmetry by education is fully robust: in the preferred specification, the 2024 and 2025 coefficients are $+0.001$ and $+0.001$ for college-educated workers (both indistinguishable from zero) but $+0.007$ and $+0.008$ for non-college workers (both significant at the 5 percent level), reproducing the concentration of the unemployment response on non-college workers.  The college log-wage coefficients remain indistinguishable from zero in every post-2022 year.
+
+The non-college log-wage finding is the one place the robustness check attenuates.  In the preferred specification, the 2025 non-college coefficient is $-0.026$ with a $t$-statistic of about $-1.6$, marginally insignificant.  In the next-strictest specification (column 4, state$\times$year FE without industry$\times$year FE), the same coefficient is $-0.035$ and significant at the 5 percent level.  Direction and ordering across specifications match the continuous-treatment results: 2025 non-college wages are lower than 2025 college wages, in every spec, by a meaningful margin.  But statistical significance in the strictest binarized specification depends on the per-unit variation in $\beta_o$ that binarization smooths over; once industry$\times$year fixed effects are added on top of the binary cut, the residual signal is too small to detect at conventional levels.  A separate, mild concern is the 2018 non-college coefficient, which is $+0.026$ at the 10 percent level under the preferred binarized specification --- absent in the continuous specification --- and constitutes a marginal pre-trend signal that bears noting.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{unemp_indFE_plot_colComb_bin.pdf}
+\caption{Unemployment, binarized-treatment robustness: DiD coefficients on year $\times$ $\text{high-}\beta_o$, college-educated (navy circles) versus non-college workers (maroon diamonds), preferred specification.  Year 2022 is the baseline.  Error bars are 95\% CI, SEs clustered at the occupation level.}
+\label{fig:unemp_colComb_bin}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{lw_indFE_plot_colComb_bin.pdf}
+\caption{Log real wage, binarized-treatment robustness: DiD coefficients on year $\times$ $\text{high-}\beta_o$, college-educated (navy circles) versus non-college workers (maroon diamonds), preferred specification.  Year 2022 is the baseline.  Error bars are 95\% CI, SEs clustered at the occupation level.}
+\label{fig:lw_colComb_bin}
+\end{center}
+\end{figure}
+
+\paragraph{Summary.}
+The binarized-treatment robustness check confirms the unemployment findings of the main analysis on every margin: the post-2022 increase in unemployment among workers in more-exposed occupations is robust to binarization, and the concentration of the increase on non-college workers is robust as well.  The full-sample wage finding (a relative wage decline in 2025 for workers in more-exposed occupations) is also directionally and statistically robust.  The split-sample wage finding --- the 2025 non-college wage compression --- is directionally robust but only marginally significant under the strictest binarized specification, while remaining significant at the 5 percent level in the next-strictest binarized specification and in the continuous-treatment preferred specification.  Taken together, the binarized check leaves the qualitative narrative of the paper intact, with one quantitative caveat: the strictest claim about non-college wage compression in 2025 should be read as suggestive rather than precisely identified once the treatment is binarized.
+
 \end{document}
